@@ -37,3 +37,11 @@ export const sponsorshipsStyles = {
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
   next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer",
 };
+
+export const PopularStyles = {
+  heading: "font-semibold text-xl md:text-3xl mx-5 mb-10",
+  img: "w-full h-[450px] rounded-md",
+  tag: "absolute top-[80%] left-8 bg-green-400 px-5 py-1 rounded-xl text-sm text-white",
+  profileWrapper: "flex items-center gap-2 mt-3",
+  profileImg: "w-10 h-10 rounded-full",
+};

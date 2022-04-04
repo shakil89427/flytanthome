@@ -21,10 +21,11 @@ const Sponsorships = ({ sponsorships, type }) => {
       swiper.navigation.update();
     }
   }, [swiper]);
+
   return (
     <div className="px-5 py-8 relative">
       <h1 className={sponsorshipsStyles.heading}>{type} Sponsorships</h1>
-      <div className="my-5 relative">
+      <div className="my-5">
         <Swiper
           modules={[Navigation, Pagination]}
           navigation={{
