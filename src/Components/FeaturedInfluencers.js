@@ -24,7 +24,7 @@ const FeaturedInfluencers = ({ featured }) => {
     }
   }, [swiper]);
   return (
-    <div className="px-5 py-8 relative">
+    <div className="pl-5 lg:pr-5 py-8 relative">
       <h1 className={featuredStyles.heading}>Featured Influencers</h1>
       <div className="my-5">
         <Swiper
@@ -37,14 +37,14 @@ const FeaturedInfluencers = ({ featured }) => {
           observeParents
           initialSlide={1}
           onSwiper={setSwiper}
-          slidesPerView={1}
+          slidesPerView={1.3}
           spaceBetween={20}
           breakpoints={{
             640: {
-              slidesPerView: 2.2,
+              slidesPerView: 2.3,
             },
             768: {
-              slidesPerView: 3,
+              slidesPerView: 3.3,
             },
             1086: {
               slidesPerView: 4,
