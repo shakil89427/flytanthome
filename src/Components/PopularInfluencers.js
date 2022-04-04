@@ -10,7 +10,7 @@ const PopularInfluencers = () => {
     <div className="mb-10">
       <h1 className={PopularStyles.heading}>Popular Influencers</h1>
       <Swiper
-        slidesPerView={1}
+        slidesPerView={1.5}
         initialSlide={1}
         spaceBetween={40}
         centeredSlides
@@ -20,10 +20,10 @@ const PopularInfluencers = () => {
         }}
         breakpoints={{
           640: {
-            slidesPerView: 2,
+            slidesPerView: 2.3,
           },
           768: {
-            slidesPerView: 3,
+            slidesPerView: 2.6,
           },
           1086: {
             slidesPerView: 3.5,
