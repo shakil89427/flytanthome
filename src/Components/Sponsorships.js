@@ -1,19 +1,40 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import {
   AiFillInstagram,
   AiFillFacebook,
   AiFillLinkedin,
 } from "react-icons/ai";
+import { MdNavigateNext } from "react-icons/md";
 import { featuredStyles, sponsorshipsStyles } from "../Styles/HomeStyles";
 
 const Sponsorships = ({ sponsorships, type }) => {
+  const [swiper, setSwiper] = useState();
+  const nextRef = useRef();
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.params.navigation.nextEl = nextRef.current;
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  }, [swiper]);
   return (
-    <div className="px-5 py-8">
+    <div className="px-5 py-8 relative">
       <h1 className={sponsorshipsStyles.heading}>{type} Sponsorships</h1>
-      <div className="my-5">
+      <div className="my-5 relative">
         <Swiper
+          modules={[Navigation, Pagination]}
+          navigation={{
+            nextEl: nextRef?.current,
+          }}
+          parallax
+          observer
+          observeParents
+          initialSlide={1}
+          onSwiper={setSwiper}
           slidesPerView={1}
           spaceBetween={20}
           breakpoints={{
@@ -23,15 +44,14 @@ const Sponsorships = ({ sponsorships, type }) => {
             768: {
               slidesPerView: 3,
             },
-            1024: {
+            1086: {
               slidesPerView: 4,
             },
           }}
-          className="mySwiper"
         >
           {sponsorships.map((sponsorship, index) => (
-            <SwiperSlide key={index}>
-              <div className="relative">
+            <SwiperSlide onClick={() => console.log(index)} key={index}>
+              <div>
                 <p className={sponsorshipsStyles.applied}>
                   {sponsorship.applied} applied
                 </p>
@@ -75,6 +95,9 @@ const Sponsorships = ({ sponsorships, type }) => {
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className={sponsorshipsStyles.next} ref={nextRef}>
+          <MdNavigateNext />
+        </div>
       </div>
     </div>
   );

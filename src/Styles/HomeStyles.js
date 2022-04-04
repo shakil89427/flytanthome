@@ -22,6 +22,7 @@ export const featuredStyles = {
   icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
   options: "flex gap-2 flex-wrap mt-3",
   option: "bg-[#DDDDDD] text-xs px-3 py-1 rounded-xl",
+  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer",
 };
 
 export const sponsorshipsStyles = {
@@ -34,4 +35,5 @@ export const sponsorshipsStyles = {
   bottomWrapper: "flex items-center justify-between",
   followers: "text-xs font-medium",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
+  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer",
 };

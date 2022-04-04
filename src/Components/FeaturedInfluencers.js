@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+import "swiper/css";
 import "swiper/css";
 import {
   AiFillInstagram,
@@ -7,31 +9,50 @@ import {
   AiFillLinkedin,
   AiFillYoutube,
 } from "react-icons/ai";
+import { MdNavigateNext } from "react-icons/md";
 import { featuredStyles } from "../Styles/HomeStyles";
 
 const FeaturedInfluencers = ({ featured }) => {
+  const [swiper, setSwiper] = useState();
+  const nextRef = useRef();
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.params.navigation.nextEl = nextRef.current;
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  }, [swiper]);
   return (
-    <div className="px-5 py-8">
+    <div className="px-5 py-8 relative">
       <h1 className={featuredStyles.heading}>Featured Influencers</h1>
       <div className="my-5">
         <Swiper
+          modules={[Navigation, Pagination]}
+          navigation={{
+            nextEl: nextRef?.current,
+          }}
+          parallax
+          observer
+          observeParents
+          initialSlide={1}
+          onSwiper={setSwiper}
           slidesPerView={1}
           spaceBetween={20}
           breakpoints={{
             640: {
-              slidesPerView: 2,
+              slidesPerView: 2.2,
             },
             768: {
               slidesPerView: 3,
             },
-            1024: {
+            1086: {
               slidesPerView: 4,
             },
           }}
-          className="mySwiper"
         >
           {featured.map((item, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide onClick={() => console.log(index)} key={index}>
               <img
                 className={featuredStyles.image}
                 src={item.img + Math.random()}
@@ -59,6 +80,9 @@ const FeaturedInfluencers = ({ featured }) => {
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className={featuredStyles.next} ref={nextRef}>
+          <MdNavigateNext />
+        </div>
       </div>
     </div>
   );
