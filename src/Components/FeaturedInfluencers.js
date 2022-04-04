@@ -9,10 +9,7 @@ import {
 } from "react-icons/ai";
 import { featuredStyles } from "../Styles/HomeStyles";
 
-const FeaturedInfluencers = () => {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const arr2 = ["Fashion", "Makeup", "Beauty"];
-
+const FeaturedInfluencers = ({ featured }) => {
   return (
     <div className="px-5 py-8">
       <h1 className={featuredStyles.heading}>Featured Influencers</h1>
@@ -33,17 +30,17 @@ const FeaturedInfluencers = () => {
           }}
           className="mySwiper"
         >
-          {arr.map((item) => (
-            <SwiperSlide key={item}>
+          {featured.map((item, index) => (
+            <SwiperSlide key={index}>
               <img
                 className={featuredStyles.image}
-                src="https://picsum.photos/200"
+                src={item.img + Math.random()}
                 alt=""
               />
               <div className="px-4 mt-2">
                 <div className={featuredStyles.nameWrapper}>
-                  <p className={featuredStyles.name}>Andrew dale</p>
-                  <p className="text-sm">M 21, Delhi</p>
+                  <p className={featuredStyles.name}>{item.name}</p>
+                  <p className="text-sm">{item.location}</p>
                 </div>
                 <div className={featuredStyles.icons}>
                   <AiFillInstagram />
@@ -52,9 +49,9 @@ const FeaturedInfluencers = () => {
                   <AiFillYoutube />
                 </div>
                 <div className={featuredStyles.options}>
-                  {arr2.map((item) => (
-                    <p key={item} className={featuredStyles.option}>
-                      {item}
+                  {item.options.map((option, index2) => (
+                    <p key={index2} className={featuredStyles.option}>
+                      {option}
                     </p>
                   ))}
                 </div>

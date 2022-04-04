@@ -15,11 +15,23 @@ export const bannerStyles = {
 };
 
 export const featuredStyles = {
-  heading: "font-semibold text-3xl",
+  heading: "font-semibold text-xl md:text-3xl",
   image: "w-full h-72 rounded-md",
   nameWrapper: "flex items-center justify-between",
-  name: "text-xl text-black font-semibold",
+  name: "text-lg md:text-xl text-black font-semibold",
   icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
   options: "flex gap-2 flex-wrap mt-3",
   option: "bg-[#DDDDDD] text-xs px-3 py-1 rounded-xl",
+};
+
+export const sponsorshipsStyles = {
+  heading: "font-semibold text-xl md:text-3xl",
+  applied:
+    "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-lg rounded-bl-lg",
+  typeWrapper: "flex items-center justify-between",
+  type: "px-3 py-2 rounded-2xl text-xs font-semibold",
+  title: "font-semibold my-1",
+  bottomWrapper: "flex items-center justify-between",
+  followers: "text-xs font-medium",
+  icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
 };
