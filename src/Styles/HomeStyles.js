@@ -1,5 +1,5 @@
 export const bannerStyles = {
-  main: "bg-[#FF9826] px-6 md:px-10 py-5 lg:pb-0 md:flex items-center justify-between text-white",
+  main: "bg-[#FF9826] px-6 md:px-20 py-5 lg:pb-0 md:flex items-center justify-between text-white",
   heading: "text-5xl lg:text-6xl font-semibold",
   formMain:
     "flex flex-col md:flex-row gap-2 md:gap-0 md:rounded-md overflow-hidden mt-8 mb-5 w-full lg:w-5/6",

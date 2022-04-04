@@ -7,7 +7,7 @@ const Banner = () => {
   return (
     <div className={bannerStyles.main}>
       <div>
-        <h1 style={{ lineHeight: "70px" }} className={bannerStyles.heading}>
+        <h1 style={{ lineHeight: "75px" }} className={bannerStyles.heading}>
           Find <span className="font-bold">Influencers & Brands</span> for
           collaboration
         </h1>
