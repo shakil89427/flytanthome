@@ -1,14 +1,23 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { PopularStyles } from "../Styles/HomeStyles";
+
+/* Styles Start */
+const styles = {
+  heading: "font-semibold text-xl md:text-3xl mx-5 mb-10",
+  img: "w-full h-[450px] rounded-md",
+  tag: "absolute top-[80%] left-8 bg-green-400 px-5 py-1 rounded-xl text-sm text-white",
+  profileWrapper: "flex items-center gap-2 mt-3",
+  profileImg: "w-10 h-10 rounded-full",
+};
+/* Styles End */
 
 const PopularInfluencers = () => {
-  const arr = new Array(10).fill(Math.random());
+  const arr = new Array(10).fill(Math.random()); //Temporary array for run loop
 
   return (
     <div className="mb-10">
-      <h1 className={PopularStyles.heading}>Popular Influencers</h1>
+      <h1 className={styles.heading}>Popular Influencers</h1>
       <Swiper
         slidesPerView={1.5}
         initialSlide={1}
@@ -34,14 +43,14 @@ const PopularInfluencers = () => {
           <SwiperSlide key={index} onClick={() => console.log(index)}>
             <div className="relative">
               <img
-                className={PopularStyles.img}
+                className={styles.img}
                 src={`https://picsum.photos/200/300?random=${Math.random()}`}
                 alt=""
               />
-              <p className={PopularStyles.tag}>Food</p>
-              <div className={PopularStyles.profileWrapper}>
+              <p className={styles.tag}>Food</p>
+              <div className={styles.profileWrapper}>
                 <img
-                  className={PopularStyles.profileImg}
+                  className={styles.profileImg}
                   src={`https://picsum.photos/200/300?random=${Math.random()}`}
                   alt=""
                 />

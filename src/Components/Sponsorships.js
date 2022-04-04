@@ -8,7 +8,22 @@ import {
   AiFillLinkedin,
 } from "react-icons/ai";
 import { MdNavigateNext } from "react-icons/md";
-import { featuredStyles, sponsorshipsStyles } from "../Styles/HomeStyles";
+
+/* Styles Start */
+const styles = {
+  heading: "font-semibold text-xl md:text-3xl",
+  applied:
+    "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-lg rounded-bl-lg",
+  image: "w-full h-72 rounded-md",
+  typeWrapper: "flex items-center justify-between",
+  type: "px-3 py-2 rounded-2xl text-xs font-semibold",
+  title: "font-semibold my-1",
+  bottomWrapper: "flex items-center justify-between",
+  followers: "text-xs font-medium",
+  icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
+  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer",
+};
+/* Styles End */
 
 const Sponsorships = ({ sponsorships, type }) => {
   const [swiper, setSwiper] = useState();
@@ -24,7 +39,7 @@ const Sponsorships = ({ sponsorships, type }) => {
 
   return (
     <div className="pl-5 lg:pr-5 py-8 relative">
-      <h1 className={sponsorshipsStyles.heading}>{type} Sponsorships</h1>
+      <h1 className={styles.heading}>{type} Sponsorships</h1>
       <div className="my-5">
         <Swiper
           modules={[Navigation, Pagination]}
@@ -53,39 +68,35 @@ const Sponsorships = ({ sponsorships, type }) => {
           {sponsorships.map((sponsorship, index) => (
             <SwiperSlide onClick={() => console.log(index)} key={index}>
               <div>
-                <p className={sponsorshipsStyles.applied}>
-                  {sponsorship.applied} applied
-                </p>
+                <p className={styles.applied}>{sponsorship.applied} applied</p>
                 <img
-                  className={featuredStyles.image}
+                  className={styles.image}
                   src={sponsorship.img + Math.random()}
                   alt=""
                 />
 
                 <div className="mt-2 mr-2">
-                  <div className={sponsorshipsStyles.typeWrapper}>
+                  <div className={styles.typeWrapper}>
                     <p
                       style={{
                         backgroundColor:
                           sponsorship.type === "Paid" ? "#FFDE2F" : "#3FD5F5",
                       }}
-                      className={sponsorshipsStyles.type}
+                      className={styles.type}
                     >
                       {sponsorship.type} Campaign
                     </p>
                     <p className="text-sm">{sponsorship.updated}</p>
                   </div>
 
-                  <p className={sponsorshipsStyles.title}>
-                    {sponsorship.title}
-                  </p>
+                  <p className={styles.title}>{sponsorship.title}</p>
 
-                  <div className={sponsorshipsStyles.bottomWrapper}>
-                    <p className={sponsorshipsStyles.followers}>
+                  <div className={styles.bottomWrapper}>
+                    <p className={styles.followers}>
                       Min {sponsorship.followers} followers required
                     </p>
 
-                    <div className={sponsorshipsStyles.icons}>
+                    <div className={styles.icons}>
                       <AiFillInstagram />
                       <AiFillFacebook />
                       <AiFillLinkedin />
@@ -96,7 +107,7 @@ const Sponsorships = ({ sponsorships, type }) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className={sponsorshipsStyles.next} ref={nextRef}>
+        <div className={styles.next} ref={nextRef}>
           <MdNavigateNext />
         </div>
       </div>
