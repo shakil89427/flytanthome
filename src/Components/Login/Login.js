@@ -8,6 +8,7 @@ import {
 } from "react-icons/ai";
 import { IoKeypadSharp } from "react-icons/io5";
 import { GiTireIronCross } from "react-icons/gi";
+import useStore from "../../Store/useStore";
 
 /* Styles Start */
 const styles = {
