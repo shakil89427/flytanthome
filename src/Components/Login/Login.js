@@ -14,7 +14,7 @@ import useLogins from "../../Firebase/useLogins";
 const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen z-20 flex items-center justify-center bg-[#07070783]",
   wrapper:
-    "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center w-[400px] md:w-[500px] lg:w-[600px] relative",
+    "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center w-[400px] md:w-[500px] lg:w-[550px] relative",
   exit: "text-xl absolute top-5 right-7 cursor-pointer",
   heading: "text-3xl font-bold",
   info: "font-semibold mt-2",
