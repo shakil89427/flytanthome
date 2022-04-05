@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import Login from "../Login/Login";
 import logo from "../../Assets/Group 192 4.png";
-// import { FaBullhorn } from "react-icons/fa";
-// import { BiBell } from "react-icons/bi";
-// import { RiMessage2Line } from "react-icons/ri";
-// import { TiArrowSortedDown } from "react-icons/ti";
 
 /* Styles Start */
 const styles = {
@@ -17,13 +14,20 @@ const styles = {
 /* Styles End */
 
 const NavBar = () => {
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <div className={styles.main}>
       <img src={logo} alt="" />
       <div className={styles.mainContents}>
-        <button className={styles.login}>Login</button>
-        <button className={styles.signup}>Signup</button>
+        <button onClick={() => setShowLogin(true)} className={styles.login}>
+          Login
+        </button>
+        <button onClick={() => setShowLogin(true)} className={styles.signup}>
+          Signup
+        </button>
       </div>
+      {showLogin && <Login setShowLogin={setShowLogin} />}
     </div>
   );
 };

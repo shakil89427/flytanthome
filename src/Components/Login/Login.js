@@ -7,12 +7,14 @@ import {
   AiFillAndroid,
 } from "react-icons/ai";
 import { IoKeypadSharp } from "react-icons/io5";
+import { GiTireIronCross } from "react-icons/gi";
 
 /* Styles Start */
 const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen z-20 flex items-center justify-center bg-[#07070783]",
   wrapper:
-    "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center w-[400px] md:w-[500px] lg:w-[600px]",
+    "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center w-[400px] md:w-[500px] lg:w-[600px] relative",
+  exit: "text-xl absolute top-5 right-7 cursor-pointer",
   heading: "text-3xl font-bold",
   info: "font-semibold mt-2",
   loginButtons:
@@ -26,10 +28,13 @@ const styles = {
 };
 /* Styles End */
 
-const Login = () => {
+const Login = ({ setShowLogin }) => {
   return (
     <div className={styles.main}>
       <div className={styles.wrapper}>
+        <p onClick={() => setShowLogin(false)} className={styles.exit}>
+          <GiTireIronCross />
+        </p>
         <h1 className={styles.heading}>Welcome</h1>
         <p className={styles.info}>Login | Sign Up</p>
         <div className={styles.loginButtons}>
