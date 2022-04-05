@@ -1,12 +1,12 @@
 import React from "react";
-import AdBanner from "../Components/AdBanner";
-import Banner from "../Components/Banner";
-import FeaturedInfluencers from "../Components/FeaturedInfluencers";
-import PopularInfluencers from "../Components/PopularInfluencers";
-import Sponsorships from "../Components/Sponsorships";
+import Banner from "./Banner";
+import FeaturedInfluencers from "./FeaturedInfluencers";
+import AdBanner from "./AdBanner";
+import Sponsorships from "./Sponsorships";
+import PopularInfluencers from "./PopularInfluencers";
 
-import FeaturedData from "../BluePrint/FeaturedData";
-import sponsorshipsData from "../BluePrint/SponsorshipsData";
+import FeaturedData from "../../BluePrint/FeaturedData";
+import sponsorshipsData from "../../BluePrint/SponsorshipsData";
 
 const Home = () => {
   return (

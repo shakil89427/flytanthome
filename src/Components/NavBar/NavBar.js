@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../Assets/Group 192 4.png";
+import logo from "../../Assets/Group 192 4.png";
 import { FaBullhorn } from "react-icons/fa";
 import { BiBell } from "react-icons/bi";
 import { RiMessage2Line } from "react-icons/ri";
