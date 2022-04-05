@@ -1,6 +1,8 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
 import "swiper/css";
+import "swiper/css/autoplay";
 
 /* Styles Start */
 const styles = {
@@ -19,6 +21,10 @@ const PopularInfluencers = () => {
     <div className="mb-10">
       <h1 className={styles.heading}>Popular Influencers</h1>
       <Swiper
+        modules={[Autoplay]}
+        loop
+        autoplay
+        speed={800}
         slidesPerView={1.5}
         initialSlide={1}
         spaceBetween={40}

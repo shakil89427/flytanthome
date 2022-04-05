@@ -36,7 +36,7 @@ const FeaturedInfluencers = ({ featured }) => {
     }
   }, [swiper]);
   return (
-    <div className="pl-5 lg:pr-5 py-8 relative">
+    <div className="pl-5 md:pl-10 lg:pr-10 py-12 mt-5 relative">
       <h1 className={styles.heading}>Featured Influencers</h1>
       <div className="my-5">
         <Swiper
@@ -45,6 +45,7 @@ const FeaturedInfluencers = ({ featured }) => {
             nextEl: nextRef?.current,
           }}
           parallax
+          loop
           observer
           observeParents
           initialSlide={1}
