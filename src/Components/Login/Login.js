@@ -30,7 +30,8 @@ const styles = {
 /* Styles End */
 
 const Login = ({ setShowLogin }) => {
-  const { googleSignIn } = useLogins();
+  const { googleSignIn, facebookSignIn, twitterSignIn, appleSignIn } =
+    useLogins();
 
   return (
     <div className={styles.main}>
@@ -49,17 +50,26 @@ const Login = ({ setShowLogin }) => {
             <p>Continue with Google</p>
           </div>
 
-          <div className={`${styles.loginButton} bg-[#1D4CB3]`}>
+          <div
+            onClick={facebookSignIn}
+            className={`${styles.loginButton} bg-[#1D4CB3]`}
+          >
             <AiFillFacebook className="text-2xl" />
             <p>Continue with Facebook</p>
           </div>
 
-          <div className={`${styles.loginButton} bg-[#55ACEE]`}>
+          <div
+            onClick={twitterSignIn}
+            className={`${styles.loginButton} bg-[#55ACEE]`}
+          >
             <AiOutlineTwitter className="text-2xl" />
             <p>Continue with Twitter</p>
           </div>
 
-          <div className={`${styles.loginButton} bg-black`}>
+          <div
+            onClick={appleSignIn}
+            className={`${styles.loginButton} bg-black`}
+          >
             <AiFillApple className="text-2xl" />
             <p>Continue with Apple</p>
           </div>

@@ -1,6 +1,9 @@
 import {
   getAuth,
   GoogleAuthProvider,
+  FacebookAuthProvider,
+  TwitterAuthProvider,
+  OAuthProvider,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -8,14 +11,15 @@ import useStore from "../Store/useStore";
 
 const useLogins = () => {
   const auth = getAuth();
-  const { setUser, setUserLoading } = useStore();
+  const { setUser, userLoading, setUserLoading } = useStore();
 
-  /* Google SignIn */
-  const googleSignIn = async () => {
+  /* Main SignIn */
+  const signIn = async (provider) => {
+    if (userLoading) return;
     setUserLoading(true);
-    const provider = new GoogleAuthProvider();
     try {
       const response = await signInWithPopup(auth, provider);
+      console.log(response);
       if (response?.user) {
         setUser(response.user);
         setUserLoading(false);
@@ -26,20 +30,43 @@ const useLogins = () => {
     }
   };
 
+  /* Google SignIn */
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    signIn(provider);
+  };
+
+  /* Facebook SignIn */
+  const facebookSignIn = () => {
+    const provider = new FacebookAuthProvider();
+    signIn(provider);
+  };
+
+  /* Facebook SignIn */
+  const twitterSignIn = () => {
+    const provider = new TwitterAuthProvider();
+    signIn(provider);
+  };
+
+  /* Apple SignIn */
+  const appleSignIn = () => {
+    const provider = new OAuthProvider("apple.com");
+    signIn(provider);
+  };
+
   /* Signout */
   const signOutUser = () => {
     signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        // An error happened.
-      });
+      .then(() => {})
+      .catch((err) => {});
   };
 
   /* Returned Items */
   return {
     googleSignIn,
+    facebookSignIn,
+    twitterSignIn,
+    appleSignIn,
     signOutUser,
   };
 };
