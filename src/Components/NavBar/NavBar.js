@@ -25,7 +25,7 @@ const NavBar = () => {
   const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
-    if (user?.email) {
+    if (user?.displayName) {
       setShowLogin(false);
     }
   }, [user]);
@@ -33,7 +33,7 @@ const NavBar = () => {
   return (
     <div className={styles.main}>
       <img src={logo} alt="" />
-      {user?.email ? (
+      {user?.displayName ? (
         <div className={styles.profile}>
           <p className="">{user.displayName}</p>
           <img className={styles.profileImg} src={user.photoURL} alt="" />
