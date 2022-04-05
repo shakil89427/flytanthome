@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import { IoKeypadSharp } from "react-icons/io5";
 import { GiTireIronCross } from "react-icons/gi";
-import useStore from "../../Store/useStore";
+import useLogins from "../../Firebase/useLogins";
 
 /* Styles Start */
 const styles = {
@@ -30,6 +30,8 @@ const styles = {
 /* Styles End */
 
 const Login = ({ setShowLogin }) => {
+  const { googleSignIn } = useLogins();
+
   return (
     <div className={styles.main}>
       <div className={styles.wrapper}>
@@ -39,7 +41,10 @@ const Login = ({ setShowLogin }) => {
         <h1 className={styles.heading}>Welcome</h1>
         <p className={styles.info}>Login | Sign Up</p>
         <div className={styles.loginButtons}>
-          <div className={`${styles.loginButton} text-black border`}>
+          <div
+            onClick={googleSignIn}
+            className={`${styles.loginButton} text-black border`}
+          >
             <FcGoogle className="text-2xl" />
             <p>Continue with Google</p>
           </div>
@@ -63,7 +68,7 @@ const Login = ({ setShowLogin }) => {
 
           <div className={`${styles.loginButton} bg-black`}>
             <IoKeypadSharp className="text-xl" />
-            <p>Continue with Apple</p>
+            <p>Continue with Phone</p>
           </div>
         </div>
 
