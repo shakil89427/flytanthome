@@ -30,7 +30,7 @@ const styles = {
 
 const Login = ({ setShowLogin }) => {
   const auth = getAuth();
-  const { setUser } = useStore();
+  const { setUser, userLoading, setUserLoading } = useStore();
   const [methods, setMethods] = useState(true);
   const [phoneInput, setPhoneInput] = useState(false);
   const [otpInput, setOtpInput] = useState(false);
@@ -43,9 +43,11 @@ const Login = ({ setShowLogin }) => {
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
+        setUserLoading(false);
         showOtp();
       })
       .catch((error) => {
+        setUserLoading(false);
         alert(error);
       });
   };
@@ -65,12 +67,14 @@ const Login = ({ setShowLogin }) => {
   /* Create intent for send otp */
   const intentOtp = (e) => {
     e.preventDefault();
+    if (userLoading) return;
     if (!number) {
       return alert("Enter a valid number");
     }
     if (!isValidPhoneNumber(number)) {
       return alert("Invalid number");
     }
+    setUserLoading(true);
     genarateCaptcha();
   };
 
@@ -79,13 +83,16 @@ const Login = ({ setShowLogin }) => {
     e.preventDefault();
     const otp = e.target[0].value;
     if (otp.length === 6) {
+      setUserLoading(true);
       const confirmationResult = window.confirmationResult;
       confirmationResult
         .confirm(otp)
         .then((res) => {
           setUser(res.user);
+          setUserLoading(false);
         })
         .catch((error) => {
+          setUserLoading(false);
           alert(error);
         });
     }
