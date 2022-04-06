@@ -7,7 +7,7 @@ import useLogins from "../../Firebase/useLogins";
 
 /* Styles Start */
 const styles = {
-  main: "bg-[#FF9826] p-5 md:px-10 lg:px-14 flex items-center justify-between",
+  main: "bg-[#FF9826] p-5 md:px-10 lg:px-14 flex flex-col gap-3 md:flex-row items-center justify-between",
   profile: "flex items-center gap-3 text-white",
   profileImg: "w-12 h-12 rounded-full mr-2",
   logout: "cursor-pointer text-xl",
