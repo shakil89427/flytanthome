@@ -65,9 +65,11 @@ const Login = ({ setShowLogin }) => {
   /* Create intent for send otp */
   const intentOtp = (e) => {
     e.preventDefault();
-    if (!number) return;
+    if (!number) {
+      return alert("Enter a valid number");
+    }
     if (!isValidPhoneNumber(number)) {
-      return alert("wrong number");
+      return alert("Invalid number");
     }
     genarateCaptcha();
   };
@@ -89,7 +91,7 @@ const Login = ({ setShowLogin }) => {
     }
   };
 
-  /* Apply Conditions */
+  /* Render Conditions */
   const showMethods = () => {
     setMethods(true);
     setPhoneInput(false);
@@ -129,7 +131,7 @@ const Login = ({ setShowLogin }) => {
                 <PhoneInput
                   className={styles.number}
                   international
-                  defaultCountry="BD"
+                  defaultCountry="US"
                   countryCallingCodeEditable={false}
                   value={number}
                   onChange={setNumber}
