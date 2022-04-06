@@ -15,7 +15,7 @@ import useStore from "../../Store/useStore";
 const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen z-20 flex items-center justify-center bg-[#07070783]",
   wrapper:
-    "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center w-[400px] md:w-[500px] lg:w-[550px] relative",
+    "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center mx-3 w-full md:w-[500px] lg:w-[550px] relative",
   exit: "text-xl absolute top-5 right-7 cursor-pointer",
   heading: "text-3xl font-bold text-center",
   info: "font-semibold mt-2 text-center",
@@ -135,7 +135,7 @@ const Login = ({ setShowLogin }) => {
 
         {/* Get Phone Number */}
         {phoneInput && (
-          <div className="w-4/6">
+          <div className="w-9/12 md:w-5/6 lg:w-4/6">
             <BiArrowBack onClick={showMethods} className={styles.back} />
             <h1 className={styles.heading}>Phone Number</h1>
             <p className={styles.info}>Login | Sign Up</p>
@@ -161,7 +161,7 @@ const Login = ({ setShowLogin }) => {
 
         {/* Enter OTP */}
         {otpInput && (
-          <div className="w-4/6 mb-7">
+          <div className="w-9/12 md:w-5/6 lg:w-4/6 mb-7">
             <BiArrowBack onClick={showInput} className={styles.back} />
             <h1 className={styles.heading}>Enter OTP here</h1>
             <p className="text-xs px-12 text-center my-8">
@@ -170,7 +170,9 @@ const Login = ({ setShowLogin }) => {
             </p>
             <form className={styles.form} onSubmit={verifyOTP}>
               <input className={styles.otp} type="number" />
-              <button className={styles.submitBtn}>Verify</button>
+              <button type="submit" className={styles.submitBtn}>
+                Verify
+              </button>
             </form>
           </div>
         )}
