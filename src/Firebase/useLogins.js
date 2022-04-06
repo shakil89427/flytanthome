@@ -13,13 +13,12 @@ const useLogins = () => {
   const auth = getAuth();
   const { setUser, userLoading, setUserLoading } = useStore();
 
-  /* Main SignIn */
+  /* Common SignIn */
   const signIn = async (provider) => {
     if (userLoading) return;
     setUserLoading(true);
     try {
       const response = await signInWithPopup(auth, provider);
-      console.log(response);
       if (response?.user) {
         setUser(response.user);
         setUserLoading(false);

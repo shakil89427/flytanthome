@@ -1,14 +1,9 @@
-import React from "react";
-import { FcGoogle } from "react-icons/fc";
-import {
-  AiFillFacebook,
-  AiOutlineTwitter,
-  AiFillApple,
-  AiFillAndroid,
-} from "react-icons/ai";
-import { IoKeypadSharp } from "react-icons/io5";
+import React, { useState } from "react";
 import { GiTireIronCross } from "react-icons/gi";
-import useLogins from "../../Firebase/useLogins";
+import Methods from "./Methods";
+import "react-phone-number-input/style.css";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import { BiArrowBack } from "react-icons/bi";
 
 /* Styles Start */
 const styles = {
@@ -16,89 +11,102 @@ const styles = {
   wrapper:
     "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center w-[400px] md:w-[500px] lg:w-[550px] relative",
   exit: "text-xl absolute top-5 right-7 cursor-pointer",
-  heading: "text-3xl font-bold",
-  info: "font-semibold mt-2",
-  loginButtons:
-    "py-8 w-full flex flex-col items-center gap-4 border-b-2 border-[#979797]",
-  loginButton:
-    "flex items-center gap-4 px-5 w-72 py-3 rounded-3xl shadow-lg cursor-pointer text-white",
-  downButtons: "my-5 flex items-center gap-5",
-  downButton:
-    "flex items-center pl-3 py-1 gap-2 bg-black text-white w-40 rounded-lg cursor-pointer",
+  heading: "text-3xl font-bold text-center",
+  info: "font-semibold mt-2 text-center",
   condition: "px-7 text-center text-xs",
+  back: "text-3xl absolute top-5 left-7 cursor-pointer",
+  form: "flex flex-col gap-3 my-5",
+  number: "border p-1 rounded-3xl border-black overflow-hidden px-5 otpNumber",
+  submitBtn: "bg-black text-white p-2 rounded-3xl",
+  otp: "border py-1 px-3 rounded-2xl border-black",
 };
 /* Styles End */
 
 const Login = ({ setShowLogin }) => {
-  const { googleSignIn, facebookSignIn, twitterSignIn, appleSignIn } =
-    useLogins();
+  const [methods, setMethods] = useState(true);
+  const [phoneInput, setPhoneInput] = useState(false);
+  const [otpInput, setOtpInput] = useState(false);
+
+  const [number, setNumber] = useState();
+
+  const sendOtp = (e) => {
+    e.preventDefault();
+    if (!number) return;
+    if (!isValidPhoneNumber(number)) {
+      return alert("wrong number");
+    }
+    showOtp();
+  };
+
+  const showMethods = () => {
+    setMethods(true);
+    setPhoneInput(false);
+    setOtpInput(false);
+  };
+  const showInput = () => {
+    setMethods(false);
+    setPhoneInput(true);
+    setOtpInput(false);
+  };
+  const showOtp = () => {
+    setMethods(false);
+    setPhoneInput(false);
+    setOtpInput(true);
+  };
 
   return (
     <div className={styles.main}>
       <div className={styles.wrapper}>
+        {/* Exit Button */}
         <p onClick={() => setShowLogin(false)} className={styles.exit}>
           <GiTireIronCross />
         </p>
-        <h1 className={styles.heading}>Welcome</h1>
-        <p className={styles.info}>Login | Sign Up</p>
-        <div className={styles.loginButtons}>
-          <div
-            onClick={googleSignIn}
-            className={`${styles.loginButton} text-black border`}
-          >
-            <FcGoogle className="text-2xl" />
-            <p>Continue with Google</p>
-          </div>
 
-          <div
-            onClick={facebookSignIn}
-            className={`${styles.loginButton} bg-[#1D4CB3]`}
-          >
-            <AiFillFacebook className="text-2xl" />
-            <p>Continue with Facebook</p>
-          </div>
+        {/* Login Methods */}
+        {methods && <Methods showInput={showInput} />}
 
-          <div
-            onClick={twitterSignIn}
-            className={`${styles.loginButton} bg-[#55ACEE]`}
-          >
-            <AiOutlineTwitter className="text-2xl" />
-            <p>Continue with Twitter</p>
+        {/* Get Phone Number */}
+        {phoneInput && (
+          <div className="w-4/6">
+            <BiArrowBack onClick={showMethods} className={styles.back} />
+            <h1 className={styles.heading}>Phone Number</h1>
+            <p className={styles.info}>Login | Sign Up</p>
+            <div className="my-7">
+              <p>Enter Your mobile number</p>
+              <form className={styles.form} onSubmit={sendOtp}>
+                <PhoneInput
+                  className={styles.number}
+                  international
+                  defaultCountry="US"
+                  countryCallingCodeEditable={false}
+                  value={number}
+                  onChange={setNumber}
+                />
+                <button type="submit" className={styles.submitBtn}>
+                  Send OTP
+                </button>
+              </form>
+            </div>
           </div>
+        )}
 
-          <div
-            onClick={appleSignIn}
-            className={`${styles.loginButton} bg-black`}
-          >
-            <AiFillApple className="text-2xl" />
-            <p>Continue with Apple</p>
+        {/* Enter OTP */}
+        {otpInput && (
+          <div className="w-4/6 mb-7">
+            <BiArrowBack onClick={showInput} className={styles.back} />
+            <h1 className={styles.heading}>Enter OTP here</h1>
+            <p className="text-xs px-12 text-center my-8">
+              A 6 digits code has been sent to your mobile number that you have
+              entered
+            </p>
+            <form className={styles.form} action="">
+              <input className={styles.otp} type="number" />
+              <button className={styles.submitBtn}>Verify</button>
+            </form>
           </div>
+        )}
 
-          <p>or</p>
-
-          <div className={`${styles.loginButton} bg-black`}>
-            <IoKeypadSharp className="text-xl" />
-            <p>Continue with Phone</p>
-          </div>
-        </div>
-
-        <div className={styles.downButtons}>
-          <div className={styles.downButton}>
-            <AiFillAndroid className="text-2xl" />
-            <span>
-              <p className="text-xs">Download our</p>
-              <p className="text-sm">Android App</p>
-            </span>
-          </div>
-          <div className={styles.downButton}>
-            <AiFillApple className="text-2xl" />
-            <span>
-              <p className="text-xs">Download our</p>
-              <p className="text-sm">Android App</p>
-            </span>
-          </div>
-        </div>
-
+        {/* Conditions */}
         <p className={styles.condition}>
           Click "Sign In" to agree to Flytant's Terms of Service and acknowledge
           that Flytant's Privacy Policy applies to you.
