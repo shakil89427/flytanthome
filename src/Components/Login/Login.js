@@ -100,26 +100,33 @@ const Login = ({ setShowLogin }) => {
 
   /* Render Conditions */
   const showMethods = () => {
+    if (userLoading) return;
     setMethods(true);
     setPhoneInput(false);
     setOtpInput(false);
   };
   const showInput = () => {
+    if (userLoading) return;
     setMethods(false);
     setPhoneInput(true);
     setOtpInput(false);
   };
   const showOtp = () => {
+    if (userLoading) return;
     setMethods(false);
     setPhoneInput(false);
     setOtpInput(true);
+  };
+  const exit = () => {
+    if (userLoading) return;
+    setShowLogin(false);
   };
 
   return (
     <div className={styles.main}>
       <div className={styles.wrapper}>
         {/* Exit Button */}
-        <p onClick={() => setShowLogin(false)} className={styles.exit}>
+        <p onClick={exit} className={styles.exit}>
           <GiTireIronCross />
         </p>
 
