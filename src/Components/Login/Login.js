@@ -23,10 +23,12 @@ const styles = {
   info: "font-semibold mt-2 text-center",
   condition: "px-7 text-center text-xs",
   back: "text-3xl absolute top-5 left-7 cursor-pointer",
-  form: "flex flex-col gap-3 my-5",
-  number: "border p-1 rounded-3xl border-black overflow-hidden px-5 otpNumber",
-  submitBtn: "bg-black text-white p-2 rounded-3xl",
-  otp: "border py-1 px-3 rounded-2xl border-black",
+  inputsMain: "w-9/12 md:w-5/6 lg:w-4/6 mb-7",
+  form: "flex flex-col gap-3 my-2",
+  number: "border p-2 rounded-3xl border-black overflow-hidden px-5 otpNumber",
+  submitBtn: "bg-black text-white p-3 border-0 rounded-3xl w-full",
+  otpWrapper: "flex items-center justify-center gap-3 mb-5",
+  otp: "w-10 h-10 border border-black outline-0 rounded-lg text-center",
 };
 /* Styles End */
 
@@ -38,6 +40,7 @@ const Login = ({ setShowLogin }) => {
   const [otpInput, setOtpInput] = useState(false);
 
   const [number, setNumber] = useState();
+  let otpArr = new Array(6).fill("");
 
   /* Send OTP */
   const sendOTP = () => {
@@ -80,10 +83,25 @@ const Login = ({ setShowLogin }) => {
     genarateCaptcha();
   };
 
+  /* Get OTP from Input */
+  const getOTPvalue = (e, index) => {
+    let value = e.target.value;
+    if (!value) return;
+    if (value.length > 1) {
+      value = value.charAt(value.length - 1);
+      e.target.value = value;
+    }
+    otpArr[index] = value;
+    if (index === 5) {
+      return e.target.blur();
+    }
+    e.target.nextSibling.select();
+  };
+
   /* Verify OTP */
   const verifyOTP = (e) => {
     e.preventDefault();
-    const otp = e.target[0].value;
+    const otp = otpArr.join("");
     if (otp.length === 6) {
       setUserLoading(true);
       const confirmationResult = window.confirmationResult;
@@ -136,7 +154,7 @@ const Login = ({ setShowLogin }) => {
 
         {/* Get Phone Number */}
         {phoneInput && (
-          <div className="w-9/12 md:w-5/6 lg:w-4/6">
+          <div className={styles.inputsMain}>
             <BiArrowBack onClick={showMethods} className={styles.back} />
             <h1 className={styles.heading}>Phone Number</h1>
             <p className={styles.info}>Login | Sign Up</p>
@@ -162,15 +180,24 @@ const Login = ({ setShowLogin }) => {
 
         {/* Enter OTP */}
         {otpInput && (
-          <div className="w-9/12 md:w-5/6 lg:w-4/6 mb-7">
+          <div className={styles.inputsMain}>
             <BiArrowBack onClick={showInput} className={styles.back} />
             <h1 className={styles.heading}>Enter OTP here</h1>
-            <p className="text-xs px-12 text-center my-8">
+            <p className="text-xs px-5 text-center my-8">
               A 6 digits code has been sent to your mobile number that you have
               entered
             </p>
             <form className={styles.form} onSubmit={verifyOTP}>
-              <input className={styles.otp} type="number" />
+              <div className={styles.otpWrapper}>
+                {otpArr.map((item, index) => (
+                  <input
+                    key={index}
+                    onChange={(e) => getOTPvalue(e, index)}
+                    className={styles.otp}
+                    type="number"
+                  />
+                ))}
+              </div>
               <button type="submit" className={styles.submitBtn}>
                 Verify
               </button>
