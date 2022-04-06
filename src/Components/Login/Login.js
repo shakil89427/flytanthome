@@ -1,9 +1,15 @@
+import {
+  getAuth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { GiTireIronCross } from "react-icons/gi";
 import Methods from "./Methods";
 import "react-phone-number-input/style.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import { BiArrowBack } from "react-icons/bi";
+import useStore from "../../Store/useStore";
 
 /* Styles Start */
 const styles = {
@@ -23,21 +29,67 @@ const styles = {
 /* Styles End */
 
 const Login = ({ setShowLogin }) => {
+  const auth = getAuth();
+  const { setUser } = useStore();
   const [methods, setMethods] = useState(true);
   const [phoneInput, setPhoneInput] = useState(false);
   const [otpInput, setOtpInput] = useState(false);
 
   const [number, setNumber] = useState();
 
-  const sendOtp = (e) => {
+  /* Send OTP */
+  const sendOTP = () => {
+    const appVerifier = window.appVerifier;
+    signInWithPhoneNumber(auth, number, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        showOtp();
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
+  /* Genarate captcha */
+  const genarateCaptcha = () => {
+    window.appVerifier = new RecaptchaVerifier(
+      "captcha",
+      {
+        size: "invisible",
+      },
+      auth
+    );
+    sendOTP();
+  };
+
+  /* Create intent for send otp */
+  const intentOtp = (e) => {
     e.preventDefault();
     if (!number) return;
     if (!isValidPhoneNumber(number)) {
       return alert("wrong number");
     }
-    showOtp();
+    genarateCaptcha();
   };
 
+  /* Verify OTP */
+  const verifyOTP = (e) => {
+    e.preventDefault();
+    const otp = e.target[0].value;
+    if (otp.length === 6) {
+      const confirmationResult = window.confirmationResult;
+      confirmationResult
+        .confirm(otp)
+        .then((res) => {
+          setUser(res.user);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+
+  /* Apply Conditions */
   const showMethods = () => {
     setMethods(true);
     setPhoneInput(false);
@@ -73,11 +125,11 @@ const Login = ({ setShowLogin }) => {
             <p className={styles.info}>Login | Sign Up</p>
             <div className="my-7">
               <p>Enter Your mobile number</p>
-              <form className={styles.form} onSubmit={sendOtp}>
+              <form className={styles.form} onSubmit={intentOtp}>
                 <PhoneInput
                   className={styles.number}
                   international
-                  defaultCountry="US"
+                  defaultCountry="BD"
                   countryCallingCodeEditable={false}
                   value={number}
                   onChange={setNumber}
@@ -87,6 +139,7 @@ const Login = ({ setShowLogin }) => {
                 </button>
               </form>
             </div>
+            <div id="captcha"></div>
           </div>
         )}
 
@@ -99,7 +152,7 @@ const Login = ({ setShowLogin }) => {
               A 6 digits code has been sent to your mobile number that you have
               entered
             </p>
-            <form className={styles.form} action="">
+            <form className={styles.form} onSubmit={verifyOTP}>
               <input className={styles.otp} type="number" />
               <button className={styles.submitBtn}>Verify</button>
             </form>
