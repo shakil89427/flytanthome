@@ -16,7 +16,7 @@ const styles = {
     "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-lg rounded-bl-lg",
   image: "w-full h-72 rounded-md",
   typeWrapper: "flex items-center justify-between",
-  type: "px-3 py-2 rounded-2xl text-xs font-semibold",
+  type: "px-3 py-1 mb-2 rounded-2xl text-xs font-medium",
   title: "font-semibold my-1",
   bottomWrapper: "flex items-center justify-between",
   followers: "text-xs font-medium",
@@ -76,7 +76,7 @@ const Sponsorships = ({ sponsorships, type }) => {
                   alt=""
                 />
 
-                <div className="mt-2 mr-2">
+                <div className="mt-2 mx-3">
                   <div className={styles.typeWrapper}>
                     <p
                       style={{
