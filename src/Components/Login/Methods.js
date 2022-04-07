@@ -17,7 +17,7 @@ const styles = {
     "py-8 flex flex-col items-center gap-5 border-b border-[#979797]",
   loginButton:
     "flex items-center gap-4 px-5 w-72 py-3 rounded-3xl shadow-lg cursor-pointer text-white",
-  downButtons: "my-5 flex items-center gap-5 justify-center",
+  downButtons: "my-7 flex items-center gap-5 justify-center",
   downButton:
     "flex items-center pl-3 py-1 gap-2 bg-black text-white w-40 rounded-lg cursor-pointer",
 };

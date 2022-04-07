@@ -115,7 +115,6 @@ const Login = ({ setShowLogin }) => {
             getDoc(userRef)
               .then((userData) => {
                 const finalData = userData.data();
-                console.log(finalData);
                 if (finalData) {
                   setUser(finalData);
                   return setUserLoading(false);
