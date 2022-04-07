@@ -143,8 +143,18 @@ const Login = ({ setShowLogin }) => {
 
   const addUser = (e) => {
     e.preventDefault();
-    setUserLoading(true);
     const username = e.target[0].value;
+    const regex = /^[0-9a-zA-Z]+$/;
+    if (!username.match(regex)) {
+      return alert("Type alphanumeric only");
+    }
+    if (username.length < 3) {
+      return alert("username cannot be less than 3 characters");
+    }
+    if (username.length > 15) {
+      return alert("username cannot be more than 15 characters");
+    }
+    setUserLoading(true);
     const newData = { ...user.tempData, username };
     const userRef = doc(database, "users", newData.userId);
     setDoc(userRef, newData)
