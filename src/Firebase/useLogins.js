@@ -42,8 +42,8 @@ const useLogins = () => {
         setUserLoading(false);
       }
     } catch (err) {
-      console.log(err);
       setUserLoading(false);
+      alert(err);
     }
   };
 

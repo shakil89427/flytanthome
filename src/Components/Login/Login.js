@@ -131,7 +131,10 @@ const Login = ({ setShowLogin }) => {
                 setUser({ required: true, tempData: current });
                 setUserLoading(false);
               })
-              .catch((err) => {});
+              .catch((err) => {
+                setUserLoading(false);
+                alert(err);
+              });
           }
         })
         .catch((error) => {
@@ -163,7 +166,7 @@ const Login = ({ setShowLogin }) => {
         setUserLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        alert(err);
         setUserLoading(false);
       });
   };
