@@ -161,6 +161,7 @@ const Login = ({ setShowLogin }) => {
             <div className="spinner"></div>
           </div>
         )}
+
         {/* Exit Button */}
         <p onClick={() => setShowLogin(false)} className={styles.exit}>
           x
