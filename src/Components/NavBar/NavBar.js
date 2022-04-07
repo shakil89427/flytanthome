@@ -19,16 +19,13 @@ const styles = {
 };
 /* Styles End */
 
-const randomImage =
-  "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png";
-
 const NavBar = () => {
   const { user } = useStore();
   const { signOutUser } = useLogins();
   const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
-    if (user?.uid) {
+    if (user?.userId) {
       setShowLogin(false);
     }
   }, [user]);
@@ -36,12 +33,12 @@ const NavBar = () => {
   return (
     <div className={styles.main}>
       <img src={logo} alt="" />
-      {user?.uid ? (
+      {user?.userId ? (
         <div className={styles.profile}>
-          <p>{user?.displayName ? user.displayName : "Flytant User"}</p>
+          <p>{user.username}</p>
           <img
             className={styles.profileImg}
-            src={user?.photoURL ? user?.photoURL : randomImage}
+            src={user.profileImageUrl}
             alt=""
           />
           <FiLogOut onClick={signOutUser} className={styles.logout} />

@@ -3,13 +3,14 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GiTireIronCross } from "react-icons/gi";
 import { BiArrowBack } from "react-icons/bi";
 import Methods from "./Methods";
 import "react-phone-number-input/style.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import useStore from "../../Store/useStore";
+import { doc, setDoc, getFirestore, getDoc } from "firebase/firestore";
 
 /* Styles Start */
 const styles = {
@@ -34,7 +35,8 @@ const styles = {
 
 const Login = ({ setShowLogin }) => {
   const auth = getAuth();
-  const { setUser, userLoading, setUserLoading } = useStore();
+  const database = getFirestore();
+  const { user, setUser, userLoading, setUserLoading } = useStore();
   const [methods, setMethods] = useState(true);
   const [phoneInput, setPhoneInput] = useState(false);
   const [otpInput, setOtpInput] = useState(false);
@@ -107,9 +109,31 @@ const Login = ({ setShowLogin }) => {
       const confirmationResult = window.confirmationResult;
       confirmationResult
         .confirm(otp)
-        .then((res) => {
-          setUser(res.user);
-          setUserLoading(false);
+        .then((response) => {
+          if (response.user) {
+            const userRef = doc(database, "users", response.user.uid);
+            getDoc(userRef)
+              .then((userData) => {
+                const finalData = userData.data();
+                console.log(finalData);
+                if (finalData) {
+                  setUser(finalData);
+                  return setUserLoading(false);
+                }
+                const current = {
+                  deviceType: "Website",
+                  email: response.user.email,
+                  freeTrials: 3,
+                  phoneNumber: response.user.phoneNumber,
+                  profileImageUrl: response.user.photoURL,
+                  shouldShowInfluencer: false,
+                  userId: response.user.uid,
+                };
+                setUser({ required: true, tempData: current });
+                setUserLoading(false);
+              })
+              .catch((err) => {});
+          }
         })
         .catch((error) => {
           setUserLoading(false);
@@ -118,8 +142,28 @@ const Login = ({ setShowLogin }) => {
     }
   };
 
+  const addUser = (e) => {
+    e.preventDefault();
+    setUserLoading(true);
+    const username = e.target[0].value;
+    const newData = { ...user.tempData, username };
+    const userRef = doc(database, "users", newData.userId);
+    setDoc(userRef, newData)
+      .then(() => {
+        setUser(newData);
+        setUserLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setUserLoading(false);
+      });
+  };
+
   /* Render Conditions */
   const showMethods = () => {
+    if (user?.required) {
+      setUser({});
+    }
     setMethods(true);
     setPhoneInput(false);
     setOtpInput(false);
@@ -134,6 +178,14 @@ const Login = ({ setShowLogin }) => {
     setPhoneInput(false);
     setOtpInput(true);
   };
+
+  useEffect(() => {
+    if (user?.required) {
+      setMethods(false);
+      setPhoneInput(false);
+      setOtpInput(false);
+    }
+  }, [user]);
 
   return (
     <div className={styles.main}>
@@ -151,6 +203,23 @@ const Login = ({ setShowLogin }) => {
 
         {/* Login Methods */}
         {methods && <Methods showInput={showInput} />}
+
+        {user?.required && (
+          <div className={styles.inputsMain}>
+            <BiArrowBack onClick={showMethods} className={styles.back} />
+            <form className="flex flex-col gap-4 my-7" onSubmit={addUser}>
+              <p>Enter your username</p>
+              <input
+                className="w-full border outline-none p-3 rounded-3xl border-black"
+                placeholder="Enter username here"
+                type="text"
+              />
+              <button type="submit" className={styles.submitBtn}>
+                Submit
+              </button>
+            </form>
+          </div>
+        )}
 
         {/* Get Phone Number */}
         {phoneInput && (
