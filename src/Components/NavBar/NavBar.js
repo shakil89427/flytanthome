@@ -3,7 +3,7 @@ import Login from "../Login/Login";
 import logo from "../../Assets/Group 192 4.png";
 import { FiLogOut } from "react-icons/fi";
 import useStore from "../../Store/useStore";
-import useLogins from "../../Firebase/useLogins";
+import useLogins from "../../Hooks/useLogins";
 import { Link } from "react-router-dom";
 
 /* Styles Start */

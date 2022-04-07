@@ -9,8 +9,8 @@ import Methods from "./Methods";
 import "react-phone-number-input/style.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import useStore from "../../Store/useStore";
-import { doc, setDoc, getFirestore, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import useAddUser from "../../Hooks/useAddUser";
 
 /* Styles Start */
 const styles = {
@@ -30,12 +30,14 @@ const styles = {
   submitBtn: "bg-black text-white p-3 border-0 rounded-3xl w-full",
   otpWrapper: "flex items-center justify-center gap-3 mb-5",
   otp: "w-10 h-10 border border-black outline-0 rounded-lg text-center",
+  usernameForm: "flex flex-col gap-4 my-7",
+  username: "w-full border outline-none p-3 rounded-3xl border-black",
 };
 /* Styles End */
 
 const Login = ({ setShowLogin }) => {
   const auth = getAuth();
-  const database = getFirestore();
+  const { addTempUser, addUserToDB } = useAddUser();
   const { user, setUser, userLoading, setUserLoading } = useStore();
   const [methods, setMethods] = useState(true);
   const [phoneInput, setPhoneInput] = useState(false);
@@ -109,34 +111,7 @@ const Login = ({ setShowLogin }) => {
       const confirmationResult = window.confirmationResult;
       confirmationResult
         .confirm(otp)
-        .then((response) => {
-          if (response.user) {
-            const userRef = doc(database, "users", response.user.uid);
-            getDoc(userRef)
-              .then((userData) => {
-                const finalData = userData.data();
-                if (finalData) {
-                  setUser(finalData);
-                  return setUserLoading(false);
-                }
-                const current = {
-                  deviceType: "Website",
-                  email: response.user.email,
-                  freeTrials: 3,
-                  phoneNumber: response.user.phoneNumber,
-                  profileImageUrl: response.user.photoURL,
-                  shouldShowInfluencer: false,
-                  userId: response.user.uid,
-                };
-                setUser({ required: true, tempData: current });
-                setUserLoading(false);
-              })
-              .catch((err) => {
-                setUserLoading(false);
-                alert(err);
-              });
-          }
-        })
+        .then((response) => addTempUser(response.user))
         .catch((error) => {
           setUserLoading(false);
           alert(error);
@@ -146,29 +121,7 @@ const Login = ({ setShowLogin }) => {
 
   const addUser = (e) => {
     e.preventDefault();
-    const username = e.target[0].value;
-    const regex = /^[0-9a-zA-Z]+$/;
-    if (!username.match(regex)) {
-      return alert("Type alphanumeric only");
-    }
-    if (username.length < 3) {
-      return alert("username cannot be less than 3 characters");
-    }
-    if (username.length > 15) {
-      return alert("username cannot be more than 15 characters");
-    }
-    setUserLoading(true);
-    const newData = { ...user.tempData, username };
-    const userRef = doc(database, "users", newData.userId);
-    setDoc(userRef, newData)
-      .then(() => {
-        setUser(newData);
-        setUserLoading(false);
-      })
-      .catch((err) => {
-        alert(err);
-        setUserLoading(false);
-      });
+    addUserToDB(e.target[0].value);
   };
 
   /* Render Conditions */
@@ -216,13 +169,14 @@ const Login = ({ setShowLogin }) => {
         {/* Login Methods */}
         {methods && <Methods showInput={showInput} />}
 
+        {/* Get Username */}
         {user?.required && (
           <div className={styles.inputsMain}>
             <BiArrowBack onClick={showMethods} className={styles.back} />
-            <form className="flex flex-col gap-4 my-7" onSubmit={addUser}>
+            <form className={styles.usernameForm} onSubmit={addUser}>
               <p>Enter your username</p>
               <input
-                className="w-full border outline-none p-3 rounded-3xl border-black"
+                className={styles.username}
                 placeholder="Enter username here"
                 type="text"
               />
@@ -290,11 +244,19 @@ const Login = ({ setShowLogin }) => {
         {!user.required && (
           <p className={styles.condition}>
             Click "Sign In" to agree to Flytant's
-            <Link onClick={() => setShowLogin(false)} to="terms">
+            <Link
+              className="mx-1 text-blue-400"
+              onClick={() => setShowLogin(false)}
+              to="terms"
+            >
               Terms of Service
-            </Link>{" "}
-            and acknowledge that Flytant's{" "}
-            <Link onClick={() => setShowLogin(false)} to="privacy">
+            </Link>
+            and acknowledge that Flytant's
+            <Link
+              className="mx-1 text-blue-400"
+              onClick={() => setShowLogin(false)}
+              to="privacy"
+            >
               Privacy Policy
             </Link>
             applies to you.

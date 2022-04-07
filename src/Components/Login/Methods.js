@@ -7,7 +7,7 @@ import {
   AiFillAndroid,
 } from "react-icons/ai";
 import { IoKeypadSharp } from "react-icons/io5";
-import useLogins from "../../Firebase/useLogins";
+import useLogins from "../../Hooks/useLogins";
 
 /* Styles Start */
 const styles = {

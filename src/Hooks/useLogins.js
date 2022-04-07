@@ -8,12 +8,12 @@ import {
   signOut,
 } from "firebase/auth";
 import useStore from "../Store/useStore";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import useAddUser from "./useAddUser";
 
 const useLogins = () => {
   const auth = getAuth();
-  const database = getFirestore();
-  const { setUser, userLoading, setUserLoading } = useStore();
+  const { addTempUser } = useAddUser();
+  const { userLoading, setUserLoading } = useStore();
 
   /* Common SignIn */
   const signIn = async (provider) => {
@@ -21,25 +21,8 @@ const useLogins = () => {
     setUserLoading(true);
     try {
       const response = await signInWithPopup(auth, provider);
-      if (response.user) {
-        const userRef = doc(database, "users", response.user.uid);
-        const userData = await getDoc(userRef);
-        const finalData = userData.data();
-        if (finalData) {
-          setUser(finalData);
-          return setUserLoading(false);
-        }
-        const current = {
-          deviceType: "Website",
-          email: response.user.email,
-          freeTrials: 3,
-          phoneNumber: response.user.phoneNumber,
-          profileImageUrl: response.user.photoURL,
-          shouldShowInfluencer: false,
-          userId: response.user.uid,
-        };
-        setUser({ required: true, tempData: current });
-        setUserLoading(false);
+      if (response?.user) {
+        addTempUser(response.user);
       }
     } catch (err) {
       setUserLoading(false);
