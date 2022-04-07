@@ -4,13 +4,13 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { GiTireIronCross } from "react-icons/gi";
 import { BiArrowBack } from "react-icons/bi";
 import Methods from "./Methods";
 import "react-phone-number-input/style.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import useStore from "../../Store/useStore";
 import { doc, setDoc, getFirestore, getDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 /* Styles Start */
 const styles = {
@@ -19,7 +19,7 @@ const styles = {
     "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center mx-3 w-full md:w-[500px] lg:w-[550px] relative overflow-hidden",
   spinnerContainer:
     "absolute w-full bg-[#8080807a] inset-0 flex items-center justify-center z-50",
-  exit: "text-xl absolute top-5 right-7 cursor-pointer",
+  exit: "text-3xl absolute top-5 right-7 cursor-pointer",
   heading: "text-3xl font-bold text-center",
   info: "font-semibold mt-2 text-center",
   condition: "px-7 text-center text-xs",
@@ -198,7 +198,7 @@ const Login = ({ setShowLogin }) => {
         )}
         {/* Exit Button */}
         <p onClick={() => setShowLogin(false)} className={styles.exit}>
-          <GiTireIronCross />
+          x
         </p>
 
         {/* Login Methods */}
@@ -274,11 +274,20 @@ const Login = ({ setShowLogin }) => {
           </div>
         )}
 
-        {/* Conditions */}
-        <p className={styles.condition}>
-          Click "Sign In" to agree to Flytant's Terms of Service and acknowledge
-          that Flytant's Privacy Policy applies to you.
-        </p>
+        {/* Terms and Conditions */}
+        {!user.required && (
+          <p className={styles.condition}>
+            Click "Sign In" to agree to Flytant's
+            <Link onClick={() => setShowLogin(false)} to="terms">
+              Terms of Service
+            </Link>{" "}
+            and acknowledge that Flytant's{" "}
+            <Link onClick={() => setShowLogin(false)} to="privacy">
+              Privacy Policy
+            </Link>
+            applies to you.
+          </p>
+        )}
       </div>
     </div>
   );

@@ -15,10 +15,10 @@ const styles = {
   applied:
     "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-lg rounded-bl-lg",
   image: "w-full h-72 rounded-md",
-  typeWrapper: "flex items-center justify-between",
-  type: "px-3 py-1 mb-2 rounded-2xl text-xs font-medium",
+  typeWrapper: "flex items-center gap-3",
+  type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
   title: "font-semibold my-1",
-  bottomWrapper: "flex items-center justify-between",
+  bottomWrapper: "flex flex-col gap-2",
   followers: "text-xs font-medium",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
   next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer",
@@ -87,7 +87,7 @@ const Sponsorships = ({ sponsorships, type }) => {
                     >
                       {sponsorship.type} Campaign
                     </p>
-                    <p className="text-sm">{sponsorship.updated}</p>
+                    <p className="text-xs">{sponsorship.updated}</p>
                   </div>
 
                   <p className={styles.title}>{sponsorship.title}</p>

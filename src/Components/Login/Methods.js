@@ -14,7 +14,7 @@ const styles = {
   heading: "text-3xl font-bold text-center",
   info: "font-semibold mt-2 text-center",
   loginButtons:
-    "py-8 flex flex-col items-center gap-4 border-b-2 border-[#979797]",
+    "py-8 flex flex-col items-center gap-5 border-b border-[#979797]",
   loginButton:
     "flex items-center gap-4 px-5 w-72 py-3 rounded-3xl shadow-lg cursor-pointer text-white",
   downButtons: "my-5 flex items-center gap-5 justify-center",

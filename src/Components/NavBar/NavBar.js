@@ -4,6 +4,7 @@ import logo from "../../Assets/Group 192 4.png";
 import { FiLogOut } from "react-icons/fi";
 import useStore from "../../Store/useStore";
 import useLogins from "../../Firebase/useLogins";
+import { Link } from "react-router-dom";
 
 /* Styles Start */
 const styles = {
@@ -32,7 +33,9 @@ const NavBar = () => {
 
   return (
     <div className={styles.main}>
-      <img src={logo} alt="" />
+      <Link to="/">
+        <img src={logo} alt="" />
+      </Link>
       {user?.userId ? (
         <div className={styles.profile}>
           <p>{user.username}</p>
@@ -41,6 +44,7 @@ const NavBar = () => {
             src={user.profileImageUrl}
             alt=""
           />
+
           <FiLogOut onClick={signOutUser} className={styles.logout} />
         </div>
       ) : (
