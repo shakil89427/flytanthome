@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Login from "../Login/Login";
-import logo from "../../Assets/Group 192 4.png";
+import logo from "../../Assets/websiteLogo.png";
+import defaultUserImage from "../../Assets//defaultUserImage.png";
 import { FiLogOut } from "react-icons/fi";
 import useStore from "../../Store/useStore";
 import useLogins from "../../Hooks/useLogins";
@@ -41,7 +42,7 @@ const NavBar = () => {
           <p>{user.username}</p>
           <img
             className={styles.profileImg}
-            src={user.profileImageUrl}
+            src={user.profileImageUrl ? user.profileImageUrl : defaultUserImage}
             alt=""
           />
 

@@ -30,7 +30,7 @@ const styles = {
   submitBtn: "bg-black text-white p-3 border-0 rounded-3xl w-full",
   otpWrapper: "flex items-center justify-center gap-3 mb-5",
   otp: "w-10 h-10 border border-black outline-0 rounded-lg text-center",
-  usernameForm: "flex flex-col gap-4 my-7",
+  usernameForm: "flex flex-col gap-4 mt-14 mb-8",
   username: "w-full border outline-none p-3 rounded-3xl border-black",
 };
 /* Styles End */
@@ -45,6 +45,7 @@ const Login = ({ setShowLogin }) => {
 
   const [number, setNumber] = useState();
   let otpArr = new Array(6).fill("");
+  const [username, setUsername] = useState("");
 
   /* Send OTP */
   const sendOTP = () => {
@@ -121,7 +122,7 @@ const Login = ({ setShowLogin }) => {
 
   const addUser = (e) => {
     e.preventDefault();
-    addUserToDB(e.target[0].value);
+    addUserToDB(username);
   };
 
   /* Render Conditions */
@@ -144,6 +145,14 @@ const Login = ({ setShowLogin }) => {
     setOtpInput(true);
   };
 
+  const exit = () => {
+    if (user?.required) {
+      setUser({});
+      return setShowLogin(false);
+    }
+    setShowLogin(false);
+  };
+
   useEffect(() => {
     if (user?.required) {
       setMethods(false);
@@ -163,7 +172,7 @@ const Login = ({ setShowLogin }) => {
         )}
 
         {/* Exit Button */}
-        <p onClick={() => setShowLogin(false)} className={styles.exit}>
+        <p onClick={exit} className={styles.exit}>
           x
         </p>
 
@@ -180,6 +189,8 @@ const Login = ({ setShowLogin }) => {
                 className={styles.username}
                 placeholder="Enter username here"
                 type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value.toLowerCase())}
               />
               <button type="submit" className={styles.submitBtn}>
                 Submit

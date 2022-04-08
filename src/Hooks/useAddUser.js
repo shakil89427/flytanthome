@@ -16,10 +16,10 @@ const useAddUser = () => {
       }
       const current = {
         deviceType: "Website",
-        email: data.email,
+        email: data.email ? data.email : "",
         freeTrials: 3,
-        phoneNumber: data.phoneNumber,
-        profileImageUrl: data.photoURL,
+        phoneNumber: data.phoneNumber ? data.phoneNumber : "",
+        profileImageUrl: "",
         shouldShowInfluencer: false,
         userId: data.uid,
       };

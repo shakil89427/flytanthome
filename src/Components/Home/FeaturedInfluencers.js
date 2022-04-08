@@ -71,7 +71,7 @@ const FeaturedInfluencers = ({ featured }) => {
                 src={item.img + Math.random()}
                 alt=""
               />
-              <div className="px-4 mt-2">
+              <div className="pr-4 mt-2">
                 <div className={styles.nameWrapper}>
                   <p className={styles.name}>{item.name}</p>
                   <p className="text-sm">{item.location}</p>

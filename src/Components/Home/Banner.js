@@ -1,6 +1,6 @@
 import React from "react";
 import { BsSearch } from "react-icons/bs";
-import bannerBg from "../../Assets/Rectangle 1455_ccexpress 1.png";
+import bannerBg from "../../Assets/bannerBg.png";
 
 /* Styles Start */
 const styles = {
