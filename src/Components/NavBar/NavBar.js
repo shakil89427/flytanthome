@@ -40,11 +40,15 @@ const NavBar = () => {
       {user?.userId ? (
         <div className={styles.profile}>
           <p>{user.username}</p>
-          <img
-            className={styles.profileImg}
-            src={user.profileImageUrl ? user.profileImageUrl : defaultUserImage}
-            alt=""
-          />
+          <Link to="/profile">
+            <img
+              className={styles.profileImg}
+              src={
+                user.profileImageUrl ? user.profileImageUrl : defaultUserImage
+              }
+              alt=""
+            />
+          </Link>
 
           <FiLogOut onClick={signOutUser} className={styles.logout} />
         </div>
