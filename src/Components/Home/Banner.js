@@ -13,8 +13,8 @@ const styles = {
   input: "w-full border-0 outline-none text-black",
   btn: "bg-[#262424] px-7 py-3 md:py-0 rounded-md md:rounded-none",
   popularWrapper: "flex md:items-center",
-  popularText: "font-semibold mr-3",
-  popularItems: "flex flex-wrap gap-3",
+  popularText: "font-semibold mr-2",
+  popularItems: "flex flex-wrap gap-2",
   popularItem: "border px-4 py-1 rounded-md font-medium cursor-pointer",
   bg: "w-[45%] hidden lg:block",
 };
@@ -24,7 +24,7 @@ const Banner = () => {
   return (
     <div className={styles.main}>
       <div>
-        <h1 style={{ lineHeight: "75px" }} className={styles.heading}>
+        <h1 style={{ lineHeight: "115%" }} className={styles.heading}>
           Find <span className="font-bold">Influencers & Brands</span> for
           collaboration
         </h1>
