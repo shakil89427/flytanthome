@@ -13,12 +13,12 @@ const styles = {
   topName: "text-2xl font-semibold mt-4",
   country: "text-sm font-medium",
   completeBtn:
-    "border py-3 px-5 rounded-xl shadow-md font-medium border-gray-400 cursor-pointer",
+    "border py-2 px-5 rounded-xl shadow-md font-medium border-gray-400 cursor-pointer",
   topRight: "flex flex-col justify-between items-center",
   score:
     "border w-14 h-14 mx-auto rounded-full flex items-center justify-center border-black mb-3 text-3xl border-gray-400",
   completed:
-    "border-2 w-12 h-12 rounded-full flex items-center justify-center border-black mb-3 text-md font-semibold",
+    "border-2 w-12 h-12 rounded-full flex items-center justify-center border-black text-md font-semibold",
   infoName: "text-xl font-medium mb-2",
   catagories: "flex items-center gap-3 flex-wrap",
   catagory: "bg-[#DDDDDD] text-xs px-5 py-[2px] rounded-3xl",
