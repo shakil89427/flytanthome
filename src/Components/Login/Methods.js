@@ -23,7 +23,7 @@ const styles = {
 };
 /* Styles End */
 
-const Methods = ({ showInput }) => {
+const Methods = ({ setShow }) => {
   const { googleSignIn, facebookSignIn, twitterSignIn, appleSignIn } =
     useLogins();
   return (
@@ -67,7 +67,10 @@ const Methods = ({ showInput }) => {
         <p>or</p>
 
         {/* Phone */}
-        <div onClick={showInput} className={`${styles.loginButton} bg-black`}>
+        <div
+          onClick={() => setShow("sendOTP")}
+          className={`${styles.loginButton} bg-black`}
+        >
           <IoKeypadSharp className="text-xl" />
           <p>Continue with Phone</p>
         </div>
