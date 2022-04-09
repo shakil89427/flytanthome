@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./Profile.css";
 import useStore from "../../Store/useStore";
 import defaultUser from "../../Assets/defaultUserImage.png";
 
 const styles = {
+  /* Left */
   main: "grid grid-cols-1 lg:grid-cols-2 py-14 px-5 md:px-28 gap-10 lg:gap-20",
   left: "flex flex-col gap-10",
   profileTop: "flex justify-between gap-5",
@@ -16,57 +16,35 @@ const styles = {
     "border py-2 w-60 rounded-xl shadow-md font-medium border-gray-400 cursor-pointer text-center",
   topRight: "flex flex-col justify-between items-center",
   score:
-    "border w-14 h-14 mx-auto rounded-full flex items-center justify-center border-black mb-3 text-3xl border-gray-400",
-  completed:
-    "border-2 w-12 h-12 rounded-full flex items-center justify-center border-black text-md font-semibold",
+    "border w-14 h-14 mx-auto rounded-full flex items-center justify-center border-black mb-3 text-2xl border-gray-400",
+  progress:
+    "relative w-[50px] h-[50px] rounded-full flex items-center justify-center progress before:content-[''] before:absolute before:w-[42px] before:h-[42px] before:bg-white before:rounded-full",
   infoName: "text-xl font-medium mb-2",
   catagories: "flex items-center gap-3 flex-wrap",
   catagory: "bg-[#DDDDDD] text-xs px-5 py-[2px] rounded-3xl",
+  /* Right */
+  title: "text-2xl font-semibold mt-3",
+  socials: "flex items-center justify-between mt-5 font-medium",
+  selectedSocial:
+    "relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[2px] before:rounded-full",
 };
 
 const Profile = () => {
   const { user } = useStore();
+  const [progress, setProgress] = useState(0);
   const socials = ["Instagram", " Youtube", "Twitter", " Linkedin", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
-  const [progress, setProgress] = useState();
-  const [status, setStatus] = useState("");
 
   useEffect(() => {
-    if (!user?.userId) return;
-
     let initialProgress = 8;
-
-    if (!user?.profileImageUrl) {
-      initialProgress--;
-    }
-
-    if (!user?.name) {
-      initialProgress--;
-    }
-
-    if (user?.categories?.length === 0) {
-      initialProgress--;
-    }
-
-    if (!user?.bio) {
-      initialProgress--;
-    }
-
-    if (!user?.gender) {
-      initialProgress--;
-    }
-
-    if (!user?.dateOfBirth) {
-      initialProgress--;
-    }
-    if (!user?.email) {
-      initialProgress--;
-    }
-    if (initialProgress === 8) {
-      setStatus("Edit Profile");
-    } else {
-      setStatus("Complete your Profile");
-    }
+    if (!user?.userId) return setProgress(0);
+    if (!user?.profileImageUrl) initialProgress--;
+    if (!user?.name) initialProgress--;
+    if (!user?.categories?.length) initialProgress--;
+    if (!user?.bio) initialProgress--;
+    if (!user?.gender) initialProgress--;
+    if (!user?.dateOfBirth) initialProgress--;
+    if (!user?.email) initialProgress--;
     setProgress(Math.round((initialProgress / 8) * 100));
   }, [user]);
 
@@ -94,7 +72,9 @@ const Profile = () => {
                 </p>
               </span>
             </div>
-            <p className={styles.completeBtn}>{status}</p>
+            <p className={styles.completeBtn}>
+              {progress === 100 ? "Edit Profile" : "Complete your Profile"}
+            </p>
           </div>
           <div className={styles.topRight}>
             <span>
@@ -103,43 +83,62 @@ const Profile = () => {
               </p>
               <p className="font-semibold text-center">Social Score</p>
             </span>
-            <p className={styles.completed}>{progress}%</p>
+            <div
+              style={{
+                backgroundImage: `conic-gradient(black ${
+                  progress * 3.6
+                }deg,#e0e0eb ${progress * 3.6}deg)`,
+              }}
+              className={styles.progress}
+            >
+              <span className="relative text-sm tracking-tighter font-bold">
+                {progress}%
+              </span>
+            </div>
           </div>
         </div>
-        <p>{user?.bio}</p>
-        <div>
-          <p className={styles.infoName}>Name</p>
-          <p>{user?.name}</p>
-        </div>
-        <div>
-          <p className={styles.infoName}>Email</p>
-          <p>{user?.email}</p>
-        </div>
-        <div>
-          <p className={styles.infoName}>DOB</p>
-          {user?.dateOfBirth}
-        </div>
-        <div>
-          <p className={styles.infoName}>Influence Catagories</p>
-          <div className={styles.catagories}>
-            {user?.categories?.map((catagory) => (
-              <p className={styles.catagory} key={catagory}>
-                {catagory}
-              </p>
-            ))}
+        {user?.bio && <p>{user.bio}</p>}
+        {user?.name && (
+          <div>
+            <p className={styles.infoName}>Name</p>
+            <p>{user.name}</p>
           </div>
-        </div>
+        )}
+        {user?.email && (
+          <div>
+            <p className={styles.infoName}>Email</p>
+            <p>{user.email}</p>
+          </div>
+        )}
+        {user?.dateOfBirth && (
+          <div>
+            <p className={styles.infoName}>DOB</p>
+            {user.dateOfBirth}
+          </div>
+        )}
+        {user?.categories?.length && (
+          <div>
+            <p className={styles.infoName}>Influence Catagories</p>
+            <div className={styles.catagories}>
+              {user.categories.map((catagory) => (
+                <p className={styles.catagory} key={catagory}>
+                  {catagory}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Right Part */}
       <div>
-        <p className="text-2xl font-semibold mt-3">Social Accounts</p>
-        <div className="flex items-center justify-between mt-5 font-medium">
+        <p className={styles.title}>Social Accounts</p>
+        <div className={styles.socials}>
           {socials.map((social) => (
             <p
               onClick={() => social !== selected && setSelected(social)}
               className={
-                selected === social ? "selected-social" : "cursor-pointer"
+                selected === social ? styles.selectedSocial : "cursor-pointer"
               }
               key={social}
             >
