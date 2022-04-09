@@ -22,9 +22,8 @@ const styles = {
 /* Styles End */
 
 const NavBar = () => {
-  const { user } = useStore();
+  const { user, showLogin, setShowLogin } = useStore();
   const { signOutUser } = useLogins();
-  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     if (user?.userId) {
@@ -62,7 +61,7 @@ const NavBar = () => {
           </button>
         </div>
       )}
-      {showLogin && <Login setShowLogin={setShowLogin} />}
+      {showLogin && <Login />}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 
-const useAuthCheck = (setUser) => {
+const useAuthCheck = (setUser, setUserLoading) => {
   const auth = getAuth();
   const database = getFirestore();
 
@@ -11,8 +11,12 @@ const useAuthCheck = (setUser) => {
     try {
       const userData = await getDoc(userRef);
       const userFinalData = userData.data();
-      if (userFinalData?.userId) setUser(userFinalData);
+      if (userFinalData?.userId) {
+        setUser(userFinalData);
+        setUserLoading(false);
+      }
     } catch (err) {
+      setUserLoading(false);
       alert(err);
     }
   };
@@ -23,6 +27,7 @@ const useAuthCheck = (setUser) => {
         checkOnDB(currentUser);
       } else {
         setUser({});
+        setUserLoading(false);
       }
     });
   }, [auth]);

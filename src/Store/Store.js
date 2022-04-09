@@ -9,10 +9,11 @@ initializeApp(firebaseConfig);
 /* Main Store */
 const Store = () => {
   const [user, setUser] = useState({});
-  const [userLoading, setUserLoading] = useState(false);
+  const [userLoading, setUserLoading] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
 
   /* Activities */
-  useAuthCheck(setUser);
+  useAuthCheck(setUser, setUserLoading);
 
   /* Returned Items */
   return {
@@ -20,6 +21,8 @@ const Store = () => {
     setUser,
     userLoading,
     setUserLoading,
+    showLogin,
+    setShowLogin,
   };
 };
 

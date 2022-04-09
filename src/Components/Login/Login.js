@@ -7,8 +7,8 @@ import VerifyOTP from "./VerifyOTP";
 import UserName from "./UserName";
 import TermsLink from "./TermsLink";
 
-const Login = ({ setShowLogin }) => {
-  const { user, setUser, userLoading } = useStore();
+const Login = () => {
+  const { user, setUser, userLoading, setShowLogin } = useStore();
   const [show, setShow] = useState("methods");
 
   const back = () => {
@@ -60,7 +60,7 @@ const Login = ({ setShowLogin }) => {
         {user?.required && <UserName back={back} />}
 
         {/* Terms and Conditions Linkup */}
-        {!user.required && <TermsLink setShowLogin={setShowLogin} />}
+        {!user.required && <TermsLink />}
       </div>
     </div>
   );
