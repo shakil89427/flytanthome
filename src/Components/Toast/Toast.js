@@ -1,0 +1,42 @@
+import React from "react";
+import "./Toast.css";
+import useStore from "../../Store/useStore";
+import { GiTireIronCross } from "react-icons/gi";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { CgDanger } from "react-icons/cg";
+
+/* Styles Start */
+const styles = {
+  main: "fixed top-0 left-[50%] translate-x-[-50%]",
+  toast: "toastMessage w-[350px] rounded-md py-1 px-3 text-white text-xs",
+  head: "flex items-center justify-between mb-[3px]",
+  status: "flex items-center gap-1 text-lg font-medium",
+};
+/* Styles End */
+
+const Toast = () => {
+  const { notify, setNotify } = useStore();
+  const message = "Something Went Wrong.Please Try Again";
+  return (
+    <div className={styles.main}>
+      <div
+        style={{ backgroundColor: notify?.status ? "green" : "red" }}
+        className={styles.toast}
+      >
+        <div className={styles.head}>
+          <span className={styles.status}>
+            {notify?.status ? <BsFillCheckCircleFill /> : <CgDanger />}
+            {notify?.status ? "Success" : "Error"}
+          </span>
+          <GiTireIronCross
+            onClick={() => setNotify(false)}
+            className="cursor-pointer"
+          />
+        </div>
+        <p className="mb-1">{message}</p>
+      </div>
+    </div>
+  );
+};
+
+export default Toast;

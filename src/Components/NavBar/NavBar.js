@@ -6,6 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import useStore from "../../Store/useStore";
 import useLogins from "../../Hooks/useLogins";
 import { Link } from "react-router-dom";
+import Toast from "../Toast/Toast";
 
 /* Styles Start */
 const styles = {
@@ -22,7 +23,7 @@ const styles = {
 /* Styles End */
 
 const NavBar = () => {
-  const { user, showLogin, setShowLogin } = useStore();
+  const { user, showLogin, setShowLogin, notify } = useStore();
   const { signOutUser } = useLogins();
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const NavBar = () => {
         </div>
       )}
       {showLogin && <Login />}
+      {notify && <Toast />}
     </div>
   );
 };
