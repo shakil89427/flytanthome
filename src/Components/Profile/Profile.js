@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import useStore from "../../Store/useStore";
 import defaultUser from "../../Assets/defaultUserImage.png";
@@ -6,14 +6,14 @@ import defaultUser from "../../Assets/defaultUserImage.png";
 const styles = {
   main: "grid grid-cols-1 lg:grid-cols-2 py-14 px-5 md:px-28 gap-10 lg:gap-20",
   left: "flex flex-col gap-10",
-  profileTop: "flex justify-between pr-2",
+  profileTop: "flex justify-between gap-5",
   profileLeft: "flex flex-col gap-10",
-  profileWrapper: "flex gap-5",
-  profileImg: "w-28 h-28 rounded-full",
-  topName: "text-2xl font-semibold mt-4",
+  profileWrapper: "flex gap-3",
+  profileImage: "w-32 h-32 rounded-full bg-center bg-no-repeat bg-cover",
+  topName: "text-xl md:text-2xl font-semibold mt-4",
   country: "text-sm font-medium",
   completeBtn:
-    "border py-2 px-5 rounded-xl shadow-md font-medium border-gray-400 cursor-pointer",
+    "border py-2 w-60 rounded-xl shadow-md font-medium border-gray-400 cursor-pointer text-center",
   topRight: "flex flex-col justify-between items-center",
   score:
     "border w-14 h-14 mx-auto rounded-full flex items-center justify-center border-black mb-3 text-3xl border-gray-400",
@@ -28,6 +28,47 @@ const Profile = () => {
   const { user } = useStore();
   const socials = ["Instagram", " Youtube", "Twitter", " Linkedin", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
+  const [progress, setProgress] = useState();
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    if (!user?.userId) return;
+
+    let initialProgress = 8;
+
+    if (!user?.profileImageUrl) {
+      initialProgress--;
+    }
+
+    if (!user?.name) {
+      initialProgress--;
+    }
+
+    if (user?.categories?.length === 0) {
+      initialProgress--;
+    }
+
+    if (!user?.bio) {
+      initialProgress--;
+    }
+
+    if (!user?.gender) {
+      initialProgress--;
+    }
+
+    if (!user?.dateOfBirth) {
+      initialProgress--;
+    }
+    if (!user?.email) {
+      initialProgress--;
+    }
+    if (initialProgress === 8) {
+      setStatus("Edit Profile");
+    } else {
+      setStatus("Complete your Profile");
+    }
+    setProgress(Math.round((initialProgress / 8) * 100));
+  }, [user]);
 
   return (
     <div className={styles.main}>
@@ -36,32 +77,39 @@ const Profile = () => {
         <div className={styles.profileTop}>
           <div className={styles.profileLeft}>
             <div className={styles.profileWrapper}>
-              <img
-                className={styles.profileImg}
-                src={
-                  user?.profileImageUrl ? user?.profileImageUrl : defaultUser
-                }
-                alt=""
-              />
+              <div
+                style={{
+                  backgroundImage: `url(${
+                    user?.profileImageUrl ? user?.profileImageUrl : defaultUser
+                  })`,
+                }}
+                className={styles.profileImage}
+              ></div>
               <span>
                 <p className={styles.topName}>{user?.username}</p>
-                <p className={styles.country}>{user?.countryCode}</p>
+                <p className={styles.country}>
+                  {user?.countryCode}
+                  {user?.countryCode && user?.gender && ", "}
+                  {user?.gender?.charAt(0)}
+                </p>
               </span>
             </div>
-            <p className={styles.completeBtn}>Complete your profile</p>
+            <p className={styles.completeBtn}>{status}</p>
           </div>
           <div className={styles.topRight}>
             <span>
-              <p className={styles.score}>{user?.socialScore}</p>
-              <p className="font-semibold">Social Score</p>
+              <p className={styles.score}>
+                {user?.socialScore ? user?.socialScore : "0"}
+              </p>
+              <p className="font-semibold text-center">Social Score</p>
             </span>
-            <p className={styles.completed}>{user?.socialScore}%</p>
+            <p className={styles.completed}>{progress}%</p>
           </div>
         </div>
         <p>{user?.bio}</p>
         <div>
           <p className={styles.infoName}>Name</p>
-          <p>{user?.username}</p>
+          <p>{user?.name}</p>
         </div>
         <div>
           <p className={styles.infoName}>Email</p>
