@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useStore from "../../Store/useStore";
 import defaultUser from "../../Assets/defaultUserImage.png";
+import { AiOutlineInstagram } from "react-icons/ai";
 
 const styles = {
   /* Left */
@@ -146,6 +147,15 @@ const Profile = () => {
             </p>
           ))}
         </div>
+        {selected === "Instagram" && (
+          <div className="flex flex-col items-center gap-5 mt-52 text-gray-500 text-sm font-medium">
+            <p>No account linked</p>
+            <div className="bg-black text-white text-3xl p-4 rounded-full cursor-pointer">
+              <AiOutlineInstagram />
+            </div>
+            <p>Click here to link your Instagram</p>
+          </div>
+        )}
       </div>
     </div>
   );
