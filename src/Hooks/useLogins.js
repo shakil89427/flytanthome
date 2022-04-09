@@ -13,7 +13,7 @@ import useAddUser from "./useAddUser";
 const useLogins = () => {
   const auth = getAuth();
   const { addTempUser } = useAddUser();
-  const { userLoading, setUserLoading } = useStore();
+  const { userLoading, setUserLoading, setNotify } = useStore();
 
   /* Common SignIn */
   const signIn = async (provider) => {
@@ -26,7 +26,7 @@ const useLogins = () => {
       }
     } catch (err) {
       setUserLoading(false);
-      alert(err);
+      setNotify({ status: false, message: err.message });
     }
   };
 

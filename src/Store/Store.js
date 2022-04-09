@@ -11,7 +11,7 @@ const Store = () => {
   const [user, setUser] = useState({});
   const [userLoading, setUserLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
-  const [notify, setNotify] = useState(true);
+  const [notify, setNotify] = useState(false);
 
   /* Activities */
   useAuthCheck(setUser, setUserLoading);

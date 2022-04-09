@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Login from "../Login/Login";
 import logo from "../../Assets/websiteLogo.png";
 import defaultUserImage from "../../Assets//defaultUserImage.png";
@@ -25,12 +25,6 @@ const styles = {
 const NavBar = () => {
   const { user, showLogin, setShowLogin, notify } = useStore();
   const { signOutUser } = useLogins();
-
-  useEffect(() => {
-    if (user?.userId) {
-      setShowLogin(false);
-    }
-  }, [user]);
 
   return (
     <div className={styles.main}>

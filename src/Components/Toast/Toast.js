@@ -7,7 +7,7 @@ import { CgDanger } from "react-icons/cg";
 
 /* Styles Start */
 const styles = {
-  main: "fixed top-0 left-[50%] translate-x-[-50%]",
+  main: "fixed top-0 left-[50%] translate-x-[-50%] z-50",
   toast: "toastMessage w-[350px] rounded-md py-1 px-3 text-white text-xs",
   head: "flex items-center justify-between mb-[3px]",
   status: "flex items-center gap-1 text-lg font-medium",
@@ -16,7 +16,8 @@ const styles = {
 
 const Toast = () => {
   const { notify, setNotify } = useStore();
-  const message = "Something Went Wrong.Please Try Again";
+  setTimeout(() => setNotify(false), 3000);
+
   return (
     <div className={styles.main}>
       <div
@@ -33,7 +34,7 @@ const Toast = () => {
             className="cursor-pointer"
           />
         </div>
-        <p className="mb-1">{message}</p>
+        <p className="mb-1">{notify?.message}</p>
       </div>
     </div>
   );
