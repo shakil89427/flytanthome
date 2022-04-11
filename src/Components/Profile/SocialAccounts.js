@@ -16,6 +16,14 @@ const SocialAccounts = () => {
   const socials = ["Instagram", " Youtube", "Twitter", " Linkedin", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
 
+  const openPopup = () => {
+    window.open(
+      `https://www.instagram.com/oauth/authorize?client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&scope=user_profile,user_media&response_type=code`,
+      "",
+      "width=400,height=600,left=600,top=80"
+    );
+  };
+
   return (
     <div>
       <p className={styles.title}>Social Accounts</p>
@@ -35,12 +43,12 @@ const SocialAccounts = () => {
       {selected === "Instagram" && (
         <div className="flex flex-col items-center gap-5 mt-52 text-gray-500 text-sm font-medium">
           <p>No account linked</p>
-          <a
-            href="https://www.instagram.com/oauth/authorize?client_id=191312392530647&redirect_uri=https://flytant.com/&scope=user_profile,user_media&response_type=code"
-            className="bg-black text-white text-3xl p-4 rounded-full"
+          <span
+            onClick={openPopup}
+            className="bg-black text-white text-3xl p-4 rounded-full cursor-pointer"
           >
             <AiOutlineInstagram />
-          </a>
+          </span>
           <p>Click here to link your Instagram</p>
         </div>
       )}
