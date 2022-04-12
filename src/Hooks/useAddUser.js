@@ -3,7 +3,7 @@ import useStore from "../Store/useStore";
 
 const useAddUser = () => {
   const database = getFirestore();
-  const { user, setUser, setUserLoading } = useStore();
+  const { user, setUser, setUserLoading, setNotify } = useStore();
 
   const addTempUser = async (data) => {
     const userRef = doc(database, "users", data.uid);
@@ -27,20 +27,26 @@ const useAddUser = () => {
       setUserLoading(false);
     } catch (err) {
       setUserLoading(false);
-      alert(err);
+      setNotify({ status: false, message: err?.message });
     }
   };
 
   const addUserToDB = (username) => {
     const regex = /^[0-9a-zA-Z]+$/;
     if (!username.match(regex)) {
-      return alert("Type alphanumeric only");
+      return setNotify({ status: false, message: "Type alphanumeric only" });
     }
     if (username.length < 3) {
-      return alert("username cannot be less than 3 characters");
+      return setNotify({
+        status: false,
+        message: "username cannot be less than 3 characters",
+      });
     }
     if (username.length > 15) {
-      return alert("username cannot be more than 15 characters");
+      return setNotify({
+        status: false,
+        message: "username cannot be more than 15 characters",
+      });
     }
     setUserLoading(true);
     const newData = { ...user.tempData, username };
@@ -52,7 +58,7 @@ const useAddUser = () => {
       })
       .catch((err) => {
         setUserLoading(false);
-        alert(err);
+        setNotify({ status: false, message: err?.message });
       });
   };
   return { addTempUser, addUserToDB };

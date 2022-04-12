@@ -8,9 +8,11 @@ const PrivateRoute = ({ children }) => {
 
   if (userLoading) return <div className="spinner mx-auto my-24" />;
 
-  if (!user?.userId) return navigate("/");
-
-  return children;
+  if (!user?.userId) {
+    navigate("/");
+  } else {
+    return children;
+  }
 };
 
 export default PrivateRoute;

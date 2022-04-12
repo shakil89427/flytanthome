@@ -14,7 +14,7 @@ const Store = () => {
   const [notify, setNotify] = useState(false);
 
   /* Activities */
-  useAuthCheck(setUser, setUserLoading);
+  useAuthCheck(setUser, setUserLoading, setNotify);
 
   /* Returned Items */
   return {

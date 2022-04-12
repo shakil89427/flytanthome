@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import useStore from "../Store/useStore";
 
 const useInstaConnect = () => {
+  const { setNotify } = useStore();
   const location = useLocation();
   const instaClientId = process.env.REACT_APP_INSTAGRAM_CLIENT_ID;
   const instaClientSecret = process.env.REACT_APP_INSTAGRAM_CLIENT_SECRET;
@@ -17,7 +19,7 @@ const useInstaConnect = () => {
         console.log(response.data);
       }
     } catch (err) {
-      console.log(err);
+      setNotify({ status: false, message: err?.message });
     }
   };
 
@@ -35,7 +37,7 @@ const useInstaConnect = () => {
         getuserInfo(access_token);
       }
     } catch (err) {
-      console.log(err);
+      setNotify({ status: false, message: err?.message });
     }
   };
   useEffect(() => {

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 
-const useAuthCheck = (setUser, setUserLoading) => {
+const useAuthCheck = (setUser, setUserLoading, setNotify) => {
   const auth = getAuth();
   const database = getFirestore();
 
@@ -17,7 +17,7 @@ const useAuthCheck = (setUser, setUserLoading) => {
       }
     } catch (err) {
       setUserLoading(false);
-      alert(err);
+      setNotify({ status: false, message: err?.message });
     }
   };
 

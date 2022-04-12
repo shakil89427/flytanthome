@@ -16,7 +16,7 @@ const styles = {
 
 const Toast = () => {
   const { notify, setNotify } = useStore();
-  setTimeout(() => setNotify(false), 3000);
+  setTimeout(() => setNotify(false), 4000);
 
   return (
     <div className={styles.main}>
