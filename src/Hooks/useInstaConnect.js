@@ -1,6 +1,9 @@
 import axios from "axios";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const useInstaConnect = () => {
+  const location = useLocation();
   const instaClientId = process.env.REACT_APP_INSTAGRAM_CLIENT_ID;
   const instaClientSecret = process.env.REACT_APP_INSTAGRAM_CLIENT_SECRET;
   const instaRedirectUri = process.env.REACT_APP_INSTAGRAM_REDIRECT_URI;
@@ -35,7 +38,10 @@ const useInstaConnect = () => {
       console.log(err);
     }
   };
-  return getToken;
+  useEffect(() => {
+    const code = location?.search?.split("code=")[1];
+    if (code) getToken(code);
+  }, [location]);
 };
 
 export default useInstaConnect;

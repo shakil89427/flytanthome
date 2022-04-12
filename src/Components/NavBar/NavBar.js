@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Login from "../Login/Login";
 import logo from "../../Assets/websiteLogo.png";
 import defaultUserImage from "../../Assets//defaultUserImage.png";
 import { FiLogOut } from "react-icons/fi";
 import useStore from "../../Store/useStore";
 import useLogins from "../../Hooks/useLogins";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Toast from "../Toast/Toast";
 import useInstaConnect from "../../Hooks/useInstaConnect";
 
@@ -24,15 +24,16 @@ const styles = {
 /* Styles End */
 
 const NavBar = () => {
-  const getToken = useInstaConnect();
+  useInstaConnect();
   const { user, showLogin, setShowLogin, notify } = useStore();
   const { signOutUser } = useLogins();
-  const location = useLocation();
 
-  useEffect(() => {
-    const code = location?.search?.split("code=")[1];
-    if (code) getToken(code);
-  }, [location]);
+  // useEffect(() => {
+  //   axios
+  //     .get("https://www.instagram.com/shakilahmed89427/channel/?__a=1")
+  //     .then((res) => console.log(res))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div className={styles.main}>
