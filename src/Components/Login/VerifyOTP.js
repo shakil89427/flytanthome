@@ -6,7 +6,7 @@ import useAddUser from "../../Hooks/useAddUser";
 
 const VerifyOTP = ({ setShow }) => {
   const { addTempUser } = useAddUser();
-  const { setUserLoading } = useStore();
+  const { setUserLoading, setNotify } = useStore();
   const [otpArr, setOtpArr] = useState(new Array(6).fill(""));
 
   /* Get OTP from Input */
@@ -37,7 +37,7 @@ const VerifyOTP = ({ setShow }) => {
         .then((response) => addTempUser(response.user))
         .catch((error) => {
           setUserLoading(false);
-          alert(error);
+          setNotify({ status: false, message: error.message });
         });
     }
   };

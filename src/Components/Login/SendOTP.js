@@ -12,17 +12,17 @@ import {
 
 const SendOTP = ({ back, setShow }) => {
   const auth = getAuth();
-  const { userLoading, setUserLoading } = useStore();
+  const { userLoading, setUserLoading, setNotify } = useStore();
   const [number, setNumber] = useState();
 
   const sendOTP = (e) => {
     e.preventDefault();
     if (userLoading) return;
     if (!number) {
-      return alert("Enter a valid number");
+      return setNotify({ status: false, message: "Enter a valid number" });
     }
     if (!isValidPhoneNumber(number)) {
-      return alert("Invalid number");
+      return setNotify({ status: false, message: "Invalid number" });
     }
     setUserLoading(true);
     /* Generate Captcha */
@@ -43,7 +43,7 @@ const SendOTP = ({ back, setShow }) => {
       })
       .catch((error) => {
         setUserLoading(false);
-        alert(error);
+        setNotify({ status: false, message: error.message });
       });
   };
 
