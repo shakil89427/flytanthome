@@ -14,7 +14,7 @@ const styles = {
   heading: "font-semibold text-xl md:text-3xl",
   applied:
     "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-lg rounded-bl-lg",
-  image: "w-full h-72 rounded-md",
+  image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
   typeWrapper: "flex items-center justify-between",
   type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
   title: "font-semibold my-1",
@@ -70,9 +70,11 @@ const Sponsorships = ({ sponsorships, type }) => {
             <SwiperSlide onClick={() => console.log(index)} key={index}>
               <div>
                 <p className={styles.applied}>{sponsorship.applied} applied</p>
-                <img
+                <div
                   className={styles.image}
-                  src={sponsorship.img + Math.random()}
+                  style={{
+                    backgroundImage: `url(${sponsorship.img + Math.random()})`,
+                  }}
                   alt=""
                 />
 

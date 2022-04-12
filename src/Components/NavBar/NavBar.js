@@ -28,13 +28,6 @@ const NavBar = () => {
   const { user, showLogin, setShowLogin, notify } = useStore();
   const { signOutUser } = useLogins();
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://www.instagram.com/shakilahmed89427/channel/?__a=1")
-  //     .then((res) => console.log(res))
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   return (
     <div className={styles.main}>
       <Link to="/">

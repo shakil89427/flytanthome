@@ -14,7 +14,7 @@ import { MdNavigateNext } from "react-icons/md";
 /* Styles Start */
 const styles = {
   heading: "font-semibold text-xl md:text-3xl",
-  image: "w-full h-72 rounded-md",
+  image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
   nameWrapper: "flex items-center justify-between",
   name: "text-lg md:text-xl text-black font-semibold",
   icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
@@ -66,9 +66,9 @@ const FeaturedInfluencers = ({ featured }) => {
         >
           {featured.map((item, index) => (
             <SwiperSlide onClick={() => console.log(index)} key={index}>
-              <img
+              <div
                 className={styles.image}
-                src={item.img + Math.random()}
+                style={{ backgroundImage: `url(${item.img + Math.random()})` }}
                 alt=""
               />
               <div className="pr-4 mt-2">

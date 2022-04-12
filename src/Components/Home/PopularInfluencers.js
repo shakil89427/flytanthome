@@ -7,10 +7,10 @@ import "swiper/css/autoplay";
 /* Styles Start */
 const styles = {
   heading: "font-semibold text-xl md:text-3xl mx-5 mb-10",
-  img: "w-full h-[450px] rounded-md",
+  img: "h-[450px] rounded-md bg-cover bg-center bg-no-repeat",
   tag: "absolute top-[80%] left-8 bg-green-400 px-5 py-1 rounded-xl text-sm text-white",
   profileWrapper: "flex items-center gap-2 mt-3",
-  profileImg: "w-10 h-10 rounded-full",
+  profileImg: "w-10 h-10 rounded-full bg-cover bg-center bg-no-repeat",
 };
 /* Styles End */
 
@@ -48,16 +48,20 @@ const PopularInfluencers = () => {
         {arr.map((item, index) => (
           <SwiperSlide key={index} onClick={() => console.log(index)}>
             <div className="relative">
-              <img
+              <div
                 className={styles.img}
-                src={`https://picsum.photos/200/300?random=${Math.random()}`}
+                style={{
+                  backgroundImage: `url(https://picsum.photos/200/300?random=${Math.random()})`,
+                }}
                 alt=""
               />
               <p className={styles.tag}>Food</p>
               <div className={styles.profileWrapper}>
-                <img
+                <div
                   className={styles.profileImg}
-                  src={`https://picsum.photos/200/300?random=${Math.random()}`}
+                  style={{
+                    backgroundImage: `url(https://picsum.photos/200/300?random=${Math.random()})`,
+                  }}
                   alt=""
                 />
                 <p className="font-light text-sm">
