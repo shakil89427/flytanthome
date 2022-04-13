@@ -10,13 +10,24 @@ const useInstaConnect = () => {
   const instaClientSecret = process.env.REACT_APP_INSTAGRAM_CLIENT_SECRET;
   const instaRedirectUri = process.env.REACT_APP_INSTAGRAM_REDIRECT_URI;
 
+  const getFullData = async (username) => {
+    try {
+      const response = await axios.get(
+        `https://www.instagram.com/${username}/channel/?__a=1`
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const getuserInfo = async (access_token) => {
     try {
       const response = await axios.get(
         `https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`
       );
       if (response?.data) {
-        console.log(response.data);
+        getFullData(response.data.username);
       }
     } catch (err) {
       setNotify({ status: false, message: err?.message });

@@ -11,15 +11,12 @@ import useInstaConnect from "../../Hooks/useInstaConnect";
 
 /* Styles Start */
 const styles = {
-  main: "bg-[#FF9826] p-5 md:px-10 lg:px-14 flex flex-col gap-3 md:flex-row items-center justify-between",
-  profile: "flex items-center gap-3 text-white",
-  profileImg: "w-12 h-12 rounded-full mr-2",
-  logout: "cursor-pointer text-xl",
-  logins: "flex items-center gap-4",
+  main: "bg-[#FF9826] py-5 px-3 md:px-10 lg:px-14 flex items-center justify-between",
+  logo: "w-[60%] md:w-full",
+  profile: "flex items-center text-white",
+  profileImg: "w-8 h-8 md:w-10 md:h-10 rounded-full mr-2",
   login:
-    "border-2 w-28 px-5 py-1 font-medium text-lg text-white border-white rounded-md",
-  signup:
-    "border-2 w-28 px-5 py-1 font-medium text-lg bg-white border-white text-[#FF9826] rounded-md",
+    "border-2 px-5 md:px-10 py-1  text-sm md:text-lg text-white border-white rounded-md",
 };
 /* Styles End */
 
@@ -31,11 +28,10 @@ const NavBar = () => {
   return (
     <div className={styles.main}>
       <Link to="/">
-        <img src={logo} alt="" />
+        <img className={styles.logo} src={logo} alt="" />
       </Link>
       {user?.userId ? (
         <div className={styles.profile}>
-          <p>{user.username}</p>
           <Link to="/profile">
             <img
               className={styles.profileImg}
@@ -46,17 +42,12 @@ const NavBar = () => {
             />
           </Link>
 
-          <FiLogOut onClick={signOutUser} className={styles.logout} />
+          <FiLogOut onClick={signOutUser} className="cursor-pointer" />
         </div>
       ) : (
-        <div className={styles.logins}>
-          <button onClick={() => setShowLogin(true)} className={styles.login}>
-            Login
-          </button>
-          <button onClick={() => setShowLogin(true)} className={styles.signup}>
-            Signup
-          </button>
-        </div>
+        <button onClick={() => setShowLogin(true)} className={styles.login}>
+          Login
+        </button>
       )}
       {showLogin && <Login />}
       {notify && <Toast />}
