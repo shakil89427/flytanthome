@@ -18,13 +18,13 @@ const PopularInfluencers = () => {
   const arr = new Array(10).fill(Math.random()); //Temporary array for run loop
 
   return (
-    <div className="mb-10">
+    <div className="mb-24">
       <h1 className={styles.heading}>Popular Influencers</h1>
       <Swiper
         modules={[Autoplay]}
         loop
         autoplay
-        speed={800}
+        speed={500}
         slidesPerView={1.5}
         initialSlide={1}
         spaceBetween={40}

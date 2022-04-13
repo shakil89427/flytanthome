@@ -11,22 +11,25 @@ import useInstaConnect from "../../Hooks/useInstaConnect";
 
 /* Styles Start */
 const styles = {
-  main: "bg-[#FF9826] py-5 px-3 md:px-10 lg:px-14 flex items-center justify-between",
+  main: "py-5 px-3 md:px-10 lg:px-14 flex items-center justify-between",
   logo: "w-[60%] md:w-full",
   profile: "flex items-center text-white",
   profileImg: "w-8 h-8 md:w-10 md:h-10 rounded-full mr-2",
   login:
-    "border-2 px-5 md:px-10 py-1  text-sm md:text-lg text-white border-white rounded-md",
+    "border-2 px-5 md:px-10 py-1  text-sm md:text-lg text-white border-white rounded-md tracking-wider",
 };
 /* Styles End */
 
-const NavBar = () => {
+const NavBar = ({ color }) => {
   useInstaConnect();
   const { user, showLogin, setShowLogin, notify } = useStore();
   const { signOutUser } = useLogins();
 
   return (
-    <div className={styles.main}>
+    <div
+      style={{ backgroundColor: color ? color : "black" }}
+      className={styles.main}
+    >
       <Link to="/">
         <img className={styles.logo} src={logo} alt="" />
       </Link>

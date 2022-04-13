@@ -16,7 +16,7 @@ const styles = {
   wrapper:
     "grid grid-cols-1 lg:grid-cols-3 gap-y-10 border-b border-white pb-10",
   info: "flex flex-col items-center lg:items-start",
-  logo: "w-48",
+  logo: "w-60",
   infoText: "my-4",
   iconMain: "flex flex-col md:flex-row gap-y-5 gap-x-2",
   iconWrapper: "flex items-center gap-2",
@@ -49,8 +49,10 @@ const Footer = () => {
       <div className={styles.wrapper}>
         {/* Logo Part */}
         <div className={styles.info}>
-          <img className={styles.logo} src={logo} alt="" />
-          <p className={styles.infoText}>Connecting Brands & Influencers</p>
+          <span>
+            <img className={styles.logo} src={logo} alt="" />
+            <p className={styles.infoText}>Connecting Brands & Influencers</p>
+          </span>
           {/* Icons Part */}
           <div className={styles.iconMain}>
             {icons.map((arr) => (
