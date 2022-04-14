@@ -21,21 +21,25 @@ const Logout = ({ setShowLogout }) => {
         >
           x
         </p>
-        <h1 className="text-2xl font-semibold">
+        <h1 className="text-3xl font-semibold">
           You are attempting to logout from Flytant
         </h1>
-        <h5 className="text-lg font-medium my-3">Are you Sure?</h5>
-        <p>You're logged in as {user?.username}</p>
-        <span className="flex items-center justify-center mt-5 gap-3">
+        <h5 className="text-xl font-medium my-3 text-gray-600">
+          Are you Sure?
+        </h5>
+        <p className="text-gray-500 text-md">
+          You're logged in as {user?.username}
+        </p>
+        <span className="flex items-center justify-center mt-7 gap-3">
           <button
             onClick={() => setShowLogout(false)}
-            className="border-2 w-32 p-1 rounded-lg bg-black text-white border-black font-semibold"
+            className="border-2 w-32 p-2 rounded-lg bg-black text-white border-black font-semibold"
           >
             No I don't
           </button>
           <button
             onClick={signOutUser}
-            className="border-2 w-32 p-1 rounded-lg border-black font-semibold"
+            className="border-2 w-32 p-2 rounded-lg border-black font-semibold"
           >
             LOG OUT
           </button>
