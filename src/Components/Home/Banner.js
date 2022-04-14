@@ -5,7 +5,7 @@ import { BsSearch } from "react-icons/bs";
 
 /* Styles Start */
 const styles = {
-  main: "flex items-center text-white lg:h-[75vh] relative px-6 md:px-14 lg:px-24",
+  main: "flex items-center text-white lg:min-h-[75vh] relative px-6 md:px-14 lg:px-24",
   bgImage:
     "absolute inset-0 mr-10 bg-no-repeat bg-contain bg-right-bottom hidden lg:block z-10 bgImage",
   heading: "text-5xl lg:text-6xl font-semibold",
