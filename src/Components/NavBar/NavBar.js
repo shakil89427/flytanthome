@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Login from "../Login/Login";
 import logo from "../../Assets/websiteLogo.png";
 import defaultUserImage from "../../Assets//defaultUserImage.png";
 import { FiLogOut } from "react-icons/fi";
 import useStore from "../../Store/useStore";
-import useLogins from "../../Hooks/useLogins";
 import { Link } from "react-router-dom";
 import Toast from "../Toast/Toast";
 import useInstaConnect from "../../Hooks/useInstaConnect";
+import Logout from "../Logout/Logout";
 
 /* Styles Start */
 const styles = {
@@ -23,8 +23,7 @@ const styles = {
 const NavBar = ({ color }) => {
   useInstaConnect();
   const { user, showLogin, setShowLogin, notify } = useStore();
-  const { signOutUser } = useLogins();
-
+  const [showLogout, setShowLogout] = useState(false);
   return (
     <div
       style={{ backgroundColor: color ? color : "black" }}
@@ -45,7 +44,10 @@ const NavBar = ({ color }) => {
             />
           </Link>
 
-          <FiLogOut onClick={signOutUser} className="cursor-pointer" />
+          <FiLogOut
+            onClick={() => setShowLogout(true)}
+            className="cursor-pointer"
+          />
         </div>
       ) : (
         <button onClick={() => setShowLogin(true)} className={styles.login}>
@@ -53,6 +55,7 @@ const NavBar = ({ color }) => {
         </button>
       )}
       {showLogin && <Login />}
+      {showLogout && <Logout setShowLogout={setShowLogout} />}
       {notify && <Toast />}
     </div>
   );
