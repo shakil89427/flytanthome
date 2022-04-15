@@ -5,7 +5,7 @@ import { BsSearch } from "react-icons/bs";
 
 /* Styles Start */
 const styles = {
-  main: "flex items-center text-white lg:min-h-[75vh] relative px-6 md:px-14 lg:px-24",
+  main: "flex items-center text-white lg:min-h-[75vh] relative px-6 md:px-14 lg:px-24 py-8",
   bgImage:
     "absolute inset-0 mr-10 bg-no-repeat bg-contain bg-right-bottom hidden lg:block z-10 bgImage",
   heading: "text-5xl lg:text-6xl font-semibold",
@@ -15,9 +15,8 @@ const styles = {
     "flex border items-center px-5 py-3 bg-white gap-3 w-full rounded-md md:rounded-none",
   input: "w-full border-0 outline-none text-black",
   btn: "bg-[#262424] px-7 py-3 md:py-0 rounded-md md:rounded-none",
-  popularWrapper: "flex items-center",
-  popularText: "font-semibold mr-3",
-  popularItems: "flex flex-wrap gap-3",
+  popularWrapper: "flex items-center mt-8 gap-3",
+  popularText: "font-semibold",
   popularItem: "border px-4 py-1 rounded-md font-medium cursor-pointer",
 };
 /* Styles End */
@@ -29,9 +28,11 @@ const Banner = () => {
       <div className={styles.main}>
         <div className={styles.bgImage} />
         <div className="lg:w-4/6 z-20 my-5">
-          <h1 style={{ lineHeight: "115%" }} className={styles.heading}>
-            Find <span className="font-bold">Influencers & Brands</span> for
-            collaboration
+          <h1 style={{ lineHeight: "110%" }} className={styles.heading}>
+            Find <span className="font-bold">Influencers</span>
+          </h1>
+          <h1 style={{ lineHeight: "110%" }} className={styles.heading}>
+            & <span className="font-bold">Brands</span> for collaboration
           </h1>
 
           <form className={styles.formMain} action="#">
@@ -45,13 +46,10 @@ const Banner = () => {
             </span>
             <button className={styles.btn}>Search</button>
           </form>
-
           <div className={styles.popularWrapper}>
             <p className={styles.popularText}>Popular:</p>
-            <span className={styles.popularItems}>
-              <p className={styles.popularItem}>Top influencers</p>
-              <p className={styles.popularItem}>Fashion bloggers</p>
-            </span>
+            <p className={styles.popularItem}>Top influencers</p>
+            <p className={styles.popularItem}>Fashion bloggers</p>
           </div>
         </div>
       </div>

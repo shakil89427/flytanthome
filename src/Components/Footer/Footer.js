@@ -19,7 +19,7 @@ const styles = {
   logo: "w-60",
   infoText: "my-5",
   iconMain: "flex flex-col md:flex-row gap-y-5 gap-x-2",
-  iconWrapper: "flex items-center gap-2",
+  iconWrapper: "flex items-center gap-2 mt-3",
   icon: "w-[60px] h-[60px] md:w-12 md:h-12 border-[3px] md:border-[2px] rounded-full flex items-center justify-center text-3xl md:text-2xl",
   linksMain: "flex justify-evenly",
   sublink: "flex flex-col justify-between gap-5",
