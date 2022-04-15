@@ -15,15 +15,16 @@ const styles = {
   main: "bg-black text-white p-20",
   wrapper:
     "grid grid-cols-1 lg:grid-cols-3 gap-y-10 border-b border-white pb-10",
-  info: "flex flex-col items-center lg:items-start",
+  info: "flex flex-col items-center lg:items-start justify-between",
   logo: "w-60",
-  infoText: "my-4",
+  infoText: "my-5",
   iconMain: "flex flex-col md:flex-row gap-y-5 gap-x-2",
   iconWrapper: "flex items-center gap-2",
   icon: "w-[60px] h-[60px] md:w-12 md:h-12 border-[3px] md:border-[2px] rounded-full flex items-center justify-center text-3xl md:text-2xl",
   linksMain: "flex justify-evenly",
-  link: "text-lg mb-5 cursor-pointer",
-  appMain: "flex flex-col gap-y-5 mx-auto items-center lg:items-start ",
+  sublink: "flex flex-col justify-between gap-5",
+  link: "text-lg cursor-pointer",
+  appMain: "flex flex-col gap-y-5 mx-auto items-center lg:items-start",
   appHead: "mt-1 lg:mt-0",
   appBtn:
     "bg-[#303030] w-56 flex items-center px-5 py-1 border-2 border-white rounded-lg cursor-pointer",
@@ -69,7 +70,7 @@ const Footer = () => {
         {/* Links Part */}
         <div className={styles.linksMain}>
           {links.map((arr) => (
-            <div key={Math.random()}>
+            <div className={styles.sublink} key={Math.random()}>
               {arr.map((item) => (
                 <p key={item} className={styles.link}>
                   {item}

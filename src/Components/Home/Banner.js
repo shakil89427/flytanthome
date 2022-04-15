@@ -15,9 +15,9 @@ const styles = {
     "flex border items-center px-5 py-3 bg-white gap-3 w-full rounded-md md:rounded-none",
   input: "w-full border-0 outline-none text-black",
   btn: "bg-[#262424] px-7 py-3 md:py-0 rounded-md md:rounded-none",
-  popularWrapper: "flex md:items-center",
-  popularText: "font-semibold mr-2",
-  popularItems: "flex flex-wrap gap-2",
+  popularWrapper: "flex items-center",
+  popularText: "font-semibold mr-3",
+  popularItems: "flex flex-wrap gap-3",
   popularItem: "border px-4 py-1 rounded-md font-medium cursor-pointer",
 };
 /* Styles End */
@@ -50,7 +50,6 @@ const Banner = () => {
             <p className={styles.popularText}>Popular:</p>
             <span className={styles.popularItems}>
               <p className={styles.popularItem}>Top influencers</p>
-              <p className={styles.popularItem}>Fashion bloggers</p>
               <p className={styles.popularItem}>Fashion bloggers</p>
             </span>
           </div>
