@@ -1,6 +1,6 @@
 .bgColor {
   background-image: radial-gradient(#ff9826, #e77b02);
-  animation: bgColor 20s linear infinite;
+  animation: bgColor 30s linear infinite;
 }
 @keyframes bgColor {
   0% {
@@ -25,25 +25,25 @@
 
 .bgImage {
   background-image: url(../../../Assets/bannerBg1.png);
-  animation: bgImage 20s linear infinite;
+  animation: bgImage 30s linear infinite;
 }
 @keyframes bgImage {
   0% {
     background-image: url(../../../Assets/bannerBg1.png);
   }
-  31% {
+  27% {
     background-image: url(../../../Assets/bannerBg1.png);
   }
   33% {
     background-image: url(../../../Assets/bannerBg2.png);
   }
-  65% {
+  63% {
     background-image: url(../../../Assets/bannerBg2.png);
   }
   67% {
     background-image: url(../../../Assets/bannerBg3.png);
   }
-  97% {
+  95% {
     background-image: url(../../../Assets/bannerBg3.png);
   }
 }
