@@ -6,7 +6,7 @@ const InfluencersHero = () => {
   return (
     <div
       style={{
-        backgroundImage: "linear-gradient(to right, black, rgb(95, 94, 94)",
+        backgroundImage: "linear-gradient(to right, black, rgb(95, 94, 94))",
       }}
     >
       <div className="flex flex-col-reverse md:flex-row  max-w-[1200px] gap-14 lg:gap-20 mx-auto items-center px-5 py-24">
