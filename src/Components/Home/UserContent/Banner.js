@@ -58,16 +58,3 @@ const Banner = () => {
 };
 
 export default Banner;
-
-// {
-//   bgColor: "radial-gradient(#FF9826, #E77B02)",
-//   image: bannerBg1,
-// },
-// {
-//   bgColor: "radial-gradient(circle,#C41BFF, #8C03BC)",
-//   image: bannerBg2,
-// },
-// {
-//   bgColor: "radial-gradient(circle,#FF1B6D, #CD004A)",
-//   image: bannerBg3,
-// },

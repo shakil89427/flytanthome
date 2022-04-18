@@ -1,0 +1,16 @@
+.polygon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: red;
+  height: 100%;
+  background-image: linear-gradient(to right, black, rgb(95, 94, 94));
+  clip-path: polygon(100% 0, 100% 50%, 0 100%, 0 0);
+  z-index: -1;
+}
+@media only screen and (max-width: 768px) {
+  .polygon {
+    clip-path: polygon(100% 0, 100% 85%, 0 100%, 0 0);
+  }
+}

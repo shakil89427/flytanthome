@@ -16,7 +16,7 @@ const styles = {
   profile: "flex items-center text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   login:
-    "border-2 px-5 md:px-10 py-1  text-sm md:text-lg text-white border-white rounded-md tracking-wider",
+    "font-semibold border-2 px-5 py-1 text-sm md:text-lg text-white border-white rounded-md",
 };
 /* Styles End */
 
@@ -54,9 +54,15 @@ const NavBar = ({ color }) => {
           />
         </div>
       ) : (
-        <button onClick={() => setShowLogin(true)} className={styles.login}>
-          Login
-        </button>
+        <div className="flex gap-5">
+          <button className={styles.login}>Contact</button>
+          <button
+            onClick={() => setShowLogin(true)}
+            className={`${styles.login} bg-white text-black`}
+          >
+            Login | Signup
+          </button>
+        </div>
       )}
       {showLogin && <Login />}
       {showLogout && <Logout setShowLogout={setShowLogout} />}
