@@ -5,10 +5,10 @@ import AdBanner from "./AdBanner";
 import Sponsorships from "./Sponsorships";
 import PopularInfluencers from "./PopularInfluencers";
 
-import FeaturedData from "../../BluePrint/FeaturedData";
-import sponsorshipsData from "../../BluePrint/SponsorshipsData";
+import FeaturedData from "../../../BluePrint/FeaturedData";
+import sponsorshipsData from "../../../BluePrint/SponsorshipsData";
 
-const Home = () => {
+const UserContent = () => {
   return (
     <>
       <Banner />
@@ -23,4 +23,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default UserContent;

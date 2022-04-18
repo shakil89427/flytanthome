@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../NavBar/NavBar";
+import NavBar from "../../NavBar/NavBar";
 import "./CSS/Banner.css";
 import { BsSearch } from "react-icons/bs";
 
