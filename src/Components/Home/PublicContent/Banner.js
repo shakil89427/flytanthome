@@ -1,7 +1,7 @@
 import React from "react";
 import "./CSS/Banner.css";
 import NavBar from "../../NavBar/NavBar";
-import bannerBg4 from "../../../Assets/bannerBg4.png";
+import bannerBg from "../../../Assets/publicHome/bannerBg.png";
 import { AiFillAndroid, AiFillApple } from "react-icons/ai";
 import { BsPlayCircle } from "react-icons/bs";
 
@@ -41,7 +41,7 @@ const Banner = () => {
           }}
           className="rounded-xl relative text-white"
         >
-          <img src={bannerBg4} alt="" />
+          <img src={bannerBg} alt="" />
           <BsPlayCircle className="absolute bottom-8 left-8 text-6xl cursor-pointer" />
         </div>
       </div>

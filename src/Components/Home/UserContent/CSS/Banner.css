@@ -24,26 +24,26 @@
 }
 
 .bgImage {
-  background-image: url(../../../../Assets/bannerBg1.png);
+  background-image: url(../../../../Assets/userHome/bannerBg1.png);
   animation: bgImage 30s linear infinite;
 }
 @keyframes bgImage {
   0% {
-    background-image: url(../../../../Assets/bannerBg1.png);
+    background-image: url(../../../../Assets/userHome/bannerBg1.png);
   }
   27% {
-    background-image: url(../../../../Assets/bannerBg1.png);
+    background-image: url(../../../../Assets/userHome/bannerBg1.png);
   }
   33% {
-    background-image: url(../../../../Assets/bannerBg2.png);
+    background-image: url(../../../../Assets/userHome/bannerBg2.png);
   }
   63% {
-    background-image: url(../../../../Assets/bannerBg2.png);
+    background-image: url(../../../../Assets/userHome/bannerBg2.png);
   }
   67% {
-    background-image: url(../../../../Assets/bannerBg3.png);
+    background-image: url(../../../../Assets/userHome/bannerBg3.png);
   }
   95% {
-    background-image: url(../../../../Assets/bannerBg3.png);
+    background-image: url(../../../../Assets/userHome/bannerBg3.png);
   }
 }

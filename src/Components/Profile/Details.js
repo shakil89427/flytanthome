@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import defaultUser from "../../Assets/defaultUserImage.png";
+import defaultUser from "../../Assets/defaultUser.png";
 import useStore from "../../Store/useStore";
 
 /* Styles Start */

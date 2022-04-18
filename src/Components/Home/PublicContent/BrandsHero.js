@@ -1,21 +1,21 @@
 import React from "react";
-import rect_equal from "../../../Assets/rect_equal.png";
-import rect_tall from "../../../Assets/rect_tall.png";
-import wavy from "../../../Assets/wavy.png";
-import brandsbg from "../../../Assets/brands_hero.png";
-import dots2 from "../../../Assets/dots_2.png";
+import rectEqual from "../../../Assets/publicHome/rectEqual.png";
+import rectTall from "../../../Assets/publicHome/rectTall.png";
+import wavy from "../../../Assets/publicHome/wavy.png";
+import brandsHero from "../../../Assets/publicHome/brandsHero.png";
+import blackDots from "../../../Assets/blackDots.png";
 
 const BrandsHero = () => {
   return (
     <div className=" bg-white relative">
       <img
         className="absolute h-[52%] w-1/2 md:h-full md:w-3/12 lg:w-3/12"
-        src={rect_tall}
+        src={rectTall}
         alt=""
       />
       <img
         className="absolute bottom-0 right-0 z-10 w-2/4 md:w-4/12 lg:w-4/12"
-        src={rect_equal}
+        src={rectEqual}
         alt=""
       />
       <div className="flex flex-col md:flex-row  max-w-[1200px] gap-14 lg:gap-20 mx-auto items-center px-5 py-14">
@@ -32,15 +32,15 @@ const BrandsHero = () => {
             </button>
           </div>
         </div>
-        <div className="w-full md:w-7/12 flex flex-col items-end md:items-center gap-8 z-20">
-          <img src={dots2} alt="" />
+        <div className="w-full md:w-7/12 flex flex-col items-end md:items-center gap-3 z-20">
+          <img src={blackDots} alt="" />
           <div className="relative">
             <img
               className="absolute -top-6 -left-6 -z-10 w-5/12"
               src={wavy}
               alt=""
             />
-            <img className="rounded-3xl z-40" src={brandsbg} alt="" />
+            <img className="rounded-3xl z-40" src={brandsHero} alt="" />
           </div>
         </div>
       </div>

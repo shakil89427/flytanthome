@@ -1,20 +1,20 @@
 import React from "react";
-import herobg from "../../../Assets/influencers_hero.png";
-import dots from "../../../Assets/dots.png";
+import influencersHero from "../../../Assets/publicHome/influencersHero.png";
+import whiteDots from "../../../Assets/whiteDots.png";
 
 const InfluencersHero = () => {
   return (
     <div
       style={{
-        backgroundImage: "linear-gradient(to right, black, rgb(95, 94, 94))",
+        backgroundImage: "linear-gradient(to right, black, rgb(78, 77, 77))",
       }}
     >
       <div className="flex flex-col-reverse md:flex-row  max-w-[1200px] gap-14 lg:gap-20 mx-auto items-center px-5 py-24">
         <div className="w-full md:w-7/12">
-          <img className="rounded-3xl" src={herobg} alt="" />
+          <img className="rounded-3xl" src={influencersHero} alt="" />
         </div>
         <div className="w-full md:w-5/12 flex flex-col items-end md:items-center gap-10">
-          <img src={dots} alt="" />
+          <img src={whiteDots} alt="" />
           <div className="border-2 rounded-3xl text-white p-5 py-10">
             <h1 className="text-5xl font-bold mb-2">Flytant For</h1>
             <h1 className="text-5xl font-bold mb-2">Influencers</h1>

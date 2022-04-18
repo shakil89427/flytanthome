@@ -9,7 +9,7 @@ import {
   AiFillAndroid,
 } from "react-icons/ai";
 import { HiMail } from "react-icons/hi";
-import logo from "../../Assets/websiteLogo.png";
+import logo from "../../Assets/logo.png";
 
 const styles = {
   main: "bg-black text-white p-20",

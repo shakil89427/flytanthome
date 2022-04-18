@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "../Login/Login";
-import logo from "../../Assets/websiteLogo.png";
-import defaultUserImage from "../../Assets//defaultUserImage.png";
+import logo from "../../Assets/logo.png";
+import defaultUser from "../../Assets/defaultUser.png";
 import { FiLogOut } from "react-icons/fi";
 import useStore from "../../Store/useStore";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import Logout from "../Logout/Logout";
 /* Styles Start */
 const styles = {
   main: "py-5 px-3 md:px-10 lg:px-14 flex items-center justify-between",
-  logo: "cursor-pointer max-w-[200px] md:max-w-[250px]",
+  logo: "cursor-pointer w-[120px] md:w-[150px] lg:w-[200px]",
   profile: "flex items-center text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   login:
@@ -41,9 +41,7 @@ const NavBar = ({ color }) => {
           <Link to="/profile">
             <img
               className={styles.profileImg}
-              src={
-                user.profileImageUrl ? user.profileImageUrl : defaultUserImage
-              }
+              src={user.profileImageUrl ? user.profileImageUrl : defaultUser}
               alt=""
             />
           </Link>
