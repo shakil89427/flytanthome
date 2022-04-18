@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import influencersHero from "../../../Assets/publicHome/influencersHero.png";
 import whiteDots from "../../../Assets/whiteDots.png";
 
@@ -22,9 +23,11 @@ const InfluencersHero = () => {
               Join the fastest growing Influencers community and Get
               Sponsorships from Brands to Monetise Your Content
             </p>
-            <button className="border py-2 px-8 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium">
-              Join Now
-            </button>
+            <Link to="/influencers">
+              <button className="border py-2 px-8 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium">
+                Join Now
+              </button>
+            </Link>
           </div>
         </div>
       </div>

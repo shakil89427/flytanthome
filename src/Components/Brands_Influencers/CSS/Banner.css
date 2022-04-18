@@ -1,0 +1,11 @@
+.bgmain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: red;
+  height: 100%;
+  background-image: linear-gradient(to right, black, rgb(78, 77, 77));
+  clip-path: polygon(100% 0, 100% 100%, 0% 12%, 0 0);
+  z-index: -1;
+}
