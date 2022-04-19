@@ -18,6 +18,23 @@ const Brands = () => {
       {galleryData.map((gallery, i) =>
         i % 2 ? <GalleryRight data={gallery} /> : <GalleryLeft data={gallery} />
       )}
+      <div className="flex flex-col gap-10 my-32 text-center">
+        <div className="py-28 bg-gray-300">
+          <h1 className="text-3xl font-semibold">Sounds Interesting</h1>
+          <p className="my-5">Download the App andPost Your Campaign Free</p>
+          <button className="bg-black text-white px-10 py-3 rounded-3xl">
+            Find Influencers
+          </button>
+        </div>
+        <p>or</p>
+        <div className="py-28 bg-gray-300 ">
+          <h1 className="text-3xl font-semibold">Request a Demo</h1>
+          <p className="my-5">Schedule a Meet With us before Getting Onboard</p>
+          <button className="bg-black text-white px-10 py-3 rounded-3xl">
+            Schedule Meet
+          </button>
+        </div>
+      </div>
     </>
   );
 };

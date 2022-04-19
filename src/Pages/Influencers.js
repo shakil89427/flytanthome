@@ -22,6 +22,13 @@ const Influencers = () => {
       {galleryData.map((gallery, i) =>
         i % 2 ? <GalleryRight data={gallery} /> : <GalleryLeft data={gallery} />
       )}
+      <div className="py-28 my-32 bg-gray-300 text-center">
+        <h1 className="text-3xl font-semibold">Sounds Interesting?</h1>
+        <p className="my-5">Join the fasting growing community</p>
+        <button className="bg-black text-white px-10 py-3 rounded-3xl">
+          Find Influencers
+        </button>
+      </div>
     </>
   );
 };
