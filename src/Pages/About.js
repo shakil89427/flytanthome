@@ -1,4 +1,5 @@
 import React from "react";
+import Scroll from "../Components/Scroll/Scroll";
 import img1 from "../Assets/about/img1.png";
 import img2 from "../Assets/about/img2.png";
 import img3 from "../Assets/about/img3.png";
@@ -7,6 +8,7 @@ import img4 from "../Assets/about/img4.png";
 const About = () => {
   return (
     <div>
+      <Scroll />
       <div className="max-w-[1200px] mx-auto px-5 my-24">
         <h1 className="text-4xl font-semibold">About</h1>
         <h4 className="text-3xl my-14 pr-5">
@@ -19,8 +21,12 @@ const About = () => {
           and no mediation is required.
         </p>
         <div className="md:flex md:gap-14 md:items-center md:justify-center my-20">
-          <img className="mb-20 w-full" src={img1} alt="" />
-          <img className="mt-20 hidden md:block w-full" src={img2} alt="" />
+          <div className="w-full">
+            <img className="w-full mb-20 " src={img1} alt="" />
+          </div>
+          <div className="w-full hidden md:block">
+            <img className="mt-20 w-full" src={img2} alt="" />
+          </div>
         </div>
         <h4 className="text-3xl my-14 pr-5">Tailor-Made Platform for Brands</h4>
         <p style={{ lineHeight: "200%" }} className="text-md md:text-xl pr-5">
@@ -31,8 +37,12 @@ const About = () => {
           promote your Products to reach a global Audience.
         </p>
         <div className="md:flex md:gap-14 md:items-center md:justify-center my-20">
-          <img className="mb-20 w-full" src={img3} alt="" />
-          <img className="mt-20 hidden md:block w-full" src={img4} alt="" />
+          <div className="w-full">
+            <img className="w-full mb-20 " src={img3} alt="" />
+          </div>
+          <div className="w-full hidden md:block">
+            <img className="mt-20 w-full" src={img4} alt="" />
+          </div>
         </div>
         <h4 className="text-3xl my-14 pr-5">
           Best Brand-Deals For Influencers
