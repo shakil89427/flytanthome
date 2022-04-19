@@ -5,11 +5,10 @@ const Ads = () => {
   return (
     <div className="max-w-[1100px] mx-auto px-5 my-32">
       <Scroll />
-      <h1 className="text-4xl font-semibold">Terms Of Use</h1>
-      <h4 className="text-xl md:text-2xl lg:text-3xl my-14 pr-5 text-gray-800">
-        These Terms of Use govern your use of Flytant and provide information
-        about the Flytant Service, outlined below. When you create a Flytant
-        account or use Flytant, you agree to these terms of use.
+      <h1 className="text-4xl font-semibold">Flytant Ads</h1>
+      <h4 className="text-xl md:text-2xl lg:text-3xl mb-14 mt-5 pr-5 text-gray-800">
+        We want to show you ads that are meaningful and you find them
+        interesting and useful. Here’s an overview of how Flytant Ads work.
       </h4>
       <div className="my-32">
         <h4 className="text-xl md:text-2xl lg:text-3xl font-medium  text-gray-800">
