@@ -23,7 +23,7 @@ const Brands = () => {
           <h1 className="text-3xl font-semibold">Sounds Interesting</h1>
           <p className="my-5">Download the App andPost Your Campaign Free</p>
           <button className="bg-black text-white px-10 py-3 rounded-3xl">
-            Find Influencers
+            Download Now
           </button>
         </div>
         <p>or</p>

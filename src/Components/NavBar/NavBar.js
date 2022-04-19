@@ -16,7 +16,7 @@ const styles = {
   profile: "flex items-center text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   login:
-    "font-semibold border-2 px-5 py-1 text-sm md:text-lg text-white border-white rounded-md",
+    "font-medium border-2 px-5 py-1 text-sm md:text-md text-white border-white rounded-md",
 };
 /* Styles End */
 

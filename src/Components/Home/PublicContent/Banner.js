@@ -14,7 +14,7 @@ const Banner = () => {
         <div className="text-white px-5">
           <h1 className="text-5xl font-bold mb-3">Connecting</h1>
           <h1 className="text-5xl font-bold mb-3">Brands & Influencers</h1>
-          <p className="text-md lg:text-2xl font-medium my-5">
+          <p className="text-md lg:text-xl  my-5">
             Find influencers and Brands of your niche
           </p>
           <div className="flex flex-col md:flex-row gap-3 text-black mt-10">

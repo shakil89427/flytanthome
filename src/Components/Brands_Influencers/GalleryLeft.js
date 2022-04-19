@@ -3,7 +3,7 @@ import blackDots from "../../Assets/blackDots.png";
 
 const GalleryLeft = ({ data }) => {
   return (
-    <div className="py-5 relative px-5 md:px-20 my-10">
+    <div className="py-5 relative px-5 md:px-20 my-14">
       <div className="absolute w-full h-20 bg-black bottom-10 left-0" />
       <img className="absolute top-14 right-20" src={blackDots} alt="" />
       <div className="w-fit max-w-[50%]">
