@@ -11,7 +11,7 @@ import Logout from "../Logout/Logout";
 
 /* Styles Start */
 const styles = {
-  main: "py-5 px-3 md:px-10 lg:px-14 flex items-center justify-between",
+  main: "py-8 px-3 md:px-10 lg:px-14 flex items-center justify-between",
   logo: "cursor-pointer w-[120px] md:w-[150px] lg:w-[200px]",
   profile: "flex items-center text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",

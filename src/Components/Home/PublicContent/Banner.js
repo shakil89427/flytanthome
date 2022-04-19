@@ -10,7 +10,7 @@ const Banner = () => {
     <div className="relative">
       <div className="polygon" />
       <NavBar color={"transparent"} />
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1200px] mx-auto py-20 gap-20 md:gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1200px] mx-auto py-36 gap-20 md:gap-10">
         <div className="text-white px-5">
           <h1 className="text-5xl font-bold mb-3">Connecting</h1>
           <h1 className="text-5xl font-bold mb-3">Brands & Influencers</h1>
