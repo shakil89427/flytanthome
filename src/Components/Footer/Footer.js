@@ -24,7 +24,7 @@ const styles = {
   icon: "w-[60px] h-[60px] md:w-12 md:h-12 border-[3px] md:border-[2px] rounded-full flex items-center justify-center text-3xl md:text-2xl",
   linksMain: "flex justify-evenly",
   sublink: "flex flex-col justify-between gap-5",
-  link: "text-lg cursor-pointer font-medium",
+  link: "text-xl cursor-pointer font-medium",
   appMain: "flex flex-col gap-y-5 mx-auto items-center lg:items-start",
   appHead: "mt-1 lg:mt-0",
   appBtn:
