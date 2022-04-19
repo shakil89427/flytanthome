@@ -53,7 +53,14 @@ const NavBar = ({ color }) => {
         </div>
       ) : (
         <div className="flex gap-5">
-          <button className={styles.login}>Contact</button>
+          <a
+            href="mailto:contact@flytant.com"
+            target="_blank"
+            rel="noreferrer"
+            className={styles.login}
+          >
+            Contact
+          </a>
           <button
             onClick={() => setShowLogin(true)}
             className={`${styles.login} bg-white text-black`}

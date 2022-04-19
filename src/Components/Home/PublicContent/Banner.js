@@ -24,20 +24,30 @@ const Banner = () => {
             Find influencers and Brands of your niche
           </p>
           <div className="flex flex-col md:flex-row gap-3 text-black mt-10">
-            <div className="flex items-center pl-3 bg-white w-44 rounded-lg gap-1 py-1">
+            <a
+              href="https://firebasestorage.googleapis.com/v0/b/flytant-app.appspot.com/o/androidApp%2FFlytant1.0.2%2FUpdated%2FFlytant.apk?alt=media&token=cc06343b-0789-40a7-99e7-aafbc948b00e"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center pl-3 bg-white w-44 rounded-lg gap-1 py-1"
+            >
               <AiFillAndroid className="text-3xl" />
               <span>
                 <p className="text-xs">Download our</p>
                 <p className="font-bold">Android App</p>
               </span>
-            </div>
-            <div className="flex items-center pl-3  bg-white w-44 rounded-lg gap-1 py-1">
+            </a>
+            <a
+              href="https://apps.apple.com/in/app/flytant/id1530158515"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center pl-3  bg-white w-44 rounded-lg gap-1 py-1"
+            >
               <AiFillApple className="text-3xl" />
               <span>
                 <p className="text-xs">Download on the</p>
                 <p className="font-bold">App Store</p>
               </span>
-            </div>
+            </a>
           </div>
         </div>
         <div

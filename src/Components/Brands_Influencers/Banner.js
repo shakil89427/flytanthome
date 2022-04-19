@@ -33,20 +33,30 @@ const Banner = ({ data }) => {
               {data.info}
             </p>
             <div className="flex gap-3">
-              <div className="flex items-center gap-2 w-44 bg-white text-black pl-5 rounded-lg py-1 cursor-pointer">
+              <a
+                href="https://firebasestorage.googleapis.com/v0/b/flytant-app.appspot.com/o/androidApp%2FFlytant1.0.2%2FUpdated%2FFlytant.apk?alt=media&token=cc06343b-0789-40a7-99e7-aafbc948b00e"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 w-44 bg-white text-black pl-5 rounded-lg py-1 cursor-pointer"
+              >
                 <AiFillAndroid className="text-3xl" />
                 <span>
                   <p className="text-xs">Download our</p>
                   <p className="font-bold">Android App</p>
                 </span>
-              </div>
-              <div className="flex items-center gap-2 w-44 bg-white text-black pl-5 rounded-lg py-1 cursor-pointer">
+              </a>
+              <a
+                href="https://apps.apple.com/in/app/flytant/id1530158515"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 w-44 bg-white text-black pl-5 rounded-lg py-1 cursor-pointer"
+              >
                 <AiFillApple className="text-3xl" />
                 <span>
                   <p className="text-xs">Download on the</p>
                   <p className="font-bold">App Store</p>
                 </span>
-              </div>
+              </a>
             </div>
           </div>
           <div className="">
