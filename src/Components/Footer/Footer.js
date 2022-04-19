@@ -96,7 +96,7 @@ const Footer = () => {
             <div className={styles.sublink} key={Math.random()}>
               {arr.map((item) => (
                 <Link
-                  to={`/${item.toLowerCase()}`}
+                  to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                   key={item}
                   className={styles.link}
                 >

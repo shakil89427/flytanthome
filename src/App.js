@@ -1,13 +1,18 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
-import Home from "./Pages/Home";
-import Profile from "./Pages/Profile";
-import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
-import TermsOfServices from "./Components/TermsOfServices/TermsOfServices";
 import Footer from "./Components/Footer/Footer";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import Home from "./Pages/Home";
+import Profile from "./Pages/Profile";
 import Brands from "./Pages/Brands";
 import Influencers from "./Pages/Influencers";
+import About from "./Pages/About";
+import Career from "./Pages/Career";
+import Privacy from "./Pages/Privacy";
+import Ads from "./Pages/Ads";
+import Blogs from "./Pages/Blogs";
+import Terms from "./Pages/Terms";
+import Contact from "./Pages/Contact";
 
 function App() {
   const { pathname } = useLocation();
@@ -20,6 +25,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/brands" element={<Brands />} />
           <Route path="/influencers" element={<Influencers />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/career" element={<Career />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/ads" element={<Ads />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/contact" element={<Contact />} />
           <Route
             path="/profile"
             element={
@@ -28,8 +40,6 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfServices />} />
         </Routes>
       </div>
       <Footer />
