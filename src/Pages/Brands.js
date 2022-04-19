@@ -15,10 +15,18 @@ const Brands = () => {
       <Banner data={bannerData} />
       <Title data={"Advantages For Brands"} />
       {heroData.map((hero, i) =>
-        i % 2 ? <HeroRight data={hero} /> : <HeroLeft data={hero} />
+        i % 2 ? (
+          <HeroRight key={i} data={hero} />
+        ) : (
+          <HeroLeft key={i} data={hero} />
+        )
       )}
       {galleryData.map((gallery, i) =>
-        i % 2 ? <GalleryRight data={gallery} /> : <GalleryLeft data={gallery} />
+        i % 2 ? (
+          <GalleryRight key={i} data={gallery} />
+        ) : (
+          <GalleryLeft key={i} data={gallery} />
+        )
       )}
       <div className="flex flex-col gap-10 my-32 text-center">
         <div className="py-28 bg-gray-300">

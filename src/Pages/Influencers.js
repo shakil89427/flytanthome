@@ -19,10 +19,18 @@ const Influencers = () => {
       <Banner data={bannerData} />
       <Title data={"Advantages For Influencers"} />
       {heroData.map((hero, i) =>
-        i % 2 ? <HeroRight data={hero} /> : <HeroLeft data={hero} />
+        i % 2 ? (
+          <HeroRight key={i} data={hero} />
+        ) : (
+          <HeroLeft key={i} data={hero} />
+        )
       )}
       {galleryData.map((gallery, i) =>
-        i % 2 ? <GalleryRight data={gallery} /> : <GalleryLeft data={gallery} />
+        i % 2 ? (
+          <GalleryRight key={i} data={gallery} />
+        ) : (
+          <GalleryLeft key={i} data={gallery} />
+        )
       )}
       <div className="py-28 my-32 bg-gray-300 text-center">
         <h1 className="text-3xl font-semibold">Want to Get Sponsored?</h1>
