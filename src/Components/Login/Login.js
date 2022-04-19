@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Spinner from "../Spinner/Spinner";
 import { styles } from "./CommonStyles";
 import useStore from "../../Store/useStore";
 import Methods from "./Methods";
@@ -41,7 +42,7 @@ const Login = () => {
         {/* Spinner */}
         {userLoading && (
           <div className={styles.spinnerContainer}>
-            <div className="spinner"></div>
+            <Spinner />
           </div>
         )}
 

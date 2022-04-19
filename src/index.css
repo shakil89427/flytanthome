@@ -28,21 +28,3 @@ input[type="number"] {
 .otpNumber > input {
   outline: none;
 }
-/* Global Spinner Start */
-.spinner {
-  width: 35px;
-  height: 35px;
-  border: 8px solid rgb(243, 91, 2);
-  border-bottom-color: white;
-  border-radius: 50%;
-  animation: spinner 0.8s linear infinite;
-}
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-/* Global Spinner End */
