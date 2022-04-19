@@ -78,20 +78,30 @@ const Methods = ({ setShow }) => {
 
       {/* Download Buttons */}
       <div className={styles.downButtons}>
-        <div className={styles.downButton}>
+        <a
+          href="https://firebasestorage.googleapis.com/v0/b/flytant-app.appspot.com/o/androidApp%2FFlytant1.0.2%2FUpdated%2FFlytant.apk?alt=media&token=cc06343b-0789-40a7-99e7-aafbc948b00e"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.downButton}
+        >
           <AiFillAndroid className="text-2xl" />
           <span>
             <p className="text-xs">Download our</p>
             <p className="text-sm">Android App</p>
           </span>
-        </div>
-        <div className={styles.downButton}>
+        </a>
+        <a
+          href="https://apps.apple.com/in/app/flytant/id1530158515"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.downButton}
+        >
           <AiFillApple className="text-2xl" />
           <span>
-            <p className="text-xs">Download our</p>
-            <p className="text-sm">Android App</p>
+            <p className="text-xs">Download on the</p>
+            <p className="text-sm">App Store</p>
           </span>
-        </div>
+        </a>
       </div>
     </div>
   );
