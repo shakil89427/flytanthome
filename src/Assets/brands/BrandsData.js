@@ -50,7 +50,7 @@ import g5Img7 from "./gallary5/img7.png";
 
 export const bannerData = {
   img: banner,
-  title: "Flytant For Brands",
+  title: "For Brands",
   info: "Post your Campaign and Find the Most Felicitous Influencer For Your Brand. Download the App to Get Started.",
 };
 

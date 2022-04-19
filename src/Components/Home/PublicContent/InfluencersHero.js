@@ -17,8 +17,18 @@ const InfluencersHero = () => {
         <div className="w-full md:w-5/12 flex flex-col items-end md:items-center gap-10">
           <img src={whiteDots} alt="" />
           <div className="border-2 rounded-3xl text-white p-5 py-10">
-            <h1 className="text-5xl font-bold mb-2">Flytant For</h1>
-            <h1 className="text-5xl font-bold mb-2">Influencers</h1>
+            <h1
+              style={{ lineHeight: "120%" }}
+              className="text-5xl font-semibold"
+            >
+              Flytant For
+            </h1>
+            <h1
+              style={{ lineHeight: "120%" }}
+              className="text-5xl font-semibold"
+            >
+              Influencers
+            </h1>
             <p className="text-xl font-medium my-8">
               Join the fastest growing Influencers community and Get
               Sponsorships from Brands to Monetise Your Content

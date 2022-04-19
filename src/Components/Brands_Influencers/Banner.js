@@ -17,8 +17,18 @@ const Banner = ({ data }) => {
             }}
             className=" text-white p-10 rounded-tl-2xl rounded-bl-2xl"
           >
-            <h1 className="text-6xl font-bold mb-3">Flytant</h1>
-            <h1 className="text-6xl font-bold mb-3">{data.title}</h1>
+            <h1
+              style={{ lineHeight: "120%" }}
+              className="text-5xl font-semibold"
+            >
+              Flytant
+            </h1>
+            <h1
+              style={{ lineHeight: "120%" }}
+              className="text-5xl font-semibold"
+            >
+              {data.title}
+            </h1>
             <p className="text-lg font-medium pr-28 mt-7 mb-12 relative before:content[''] before:absolute before:w-28 before:h-[3px] before:bg-white before:-bottom-5 before:left-0 after:content[''] after:absolute after:w-4 after:h-[3px] after:bg-white after:-bottom-5 after:left-32">
               {data.info}
             </p>

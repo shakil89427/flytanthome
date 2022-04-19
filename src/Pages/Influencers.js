@@ -1,4 +1,5 @@
 import React from "react";
+import Scroll from "../Components/Scroll/Scroll";
 import Banner from "../Components/Brands_Influencers/Banner";
 import Title from "../Components/Brands_Influencers/Title";
 import HeroLeft from "../Components/Brands_Influencers/HeroLeft";
@@ -14,6 +15,7 @@ import {
 const Influencers = () => {
   return (
     <>
+      <Scroll />
       <Banner data={bannerData} />
       <Title data={"Advantages For Influencers"} />
       {heroData.map((hero, i) =>

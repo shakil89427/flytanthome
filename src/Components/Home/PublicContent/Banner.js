@@ -12,9 +12,13 @@ const Banner = () => {
       <NavBar color={"transparent"} />
       <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1200px] mx-auto py-36 gap-20 md:gap-10">
         <div className="text-white px-5">
-          <h1 className="text-5xl font-bold mb-3">Connecting</h1>
-          <h1 className="text-5xl font-bold mb-3">Brands & Influencers</h1>
-          <p className="text-md lg:text-xl  my-5">
+          <h1
+            style={{ lineHeight: "120%" }}
+            className="text-5xl font-semibold mb-3"
+          >
+            Connecting <br /> Brands & Influencers
+          </h1>
+          <p className="text-md lg:text-lg  my-5">
             Find influencers and Brands of your niche
           </p>
           <div className="flex flex-col md:flex-row gap-3 text-black mt-10">

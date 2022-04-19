@@ -6,10 +6,12 @@ import HeroRight from "../Components/Brands_Influencers/HeroRight";
 import GalleryLeft from "../Components/Brands_Influencers/GalleryLeft";
 import GalleryRight from "../Components/Brands_Influencers/GalleryRight";
 import { bannerData, heroData, galleryData } from "../Assets/brands/BrandsData";
+import Scroll from "../Components/Scroll/Scroll";
 
 const Brands = () => {
   return (
     <>
+      <Scroll />
       <Banner data={bannerData} />
       <Title data={"Advantages For Brands"} />
       {heroData.map((hero, i) =>
