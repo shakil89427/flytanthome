@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CSS/Banner.css";
 import NavBar from "../../NavBar/NavBar";
 import bannerBg from "../../../Assets/publicHome/bannerBg.png";
 import { AiFillAndroid, AiFillApple } from "react-icons/ai";
 import { BsPlayCircle } from "react-icons/bs";
+import { GiCrossMark } from "react-icons/gi";
 
 const Banner = () => {
+  const [play, setPlay] = useState(false);
   return (
     <div className="relative">
       <div className="polygon" />
@@ -45,8 +47,30 @@ const Banner = () => {
           }}
           className="rounded-xl relative text-white"
         >
-          <img src={bannerBg} alt="" />
-          <BsPlayCircle className="absolute bottom-8 left-8 text-6xl cursor-pointer" />
+          {play ? (
+            <iframe
+              className="w-full"
+              height="370"
+              src="https://www.youtube.com/embed/i0Nxig4oTz8?autoplay=1"
+              title="Flytant"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;fullscreen"
+              allowfullscreen
+            ></iframe>
+          ) : (
+            <img className="w-full" src={bannerBg} alt="" />
+          )}
+          {play ? (
+            <GiCrossMark
+              onClick={() => setPlay(false)}
+              className="absolute -top-6 right-0 text-2xl cursor-pointer"
+            />
+          ) : (
+            <BsPlayCircle
+              onClick={() => setPlay(true)}
+              className="absolute bottom-8 left-8 text-6xl cursor-pointer"
+            />
+          )}
         </div>
       </div>
     </div>
