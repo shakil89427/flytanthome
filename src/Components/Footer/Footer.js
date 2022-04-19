@@ -56,8 +56,8 @@ const Footer = () => {
   ];
 
   const links = [
-    ["Home", "About", "Career", "Privacy"],
-    ["Ads", "Blogs", "Terms", "Contact"],
+    ["Home", "About", "Blogs", "Career"],
+    ["Contact", "Terms", "Ads", "Privacy"],
   ];
 
   return (
