@@ -113,7 +113,7 @@ const Career = () => {
           <div className="absolute w-full -top-14 left-0">
             {uploading && (
               <p className="text-sm">
-                Uploading Image
+                Uploading File
                 <span className="text-lg ml-1">{uploaded}%</span>
               </p>
             )}
