@@ -8,10 +8,9 @@ const styles = {
   main: "mx-auto max-w-[900px] py-14 md:py-24 px-5",
   title: "text-5xl lg:text-7xl font-bold text-center",
   info: "text-2xl font-medium text-center mt-10 px-5",
-  form: "my-20 grid grid-cols-2 gap-12 md:gap-y-20 md:gap-x-10 relative",
+  form: "my-20 grid grid-cols-2 gap-12 md:gap-y-20 md:gap-x-10",
   input:
     "outline-0 border-b-2 py-2 border-black placeholder:text-lg placeholder:font-medium placeholder:text-gray-500 text-lg font-medium",
-  progress: "absolute w-full bottom-20 md:bottom-24 left-0",
   btn: "bg-black text-white px-10 py-3 rounded-3xl text-lg font-medium",
 };
 
@@ -76,16 +75,14 @@ const Contact = () => {
           rows="3"
           onChange={(e) => setData({ ...data, text: e.target.value })}
         />
-        {loading && (
-          <div className={styles.progress}>
-            <ProgressBar />
+        <div className="col-span-2 relative mt-8 md:mt-0">
+          <div className="absolute w-full left-0 -top-14">
+            {loading && <ProgressBar />}
           </div>
-        )}
-        <span>
           <button type="submit" className={styles.btn}>
             Submit
           </button>
-        </span>
+        </div>
       </form>
     </div>
   );

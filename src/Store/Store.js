@@ -4,7 +4,7 @@ import firebaseConfig from "../Firebase/firebaseConfig";
 import useAuthCheck from "../Hooks/useAuthCheck";
 
 /* Initialize Firebase */
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 /* Main Store */
 const Store = () => {
@@ -18,6 +18,7 @@ const Store = () => {
 
   /* Returned Items */
   return {
+    app,
     user,
     setUser,
     userLoading,

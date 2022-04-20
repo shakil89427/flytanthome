@@ -28,3 +28,8 @@ input[type="number"] {
 .otpNumber > input {
   outline: none;
 }
+#career_file::file-selector-button {
+  border: none;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
