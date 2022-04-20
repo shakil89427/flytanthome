@@ -4,8 +4,9 @@ import Footer from "./Components/Footer/Footer";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
-import Brands from "./Pages/Brands";
 import Influencers from "./Pages/Influencers";
+import Brands from "./Pages/Brands";
+import OnBoard from "./Pages/OnBoard";
 import About from "./Pages/About";
 import Career from "./Pages/Career";
 import Privacy from "./Pages/Privacy";
@@ -23,8 +24,9 @@ function App() {
         {!paths.includes(pathname) && <NavBar />}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/brands" element={<Brands />} />
           <Route path="/influencers" element={<Influencers />} />
+          <Route path="/brands" element={<Brands />} />
+          <Route path="/onboard" element={<OnBoard />} />
           <Route path="/about" element={<About />} />
           <Route path="/career" element={<Career />} />
           <Route path="/privacy" element={<Privacy />} />

@@ -12,8 +12,8 @@ const Banner = () => {
     <div className="relative">
       <div className="polygon" />
       <NavBar color={"transparent"} />
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1200px] mx-auto py-36 gap-20 md:gap-10">
-        <div className="text-white px-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1200px] mx-auto py-20 md:py-32 lg:py-36 gap-20 md:gap-10 px-5">
+        <div className="text-white">
           <h1
             style={{ lineHeight: "120%" }}
             className="text-5xl font-semibold mb-3"
@@ -60,7 +60,7 @@ const Banner = () => {
           {play ? (
             <iframe
               className="w-full"
-              height="370"
+              height="320"
               src="https://www.youtube.com/embed/i0Nxig4oTz8?autoplay=1"
               title="Flytant"
               frameborder="0"

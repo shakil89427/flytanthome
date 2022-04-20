@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import onboardHero from "../../../Assets/publicHome/onboardHero.png";
 
 const OnboardHero = () => {
@@ -13,7 +14,7 @@ const OnboardHero = () => {
           <img className="relative rounded-3xl z-40" src={onboardHero} alt="" />
         </div>
         <div className="w-full md:w-5/12 flex items-center justify-center bg-black py-10">
-          <div className="border-2 rounded-3xl text-white p-5 py-5 mx-5">
+          <div className="border-2 rounded-3xl text-white p-5 pb-8 mx-5">
             <h1
               style={{ lineHeight: "120%" }}
               className="text-5xl font-semibold"
@@ -31,9 +32,12 @@ const OnboardHero = () => {
               a holistic platform for Influencers and Brands to connect together
               transparently and make the most of their Collaboration.
             </p>
-            <button className="border py-2 px-8 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium">
+            <Link
+              to="onboard"
+              className="border py-2 px-8 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
+            >
               Get Onboard
-            </button>
+            </Link>
           </div>
         </div>
       </div>
