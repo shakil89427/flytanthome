@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import onboardBg from "../Assets/onboard/onboardBg.jpg";
+import checked from "../Assets/onboard/checked.png";
 import correct from "../Assets/onboard/correct.png";
 import upArrow from "../Assets/onboard/up.png";
 import downArrow from "../Assets/onboard/down.png";
@@ -11,7 +12,9 @@ import axios from "axios";
 import useStore from "../Store/useStore";
 
 const styles = {
-  main: "max-w-[1000px] mx-auto px-5 flex flex-col-reverse md:flex-row my-20 gap-10 md:items-end",
+  main: "max-w-[1000px] mx-auto px-5 flex flex-col-reverse md:flex-row my-20 md:my-28 gap-5 lg:gap-10 md:items-center lg:items-end",
+  topics: "md:w-7/12 lg:w-1/2 relative max-w-[500px] mx-auto shadow-xl",
+  topicsMain: "absolute w-full top-[60%] flex items-center justify-center",
   progressMain: "relative flex items-center justify-center",
   initialProgress: "absolute w-full h-1 bg-gray-300 -z-10",
   progress: "absolute h-1 bg-black -z-10 left-0 duration-300",
@@ -23,7 +26,7 @@ const styles = {
   mainBtn:
     "flex items-center justify-center gap-2 py-2 w-40 rounded-md text-lg text-white",
   arrowMain: "mt-24 flex items-center justify-end gap-3",
-  arrow: "w-8 h-8 bg-gray-400 rounded-md flex items-center justify-center",
+  arrow: "w-9 h-9 bg-gray-400 rounded-md flex items-center justify-center",
   successMain:
     "flex flex-col items-center justify-center gap-8 min-h-[80vh] px-5",
   successWrapper: "flex flex-col items-center justify-center gap-5",
@@ -33,6 +36,13 @@ const styles = {
 };
 
 const OnBoard = () => {
+  const topics = [
+    "Complete Transparency",
+    "Social Score Evaluation",
+    "Higher Engagement Rate",
+    "Influencers from All Niche",
+    "Payment based on Engagement",
+  ];
   const { setNotify } = useStore();
   const [data, setData] = useState({
     name: "",
@@ -58,6 +68,7 @@ const OnBoard = () => {
       await axios.post(process.env.REACT_APP_BRAND_CONTACT_URL, allData);
       setLoading(false);
       setSuccess(true);
+      window.scrollTo(0, 0);
     } catch (err) {
       setLoading(false);
       setNotify({ status: false, message: err.message });
@@ -82,11 +93,26 @@ const OnBoard = () => {
       {!success ? (
         <div className={styles.main}>
           <Scroll />
-          <div className="md:w-1/2">
+          {/* Topics */}
+          <div className={styles.topics}>
             <img src={onboardBg} alt="" />
+            <div className={styles.topicsMain}>
+              <div className="flex flex-col gap-2">
+                <h1 className="text-2xl font-medium">
+                  Hire Quality Influencers with
+                </h1>
+                {topics.map((topic, i) => (
+                  <div key={i} className="flex items-end gap-3  text-lg">
+                    <img src={checked} alt="" />
+                    <p>{topic}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="md:w-1/2">
-            {/* Progress Start */}
+
+          <div className="md:w-5/12 lg:w-1/2">
+            {/* Progress */}
             <div className={styles.progressMain}>
               <div className={styles.initialProgress} />
               <div
@@ -116,9 +142,8 @@ const OnBoard = () => {
                 </div>
               </div>
             </div>
-            {/* Progress End */}
 
-            {/* Title Start */}
+            {/* Title */}
             <div className={styles.titleMain}>
               <h1>
                 Let's <span className="font-semibold">Drive your products</span>
@@ -127,8 +152,8 @@ const OnBoard = () => {
                 Growth <span className="font-semibold">with Influencers</span>
               </h1>
             </div>
-            {/* Title End */}
 
+            {/* Form */}
             <form className="w-full" onSubmit={next}>
               <div className="h-52 relative">
                 {/* First Page */}
@@ -179,7 +204,7 @@ const OnBoard = () => {
                     <PhoneInput
                       className={`${styles.input} otpNumber`}
                       international
-                      defaultCountry="US"
+                      defaultCountry="IN"
                       countryCallingCodeEditable={false}
                       value={number}
                       onChange={setNumber}
@@ -210,7 +235,7 @@ const OnBoard = () => {
                 )}
               </div>
 
-              {/* Main Button */}
+              {/* Next/Submit Button */}
               <div className={styles.mainBtnWrapper}>
                 <button
                   disabled={disable || loading}
@@ -229,8 +254,10 @@ const OnBoard = () => {
                   </p>
                 )}
               </div>
-              {/* Arrows */}
+
+              {/* Arrow Buttons */}
               <div className={styles.arrowMain}>
+                {/* Previous Arrow */}
                 <button
                   disabled={loading || progress === 0}
                   style={{
@@ -247,6 +274,8 @@ const OnBoard = () => {
                 >
                   <img className="w-1/2" src={upArrow} alt="" />
                 </button>
+
+                {/* Next Arrow */}
                 <button
                   disabled={disable || progress === 100}
                   style={{
@@ -263,8 +292,8 @@ const OnBoard = () => {
           </div>
         </div>
       ) : (
+        /* Success Page */
         <div className={styles.successMain}>
-          <Scroll />
           <div className={styles.successWrapper}>
             <img src={successIcon} alt="" />
             <p>Your Form is submitted</p>
