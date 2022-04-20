@@ -47,10 +47,7 @@ const Career = () => {
 
   const uploadFile = (e) => {
     e.preventDefault();
-    const storageRef = ref(
-      storage,
-      `/files/${file.name + Math.floor(Math.random() * 1000)}`
-    );
+    const storageRef = ref(storage, `/files/${Date.now() + file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     setUploading(true);
     uploadTask.on(
@@ -110,7 +107,6 @@ const Career = () => {
           id="career_file"
           className={`${styles.input} col-span-2 mt-10 pb-0 cursor-pointer`}
           type="file"
-          accept="image/png,image/jpeg,image/jpg"
           onChange={(e) => setFile(e.target.files[0])}
         />
         <div className="col-span-2 relative mt-8 md:mt-0">
