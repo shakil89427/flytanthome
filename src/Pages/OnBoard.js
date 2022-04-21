@@ -221,7 +221,7 @@ const OnBoard = () => {
                     <textarea
                       className={styles.input}
                       rows="5"
-                      value={data.text}
+                      value={data.message}
                       onChange={(e) =>
                         setData({ ...data, message: e.target.value })
                       }

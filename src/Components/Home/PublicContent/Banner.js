@@ -16,11 +16,11 @@ const Banner = () => {
         <div className="text-white">
           <h1
             style={{ lineHeight: "120%" }}
-            className="text-5xl font-semibold mb-3"
+            className="text-5xl font-bold mb-3"
           >
             Connecting <br /> Brands & Influencers
           </h1>
-          <p className="text-md lg:text-lg  my-5">
+          <p className="text-xl  my-5">
             Find influencers and Brands of your niche
           </p>
           <div className="flex flex-col md:flex-row gap-3 text-black mt-10">
@@ -55,12 +55,11 @@ const Banner = () => {
             backgroundImage:
               "linear-gradient(to right,black,rgb(68, 12, 12),black,rgb(17, 17, 82),black)",
           }}
-          className="rounded-xl relative text-white"
+          className="rounded-xl relative text-white w-full h-72 sm:h-96 md:h-[310px] lg:h-[360px]"
         >
           {play ? (
             <iframe
-              className="w-full"
-              height="320"
+              className="w-full h-full"
               src="https://www.youtube.com/embed/i0Nxig4oTz8?autoplay=1"
               title="Flytant"
               frameborder="0"
@@ -68,7 +67,11 @@ const Banner = () => {
               allowfullscreen
             ></iframe>
           ) : (
-            <img className="w-full" src={bannerBg} alt="" />
+            <img
+              className="absolute w-full h-full bottom-0 left-0"
+              src={bannerBg}
+              alt=""
+            />
           )}
           {play ? (
             <GiCrossMark
@@ -78,7 +81,7 @@ const Banner = () => {
           ) : (
             <BsPlayCircle
               onClick={() => setPlay(true)}
-              className="absolute bottom-8 left-8 text-6xl cursor-pointer"
+              className="absolute bottom-8 left-8 text-5xl cursor-pointer"
             />
           )}
         </div>

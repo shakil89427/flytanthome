@@ -20,21 +20,15 @@ const BrandsHero = () => {
         alt=""
       />
       <div className="flex flex-col md:flex-row  max-w-[1200px] gap-14 lg:gap-20 mx-auto items-center px-5 py-14">
-        <div className="w-full md:w-5/12 flex flex-col items-end md:items-center gap-10 z-20">
-          <div className="border-2 rounded-3xl text-white p-5 py-10 bg-black">
+        <div className="w-full md:w-1/2 flex flex-col items-end md:items-center gap-10 z-20">
+          <div className="border-2 rounded-3xl text-white p-5 py-8 bg-black">
             <h1
               style={{ lineHeight: "120%" }}
-              className="text-5xl font-semibold"
+              className="text-4xl lg:text-5xl font-semibold"
             >
-              Flytant For
+              Flytant For <br /> Brands
             </h1>
-            <h1
-              style={{ lineHeight: "120%" }}
-              className="text-5xl font-semibold"
-            >
-              Brands
-            </h1>
-            <p className="text-xl font-medium my-8">
+            <p className="text-lg lg:text-xl font-medium my-8">
               Find the most Felicitous Influencers for Your Brand Promotion and
               Reach Your Target Audience WorldWide
             </p>
@@ -45,7 +39,7 @@ const BrandsHero = () => {
             </Link>
           </div>
         </div>
-        <div className="w-full md:w-7/12 flex flex-col items-end md:items-center gap-3 z-20">
+        <div className="w-full md:w-1/2 flex flex-col items-end md:items-center gap-3 z-20">
           <img src={blackDots} alt="" />
           <div className="relative">
             <img
