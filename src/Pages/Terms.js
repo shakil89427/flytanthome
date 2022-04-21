@@ -96,8 +96,18 @@ const Terms = () => {
         <li>
           We also use various social media platform’s API’s. Hence you must
           follow their Terms of Service too. Link to Youtube Terms of Service –
-          https://www.youtube.com/t/terms .You can’t do anything to interfere
-          with or impair the intended operation of the Service.
+          <br />
+          <a
+            className="text-blue-400"
+            target="_blank"
+            rel="noreferrer"
+            href="https://www.youtube.com/t/terms"
+          >
+            https://www.youtube.com/t/terms
+          </a>
+          <br />
+          .You can’t do anything to interfere with or impair the intended
+          operation of the Service.
         </li>
         <li>
           You can’t attempt to create accounts or access or collect information

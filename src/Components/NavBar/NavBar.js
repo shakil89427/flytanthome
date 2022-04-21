@@ -11,12 +11,11 @@ import Logout from "../Logout/Logout";
 
 /* Styles Start */
 const styles = {
-  main: "py-4 md:py-6 px-3 md:px-10 lg:px-14 flex items-center justify-between",
-  logo: "cursor-pointer w-[120px] md:w-[150px] lg:w-[200px]",
+  main: "px-3 md:px-10 lg:px-14 h-14 md:h-20 flex items-center justify-between",
+  logo: "cursor-pointer w-[130px] md:w-[200px]",
   profile: "flex items-center text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
-  login:
-    "font-medium border-2 px-5 py-1 text-sm md:text-md text-white border-white rounded-md",
+  btn: "bg-gray-600 text-xs md:text-sm  z-20 relative border-0 px-3 md:px-6 py-2 md:py-3 md:text-md text-white duration-300 before:border-r-2 before:duration-300 before:content-[''] before:absolute before:h-full  before:w-0 before:top-0 before:left-0 before:bg-gray-800 before:-z-10 hover:before:w-full overflow-hidden",
 };
 /* Styles End */
 
@@ -52,19 +51,16 @@ const NavBar = ({ color }) => {
           />
         </div>
       ) : (
-        <div className="flex gap-5">
+        <div className="flex items-center gap-4">
           <a
             href="mailto:contact@flytant.com"
             target="_blank"
             rel="noreferrer"
-            className={styles.login}
+            className={styles.btn}
           >
             Contact
           </a>
-          <button
-            onClick={() => setShowLogin(true)}
-            className={`${styles.login} bg-white text-black`}
-          >
+          <button onClick={() => setShowLogin(true)} className={styles.btn}>
             Login | Signup
           </button>
         </div>

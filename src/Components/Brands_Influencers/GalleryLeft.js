@@ -3,7 +3,7 @@ import blackDots from "../../Assets/blackDots.png";
 
 const GalleryLeft = ({ data }) => {
   return (
-    <div className="py-5 relative px-5 md:px-20 my-14">
+    <div className="py-5 relative px-5 md:px-20 my-24">
       <div className="absolute w-full h-20 bg-black bottom-10 left-0" />
       <img className="absolute top-14 right-20" src={blackDots} alt="" />
       <div className="w-fit max-w-[50%]">
@@ -19,8 +19,8 @@ const GalleryLeft = ({ data }) => {
         <div className="col-span-6 md:col-span-3">
           <img className="w-full h-full" src={data.img1} alt="" />
         </div>
-        <div className="col-span-5 md:col-span-2">
-          <img className="w-full h-full" src={data.img2} alt="" />
+        <div className="col-span-5 md:col-span-2 flex items-end">
+          <img className="w-full h-[85%]" src={data.img2} alt="" />
         </div>
         <div className="col-span-7 md:col-span-4">
           <img className="w-full h-full" src={data.img3} alt="" />

@@ -363,10 +363,35 @@ const Privacy = () => {
           </li>
           <li>
             Apart from our policies you must follow these policies too –
-            https://www.youtube.com/t/terms |
-            https://policies.google.com/privacy |
-            https://myaccount.google.com/permissions . Also our platform uses
-            YouTube API Services. Hence you must abide by their Terms as well.
+            <br />
+            <a
+              className="text-blue-400"
+              href="https://www.youtube.com/t/terms"
+              target="_blank"
+              rel="noreferrer"
+            >
+              https://www.youtube.com/t/terms
+            </a>
+            <br />
+            <a
+              className="text-blue-400"
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              https://policies.google.com/privacy
+            </a>
+            <br />
+            <a
+              className="text-blue-400"
+              href="https://myaccount.google.com/permissions"
+              target="_blank"
+              rel="noreferrer"
+            >
+              https://myaccount.google.com/permissions
+            </a>
+            <br />. Also our platform uses YouTube API Services. Hence you must
+            abide by their Terms as well.
           </li>
           <li>
             Enforcement is both automated and manual, and can include disabling

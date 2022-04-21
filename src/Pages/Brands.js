@@ -40,9 +40,14 @@ const Brands = () => {
         <div className="py-28 bg-gray-300 ">
           <h1 className="text-3xl font-semibold">Request a Demo</h1>
           <p className="my-5">Schedule a Meet With us before Getting Onboard</p>
-          <button className="bg-black text-white px-10 py-3 rounded-3xl">
+          <a
+            rel="noreferrer"
+            href="https://calendly.com/flytant"
+            target="_blank"
+            className="bg-black text-white px-10 py-3 rounded-3xl"
+          >
             Schedule Meet
-          </button>
+          </a>
         </div>
       </div>
     </>
