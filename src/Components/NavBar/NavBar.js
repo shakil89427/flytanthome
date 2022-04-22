@@ -15,7 +15,10 @@ const styles = {
   logo: "cursor-pointer w-[130px] md:w-[200px]",
   profile: "flex items-center text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
-  btn: "text-xs border border-gray-400 text-gray-300 px-4 rounded-lg md:px-6 py-2 md:py-3 md:text-md text-white duration-150 hover:scale-105 hover:border-white hover:text-white",
+  contactBtn:
+    "w-28 h-10 border text-sm border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:font-semibold hover:border-white hover:border-2",
+  loginBtn:
+    "bg-white w-36 h-10 border text-sm border-white flex items-center justify-center rounded-md duration-150 hover:scale-105 hover:font-semibold hover:border-2",
 };
 /* Styles End */
 
@@ -56,11 +59,16 @@ const NavBar = ({ color }) => {
             href="mailto:contact@flytant.com"
             target="_blank"
             rel="noreferrer"
-            className={styles.btn}
+            style={{ letterSpacing: ".8px" }}
+            className={styles.contactBtn}
           >
             Contact
           </a>
-          <button onClick={() => setShowLogin(true)} className={styles.btn}>
+          <button
+            style={{ letterSpacing: ".8px" }}
+            onClick={() => setShowLogin(true)}
+            className={styles.loginBtn}
+          >
             Login | Signup
           </button>
         </div>

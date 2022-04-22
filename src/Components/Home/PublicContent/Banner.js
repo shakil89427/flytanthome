@@ -12,8 +12,8 @@ const Banner = () => {
     <div className="relative">
       <div className="polygon" />
       <NavBar color={"transparent"} />
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1200px] mx-auto py-20 md:py-32 lg:py-36 gap-20 md:gap-10 px-5">
-        <div className="text-white">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto py-20 md:py-32 lg:py-36 gap-20 md:gap-10 lg:gap-20 px-5 lg:px-10">
+        <div className="text-white w-fit mx-auto">
           <h1
             style={{ lineHeight: "120%" }}
             className="text-5xl font-bold mb-3"
@@ -28,7 +28,7 @@ const Banner = () => {
               href="https://firebasestorage.googleapis.com/v0/b/flytant-app.appspot.com/o/androidApp%2FFlytant1.0.2%2FUpdated%2FFlytant.apk?alt=media&token=cc06343b-0789-40a7-99e7-aafbc948b00e"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center pl-3 bg-white w-44 rounded-lg gap-1 py-1"
+              className="flex items-center pl-3 bg-white w-44 rounded-lg gap-1 py-2"
             >
               <AiFillAndroid className="text-3xl" />
               <span>
@@ -40,7 +40,7 @@ const Banner = () => {
               href="https://apps.apple.com/in/app/flytant/id1530158515"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center pl-3  bg-white w-44 rounded-lg gap-1 py-1"
+              className="flex items-center pl-3  bg-white w-44 rounded-lg gap-1 py-2"
             >
               <AiFillApple className="text-3xl" />
               <span>
@@ -67,11 +67,7 @@ const Banner = () => {
               allowfullscreen
             ></iframe>
           ) : (
-            <img
-              className="absolute w-full h-full bottom-0 left-0"
-              src={bannerBg}
-              alt=""
-            />
+            <img className="h-full block mx-auto" src={bannerBg} alt="" />
           )}
           {play ? (
             <GiCrossMark

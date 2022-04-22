@@ -19,7 +19,7 @@ const BrandsHero = () => {
         src={rectEqual}
         alt=""
       />
-      <div className="flex flex-col md:flex-row  max-w-[1200px] gap-14 lg:gap-20 mx-auto items-center px-5 py-14">
+      <div className="flex flex-col md:flex-row  max-w-[1400px] gap-14 lg:gap-20 mx-auto items-center px-5 py-24">
         <div className="w-full md:w-1/2 flex flex-col items-end md:items-center gap-10 z-20">
           <div className="border-2 rounded-3xl text-white p-5 py-8 bg-black">
             <h1
@@ -28,7 +28,7 @@ const BrandsHero = () => {
             >
               Flytant For <br /> Brands
             </h1>
-            <p className="text-lg lg:text-xl font-medium my-8">
+            <p className="text-lg lg:text-xl max-w-[550px] font-medium my-8">
               Find the most Felicitous Influencers for Your Brand Promotion and
               Reach Your Target Audience WorldWide
             </p>
