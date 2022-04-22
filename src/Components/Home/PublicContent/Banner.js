@@ -50,13 +50,7 @@ const Banner = () => {
             </a>
           </div>
         </div>
-        <div
-          style={{
-            backgroundImage:
-              "linear-gradient(to right,black,rgb(68, 12, 12),black,rgb(17, 17, 82),black)",
-          }}
-          className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-96 md:h-[280px] lg:h-[390px] mb-3 md:mb-0"
-        >
+        <div className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-[360px] md:h-[280px] lg:h-[400px] mb-3 md:mb-0">
           {play ? (
             <iframe
               className="w-full h-full"
@@ -67,7 +61,11 @@ const Banner = () => {
               allowfullscreen
             ></iframe>
           ) : (
-            <img className="absolute h-[90%] bottom-0 " src={bannerBg} alt="" />
+            <img
+              className="w-full h-full absolute bottom-0"
+              src={bannerBg}
+              alt=""
+            />
           )}
           {play ? (
             <GiCrossMark
