@@ -16,14 +16,14 @@ const Banner = () => {
         <div className="text-white">
           <h1
             style={{ lineHeight: "120%" }}
-            className="text-5xl lg:text-6xl font-semibold mb-3"
+            className="text-5xl lg:text-[52px] font-bold mb-3"
           >
             Connecting <br /> Brands & Influencers
           </h1>
           <p className="text-xl  my-5">
             Find influencers and Brands of your niche
           </p>
-          <div className="flex flex-col md:flex-row gap-3 text-black mt-10">
+          <div className="flex flex-col md:flex-row gap-3 text-black mt-14">
             <a
               href="https://firebasestorage.googleapis.com/v0/b/flytant-app.appspot.com/o/androidApp%2FFlytant1.0.2%2FUpdated%2FFlytant.apk?alt=media&token=cc06343b-0789-40a7-99e7-aafbc948b00e"
               target="_blank"
