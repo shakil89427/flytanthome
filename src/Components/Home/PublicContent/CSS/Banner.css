@@ -6,11 +6,16 @@
   background-color: red;
   height: 100%;
   background-image: linear-gradient(to right, black, rgb(78, 77, 77));
-  clip-path: polygon(100% 0, 100% 50%, 0 100%, 0 0);
+  clip-path: polygon(100% 0, 100% 85%, 0 100%, 0 0);
   z-index: -1;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
   .polygon {
-    clip-path: polygon(100% 0, 100% 85%, 0 100%, 0 0);
+    clip-path: polygon(100% 0, 100% 75%, 0 100%, 0 0);
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .polygon {
+    clip-path: polygon(100% 0, 100% 55%, 0 100%, 0 0);
   }
 }
