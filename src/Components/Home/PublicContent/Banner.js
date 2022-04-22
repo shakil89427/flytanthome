@@ -12,15 +12,15 @@ const Banner = () => {
     <div className="relative min-h-screen">
       <div className="polygon" />
       <NavBar color={"transparent"} />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-20 md:gap-10 lg:gap-14 max-w-[1400px] px-5 mx-auto mt-14 md:mt-20 lg:mt-[10vh]">
-        <div className="text-white">
+      <div className="flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-14 max-w-[1400px] px-5 mx-auto mt-14 md:mt-20 lg:mt-[10vh]">
+        <div className="text-white md:w-1/2">
           <h1
             style={{ lineHeight: "120%" }}
             className="text-5xl lg:text-[52px] font-bold mb-3"
           >
             Connecting <br /> Brands & Influencers
           </h1>
-          <p className="text-xl  my-5">
+          <p className="text-lg lg:text-2xl  my-5">
             Find influencers and Brands of your niche
           </p>
           <div className="flex flex-col md:flex-row gap-3 text-black mt-14">
@@ -55,7 +55,7 @@ const Banner = () => {
             backgroundImage:
               "linear-gradient(to right,black,rgb(68, 12, 12),black,rgb(17, 17, 82),black)",
           }}
-          className="rounded-3xl relative text-white w-full h-72 sm:h-96 md:h-[310px] lg:h-[360px]"
+          className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-96 md:h-[310px] lg:h-[380px]"
         >
           {play ? (
             <iframe
