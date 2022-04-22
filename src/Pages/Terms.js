@@ -5,7 +5,7 @@ import ContactBar from "../Components/ContactBar/ContactBar";
 const Terms = () => {
   return (
     <>
-      <div className="max-w-[1100px] mx-auto px-5 my-32">
+      <div className="max-w-[1300px] mx-auto px-5 my-32">
         <Scroll />
         <h1 className="text-4xl font-semibold">Terms Of Use</h1>
         <h4 className="text-xl md:text-2xl lg:text-3xl my-14 pr-5 text-gray-800">

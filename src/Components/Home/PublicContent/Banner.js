@@ -12,7 +12,7 @@ const Banner = () => {
     <div className="relative min-h-screen">
       <div className="polygon" />
       <NavBar color={"transparent"} />
-      <div className="flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-14 max-w-[1400px] px-5 mx-auto mt-14 md:mt-20 lg:mt-[10vh]">
+      <div className="flex flex-col md:flex-row gap-20 md:gap-10 max-w-[1300px] px-5 mx-auto mt-14 md:mt-20 lg:mt-[10vh] lg:items-center">
         <div className="text-white md:w-1/2">
           <h1
             style={{ lineHeight: "120%" }}
@@ -55,7 +55,7 @@ const Banner = () => {
             backgroundImage:
               "linear-gradient(to right,black,rgb(68, 12, 12),black,rgb(17, 17, 82),black)",
           }}
-          className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-96 md:h-[310px] lg:h-[380px]"
+          className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-96 md:h-[280px] lg:h-[390px] mb-3 md:mb-0"
         >
           {play ? (
             <iframe
@@ -67,7 +67,7 @@ const Banner = () => {
               allowfullscreen
             ></iframe>
           ) : (
-            <img className="h-full block mx-auto" src={bannerBg} alt="" />
+            <img className="absolute h-[90%] bottom-0 " src={bannerBg} alt="" />
           )}
           {play ? (
             <GiCrossMark

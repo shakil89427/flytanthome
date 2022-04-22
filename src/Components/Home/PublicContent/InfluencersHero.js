@@ -11,20 +11,20 @@ const InfluencersHero = () => {
       }}
       className="min-h-screen flex items-center"
     >
-      <div className="flex flex-col-reverse md:flex-row  max-w-[1400px] gap-14 lg:gap-20 mx-auto items-center px-5 py-32 justify-between">
-        <div className="w-full md:w-7/12">
-          <img className="rounded-3xl" src={influencersHero} alt="" />
+      <div className="flex flex-col-reverse md:flex-row  max-w-[1300px] gap-14 lg:gap-20 mx-auto items-center px-5 py-32 justify-between">
+        <div className="w-full md:w-1/2 lg:w-7/12">
+          <img className="rounded-3xl w-full" src={influencersHero} alt="" />
         </div>
-        <div className="w-full md:w-fit">
+        <div className="w-full md:w-1/2 lg:w-5/12">
           <img className="mb-10 ml-auto md:mx-auto" src={whiteDots} alt="" />
-          <div className="border-2 rounded-3xl text-white p-5 py-8">
+          <div className="border-2 rounded-3xl text-white px-5 py-8">
             <h1
               style={{ lineHeight: "120%" }}
               className="text-4xl lg:text-5xl font-semibold"
             >
               Flytant For <br /> Influencers
             </h1>
-            <p className="text-lg lg:text-2xl max-w-[550px] mt-8 mb-10">
+            <p className="text-md lg:text-2xl pr-10 mt-8 mb-10 font-light">
               Join the fastest growing Influencers community and Get
               Sponsorships from Brands to Monetise Your Content
             </p>

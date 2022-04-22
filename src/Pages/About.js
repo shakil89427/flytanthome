@@ -9,7 +9,7 @@ const About = () => {
   return (
     <div>
       <Scroll />
-      <div className="max-w-[1200px] mx-auto px-5 my-24">
+      <div className="max-w-[1300px] mx-auto px-5 my-24">
         <h1 className="text-4xl font-semibold">About</h1>
         <h4 className="text-3xl my-14 pr-5">
           Fastest Growing Platform Connecting Brands and Influencers
@@ -61,7 +61,7 @@ const About = () => {
           Download Now
         </button>
       </div>
-      <div className="max-w-[1200px] mx-auto px-5 my-24">
+      <div className="max-w-[1300px] mx-auto px-5 my-24">
         <h4 className="text-3xl mt-14 mb-8 pr-5">Parental Touch</h4>
         <p style={{ lineHeight: "200%" }} className="text-md md:text-xl pr-5">
           Flytant is a subsidiary of Flytant Developers Pvt. Ltd.

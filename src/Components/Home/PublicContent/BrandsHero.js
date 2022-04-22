@@ -19,8 +19,8 @@ const BrandsHero = () => {
         src={rectEqual}
         alt=""
       />
-      <div className="flex flex-col md:flex-row  max-w-[1400px] gap-14 lg:gap-20 mx-auto items-center py-24 justify-between px-5">
-        <div className="w-full md:w-fit flex flex-col items-end md:items-center gap-10 z-20">
+      <div className="flex flex-col md:flex-row  max-w-[1300px] gap-14 lg:gap-20 mx-auto items-center py-24 justify-between px-5">
+        <div className="w-full md:w-1/2 lg:w-5/12 z-20">
           <div className="border-2 rounded-3xl text-white p-5 py-8 bg-black">
             <h1
               style={{ lineHeight: "120%" }}
@@ -28,7 +28,7 @@ const BrandsHero = () => {
             >
               Flytant For <br /> Brands
             </h1>
-            <p className="text-lg lg:text-2xl max-w-[500px] font-medium mt-8 mb-10">
+            <p className="text-md lg:text-2xl mt-8 mb-10 font-light">
               Find the most Felicitous Influencers for Your Brand Promotion and
               Reach Your Target Audience WorldWide
             </p>
@@ -39,7 +39,7 @@ const BrandsHero = () => {
             </Link>
           </div>
         </div>
-        <div className="w-full md:w-fit z-20">
+        <div className="w-full md:w-1/2 lg:w-7/12 z-20">
           <img className="mb-10 ml-auto md:mx-auto" src={blackDots} alt="" />
           <div className="relative">
             <img
@@ -47,7 +47,7 @@ const BrandsHero = () => {
               src={wavy}
               alt=""
             />
-            <img className="rounded-3xl z-40" src={brandsHero} alt="" />
+            <img className="rounded-3xl z-40 w-full" src={brandsHero} alt="" />
           </div>
         </div>
       </div>
