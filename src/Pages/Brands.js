@@ -7,9 +7,10 @@ import GalleryLeft from "../Components/Brands_Influencers/GalleryLeft";
 import GalleryRight from "../Components/Brands_Influencers/GalleryRight";
 import { bannerData, heroData, galleryData } from "../Assets/brands/BrandsData";
 import Scroll from "../Components/Scroll/Scroll";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Brands = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Scroll />
@@ -33,9 +34,12 @@ const Brands = () => {
         <div className="py-28 bg-gray-300">
           <h1 className="text-3xl font-semibold">Sounds Interesting</h1>
           <p className="my-5">Download the App and Post Your Campaign Free</p>
-          <Link to="/" className="bg-black text-white px-10 py-3 rounded-3xl">
+          <button
+            onClick={() => navigate("/")}
+            className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold"
+          >
             Download Now
-          </Link>
+          </button>
         </div>
         <p>or</p>
         <div className="py-28 bg-gray-300 ">
@@ -45,9 +49,10 @@ const Brands = () => {
             rel="noreferrer"
             href="https://calendly.com/flytant"
             target="_blank"
-            className="bg-black text-white px-10 py-3 rounded-3xl"
           >
-            Schedule Meet
+            <button className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold">
+              Schedule Meet
+            </button>
           </a>
         </div>
       </div>

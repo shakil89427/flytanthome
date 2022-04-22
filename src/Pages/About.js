@@ -4,8 +4,10 @@ import img1 from "../Assets/about/img1.png";
 import img2 from "../Assets/about/img2.png";
 import img3 from "../Assets/about/img3.png";
 import img4 from "../Assets/about/img4.png";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Scroll />
@@ -56,8 +58,11 @@ const About = () => {
       </div>
       <div className="py-28 my-32 bg-gray-300 text-center">
         <h1 className="text-3xl font-semibold">Get Onboard!</h1>
-        <p className="my-5">Fastest Growing Influencers Community</p>
-        <button className="bg-black text-white px-10 py-3 rounded-3xl">
+        <p className="mt-5 my-7">Fastest Growing Influencers Community</p>
+        <button
+          onClick={() => navigate("/")}
+          className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold"
+        >
           Download Now
         </button>
       </div>

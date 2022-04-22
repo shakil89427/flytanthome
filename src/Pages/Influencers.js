@@ -11,9 +11,10 @@ import {
   heroData,
   galleryData,
 } from "../Assets/influencers/InfluencersData";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Influencers = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Scroll />
@@ -36,9 +37,12 @@ const Influencers = () => {
       <div className="py-28 my-32 bg-gray-300 text-center">
         <h1 className="text-3xl font-semibold">Want to Get Sponsored?</h1>
         <p className="my-5">Download the App and Get Sponsorships</p>
-        <Link to="/" className="bg-black text-white px-10 py-3 rounded-3xl">
+        <button
+          onClick={() => navigate("/")}
+          className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold"
+        >
           Download Now
-        </Link>
+        </button>
       </div>
     </>
   );
