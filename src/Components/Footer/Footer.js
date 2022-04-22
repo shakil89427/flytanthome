@@ -15,16 +15,16 @@ import logo from "../../Assets/logo.png";
 const styles = {
   main: "bg-black text-white p-20",
   wrapper:
-    "grid grid-cols-1 lg:grid-cols-3 gap-y-10 border-b border-white pb-10",
+    "grid grid-cols-1 lg:grid-cols-3 gap-y-20 border-b border-white pb-10",
   info: "flex flex-col items-center lg:items-start justify-between",
   logo: "w-60",
   infoText: "my-5",
   iconMain: "flex flex-col md:flex-row gap-y-5 gap-x-2",
   iconWrapper: "flex items-center gap-2 mt-3",
-  icon: "w-[60px] h-[60px] md:w-12 md:h-12 border-[3px] md:border-[2px] rounded-full flex items-center justify-center text-3xl md:text-2xl",
+  icon: "w-[60px] h-[60px] md:w-12 md:h-12 border-[3px] md:border-[2px] rounded-full flex items-center justify-center text-3xl md:text-2xl hover:scale-110 duration-150",
   linksMain: "flex justify-evenly",
   sublink: "flex flex-col justify-between gap-5",
-  link: "text-xl cursor-pointer font-medium",
+  link: "text-xl cursor-pointer font-medium text-gray-400 hover:text-white duration-150",
   appMain: "flex flex-col gap-y-5 mx-auto items-center lg:items-start",
   appHead: "mt-1 lg:mt-0",
   appBtn:

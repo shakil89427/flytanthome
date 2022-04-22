@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useStore from "../Store/useStore";
 import Scroll from "../Components/Scroll/Scroll";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
+import ContactBar from "../Components/ContactBar/ContactBar";
 import {
   getStorage,
   ref,
@@ -75,56 +76,61 @@ const Career = () => {
   };
 
   return (
-    <div className={styles.main}>
-      <Scroll />
-      <img className={styles.bg} src={careerBg} alt="" />
-      <h1 className={styles.title}>We're Hiring</h1>
-      <p className={styles.info}>Leave us a message. We’ll contact you soon</p>
-      <form className={styles.form} onSubmit={uploadFile}>
-        <input
-          required
-          className={`${styles.input} col-span-2 md:col-span-1`}
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setData({ ...data, name: e.target.value })}
-        />
-        <input
-          required
-          className={`${styles.input} col-span-2 md:col-span-1`}
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setData({ ...data, email: e.target.value })}
-        />
-        <textarea
-          required
-          className={`${styles.input} col-span-2`}
-          rows="3"
-          placeholder="Type Message Here"
-          onChange={(e) => setData({ ...data, text: e.target.value })}
-        />
-        <input
-          required
-          id="career_file"
-          className={`${styles.input} col-span-2 mt-10 pb-0 cursor-pointer`}
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <div className="col-span-2 relative mt-8 md:mt-0">
-          <div className="absolute w-full -top-14 left-0">
-            {uploading && (
-              <p className="text-sm">
-                Uploading File
-                <span className="text-lg ml-1">{uploaded}%</span>
-              </p>
-            )}
-            {loading && <ProgressBar />}
+    <>
+      <div className={styles.main}>
+        <Scroll />
+        <img className={styles.bg} src={careerBg} alt="" />
+        <h1 className={styles.title}>We're Hiring</h1>
+        <p className={styles.info}>
+          Leave us a message. We’ll contact you soon
+        </p>
+        <form className={styles.form} onSubmit={uploadFile}>
+          <input
+            required
+            className={`${styles.input} col-span-2 md:col-span-1`}
+            type="text"
+            placeholder="Name"
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+          />
+          <input
+            required
+            className={`${styles.input} col-span-2 md:col-span-1`}
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+          />
+          <textarea
+            required
+            className={`${styles.input} col-span-2`}
+            rows="3"
+            placeholder="Type Message Here"
+            onChange={(e) => setData({ ...data, text: e.target.value })}
+          />
+          <input
+            required
+            id="career_file"
+            className={`${styles.input} col-span-2 mt-10 pb-0 cursor-pointer`}
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <div className="col-span-2 relative mt-8 md:mt-0">
+            <div className="absolute w-full -top-14 left-0">
+              {uploading && (
+                <p className="text-sm">
+                  Uploading File
+                  <span className="text-lg ml-1">{uploaded}%</span>
+                </p>
+              )}
+              {loading && <ProgressBar />}
+            </div>
+            <button type="submit" className={styles.btn}>
+              Submit
+            </button>
           </div>
-          <button type="submit" className={styles.btn}>
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+      <ContactBar />
+    </>
   );
 };
 

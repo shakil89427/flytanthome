@@ -3,6 +3,7 @@ import Scroll from "../Components/Scroll/Scroll";
 import useStore from "../Store/useStore";
 import React, { useState } from "react";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
+import ContactBar from "../Components/ContactBar/ContactBar";
 
 const styles = {
   main: "mx-auto max-w-[900px] py-14 md:py-24 px-5",
@@ -39,52 +40,55 @@ const Contact = () => {
     }
   };
   return (
-    <div className={styles.main}>
-      <Scroll />
-      <h1 className={styles.title}>How can we help you?</h1>
-      <p className={styles.info}>
-        Do you have a question or are you interested in working with us? Just
-        fill out the form below
-      </p>
-      <form className={styles.form} onSubmit={submitData}>
-        <input
-          required
-          className={`${styles.input} col-span-2`}
-          placeholder="i'd like to ask about"
-          type="text"
-          onChange={(e) => setData({ ...data, ask: e.target.value })}
-        />
-        <input
-          required
-          className={`${styles.input} col-span-2 md:col-span-1`}
-          placeholder="Name"
-          type="text"
-          onChange={(e) => setData({ ...data, name: e.target.value })}
-        />
-        <input
-          required
-          className={`${styles.input} col-span-2 md:col-span-1`}
-          placeholder="Email"
-          type="email"
-          onChange={(e) => setData({ ...data, email: e.target.value })}
-        />
-        <textarea
-          required
-          className={`${styles.input} col-span-2`}
-          placeholder="Type Message Here"
-          rows="3"
-          onChange={(e) => setData({ ...data, text: e.target.value })}
-        />
-        <div className="col-span-2 relative mt-8 md:mt-0">
-          <div className="absolute w-full left-0 -top-14">
-            {loading && <ProgressBar />}
+    <>
+      <div className={styles.main}>
+        <Scroll />
+        <h1 className={styles.title}>How can we help you?</h1>
+        <p className={styles.info}>
+          Do you have a question or are you interested in working with us? Just
+          fill out the form below
+        </p>
+        <form className={styles.form} onSubmit={submitData}>
+          <input
+            required
+            className={`${styles.input} col-span-2`}
+            placeholder="i'd like to ask about"
+            type="text"
+            onChange={(e) => setData({ ...data, ask: e.target.value })}
+          />
+          <input
+            required
+            className={`${styles.input} col-span-2 md:col-span-1`}
+            placeholder="Name"
+            type="text"
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+          />
+          <input
+            required
+            className={`${styles.input} col-span-2 md:col-span-1`}
+            placeholder="Email"
+            type="email"
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+          />
+          <textarea
+            required
+            className={`${styles.input} col-span-2`}
+            placeholder="Type Message Here"
+            rows="3"
+            onChange={(e) => setData({ ...data, text: e.target.value })}
+          />
+          <div className="col-span-2 relative mt-8 md:mt-0">
+            <div className="absolute w-full left-0 -top-14">
+              {loading && <ProgressBar />}
+            </div>
+            <button type="submit" className={styles.btn}>
+              Submit
+            </button>
           </div>
-          <button type="submit" className={styles.btn}>
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+      <ContactBar />
+    </>
   );
 };
 

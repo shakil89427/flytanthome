@@ -14,7 +14,7 @@ const styles = {
   mainWrapper:
     "flex flex-col md:flex-row items-center gap-5 lg:gap-20 mx-auto w-fit mt-10",
   innerWrapper: "flex items-center gap-5 lg:gap-20",
-  btn: "w-20 lg:w-28 h-20 lg:h-28 border-2 rounded-full text-5xl lg:text-6xl flex items-center justify-center",
+  btn: "w-20 lg:w-28 h-20 lg:h-28 border-2 rounded-full text-5xl lg:text-6xl flex items-center justify-center hover:scale-110 duration-150",
 };
 
 const ContactBar = () => {
