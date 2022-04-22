@@ -13,7 +13,8 @@ const Banner = ({ data }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-14 md:gap-5 lg:gap-20">
           <div
             style={{
-              backgroundImage: "linear-gradient(45deg, black, rgb(53, 52, 52))",
+              backgroundImage:
+                "linear-gradient(45deg, black,  rgb(59, 58, 58))",
             }}
             className=" text-white px-10 py-14 rounded-2xl"
           >
