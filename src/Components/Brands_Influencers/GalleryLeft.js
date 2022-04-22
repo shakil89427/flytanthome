@@ -20,7 +20,7 @@ const GalleryLeft = ({ data }) => {
           <img className="w-full h-full" src={data.img1} alt="" />
         </div>
         <div className="col-span-5 md:col-span-2 flex items-end">
-          <img className="w-full h-[85%]" src={data.img2} alt="" />
+          <img className="w-full" src={data.img2} alt="" />
         </div>
         <div className="col-span-7 md:col-span-4">
           <img className="w-full h-full" src={data.img3} alt="" />

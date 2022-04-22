@@ -4,7 +4,7 @@ import whiteDots from "../../Assets/whiteDots.png";
 const HeroLeft = ({ data }) => {
   return (
     <>
-      <div className="bg-black text-white px-5 py-44 w-[90%] flex flex-col-reverse md:flex-row items-center mx-5 lg:mx-auto gap-14 justify-center rounded-xl relative">
+      <div className="bg-black text-white px-5 py-44 w-[90%] flex flex-col-reverse md:flex-row items-center mx-5 lg:mx-auto gap-28 justify-center rounded-xl relative">
         <div className="w-4 h-4 bg-white absolute top-6 left-6" />
         <img className="absolute top-7 right-7" src={whiteDots} alt="" />
         <img src={data.img} alt="" />

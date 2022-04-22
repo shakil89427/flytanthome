@@ -9,14 +9,14 @@ import { GiCrossMark } from "react-icons/gi";
 const Banner = () => {
   const [play, setPlay] = useState(false);
   return (
-    <div className="relative">
+    <div className="relative min-h-screen">
       <div className="polygon" />
       <NavBar color={"transparent"} />
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto py-20 md:py-32 lg:py-36 gap-20 md:gap-10 lg:gap-20 px-5 lg:px-10">
-        <div className="text-white w-fit mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-20 md:gap-10 lg:gap-14 max-w-[1400px] px-5 mx-auto mt-14 md:mt-20 lg:mt-[10vh]">
+        <div className="text-white">
           <h1
             style={{ lineHeight: "120%" }}
-            className="text-5xl font-bold mb-3"
+            className="text-5xl lg:text-6xl font-semibold mb-3"
           >
             Connecting <br /> Brands & Influencers
           </h1>
@@ -55,7 +55,7 @@ const Banner = () => {
             backgroundImage:
               "linear-gradient(to right,black,rgb(68, 12, 12),black,rgb(17, 17, 82),black)",
           }}
-          className="rounded-xl relative text-white w-full h-72 sm:h-96 md:h-[310px] lg:h-[360px]"
+          className="rounded-3xl relative text-white w-full h-72 sm:h-96 md:h-[310px] lg:h-[360px]"
         >
           {play ? (
             <iframe

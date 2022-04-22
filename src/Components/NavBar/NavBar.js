@@ -11,14 +11,14 @@ import Logout from "../Logout/Logout";
 
 /* Styles Start */
 const styles = {
-  main: "px-3 md:px-10 lg:px-14 h-14 md:h-20 flex items-center justify-between",
+  main: "px-3 md:px-10 lg:px-24 h-14 md:h-28 flex items-center justify-between",
   logo: "cursor-pointer w-[130px] md:w-[200px]",
   profile: "flex items-center text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   contactBtn:
     "w-28 h-10 border text-sm border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:font-semibold hover:border-white hover:border-2",
   loginBtn:
-    "bg-white w-36 h-10 border text-sm border-white flex items-center justify-center rounded-md duration-150 hover:scale-105 hover:font-semibold hover:border-2",
+    "bg-white w-36 h-10 border font-medium text-sm border-white flex items-center justify-center rounded-md duration-150 hover:scale-105 hover:font-semibold hover:border-2",
 };
 /* Styles End */
 

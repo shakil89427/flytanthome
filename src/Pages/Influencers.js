@@ -11,6 +11,7 @@ import {
   heroData,
   galleryData,
 } from "../Assets/influencers/InfluencersData";
+import { Link } from "react-router-dom";
 
 const Influencers = () => {
   return (
@@ -35,9 +36,9 @@ const Influencers = () => {
       <div className="py-28 my-32 bg-gray-300 text-center">
         <h1 className="text-3xl font-semibold">Want to Get Sponsored?</h1>
         <p className="my-5">Download the App and Get Sponsorships</p>
-        <button className="bg-black text-white px-10 py-3 rounded-3xl">
+        <Link to="/" className="bg-black text-white px-10 py-3 rounded-3xl">
           Download Now
-        </button>
+        </Link>
       </div>
     </>
   );

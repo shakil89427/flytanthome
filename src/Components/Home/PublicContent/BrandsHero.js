@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const BrandsHero = () => {
   return (
-    <div className=" bg-white relative">
+    <div className="  relative min-h-screen md:flex md:items-center">
       <img
         className="absolute h-[52%] w-1/2 md:h-full md:w-3/12 lg:w-3/12"
         src={rectTall}
@@ -28,7 +28,7 @@ const BrandsHero = () => {
             >
               Flytant For <br /> Brands
             </h1>
-            <p className="text-lg lg:text-xl max-w-[550px] font-medium my-8">
+            <p className="text-lg lg:text-2xl max-w-[550px] font-medium my-8">
               Find the most Felicitous Influencers for Your Brand Promotion and
               Reach Your Target Audience WorldWide
             </p>

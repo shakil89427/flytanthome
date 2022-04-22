@@ -7,6 +7,7 @@ import GalleryLeft from "../Components/Brands_Influencers/GalleryLeft";
 import GalleryRight from "../Components/Brands_Influencers/GalleryRight";
 import { bannerData, heroData, galleryData } from "../Assets/brands/BrandsData";
 import Scroll from "../Components/Scroll/Scroll";
+import { Link } from "react-router-dom";
 
 const Brands = () => {
   return (
@@ -31,10 +32,10 @@ const Brands = () => {
       <div className="flex flex-col gap-10 my-32 text-center">
         <div className="py-28 bg-gray-300">
           <h1 className="text-3xl font-semibold">Sounds Interesting</h1>
-          <p className="my-5">Download the App andPost Your Campaign Free</p>
-          <button className="bg-black text-white px-10 py-3 rounded-3xl">
+          <p className="my-5">Download the App and Post Your Campaign Free</p>
+          <Link to="/" className="bg-black text-white px-10 py-3 rounded-3xl">
             Download Now
-          </button>
+          </Link>
         </div>
         <p>or</p>
         <div className="py-28 bg-gray-300 ">
