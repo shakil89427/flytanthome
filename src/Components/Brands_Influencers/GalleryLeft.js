@@ -3,12 +3,12 @@ import blackDots from "../../Assets/blackDots.png";
 
 const GalleryLeft = ({ data }) => {
   return (
-    <div className="py-5 relative px-5 my-24 max-w-[1300px] mx-auto">
+    <div className="py-5 relative my-24 r-box">
       <div className="absolute w-full h-20 bg-black bottom-10 left-0" />
       <img className="absolute top-14 right-20" src={blackDots} alt="" />
       <div className="w-fit max-w-[50%]">
-        <h1 className="text-4xl font-bold">{data.title}</h1>
-        <p className="max-w-[350px] text-lg font-medium my-5 relative before:content[''] before:absolute before:w-28 before:h-[3px] before:bg-black before:-bottom-5 before:left-0 after:content[''] after:absolute after:w-4 after:h-[3px] after:bg-black after:-bottom-5 after:left-32">
+        <h1 className="text-2xl md:text-4xl font-bold">{data.title}</h1>
+        <p className="text-lg md:text-2xl my-5 relative before:content[''] before:absolute before:w-28 before:h-[3px] before:bg-black before:-bottom-5 before:left-0 after:content[''] after:absolute after:w-4 after:h-[3px] after:bg-black after:-bottom-5 after:left-32">
           {data.info}
         </p>
       </div>

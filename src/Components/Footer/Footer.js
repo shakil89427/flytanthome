@@ -13,11 +13,11 @@ import { Link } from "react-router-dom";
 import logo from "../../Assets/logo.png";
 
 const styles = {
-  main: "bg-black text-white p-20",
+  main: "bg-black text-white py-14",
   wrapper:
-    "grid grid-cols-1 lg:grid-cols-3 gap-y-20 border-b border-white pb-10",
-  info: "flex flex-col items-center lg:items-start justify-between",
-  logo: "w-60",
+    "grid grid-cols-1 lg:grid-cols-3 gap-y-20 border-b border-white r-box py-20",
+  info: "flex flex-col items-center justify-between",
+  logo: "w-64",
   infoText: "my-5",
   iconMain: "flex flex-col md:flex-row gap-y-5 gap-x-2",
   iconWrapper: "flex items-center gap-2 mt-3",
@@ -25,10 +25,11 @@ const styles = {
   linksMain: "flex justify-evenly",
   sublink: "flex flex-col justify-between gap-5",
   link: "text-xl cursor-pointer font-medium text-gray-400 hover:text-white duration-150",
-  appMain: "flex flex-col gap-y-5 mx-auto items-center lg:items-start",
+  appMain:
+    "w-fit flex flex-col mx-auto md:ml-auto gap-y-5 items-center lg:items-start",
   appHead: "mt-1 lg:mt-0",
   appBtn:
-    "bg-[#303030] w-56 flex items-center px-5 py-1 border-2 border-white rounded-lg cursor-pointer",
+    "bg-[#303030] w-56 flex items-center px-5 py-1 border-2 border-white rounded-lg z-10 cursor-pointer overflow-hidden before:duration-300 relative before:absolute before:content-[''] before:w-0 before:h-full before:top-0 before:left-0 before:bg-black hover:before:w-full before:-z-10",
   appIcon: "text-3xl mr-3",
   download: "text-sm text-gray-300",
   appCatagory: "font-semibold text-lg",

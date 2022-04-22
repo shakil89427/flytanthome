@@ -38,7 +38,7 @@ const Sponsorships = ({ sponsorships, type }) => {
   }, [swiper]);
 
   return (
-    <div className="pl-5 md:pl-10 lg:pr-10 py-8 relative">
+    <div className="r-box py-8 relative">
       <h1 className={styles.heading}>{type} Sponsorships</h1>
       <div className="my-5">
         <Swiper

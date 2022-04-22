@@ -19,7 +19,7 @@ const BrandsHero = () => {
         src={rectEqual}
         alt=""
       />
-      <div className="flex flex-col md:flex-row  max-w-[1300px] gap-14 lg:gap-20 mx-auto items-center py-24 justify-between px-5">
+      <div className="flex flex-col md:flex-row  r-box gap-14 lg:gap-20 items-center py-24 justify-between">
         <div className="w-full md:w-1/2 lg:w-5/12 z-20">
           <div className="border-2 rounded-3xl text-white p-5 py-8 bg-black">
             <h1

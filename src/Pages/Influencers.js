@@ -11,7 +11,7 @@ import {
   heroData,
   galleryData,
 } from "../Assets/influencers/InfluencersData";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Influencers = () => {
   const navigate = useNavigate();
@@ -34,12 +34,16 @@ const Influencers = () => {
           <GalleryLeft key={i} data={gallery} />
         )
       )}
-      <div className="py-28 my-32 bg-gray-300 text-center">
-        <h1 className="text-3xl font-semibold">Want to Get Sponsored?</h1>
-        <p className="my-5">Download the App and Get Sponsorships</p>
+      <div className="py-24 my-32 bg-gray-100 text-center">
+        <h1 className="text-3xl md:text-4xl font-medium">
+          Want to Get Sponsored?
+        </h1>
+        <p className="mt-5 mb-8 md:text-xl">
+          Download the App and Get Sponsorships
+        </p>
         <button
           onClick={() => navigate("/")}
-          className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold"
+          className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold shadow-xl"
         >
           Download Now
         </button>

@@ -11,7 +11,7 @@ const InfluencersHero = () => {
       }}
       className="min-h-screen flex items-center"
     >
-      <div className="flex flex-col-reverse md:flex-row  max-w-[1300px] gap-14 lg:gap-20 mx-auto items-center px-5 py-32 justify-between">
+      <div className="flex flex-col-reverse md:flex-row  gap-14 lg:gap-20 r-box items-center px-5 py-32 justify-between">
         <div className="w-full md:w-1/2 lg:w-7/12">
           <img className="rounded-3xl w-full" src={influencersHero} alt="" />
         </div>

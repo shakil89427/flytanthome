@@ -9,25 +9,25 @@ const Banner = ({ data }) => {
     <div className="relative">
       <div className="bgmain" />
       <NavBar color={"transparent"} />
-      <div className="py-20 px-5 max-w-[1300px] mx-auto ">
+      <div className="py-32 r-box">
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-14 md:gap-5 lg:gap-20">
           <div
             style={{
               backgroundImage:
                 "linear-gradient(45deg, black,  rgb(59, 58, 58))",
             }}
-            className=" text-white px-10 py-14 rounded-2xl"
+            className=" text-white px-8 lg:px-14 py-14 rounded-2xl"
           >
             <h1
               style={{ lineHeight: "120%" }}
-              className="text-5xl font-semibold"
+              className="text-3xl lg:text-5xl md:w-1/2 font-bold"
             >
-              Flytant <br /> {data.title}
+              Flytant {data.title}
             </h1>
-            <p className="text-lg font-medium mt-10 mb-14 lg:pr-20 relative before:content[''] before:absolute before:w-28 before:h-[3px] before:bg-white before:-bottom-5 before:left-0 after:content[''] after:absolute after:w-4 after:h-[3px] after:bg-white after:-bottom-5 after:left-32">
+            <p className="text-lg font-medium mt-10 mb-14 lg:pr-36 relative before:content[''] before:absolute before:w-28 before:h-[3px] before:bg-white before:-bottom-5 before:left-0 after:content[''] after:absolute after:w-4 after:h-[3px] after:bg-white after:-bottom-5 after:left-32">
               {data.info}
             </p>
-            <div className="flex flex-col lg:flex-row gap-3">
+            <div className="flex flex-col xl:flex-row gap-3">
               <a
                 href="https://firebasestorage.googleapis.com/v0/b/flytant-app.appspot.com/o/androidApp%2FFlytant1.0.2%2FUpdated%2FFlytant.apk?alt=media&token=cc06343b-0789-40a7-99e7-aafbc948b00e"
                 target="_blank"

@@ -3,7 +3,7 @@ import adBannerBg from "../../../Assets/userHome/adBannerBg.png";
 
 const AdBanner = () => {
   return (
-    <div className="relative mb-5 lg:my-10">
+    <div className="relative mb-5 lg:my-10 r-box">
       <div
         className="h-48 md:h-60 lg:h-96 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${adBannerBg})` }}

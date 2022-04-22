@@ -4,7 +4,7 @@ import SocialAccounts from "../Components/Profile/SocialAccounts";
 import Scroll from "../Components/Scroll/Scroll";
 
 const styles = {
-  main: "grid grid-cols-1 lg:grid-cols-2 py-14 px-5 md:px-28 gap-10 lg:gap-20",
+  main: "grid grid-cols-1 lg:grid-cols-2 py-14 r-box gap-10 lg:gap-20",
 };
 
 const Profile = () => {

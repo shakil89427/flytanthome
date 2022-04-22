@@ -6,6 +6,6 @@
   background-color: red;
   height: 100%;
   background-image: linear-gradient(to left, black, rgb(100, 98, 98));
-  clip-path: polygon(100% 0, 100% 100%, 0% 12%, 0 0);
+  clip-path: polygon(100% 0, 100% 100%, 0% 20%, 0 0);
   z-index: -1;
 }

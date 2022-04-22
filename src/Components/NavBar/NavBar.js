@@ -11,7 +11,7 @@ import Logout from "../Logout/Logout";
 
 /* Styles Start */
 const styles = {
-  main: "px-3 md:px-10 lg:px-24 h-20 md:h-28 flex items-center justify-between",
+  main: "r-box h-14 md:h-24 flex items-center justify-between",
   logo: "cursor-pointer w-[130px] md:w-[200px]",
   profile: "flex items-center text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
@@ -28,56 +28,55 @@ const NavBar = ({ color }) => {
   const { user, showLogin, setShowLogin, notify } = useStore();
   const [showLogout, setShowLogout] = useState(false);
   return (
-    <div
-      style={{ backgroundColor: color ? color : "black" }}
-      className={styles.main}
-    >
-      <img
-        onClick={() => navigate("/")}
-        className={styles.logo}
-        src={logo}
-        alt=""
-      />
-      {user?.userId ? (
-        <div className={styles.profile}>
-          <Link to="/profile">
-            <img
-              className={styles.profileImg}
-              src={user.profileImageUrl ? user.profileImageUrl : defaultUser}
-              alt=""
-            />
-          </Link>
+    <div style={{ backgroundColor: color ? color : "black" }}>
+      <div className={styles.main}>
+        <img
+          onClick={() => navigate("/")}
+          className={styles.logo}
+          src={logo}
+          alt=""
+        />
+        {user?.userId ? (
+          <div className={styles.profile}>
+            <Link to="/profile">
+              <img
+                className={styles.profileImg}
+                src={user.profileImageUrl ? user.profileImageUrl : defaultUser}
+                alt=""
+              />
+            </Link>
 
-          <FiLogOut
-            onClick={() => setShowLogout(true)}
-            className="cursor-pointer"
-          />
-        </div>
-      ) : (
-        <div className="flex items-center gap-3">
-          <a
-            href="mailto:contact@flytant.com"
-            target="_blank"
-            rel="noreferrer"
-            style={{ letterSpacing: ".8px" }}
-            className={styles.contactBtn}
-          >
-            Contact
-          </a>
-          <button
-            style={{
-              letterSpacing: ".8px",
-            }}
-            onClick={() => setShowLogin(true)}
-            className={styles.loginBtn}
-          >
-            Login | Signup
-          </button>
-        </div>
-      )}
-      {showLogin && <Login />}
-      {showLogout && <Logout setShowLogout={setShowLogout} />}
-      {notify && <Toast />}
+            <FiLogOut
+              onClick={() => setShowLogout(true)}
+              className="cursor-pointer"
+            />
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <a
+              href="mailto:contact@flytant.com"
+              target="_blank"
+              rel="noreferrer"
+              style={{ letterSpacing: ".8px" }}
+              className={styles.contactBtn}
+            >
+              Contact
+            </a>
+            <button
+              style={{
+                letterSpacing: ".8px",
+              }}
+              onClick={() => setShowLogin(true)}
+              className={styles.loginBtn}
+            >
+              Login | Signup
+            </button>
+          </div>
+        )}
+        {showLogin && <Login />}
+        {showLogout && <Logout setShowLogout={setShowLogout} />}
+        {notify && <Toast />}
+      </div>
     </div>
   );
 };

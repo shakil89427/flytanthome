@@ -10,7 +10,7 @@ const OnboardHero = () => {
       }}
       className="min-h-screen flex items-center py-14"
     >
-      <div className="flex flex-col-reverse gap-20 md:flex-row md:justify-between md:items-center bg-black max-w-[1300px] px-5 mx-auto py-10 lg:py-0">
+      <div className="flex flex-col-reverse gap-20 md:flex-row md:justify-between md:items-center bg-black r-box py-10 lg:py-0">
         <div className="md:w-1/2 lg:w-7/12 relative py-10 flex-tems-center">
           <div className="absolute w-screen h-full bg-white right-1/2 top-0" />
           <img

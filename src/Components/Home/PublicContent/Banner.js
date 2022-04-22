@@ -9,10 +9,10 @@ import { GiCrossMark } from "react-icons/gi";
 const Banner = () => {
   const [play, setPlay] = useState(false);
   return (
-    <div className="relative min-h-screen">
+    <div className="relative md:min-h-[75vh] lg:min-h-screen">
       <div className="polygon" />
       <NavBar color={"transparent"} />
-      <div className="flex flex-col md:flex-row gap-20 md:gap-10 max-w-[1300px] px-5 mx-auto mt-14 md:mt-20 lg:mt-[10vh] lg:items-center">
+      <div className="flex flex-col md:flex-row gap-20 md:gap-10 r-box mt-14 md:mt-20 lg:mt-[10vh] lg:items-center">
         <div className="text-white md:w-1/2">
           <h1
             style={{ lineHeight: "120%" }}
@@ -50,7 +50,7 @@ const Banner = () => {
             </a>
           </div>
         </div>
-        <div className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-[360px] md:h-[280px] lg:h-[400px] mb-3 md:mb-0">
+        <div className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-[360px] md:h-[280px] lg:h-[400px] xl:h-[450px] mb-3 md:mb-0">
           {play ? (
             <iframe
               className="w-full h-full"

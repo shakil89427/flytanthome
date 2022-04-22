@@ -5,7 +5,7 @@ import Scroll from "../Components/Scroll/Scroll";
 const Privacy = () => {
   return (
     <>
-      <div className="max-w-[1300px] mx-auto px-5 my-32">
+      <div className="r-box my-32">
         <Scroll />
         <h1 className="text-4xl font-semibold">Privacy Policy</h1>
         <h4 className="text-xl md:text-2xl lg:text-3xl mb-14 mt-5 pr-5 text-gray-800">

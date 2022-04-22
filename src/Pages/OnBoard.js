@@ -12,7 +12,7 @@ import axios from "axios";
 import useStore from "../Store/useStore";
 
 const styles = {
-  main: "max-w-[1000px] mx-auto px-5 flex flex-col-reverse md:flex-row my-20 md:my-28 gap-5 lg:gap-10 md:items-center lg:items-end",
+  main: "max-w-[1100px] mx-auto px-5 flex flex-col-reverse md:flex-row my-20 md:my-28 gap-10 lg:gap-10 md:items-center lg:items-end",
   topics: "md:w-7/12 lg:w-1/2 relative max-w-[500px] mx-auto shadow-xl",
   topicsMain: "absolute w-full top-[60%] flex items-center justify-center",
   progressMain: "relative flex items-center justify-center",
@@ -25,7 +25,7 @@ const styles = {
   mainBtnWrapper: "flex items-center gap-3 mt-5",
   mainBtn:
     "flex items-center justify-center gap-2 py-2 w-40 rounded-md text-lg text-white",
-  arrowMain: "mt-24 flex items-center justify-end gap-3",
+  arrowMain: "mt-40 flex items-center justify-end gap-3",
   arrow: "w-9 h-9 bg-gray-400 rounded-md flex items-center justify-center",
   successMain:
     "flex flex-col items-center justify-center gap-8 min-h-[80vh] px-5",

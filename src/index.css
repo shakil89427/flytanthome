@@ -33,3 +33,37 @@ input[type="number"] {
   padding: 5px 10px;
   margin-right: 10px;
 }
+/* Responsive Container Start */
+.r-box {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media only screen and (min-width: 640px) {
+  .r-box {
+    width: 610px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .r-box {
+    width: 720px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .r-box {
+    width: 970px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .r-box {
+    width: 1200px;
+  }
+}
+@media only screen and (min-width: 1536px) {
+  .r-box {
+    width: 1470px;
+  }
+}
+/* Responsive Container End */

@@ -31,26 +31,32 @@ const Brands = () => {
         )
       )}
       <div className="flex flex-col gap-10 my-32 text-center">
-        <div className="py-28 bg-gray-300">
-          <h1 className="text-3xl font-semibold">Sounds Interesting</h1>
-          <p className="my-5">Download the App and Post Your Campaign Free</p>
+        <div className="py-24 bg-gray-100">
+          <h1 className="text-3xl md:text-4xl font-medium">
+            Sounds Interesting
+          </h1>
+          <p className="mt-5 mb-8  md:text-xl">
+            Download the App and Post Your Campaign Free
+          </p>
           <button
             onClick={() => navigate("/")}
-            className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold"
+            className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold shadow-xl"
           >
             Download Now
           </button>
         </div>
         <p>or</p>
-        <div className="py-28 bg-gray-300 ">
-          <h1 className="text-3xl font-semibold">Request a Demo</h1>
-          <p className="my-5">Schedule a Meet With us before Getting Onboard</p>
+        <div className="py-24 bg-gray-100 ">
+          <h1 className="text-3xl md:text-4xl font-medium">Request a Demo</h1>
+          <p className="mt-5 mb-8  md:text-xl">
+            Schedule a Meet With us before Getting Onboard
+          </p>
           <a
             rel="noreferrer"
             href="https://calendly.com/flytant"
             target="_blank"
           >
-            <button className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold">
+            <button className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold shadow-xl">
               Schedule Meet
             </button>
           </a>

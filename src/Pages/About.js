@@ -11,7 +11,7 @@ const About = () => {
   return (
     <div>
       <Scroll />
-      <div className="max-w-[1300px] mx-auto px-5 my-24">
+      <div className="r-box my-40">
         <h1 className="text-4xl font-semibold">About</h1>
         <h4 className="text-3xl my-14 pr-5">
           Fastest Growing Platform Connecting Brands and Influencers
@@ -56,17 +56,19 @@ const About = () => {
           message the Brands for Sponsorships.
         </p>
       </div>
-      <div className="py-28 my-32 bg-gray-300 text-center">
-        <h1 className="text-3xl font-semibold">Get Onboard!</h1>
-        <p className="mt-5 my-7">Fastest Growing Influencers Community</p>
+      <div className="py-24 my-32 bg-gray-100 text-center">
+        <h1 className="text-3xl md:text-4xl font-semibold">Get Onboard!</h1>
+        <p className="mt-5 mb-8 md:text-xl">
+          Fastest Growing Influencers Community
+        </p>
         <button
           onClick={() => navigate("/")}
-          className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold"
+          className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold shadow-xl"
         >
           Download Now
         </button>
       </div>
-      <div className="max-w-[1300px] mx-auto px-5 my-24">
+      <div className="r-box my-24">
         <h4 className="text-3xl mt-14 mb-8 pr-5">Parental Touch</h4>
         <p style={{ lineHeight: "200%" }} className="text-md md:text-xl pr-5">
           Flytant is a subsidiary of Flytant Developers Pvt. Ltd.
