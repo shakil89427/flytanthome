@@ -6,18 +6,21 @@ import Sponsorships from "./Sponsorships";
 import PopularInfluencers from "./PopularInfluencers";
 
 import FeaturedData from "../../../BluePrint/FeaturedData";
-import sponsorshipsData from "../../../BluePrint/SponsorshipsData";
+import useStore from "../../../Store/useStore";
 
 const UserContent = () => {
+  const { laitestSponsorships, paidSponsorships, barterSponsorships } =
+    useStore();
+
   return (
     <>
       <Banner />
       <FeaturedInfluencers featured={FeaturedData} />
       <AdBanner />
-      <Sponsorships sponsorships={sponsorshipsData} type={"Latest"} />
-      <Sponsorships sponsorships={sponsorshipsData} type={"Paid"} />
+      <Sponsorships sponsorships={laitestSponsorships} type={"Latest"} />
+      <Sponsorships sponsorships={paidSponsorships} type={"Paid"} />
       <AdBanner />
-      <Sponsorships sponsorships={sponsorshipsData} type={"Barter"} />
+      <Sponsorships sponsorships={barterSponsorships} type={"Barter"} />
       <PopularInfluencers />
     </>
   );

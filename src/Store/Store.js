@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../Firebase/firebaseConfig";
-import useAuthCheck from "../Hooks/useAuthCheck";
 
 /* Initialize Firebase */
 const app = initializeApp(firebaseConfig);
@@ -12,9 +11,9 @@ const Store = () => {
   const [userLoading, setUserLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
   const [notify, setNotify] = useState(false);
-
-  /* Activities */
-  useAuthCheck(setUser, setUserLoading, setNotify);
+  const [laitestSponsorships, setLaitestSponsorships] = useState([]);
+  const [paidSponsorships, setPaidSponsorships] = useState([]);
+  const [barterSponsorships, setBarterSponsorships] = useState([]);
 
   /* Returned Items */
   return {
@@ -27,6 +26,12 @@ const Store = () => {
     setShowLogin,
     notify,
     setNotify,
+    laitestSponsorships,
+    setLaitestSponsorships,
+    paidSponsorships,
+    setPaidSponsorships,
+    barterSponsorships,
+    setBarterSponsorships,
   };
 };
 

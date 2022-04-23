@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "../Spinner/Spinner";
+import cross from "../../Assets/cross.svg";
 import { styles } from "./CommonStyles";
 import useStore from "../../Store/useStore";
 import Methods from "./Methods";
@@ -49,9 +50,7 @@ const Login = () => {
           )}
 
           {/* Exit Button */}
-          <p onClick={exit} className={styles.exit}>
-            x
-          </p>
+          <img onClick={exit} className={styles.exit} src={cross} alt="" />
 
           {/* Login Methods */}
           {show === "methods" && <Methods setShow={setShow} />}

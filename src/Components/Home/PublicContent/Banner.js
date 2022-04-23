@@ -75,7 +75,7 @@ const Banner = () => {
           ) : (
             <BsPlayCircle
               onClick={() => setPlay(true)}
-              className="absolute bottom-8 left-8 text-5xl cursor-pointer"
+              className="absolute bottom-8 left-8 text-5xl lg:text-6xl cursor-pointer"
             />
           )}
         </div>

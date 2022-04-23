@@ -14,8 +14,10 @@ import Ads from "./Pages/Ads";
 import Blogs from "./Pages/Blogs";
 import Terms from "./Pages/Terms";
 import Contact from "./Pages/Contact";
+import useLoader from "./Hooks/useLoader";
 
 function App() {
+  useLoader();
   const { pathname } = useLocation();
   const paths = ["/", "/brands", "/influencers"];
   return (

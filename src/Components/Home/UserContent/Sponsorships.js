@@ -5,7 +5,7 @@ import "swiper/css";
 import {
   AiFillInstagram,
   AiFillFacebook,
-  AiFillLinkedin,
+  AiFillTwitterSquare,
 } from "react-icons/ai";
 import { MdNavigateNext } from "react-icons/md";
 
@@ -69,40 +69,58 @@ const Sponsorships = ({ sponsorships, type }) => {
           {sponsorships.map((sponsorship, index) => (
             <SwiperSlide onClick={() => console.log(index)} key={index}>
               <div>
-                <p className={styles.applied}>{sponsorship.applied} applied</p>
+                <p className={styles.applied}>
+                  {sponsorship.applied ? sponsorship.applied : "0"} applied
+                </p>
                 <div
                   className={styles.image}
                   style={{
-                    backgroundImage: `url(${sponsorship.img + Math.random()})`,
+                    backgroundImage: `url(${sponsorship?.blob?.path})`,
                   }}
                   alt=""
                 />
 
                 <div className="mt-2 mr-3">
                   <div className={styles.typeWrapper}>
-                    <p
-                      style={{
-                        backgroundColor:
-                          sponsorship.type === "Paid" ? "#FFDE2F" : "#3FD5F5",
-                      }}
-                      className={styles.type}
-                    >
-                      {sponsorship.type} Campaign
-                    </p>
-                    <p className="text-xs">{sponsorship.updated}</p>
+                    {type === "Latest" && (
+                      <p
+                        style={{
+                          backgroundColor: sponsorship?.barter
+                            ? "#FFDE2F"
+                            : "#3FD5F5",
+                        }}
+                        className={styles.type}
+                      >
+                        {sponsorship?.barter
+                          ? "Paid Campaign"
+                          : "Barter Campaign"}
+                      </p>
+                    )}
+                    {type === "Latest" && (
+                      <p className="text-xs">{sponsorship?.creationDate}</p>
+                    )}
                   </div>
 
-                  <p className={styles.title}>{sponsorship.title}</p>
+                  <p className={styles.title}>{sponsorship?.name}</p>
 
                   <div className={styles.bottomWrapper}>
                     <p className={styles.followers}>
-                      Min {sponsorship.followers} followers required
+                      Min {sponsorship.minFollowers} followers required
                     </p>
 
-                    <div className={styles.icons}>
-                      <AiFillInstagram />
-                      <AiFillFacebook />
-                      <AiFillLinkedin />
+                    <div className="flex justify-between">
+                      <div className={styles.icons}>
+                        {sponsorship?.platforms?.includes("Instagram") && (
+                          <AiFillInstagram />
+                        )}
+                        {sponsorship?.platforms?.includes("Twitter") && (
+                          <AiFillTwitterSquare />
+                        )}
+                        {sponsorship?.platforms?.includes("Facebook") && (
+                          <AiFillFacebook />
+                        )}
+                      </div>
+                      {type !== "Latest" && <p>{sponsorship?.creationDate}</p>}
                     </div>
                   </div>
                 </div>
