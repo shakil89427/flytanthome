@@ -11,12 +11,12 @@ const About = () => {
   return (
     <div>
       <Scroll />
-      <div className="r-box my-40">
+      <div className="max-w-[1240px] mx-auto px-5 my-40">
         <h1 className="text-4xl font-semibold">About</h1>
-        <h4 className="text-3xl my-14 pr-5">
+        <h4 className="text-xl md:text-3xl my-10 md:my-14 pr-5">
           Fastest Growing Platform Connecting Brands and Influencers
         </h4>
-        <p style={{ lineHeight: "200%" }} className="text-md md:text-xl pr-5">
+        <p style={{ lineHeight: "200%" }} className="md:text-xl pr-5">
           Flytant is your Go-To Platform for Influencer Marketing. As a Brand we
           make it extremely easy and cost effective to onboard Influencers.
           Similarly we ensure that Influencers can connect with brands directly
@@ -30,7 +30,9 @@ const About = () => {
             <img className="mt-20 w-full" src={img2} alt="" />
           </div>
         </div>
-        <h4 className="text-3xl my-14 pr-5">Tailor-Made Platform for Brands</h4>
+        <h4 className="text-xl md:text-3xl my-14 pr-5">
+          Tailor-Made Platform for Brands
+        </h4>
         <p style={{ lineHeight: "200%" }} className="text-md md:text-xl pr-5">
           We provide brands a complete Transparent way to post campaigns and
           Connect with Influencers directly. Our app consists of some amazing
@@ -46,7 +48,7 @@ const About = () => {
             <img className="mt-20 w-full" src={img4} alt="" />
           </div>
         </div>
-        <h4 className="text-3xl my-14 pr-5">
+        <h4 className="text-xl md:text-3xl my-14 pr-5">
           Best Brand-Deals For Influencers
         </h4>
         <p style={{ lineHeight: "200%" }} className="text-md md:text-xl pr-5">
@@ -68,8 +70,8 @@ const About = () => {
           Download Now
         </button>
       </div>
-      <div className="r-box my-24">
-        <h4 className="text-3xl mt-14 mb-8 pr-5">Parental Touch</h4>
+      <div className="max-w-[1150px] mx-auto px-5 my-24">
+        <h4 className="text-xl md:text-3xl mt-14 mb-8 pr-5">Parental Touch</h4>
         <p style={{ lineHeight: "200%" }} className="text-md md:text-xl pr-5">
           Flytant is a subsidiary of Flytant Developers Pvt. Ltd.
         </p>

@@ -14,9 +14,7 @@ const styles = {
 };
 /* Styles End */
 
-const PopularInfluencers = () => {
-  const arr = new Array(10).fill(Math.random()); //Temporary array for run loop
-
+const PopularInfluencers = ({ popular }) => {
   return (
     <div style={{ padding: "0" }} className="mb-24 r-box">
       <h1 className={styles.heading}>Popular Influencers</h1>
@@ -45,13 +43,13 @@ const PopularInfluencers = () => {
           },
         }}
       >
-        {arr.map((item, index) => (
+        {popular.map((item, index) => (
           <SwiperSlide key={index} onClick={() => console.log(index)}>
             <div className="relative">
               <div
                 className={styles.img}
                 style={{
-                  backgroundImage: `url(https://picsum.photos/200/300?random=${Math.random()})`,
+                  backgroundImage: `url(${item?.profileImageUrl})`,
                 }}
                 alt=""
               />
@@ -60,12 +58,12 @@ const PopularInfluencers = () => {
                 <div
                   className={styles.profileImg}
                   style={{
-                    backgroundImage: `url(https://picsum.photos/200/300?random=${Math.random()})`,
+                    backgroundImage: `url(${item?.profileImageUrl})`,
                   }}
                   alt=""
                 />
                 <p className="font-light text-sm">
-                  by <span className="font-bold italic">Amya Shetty</span>
+                  by <span className="font-bold italic">{item?.name}</span>
                 </p>
               </div>
             </div>

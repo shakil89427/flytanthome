@@ -5,20 +5,20 @@ import Scroll from "../Components/Scroll/Scroll";
 const Privacy = () => {
   return (
     <>
-      <div className="r-box my-32">
+      <div className="max-w-[1050px] mx-auto px-5 my-32">
         <Scroll />
-        <h1 className="text-4xl font-semibold">Privacy Policy</h1>
-        <h4 className="text-xl md:text-2xl lg:text-3xl mb-14 mt-5 pr-5 text-gray-800">
+        <h1 className="text-3xl font-semibold">Privacy Policy</h1>
+        <h4 className="text-xl md:text-2xl mb-14 mt-5 pr-5 text-gray-800">
           These policies describes the information we use and process to support
           the Flytant app and ensure enriching experience for the users on our
           platform.
         </h4>
-        <h4 className="text-xl md:text-2xl lg:text-3xl font-medium  text-gray-800 mt-32 mb-14">
+        <h4 className="text-xl md:text-2xl font-medium  text-gray-800 mt-32 mb-14">
           Data policy
         </h4>
         <div
           style={{ lineHeight: "200%" }}
-          className="ml-10 mt-14 text-md md:text-xl flex flex-col gap-10"
+          className="ml-10 mt-14 flex flex-col gap-10 lg:text-xl"
         >
           <li>
             We collect the content, communications and other information you
@@ -194,12 +194,12 @@ const Privacy = () => {
             efforts.
           </li>
         </div>
-        <h4 className="text-xl md:text-2xl lg:text-3xl font-medium  text-gray-800 mt-32 mb-14">
+        <h4 className="text-xl md:text-2xl font-medium  text-gray-800 mt-32 mb-14">
           Platform Policy
         </h4>
         <div
           style={{ lineHeight: "200%" }}
-          className="ml-10 mt-14 text-md md:text-xl flex flex-col gap-10"
+          className="ml-10 mt-14 flex flex-col gap-10 lg:text-xl"
         >
           <li>
             By using this platform, you agree that Flytant can use a set of

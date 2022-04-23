@@ -68,13 +68,21 @@ const FeaturedInfluencers = ({ featured }) => {
             <SwiperSlide onClick={() => console.log(index)} key={index}>
               <div
                 className={styles.image}
-                style={{ backgroundImage: `url(${item.img + Math.random()})` }}
+                style={{ backgroundImage: `url(${item?.profileImageUrl})` }}
                 alt=""
               />
               <div className="pr-4 mt-2">
                 <div className={styles.nameWrapper}>
-                  <p className={styles.name}>{item.name}</p>
-                  <p className="text-sm">{item.location}</p>
+                  <p className={styles.name}>{item?.name}</p>
+                  <p className="text-sm">
+                    {item?.gender?.charAt(0)}{" "}
+                    {new Date().getFullYear() -
+                      item?.dateOfBirth?.slice(
+                        item?.dateOfBirth?.length - 4,
+                        item?.dateOfBirth?.length
+                      )}
+                    , {item?.countryCode}
+                  </p>
                 </div>
                 <div className={styles.icons}>
                   <AiFillInstagram />
@@ -83,7 +91,7 @@ const FeaturedInfluencers = ({ featured }) => {
                   <AiFillYoutube />
                 </div>
                 <div className={styles.options}>
-                  {item.options.map((option, index2) => (
+                  {item?.categories?.map((option, index2) => (
                     <p key={index2} className={styles.option}>
                       {option}
                     </p>

@@ -4,7 +4,7 @@ import rectTall from "../../../Assets/publicHome/rectTall.png";
 import wavy from "../../../Assets/publicHome/wavy.png";
 import brandsHero from "../../../Assets/publicHome/brandsHero.png";
 import blackDots from "../../../Assets/blackDots.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BrandsHero = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const BrandsHero = () => {
         <div className="w-full md:w-1/2 lg:w-5/12 z-20">
           <div
             onClick={() => navigate("/brands")}
-            className="border-2 rounded-3xl text-white p-5 py-8 bg-black"
+            className="border-2 rounded-3xl text-white px-5 lg:pl-8 py-8 bg-black cursor-pointer"
           >
             <h1
               style={{ lineHeight: "120%" }}
@@ -36,11 +36,12 @@ const BrandsHero = () => {
               Find the most Felicitous Influencers for Your Brand Promotion and
               Reach Your Target Audience WorldWide
             </p>
-            <Link to="brands">
-              <button className="border py-2 px-8 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium">
-                Promote Now
-              </button>
-            </Link>
+            <p
+              onClick={() => navigate("/brands")}
+              className="w-fit border py-3 px-12 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
+            >
+              Promote Now
+            </p>
           </div>
         </div>
         <div className="w-full md:w-1/2 lg:w-7/12 z-20">

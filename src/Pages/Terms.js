@@ -5,17 +5,17 @@ import ContactBar from "../Components/ContactBar/ContactBar";
 const Terms = () => {
   return (
     <>
-      <div className="r-box my-32">
+      <div className="max-w-[1000px] mx-auto px-5 my-32">
         <Scroll />
         <h1 className="text-4xl font-semibold">Terms Of Use</h1>
-        <h4 className="text-xl md:text-2xl lg:text-3xl my-14 pr-5 text-gray-800">
+        <h4 className="text-xl md:text-2xl my-14 pr-5 text-gray-800">
           These Terms of Use govern your use of Flytant and provide information
           about the Flytant Service, outlined below. When you create a Flytant
           account or use Flytant, you agree to these terms of use.
         </h4>
         <div
           style={{ lineHeight: "200%" }}
-          className="mx-10 text-md md:text-xl flex flex-col gap-10"
+          className="mx-10 flex lg:text-xl flex-col gap-10"
         >
           <li>
             We use data from Flytant app and other Flytant Company Products, as

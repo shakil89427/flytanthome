@@ -43,26 +43,32 @@ const useLoadSponsorships = () => {
 
   const getLaitest = async () => {
     const temp = [];
-    const response = await getDocs(laitestQuery);
-    response.forEach((data) => {
-      temp.push({ id: data.id, ...data.data() });
-    });
+    try {
+      const response = await getDocs(laitestQuery);
+      response.forEach((data) => {
+        temp.push({ id: data.id, ...data.data() });
+      });
+    } catch (err) {}
     setLaitestSponsorships(temp);
   };
   const getPaid = async () => {
     const temp = [];
-    const response = await getDocs(paidQuery);
-    response.forEach((data) => {
-      temp.push({ id: data.id, ...data.data() });
-    });
+    try {
+      const response = await getDocs(paidQuery);
+      response.forEach((data) => {
+        temp.push({ id: data.id, ...data.data() });
+      });
+    } catch (err) {}
     setPaidSponsorships(temp);
   };
   const getBarter = async () => {
     const temp = [];
-    const response = await getDocs(barterQuery);
-    response.forEach((data) => {
-      temp.push({ id: data.id, ...data.data() });
-    });
+    try {
+      const response = await getDocs(barterQuery);
+      response.forEach((data) => {
+        temp.push({ id: data.id, ...data.data() });
+      });
+    } catch (err) {}
     setBarterSponsorships(temp);
   };
 

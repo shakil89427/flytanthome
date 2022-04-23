@@ -4,7 +4,7 @@ import NavBar from "../../NavBar/NavBar";
 import bannerBg from "../../../Assets/publicHome/bannerBg.png";
 import { AiFillAndroid, AiFillApple } from "react-icons/ai";
 import { BsPlayCircle } from "react-icons/bs";
-import { GiCrossMark } from "react-icons/gi";
+import cross from "../../../Assets/cross.svg";
 
 const Banner = () => {
   const [play, setPlay] = useState(false);
@@ -12,7 +12,7 @@ const Banner = () => {
     <div className="relative lg:min-h-screen">
       <div className="polygon" />
       <NavBar color={"transparent"} />
-      <div className="flex flex-col md:flex-row gap-20 md:gap-10 r-box py-20 md:py-28 lg:py-0 lg:translate-y-[15vh]">
+      <div className="flex flex-col md:flex-row gap-20 md:gap-10 r-box py-20 md:py-28 lg:py-0 lg:translate-y-[15vh] lg:px-14">
         <div className="text-white md:w-1/2">
           <h1
             style={{ lineHeight: "120%" }}
@@ -50,7 +50,7 @@ const Banner = () => {
             </a>
           </div>
         </div>
-        <div className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-[350px] md:h-[240px] lg:h-[370px] xl:h-[450px] mb-3 md:mb-0">
+        <div className="rounded-3xl relative text-white md:w-1/2 h-60 sm:h-[350px] md:h-[240px] lg:h-[370px] xl:h-[390px]">
           {play ? (
             <iframe
               className="w-full h-full"
@@ -68,9 +68,11 @@ const Banner = () => {
             />
           )}
           {play ? (
-            <GiCrossMark
+            <img
               onClick={() => setPlay(false)}
-              className="absolute -top-6 right-0 text-2xl cursor-pointer"
+              className="absolute top-0 right-0 text-2xl cursor-pointer bg-white"
+              src={cross}
+              alt=""
             />
           ) : (
             <BsPlayCircle

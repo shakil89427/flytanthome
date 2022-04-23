@@ -13,7 +13,7 @@ import careerBg from "../Assets/career/careerBg.png";
 import axios from "axios";
 
 const styles = {
-  main: "w-fit max-w-[900px] mx-auto px-5 py-20",
+  main: "w-fit max-w-[850px] mx-auto px-5 py-20",
   bg: "w-full",
   title: "text-5xl lg:text-7xl font-bold text-center my-20",
   info: "text-2xl font-medium text-center mb-20 px-5",

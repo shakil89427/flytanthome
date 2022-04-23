@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Toast from "../Toast/Toast";
 import useInstaConnect from "../../Hooks/useInstaConnect";
 import Logout from "../Logout/Logout";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 /* Styles Start */
 const styles = {
@@ -36,43 +37,48 @@ const NavBar = ({ color }) => {
           src={logo}
           alt=""
         />
-        {user?.userId ? (
-          <div className={styles.profile}>
-            <Link to="/profile">
-              <img
-                className={styles.profileImg}
-                src={user.profileImageUrl ? user.profileImageUrl : defaultUser}
-                alt=""
-              />
-            </Link>
+        <GiHamburgerMenu className="md:hidden text-white text-3xl hover:border rounded-md p-1 cursor-pointer" />
+        <div className="hidden md:block ">
+          {user?.userId ? (
+            <div className={styles.profile}>
+              <Link to="/profile">
+                <img
+                  className={styles.profileImg}
+                  src={
+                    user.profileImageUrl ? user.profileImageUrl : defaultUser
+                  }
+                  alt=""
+                />
+              </Link>
 
-            <FiLogOut
-              onClick={() => setShowLogout(true)}
-              className="cursor-pointer"
-            />
-          </div>
-        ) : (
-          <div className="flex items-center gap-3">
-            <a
-              href="mailto:contact@flytant.com"
-              target="_blank"
-              rel="noreferrer"
-              style={{ letterSpacing: ".8px" }}
-              className={styles.contactBtn}
-            >
-              Contact
-            </a>
-            <button
-              style={{
-                letterSpacing: ".8px",
-              }}
-              onClick={() => setShowLogin(true)}
-              className={styles.loginBtn}
-            >
-              Login | Signup
-            </button>
-          </div>
-        )}
+              <FiLogOut
+                onClick={() => setShowLogout(true)}
+                className="cursor-pointer"
+              />
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <a
+                href="mailto:contact@flytant.com"
+                target="_blank"
+                rel="noreferrer"
+                style={{ letterSpacing: ".8px" }}
+                className={styles.contactBtn}
+              >
+                Contact
+              </a>
+              <button
+                style={{
+                  letterSpacing: ".8px",
+                }}
+                onClick={() => setShowLogin(true)}
+                className={styles.loginBtn}
+              >
+                Login | Signup
+              </button>
+            </div>
+          )}
+        </div>
         {showLogin && <Login />}
         {showLogout && <Logout setShowLogout={setShowLogout} />}
         {notify && <Toast />}

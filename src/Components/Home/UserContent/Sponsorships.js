@@ -70,12 +70,12 @@ const Sponsorships = ({ sponsorships, type }) => {
             <SwiperSlide onClick={() => console.log(index)} key={index}>
               <div>
                 <p className={styles.applied}>
-                  {sponsorship.applied ? sponsorship.applied : "0"} applied
+                  {sponsorship?.applied ? sponsorship.applied : "0"} applied
                 </p>
                 <div
                   className={styles.image}
                   style={{
-                    backgroundImage: `url(${sponsorship?.blob?.path})`,
+                    backgroundImage: `url(${sponsorship?.blob[0].path})`,
                   }}
                   alt=""
                 />
@@ -97,7 +97,12 @@ const Sponsorships = ({ sponsorships, type }) => {
                       </p>
                     )}
                     {type === "Latest" && (
-                      <p className="text-xs">{sponsorship?.creationDate}</p>
+                      <p className="text-xs">
+                        {Math.round(
+                          (Date.now() - sponsorship?.creationDate) / 86400000
+                        )}{" "}
+                        days ago
+                      </p>
                     )}
                   </div>
 
@@ -120,7 +125,14 @@ const Sponsorships = ({ sponsorships, type }) => {
                           <AiFillFacebook />
                         )}
                       </div>
-                      {type !== "Latest" && <p>{sponsorship?.creationDate}</p>}
+                      {type !== "Latest" && (
+                        <p>
+                          {Math.round(
+                            (Date.now() - sponsorship?.creationDate) / 86400000
+                          )}{" "}
+                          days ago
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>

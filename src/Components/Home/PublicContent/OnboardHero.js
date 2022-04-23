@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import onboardHero from "../../../Assets/publicHome/onboardHero.png";
 
 const OnboardHero = () => {
@@ -22,7 +22,7 @@ const OnboardHero = () => {
         </div>
         <div
           onClick={() => navigate("/onboard")}
-          className="md:w-1/2 lg:w-5/12  border-2 rounded-3xl text-white px-5 py-10 lg:ml-auto"
+          className="md:w-1/2 lg:w-5/12  border-2 rounded-3xl text-white px-5 lg:pl-8 py-10 lg:ml-auto pointer cursor-pointer"
         >
           <h1
             style={{ lineHeight: "120%" }}
@@ -30,17 +30,17 @@ const OnboardHero = () => {
           >
             Its all here <br /> all in one spot
           </h1>
-          <p className="text-md lg:text-2xl mt-8 mb-12 font-light pr-12">
+          <p className="text-md lg:text-2xl my-8 font-light pr-5 lg:pr-14">
             Flytant is the go to platform for Influencer Marketing. We provide a
             holistic platform for Influencers and Brands to connect together
             transparently and make the most of their Collaboration.
           </p>
-          <Link
-            to="onboard"
-            className="border py-2 px-8 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
+          <p
+            onClick={() => navigate("/onboard")}
+            className="w-fit border py-3 px-12 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
           >
             Get Onboard
-          </Link>
+          </p>
         </div>
       </div>
     </div>

@@ -5,20 +5,17 @@ import ContactBar from "../Components/ContactBar/ContactBar";
 const Ads = () => {
   return (
     <>
-      <div className="r-box my-32">
+      <div className="max-w-[1050px] mx-auto px-5 my-32">
         <Scroll />
-        <h1 className="text-4xl font-semibold">Flytant Ads</h1>
-        <h4 className="text-xl md:text-2xl lg:text-3xl mb-14 mt-5 pr-5 text-gray-800">
+        <h1 className="text-3xl font-semibold">Flytant Ads</h1>
+        <h4 className="text-xl md:text-2xl mb-14 mt-5 pr-5 text-gray-800">
           We want to show you ads that are meaningful and you find them
           interesting and useful. Here’s an overview of how Flytant Ads work.
         </h4>
-        <h4 className="text-xl md:text-2xl lg:text-3xl font-medium  text-gray-800 mt-32 mb-14">
+        <h4 className="text-xl md:text-2xl font-medium  text-gray-800 mt-32 mb-14">
           What are Flytant Ads?
         </h4>
-        <div
-          style={{ lineHeight: "200%" }}
-          className="ml-10 mt-14 text-md md:text-xl"
-        >
+        <div style={{ lineHeight: "200%" }} className="ml-10 mt-14 lg:text-xl">
           <li>
             You may see various kinds of ads on Flytant, including Sponsored
             Ads, Promoted Ads and Promoted Posts. We can show these ads to you
@@ -27,12 +24,12 @@ const Ads = () => {
             content in much the same way as organic content.
           </li>
         </div>
-        <h4 className="text-xl md:text-2xl lg:text-3xl font-medium  text-gray-800 mt-32 mb-14">
+        <h4 className="text-xl md:text-2xl font-medium  text-gray-800 mt-32 mb-14">
           Why you see certain Ads?
         </h4>
         <div
           style={{ lineHeight: "200%" }}
-          className="ml-10 mt-14 text-md md:text-xl flex flex-col gap-10"
+          className="ml-10 mt-14 flex flex-col gap-10 lg:text-xl"
         >
           <li>
             Your activity on Flytant, the information you provide to Flytant,

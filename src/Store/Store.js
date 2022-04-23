@@ -11,6 +11,8 @@ const Store = () => {
   const [userLoading, setUserLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
   const [notify, setNotify] = useState(false);
+  const [featuredInfluencers, setFeaturedInfluencers] = useState([]);
+  const [popularInfluencers, setPopularInfluencers] = useState([]);
   const [laitestSponsorships, setLaitestSponsorships] = useState([]);
   const [paidSponsorships, setPaidSponsorships] = useState([]);
   const [barterSponsorships, setBarterSponsorships] = useState([]);
@@ -26,6 +28,10 @@ const Store = () => {
     setShowLogin,
     notify,
     setNotify,
+    featuredInfluencers,
+    setFeaturedInfluencers,
+    popularInfluencers,
+    setPopularInfluencers,
     laitestSponsorships,
     setLaitestSponsorships,
     paidSponsorships,

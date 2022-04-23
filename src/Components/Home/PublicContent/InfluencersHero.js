@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import influencersHero from "../../../Assets/publicHome/influencersHero.png";
 import whiteDots from "../../../Assets/whiteDots.png";
 
@@ -20,7 +20,7 @@ const InfluencersHero = () => {
           <img className="mb-10 ml-auto md:mx-auto" src={whiteDots} alt="" />
           <div
             onClick={() => navigate("/influencers")}
-            className="border-2 rounded-3xl text-white px-5 py-8"
+            className="border-2 rounded-3xl text-white px-5 md:pl-8 py-8 cursor-pointer"
           >
             <h1
               style={{ lineHeight: "120%" }}
@@ -28,15 +28,16 @@ const InfluencersHero = () => {
             >
               Flytant For <br /> Influencers
             </h1>
-            <p className="text-md lg:text-2xl pr-10 mt-8 mb-10 font-light">
+            <p className="text-md lg:text-2xl pr-10 lg:pr-14 mt-8 mb-10 font-light">
               Join the fastest growing Influencers community and Get
               Sponsorships from Brands to Monetise Your Content
             </p>
-            <Link to="/influencers">
-              <button className="border py-2 px-8 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium">
-                Join Now
-              </button>
-            </Link>
+            <p
+              onClick={() => navigate("/influencers")}
+              className="w-fit border py-3 px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
+            >
+              Join Now
+            </p>
           </div>
         </div>
       </div>
