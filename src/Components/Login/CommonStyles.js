@@ -1,7 +1,7 @@
 export const styles = {
-  main: "fixed top-0 left-0 w-full min-h-screen z-30 flex items-center justify-center bg-[#07070783]",
+  main: "fixed top-0 left-0 w-full min-h-screen z-30 bg-[#07070783]",
   wrapper:
-    "bg-white p-5 md:p-8 rounded-lg flex flex-col items-center mx-3 w-full md:w-[500px] lg:w-[550px] relative overflow-hidden",
+    "bg-white p-5 rounded-lg flex flex-col items-center mx-3 md:w-[500px] lg:w-[550px] relative overflow-hidden z-40",
   spinnerContainer:
     "absolute w-full bg-[#8080807a] inset-0 flex items-center justify-center z-50",
   exit: "text-3xl absolute top-5 right-7 cursor-pointer",

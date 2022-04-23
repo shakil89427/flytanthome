@@ -13,7 +13,7 @@ import careerBg from "../Assets/career/careerBg.png";
 import axios from "axios";
 
 const styles = {
-  main: "w-fit mx-auto px-5 py-20",
+  main: "w-fit max-w-[900px] mx-auto px-5 py-20",
   bg: "w-full",
   title: "text-5xl lg:text-7xl font-bold text-center my-20",
   info: "text-2xl font-medium text-center mb-20 px-5",
@@ -21,7 +21,7 @@ const styles = {
   input:
     "outline-0 border-b-2 py-2 border-black placeholder:text-lg placeholder:font-medium placeholder:text-gray-500 text-lg font-medium",
   progress: "absolute w-full bottom-20 md:bottom-24 left-0",
-  btn: "bg-black text-white px-10 py-3 rounded-3xl text-lg font-medium",
+  btn: "bg-black text-white px-10 py-3 rounded-3xl text-lg font-medium hover:scale-105 duration-150",
 };
 
 const Career = () => {

@@ -18,7 +18,7 @@ const PopularInfluencers = () => {
   const arr = new Array(10).fill(Math.random()); //Temporary array for run loop
 
   return (
-    <div className="mb-24 r-box">
+    <div style={{ padding: "0" }} className="mb-24 r-box">
       <h1 className={styles.heading}>Popular Influencers</h1>
       <Swiper
         modules={[Autoplay]}

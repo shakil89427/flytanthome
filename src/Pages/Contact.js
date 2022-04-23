@@ -12,7 +12,7 @@ const styles = {
   form: "my-20 grid grid-cols-2 gap-12 md:gap-y-20 md:gap-x-10",
   input:
     "outline-0 border-b-2 py-2 border-black placeholder:text-lg placeholder:font-medium placeholder:text-gray-500 text-lg font-medium",
-  btn: "bg-black text-white px-10 py-3 rounded-3xl text-lg font-medium",
+  btn: "bg-black text-white px-10 py-3 rounded-3xl text-lg font-medium hover:scale-105 duration-150",
 };
 
 const Contact = () => {

@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import influencersHero from "../../../Assets/publicHome/influencersHero.png";
 import whiteDots from "../../../Assets/whiteDots.png";
 
 const InfluencersHero = () => {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -17,7 +18,10 @@ const InfluencersHero = () => {
         </div>
         <div className="w-full md:w-1/2 lg:w-5/12">
           <img className="mb-10 ml-auto md:mx-auto" src={whiteDots} alt="" />
-          <div className="border-2 rounded-3xl text-white px-5 py-8">
+          <div
+            onClick={() => navigate("/influencers")}
+            className="border-2 rounded-3xl text-white px-5 py-8"
+          >
             <h1
               style={{ lineHeight: "120%" }}
               className="text-4xl lg:text-5xl font-semibold"

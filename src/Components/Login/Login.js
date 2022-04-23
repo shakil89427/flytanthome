@@ -37,36 +37,39 @@ const Login = () => {
   }, [user]);
 
   return (
-    <div className={styles.main}>
-      <div className={styles.wrapper}>
-        {/* Spinner */}
-        {userLoading && (
-          <div className={styles.spinnerContainer}>
-            <Spinner />
-          </div>
-        )}
+    <>
+      <div onClick={() => setShowLogin(false)} className={styles.main} />
+      <div className="fixed z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className={styles.wrapper}>
+          {/* Spinner */}
+          {userLoading && (
+            <div className={styles.spinnerContainer}>
+              <Spinner />
+            </div>
+          )}
 
-        {/* Exit Button */}
-        <p onClick={exit} className={styles.exit}>
-          x
-        </p>
+          {/* Exit Button */}
+          <p onClick={exit} className={styles.exit}>
+            x
+          </p>
 
-        {/* Login Methods */}
-        {show === "methods" && <Methods setShow={setShow} />}
+          {/* Login Methods */}
+          {show === "methods" && <Methods setShow={setShow} />}
 
-        {/* Get Phone Number And Send OTP */}
-        {show === "sendOTP" && <SendOTP back={back} setShow={setShow} />}
+          {/* Get Phone Number And Send OTP */}
+          {show === "sendOTP" && <SendOTP back={back} setShow={setShow} />}
 
-        {/* Enter And Verify OTP */}
-        {show === "verifyOTP" && <VerifyOTP setShow={setShow} />}
+          {/* Enter And Verify OTP */}
+          {show === "verifyOTP" && <VerifyOTP setShow={setShow} />}
 
-        {/* Get Username And Add User to DB*/}
-        {user?.required && <UserName back={back} />}
+          {/* Get Username And Add User to DB*/}
+          {user?.required && <UserName back={back} />}
 
-        {/* Terms and Conditions Linkup */}
-        {!user.required && <TermsLink />}
+          {/* Terms and Conditions Linkup */}
+          {!user.required && <TermsLink />}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

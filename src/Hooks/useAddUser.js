@@ -1,7 +1,9 @@
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
 
 const useAddUser = () => {
+  const navigate = useNavigate();
   const database = getFirestore();
   const { user, setUser, setUserLoading, setNotify } = useStore();
 
@@ -12,7 +14,8 @@ const useAddUser = () => {
       const finalData = userData.data();
       if (finalData) {
         setUser(finalData);
-        return setUserLoading(false);
+        setUserLoading(false);
+        return navigate("/");
       }
       const current = {
         deviceType: "Website",
@@ -55,6 +58,7 @@ const useAddUser = () => {
       .then(() => {
         setUser(newData);
         setUserLoading(false);
+        navigate("/");
       })
       .catch((err) => {
         setUserLoading(false);

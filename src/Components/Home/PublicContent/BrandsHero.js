@@ -4,9 +4,10 @@ import rectTall from "../../../Assets/publicHome/rectTall.png";
 import wavy from "../../../Assets/publicHome/wavy.png";
 import brandsHero from "../../../Assets/publicHome/brandsHero.png";
 import blackDots from "../../../Assets/blackDots.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const BrandsHero = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-full relative min-h-screen">
       <img
@@ -21,7 +22,10 @@ const BrandsHero = () => {
       />
       <div className="flex flex-col md:flex-row  r-box gap-14 lg:gap-20 items-center py-24 justify-between">
         <div className="w-full md:w-1/2 lg:w-5/12 z-20">
-          <div className="border-2 rounded-3xl text-white p-5 py-8 bg-black">
+          <div
+            onClick={() => navigate("/brands")}
+            className="border-2 rounded-3xl text-white p-5 py-8 bg-black"
+          >
             <h1
               style={{ lineHeight: "120%" }}
               className="text-4xl lg:text-5xl font-semibold"

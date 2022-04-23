@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import onboardHero from "../../../Assets/publicHome/onboardHero.png";
 
 const OnboardHero = () => {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -19,7 +20,10 @@ const OnboardHero = () => {
             alt=""
           />
         </div>
-        <div className="md:w-1/2 lg:w-5/12  border-2 rounded-3xl text-white px-5 py-10 lg:ml-auto">
+        <div
+          onClick={() => navigate("/onboard")}
+          className="md:w-1/2 lg:w-5/12  border-2 rounded-3xl text-white px-5 py-10 lg:ml-auto"
+        >
           <h1
             style={{ lineHeight: "120%" }}
             className="text-4xl lg:text-5xl font-semibold"
