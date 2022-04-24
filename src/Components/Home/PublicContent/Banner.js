@@ -50,7 +50,7 @@ const Banner = () => {
             </a>
           </div>
         </div>
-        <div className="rounded-3xl relative text-white md:w-1/2 h-60 sm:h-[350px] md:h-[240px] lg:h-[370px] xl:h-[390px]">
+        <div className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-[390px] md:h-[240px] lg:h-[370px] xl:h-[390px]">
           {play ? (
             <iframe
               className="w-full h-full"
