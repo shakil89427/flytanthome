@@ -18,6 +18,7 @@ import {
   getDocs,
   orderBy,
   limit,
+  startAfter,
 } from "firebase/firestore";
 
 /* Styles Start */
@@ -35,14 +36,44 @@ const styles = {
 
 const FeaturedInfluencers = () => {
   const [influencers, setInfluencers] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(1);
+  const [lastVisible, setLastVisible] = useState(null);
   const db = getFirestore();
   const colRef = collection(db, "users");
 
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
 
-  const getFeatured = async () => {
-    const temp = [];
+  const getFeatured = async (q) => {
+    if (activeIndex === "Last") return;
+    try {
+      const response = await getDocs(q);
+      const data = response?.docs.map((item) => {
+        return { id: item.id, ...item.data() };
+      });
+      if (!data?.length) return setActiveIndex("Last");
+      setLastVisible(response.docs[response.docs.length - 1]);
+      setInfluencers((prev) => [...prev, ...data]);
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    if (!influencers?.length) return;
+    const q = query(
+      colRef,
+      where("profileImageUrl", "!=", null),
+      where("shouldShowTrending", "==", true),
+      orderBy("profileImageUrl", "asc"),
+      orderBy("socialScore", "desc"),
+      startAfter(lastVisible),
+      limit(20)
+    );
+    if (activeIndex === influencers?.length) {
+      getFeatured(q);
+    }
+  }, [activeIndex]);
+
+  useEffect(() => {
     const q = query(
       colRef,
       where("profileImageUrl", "!=", null),
@@ -51,17 +82,7 @@ const FeaturedInfluencers = () => {
       orderBy("socialScore", "desc"),
       limit(20)
     );
-    try {
-      const response = await getDocs(q);
-      response.forEach((data) => {
-        temp.push({ id: data.id, ...data.data() });
-      });
-    } catch (err) {}
-    setInfluencers((prev) => [...prev, ...temp]);
-  };
-
-  useEffect(() => {
-    getFeatured();
+    getFeatured(q);
   }, []);
 
   useEffect(() => {
@@ -80,6 +101,7 @@ const FeaturedInfluencers = () => {
           navigation={{
             nextEl: nextRef?.current,
           }}
+          onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
           parallax
           observer
           observeParents

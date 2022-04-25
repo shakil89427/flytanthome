@@ -8,17 +8,45 @@ import {
   getDocs,
   orderBy,
   limit,
+  startAfter,
 } from "firebase/firestore";
 
 const Paid = () => {
   const [sponsorships, setSponsorships] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [lastVisible, setLastVisible] = useState(null);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
-  const [loading, setLoading] = useState(false);
 
-  const getPaid = async () => {
-    setLoading(true);
+  const getPaid = async (q) => {
+    if (activeIndex === "Last") return;
+    try {
+      const response = await getDocs(q);
+      const data = response?.docs.map((item) => {
+        return { id: item.id, ...item.data() };
+      });
+      if (!data?.length) return setActiveIndex("Last");
+      setLastVisible(response.docs[response.docs.length - 1]);
+      setSponsorships((prev) => [...prev, ...data]);
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    if (!sponsorships?.length) return;
+    const q = query(
+      colRef,
+      where("isApproved", "==", true),
+      where("barter", "==", false),
+      orderBy("creationDate", "desc"),
+      startAfter(lastVisible),
+      limit(10)
+    );
+    if (activeIndex === sponsorships?.length) {
+      getPaid(q);
+    }
+  }, [activeIndex]);
+
+  useEffect(() => {
     const q = query(
       colRef,
       where("isApproved", "==", true),
@@ -26,25 +54,9 @@ const Paid = () => {
       orderBy("creationDate", "desc"),
       limit(10)
     );
-    const temp = [];
-    try {
-      const response = await getDocs(q);
-      response.forEach((data) => {
-        temp.push({ id: data.id, ...data.data() });
-      });
-      setSponsorships((prev) => [...prev, ...temp]);
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-    }
-  };
+    getPaid(q);
+  }, []);
 
-  useEffect(() => {
-    if (loading) return;
-    if (activeIndex === sponsorships?.length) {
-      getPaid();
-    }
-  }, [activeIndex]);
   return (
     <Sponsorships
       sponsorships={sponsorships}

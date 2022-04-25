@@ -11,7 +11,9 @@ import {
   getDocs,
   orderBy,
   limit,
+  startAfter,
 } from "firebase/firestore";
+import Spinner from "../../Spinner/Spinner";
 
 /* Styles Start */
 const styles = {
@@ -25,11 +27,41 @@ const styles = {
 
 const PopularInfluencers = ({ popular }) => {
   const [influencers, setInfluencers] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(1);
+  const [lastVisible, setLastVisible] = useState(null);
   const db = getFirestore();
   const colRef = collection(db, "users");
 
-  const getPopular = async () => {
-    const temp = [];
+  const getPopular = async (q) => {
+    if (activeIndex === "Last") return;
+    try {
+      const response = await getDocs(q);
+      const data = response?.docs.map((item) => {
+        return { id: item.id, ...item.data() };
+      });
+      if (!data?.length) return setActiveIndex("Last");
+      setLastVisible(response.docs[response.docs.length - 1]);
+      setInfluencers((prev) => [...prev, ...data]);
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    if (!influencers?.length) return;
+    const q = query(
+      colRef,
+      where("profileImageUrl", "!=", null),
+      where("shouldShowInfluencer", "==", true),
+      orderBy("profileImageUrl", "asc"),
+      orderBy("socialScore", "desc"),
+      startAfter(lastVisible),
+      limit(20)
+    );
+    if (activeIndex === influencers?.length) {
+      getPopular(q);
+    }
+  }, [activeIndex]);
+
+  useEffect(() => {
     const q = query(
       colRef,
       where("profileImageUrl", "!=", null),
@@ -38,23 +70,14 @@ const PopularInfluencers = ({ popular }) => {
       orderBy("socialScore", "desc"),
       limit(20)
     );
-    try {
-      const response = await getDocs(q);
-      response.forEach((data) => {
-        temp.push({ id: data.id, ...data.data() });
-      });
-    } catch (err) {}
-    setInfluencers((prev) => [...prev, ...temp]);
-  };
-
-  useEffect(() => {
-    getPopular();
+    getPopular(q);
   }, []);
 
   return (
     <div style={{ padding: "0" }} className="mb-24 r-box">
       <h1 className={styles.heading}>Popular Influencers</h1>
       <Swiper
+        onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
         modules={[Autoplay]}
         autoplay
         speed={500}

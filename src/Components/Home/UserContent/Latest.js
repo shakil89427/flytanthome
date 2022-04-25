@@ -8,42 +8,54 @@ import {
   getDocs,
   orderBy,
   limit,
+  startAfter,
 } from "firebase/firestore";
 
 const Latest = () => {
   const [sponsorships, setSponsorships] = useState([]);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
+  const [lastVisible, setLastVisible] = useState(null);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
-  const [loading, setLoading] = useState(false);
 
-  const getLaitest = async () => {
-    setLoading(true);
+  const getLaitest = async (q) => {
+    if (activeIndex === "Last") return;
+    try {
+      const response = await getDocs(q);
+      const data = response?.docs.map((item) => {
+        return { id: item.id, ...item.data() };
+      });
+      if (!data?.length) return setActiveIndex("Last");
+      setLastVisible(response.docs[response.docs.length - 1]);
+      setSponsorships((prev) => [...prev, ...data]);
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    if (!sponsorships?.length) return;
+    const q = query(
+      colRef,
+      where("isApproved", "==", true),
+      orderBy("creationDate", "desc"),
+      startAfter(lastVisible),
+      limit(10)
+    );
+    if (activeIndex === sponsorships?.length) {
+      getLaitest(q);
+    }
+  }, [activeIndex]);
+
+  useEffect(() => {
     const q = query(
       colRef,
       where("isApproved", "==", true),
       orderBy("creationDate", "desc"),
       limit(10)
     );
-    const temp = [];
-    try {
-      const response = await getDocs(q);
-      response.forEach((data) => {
-        temp.push({ id: data.id, ...data.data() });
-      });
-      setSponsorships((prev) => [...prev, ...temp]);
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-    }
-  };
 
-  useEffect(() => {
-    if (loading) return;
-    if (activeIndex === sponsorships?.length) {
-      getLaitest();
-    }
-  }, [activeIndex]);
+    getLaitest(q);
+  }, []);
+
   return (
     <Sponsorships
       sponsorships={sponsorships}
