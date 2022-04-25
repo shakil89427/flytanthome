@@ -8,7 +8,7 @@ const Home = () => {
   const { user } = useStore();
   return (
     <>
-      <Scroll /> {user.userId ? <UserContent /> : <PublicContent />}
+      <Scroll /> {user?.userId ? <UserContent /> : <PublicContent />}
     </>
   );
 };

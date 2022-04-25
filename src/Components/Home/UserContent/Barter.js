@@ -30,7 +30,7 @@ const Barter = () => {
         temp.push({ id: data.id, ...data.data() });
       });
     } catch (err) {}
-    setSponsorships(temp);
+    setSponsorships((prev) => [...prev, ...temp]);
   };
 
   useEffect(() => {

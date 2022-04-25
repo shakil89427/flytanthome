@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 
-const useAuthCheck = ({ setUser, setUserLoading, setNotify }) => {
+const useAuthCheck = (setUser, setUserLoading, setNotify) => {
   const auth = getAuth();
   const database = getFirestore();
 

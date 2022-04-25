@@ -46,7 +46,6 @@ const Sponsorships = ({ sponsorships, type }) => {
           navigation={{
             nextEl: nextRef?.current,
           }}
-          loop
           parallax
           observer
           observeParents

@@ -57,7 +57,7 @@ const FeaturedInfluencers = () => {
         temp.push({ id: data.id, ...data.data() });
       });
     } catch (err) {}
-    setInfluencers(temp);
+    setInfluencers((prev) => [...prev, ...temp]);
   };
 
   useEffect(() => {
@@ -81,7 +81,6 @@ const FeaturedInfluencers = () => {
             nextEl: nextRef?.current,
           }}
           parallax
-          loop
           observer
           observeParents
           initialSlide={1}

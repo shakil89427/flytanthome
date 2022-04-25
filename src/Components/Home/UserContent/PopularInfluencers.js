@@ -44,7 +44,7 @@ const PopularInfluencers = ({ popular }) => {
         temp.push({ id: data.id, ...data.data() });
       });
     } catch (err) {}
-    setInfluencers(temp);
+    setInfluencers((prev) => [...prev, ...temp]);
   };
 
   useEffect(() => {
@@ -56,7 +56,6 @@ const PopularInfluencers = ({ popular }) => {
       <h1 className={styles.heading}>Popular Influencers</h1>
       <Swiper
         modules={[Autoplay]}
-        loop
         autoplay
         speed={500}
         slidesPerView={1.5}
