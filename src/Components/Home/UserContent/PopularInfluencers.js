@@ -57,9 +57,7 @@ const PopularInfluencers = ({ popular }) => {
     if (!influencers?.length) return;
     const q = query(
       colRef,
-      where("profileImageUrl", "!=", null),
       where("shouldShowInfluencer", "==", true),
-      orderBy("profileImageUrl", "asc"),
       orderBy("socialScore", "desc"),
       startAfter(lastVisible),
       limit(20)
@@ -72,9 +70,7 @@ const PopularInfluencers = ({ popular }) => {
   useEffect(() => {
     const q = query(
       colRef,
-      where("profileImageUrl", "!=", null),
       where("shouldShowInfluencer", "==", true),
-      orderBy("profileImageUrl", "asc"),
       orderBy("socialScore", "desc"),
       limit(20)
     );
