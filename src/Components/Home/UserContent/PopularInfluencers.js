@@ -29,20 +29,28 @@ const PopularInfluencers = ({ popular }) => {
   const [influencers, setInfluencers] = useState([]);
   const [activeIndex, setActiveIndex] = useState(1);
   const [lastVisible, setLastVisible] = useState(null);
+  const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "users");
 
   const getPopular = async (q) => {
-    if (activeIndex === "Last") return;
+    if (activeIndex === "Last" || loading) return;
+    setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
         return { id: item.id, ...item.data() };
       });
-      if (!data?.length) return setActiveIndex("Last");
+      if (!data?.length) {
+        setLoading(false);
+        return setActiveIndex("Last");
+      }
       setLastVisible(response.docs[response.docs.length - 1]);
       setInfluencers((prev) => [...prev, ...data]);
-    } catch (err) {}
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
