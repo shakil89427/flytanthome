@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/autoplay";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 
 /* Styles Start */
 const styles = {
@@ -15,6 +24,33 @@ const styles = {
 /* Styles End */
 
 const PopularInfluencers = ({ popular }) => {
+  const [influencers, setInfluencers] = useState([]);
+  const db = getFirestore();
+  const colRef = collection(db, "users");
+
+  const getPopular = async () => {
+    const temp = [];
+    const q = query(
+      colRef,
+      where("profileImageUrl", "!=", null),
+      where("shouldShowInfluencer", "==", true),
+      orderBy("profileImageUrl", "asc"),
+      orderBy("socialScore", "desc"),
+      limit(20)
+    );
+    try {
+      const response = await getDocs(q);
+      response.forEach((data) => {
+        temp.push({ id: data.id, ...data.data() });
+      });
+    } catch (err) {}
+    setInfluencers(temp);
+  };
+
+  useEffect(() => {
+    getPopular();
+  }, []);
+
   return (
     <div style={{ padding: "0" }} className="mb-24 r-box">
       <h1 className={styles.heading}>Popular Influencers</h1>
@@ -43,7 +79,7 @@ const PopularInfluencers = ({ popular }) => {
           },
         }}
       >
-        {popular.map((item, index) => (
+        {influencers.map((item, index) => (
           <SwiperSlide key={index} onClick={() => console.log(index)}>
             <div className="relative">
               <div

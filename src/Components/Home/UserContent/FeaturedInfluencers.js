@@ -10,6 +10,15 @@ import {
   AiFillYoutube,
 } from "react-icons/ai";
 import { MdNavigateNext } from "react-icons/md";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 
 /* Styles Start */
 const styles = {
@@ -24,9 +33,36 @@ const styles = {
 };
 /* Styles End */
 
-const FeaturedInfluencers = ({ featured }) => {
+const FeaturedInfluencers = () => {
+  const [influencers, setInfluencers] = useState([]);
+  const db = getFirestore();
+  const colRef = collection(db, "users");
+
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
+
+  const getFeatured = async () => {
+    const temp = [];
+    const q = query(
+      colRef,
+      where("profileImageUrl", "!=", null),
+      where("shouldShowTrending", "==", true),
+      orderBy("profileImageUrl", "asc"),
+      orderBy("socialScore", "desc"),
+      limit(20)
+    );
+    try {
+      const response = await getDocs(q);
+      response.forEach((data) => {
+        temp.push({ id: data.id, ...data.data() });
+      });
+    } catch (err) {}
+    setInfluencers(temp);
+  };
+
+  useEffect(() => {
+    getFeatured();
+  }, []);
 
   useEffect(() => {
     if (swiper) {
@@ -64,7 +100,7 @@ const FeaturedInfluencers = ({ featured }) => {
             },
           }}
         >
-          {featured.map((item, index) => (
+          {influencers.map((item, index) => (
             <SwiperSlide onClick={() => console.log(index)} key={index}>
               <div
                 className={styles.image}
