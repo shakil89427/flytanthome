@@ -5,7 +5,7 @@ import { BsSearch } from "react-icons/bs";
 
 /* Styles Start */
 const styles = {
-  main: "flex items-center text-white lg:min-h-[75vh] relative py-8 r-box",
+  main: "flex items-center text-white lg:min-h-[75vh] relative py-10 r-box",
   bgImage:
     "absolute inset-0 bg-no-repeat bg-contain bg-right-bottom hidden lg:block z-10 bgImage",
   heading: "text-5xl lg:text-6xl font-semibold",
@@ -23,11 +23,11 @@ const styles = {
 
 const Banner = () => {
   return (
-    <div className="bgColor">
+    <div className="bg-black">
       <NavBar color={"transparent"} />
       <div className={styles.main}>
         <div className={styles.bgImage} />
-        <div className="lg:w-4/6 z-20 my-5">
+        <div className="lg:w-4/6 z-20 my-10">
           <h1 style={{ lineHeight: "110%" }} className={styles.heading}>
             Find <span className="font-bold">Influencers</span>
           </h1>

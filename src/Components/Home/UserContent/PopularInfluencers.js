@@ -13,7 +13,6 @@ import {
   limit,
   startAfter,
 } from "firebase/firestore";
-import Spinner from "../../Spinner/Spinner";
 
 /* Styles Start */
 const styles = {
@@ -83,7 +82,7 @@ const PopularInfluencers = ({ popular }) => {
       <Swiper
         onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
         modules={[Autoplay]}
-        autoplay
+        autoplay={{ disableOnInteraction: false }}
         speed={500}
         slidesPerView={1.5}
         initialSlide={1}

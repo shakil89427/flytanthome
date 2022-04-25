@@ -1,49 +1,27 @@
-.bgColor {
-  background-image: radial-gradient(#ff9826, #e77b02);
-  animation: bgColor 30s linear infinite;
-}
-@keyframes bgColor {
-  0% {
-    background-image: radial-gradient(#ff9826, #e77b02);
-  }
-  31% {
-    background-image: radial-gradient(#ff9826, #e77b02);
-  }
-  33% {
-    background-image: radial-gradient(#c41bff, #8c03bc);
-  }
-  65% {
-    background-image: radial-gradient(#c41bff, #8c03bc);
-  }
-  67% {
-    background-image: radial-gradient(#ff1b6d, #cd004a);
-  }
-  97% {
-    background-image: radial-gradient(#ff1b6d, #cd004a);
-  }
-}
-
 .bgImage {
   background-image: url(../../../../Assets/userHome/bannerBg1.png);
-  animation: bgImage 30s linear infinite;
+  animation: bgImage 25s infinite;
 }
 @keyframes bgImage {
   0% {
     background-image: url(../../../../Assets/userHome/bannerBg1.png);
   }
-  27% {
+  30% {
     background-image: url(../../../../Assets/userHome/bannerBg1.png);
   }
   33% {
     background-image: url(../../../../Assets/userHome/bannerBg2.png);
   }
-  63% {
+  65% {
     background-image: url(../../../../Assets/userHome/bannerBg2.png);
   }
   67% {
     background-image: url(../../../../Assets/userHome/bannerBg3.png);
   }
-  95% {
+  98% {
     background-image: url(../../../../Assets/userHome/bannerBg3.png);
+  }
+  100% {
+    background-image: url(../../../../Assets/userHome/bannerBg1.png);
   }
 }
