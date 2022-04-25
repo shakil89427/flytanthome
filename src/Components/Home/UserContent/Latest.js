@@ -12,10 +12,13 @@ import {
 
 const Latest = () => {
   const [sponsorships, setSponsorships] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
+  const [loading, setLoading] = useState(false);
 
   const getLaitest = async () => {
+    setLoading(true);
     const q = query(
       colRef,
       where("isApproved", "==", true),
@@ -28,14 +31,26 @@ const Latest = () => {
       response.forEach((data) => {
         temp.push({ id: data.id, ...data.data() });
       });
-    } catch (err) {}
-    setSponsorships((prev) => [...prev, ...temp]);
+      setSponsorships((prev) => [...prev, ...temp]);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    getLaitest();
-  }, []);
-  return <Sponsorships sponsorships={sponsorships} type={"Latest"} />;
+    if (loading) return;
+    if (activeIndex === sponsorships?.length) {
+      getLaitest();
+    }
+  }, [activeIndex]);
+  return (
+    <Sponsorships
+      sponsorships={sponsorships}
+      type={"Latest"}
+      setActiveIndex={setActiveIndex}
+    />
+  );
 };
 
 export default Latest;

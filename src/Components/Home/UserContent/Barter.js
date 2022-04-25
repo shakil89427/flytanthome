@@ -12,10 +12,13 @@ import {
 
 const Barter = () => {
   const [sponsorships, setSponsorships] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
+  const [loading, setLoading] = useState(false);
 
   const getBarter = async () => {
+    setLoading(true);
     const q = query(
       colRef,
       where("isApproved", "==", true),
@@ -29,14 +32,27 @@ const Barter = () => {
       response.forEach((data) => {
         temp.push({ id: data.id, ...data.data() });
       });
-    } catch (err) {}
-    setSponsorships((prev) => [...prev, ...temp]);
+      setSponsorships((prev) => [...prev, ...temp]);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    getBarter();
-  }, []);
-  return <Sponsorships sponsorships={sponsorships} type={"Barter"} />;
+    if (loading) return;
+    if (activeIndex === sponsorships?.length) {
+      getBarter();
+    }
+  }, [activeIndex]);
+
+  return (
+    <Sponsorships
+      sponsorships={sponsorships}
+      type={"Barter"}
+      setActiveIndex={setActiveIndex}
+    />
+  );
 };
 
 export default Barter;

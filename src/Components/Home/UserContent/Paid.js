@@ -12,10 +12,13 @@ import {
 
 const Paid = () => {
   const [sponsorships, setSponsorships] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
+  const [loading, setLoading] = useState(false);
 
   const getPaid = async () => {
+    setLoading(true);
     const q = query(
       colRef,
       where("isApproved", "==", true),
@@ -29,14 +32,26 @@ const Paid = () => {
       response.forEach((data) => {
         temp.push({ id: data.id, ...data.data() });
       });
-    } catch (err) {}
-    setSponsorships((prev) => [...prev, ...temp]);
+      setSponsorships((prev) => [...prev, ...temp]);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    getPaid();
-  }, []);
-  return <Sponsorships sponsorships={sponsorships} type={"Paid"} />;
+    if (loading) return;
+    if (activeIndex === sponsorships?.length) {
+      getPaid();
+    }
+  }, [activeIndex]);
+  return (
+    <Sponsorships
+      sponsorships={sponsorships}
+      type={"Paid"}
+      setActiveIndex={setActiveIndex}
+    />
+  );
 };
 
 export default Paid;

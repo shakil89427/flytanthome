@@ -25,7 +25,7 @@ const styles = {
 };
 /* Styles End */
 
-const Sponsorships = ({ sponsorships, type }) => {
+const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
 
@@ -46,6 +46,7 @@ const Sponsorships = ({ sponsorships, type }) => {
           navigation={{
             nextEl: nextRef?.current,
           }}
+          onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
           parallax
           observer
           observeParents
