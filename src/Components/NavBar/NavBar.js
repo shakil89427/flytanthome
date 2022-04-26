@@ -30,7 +30,11 @@ const NavBar = ({ color }) => {
           onClick={() => setShowSide(true)}
           className="lg:hidden text-white text-3xl hover:border rounded-md p-1 cursor-pointer ml-auto"
         />
-        <SmallSide showSide={showSide} setShowSide={setShowSide} />
+        <SmallSide
+          showSide={showSide}
+          setShowSide={setShowSide}
+          setShowLogout={setShowLogout}
+        />
         <LargeTop setShowLogout={setShowLogout} />
 
         {showLogin && <Login />}
