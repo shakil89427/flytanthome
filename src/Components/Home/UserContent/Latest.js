@@ -31,6 +31,7 @@ const Latest = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
+      console.log("Latest", data);
       setLastVisible(response.docs[response.docs.length - 1]);
       setSponsorships((prev) => [...prev, ...data]);
       setLoading(false);
@@ -48,7 +49,7 @@ const Latest = () => {
       startAfter(lastVisible),
       limit(10)
     );
-    if (activeIndex === sponsorships?.length) {
+    if (activeIndex >= sponsorships?.length) {
       getLaitest(q);
     }
   }, [activeIndex]);

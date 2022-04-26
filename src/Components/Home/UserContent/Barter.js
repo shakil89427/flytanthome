@@ -31,6 +31,7 @@ const Barter = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
+      console.log("Barter", data);
       setLastVisible(response.docs[response.docs.length - 1]);
       setSponsorships((prev) => [...prev, ...data]);
       setLoading(false);
@@ -49,7 +50,7 @@ const Barter = () => {
       startAfter(lastVisible),
       limit(10)
     );
-    if (activeIndex === sponsorships?.length) {
+    if (activeIndex >= sponsorships?.length) {
       getBarter(q);
     }
   }, [activeIndex]);

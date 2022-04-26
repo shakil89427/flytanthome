@@ -44,6 +44,7 @@ const PopularInfluencers = ({ popular }) => {
         setLoading(false);
         return setActiveIndex("Last");
       }
+      console.log("Popular", data);
       setLastVisible(response.docs[response.docs.length - 1]);
       setInfluencers((prev) => [...prev, ...data]);
       setLoading(false);
@@ -61,7 +62,7 @@ const PopularInfluencers = ({ popular }) => {
       startAfter(lastVisible),
       limit(20)
     );
-    if (activeIndex === influencers?.length) {
+    if (activeIndex >= influencers?.length) {
       getPopular(q);
     }
   }, [activeIndex]);

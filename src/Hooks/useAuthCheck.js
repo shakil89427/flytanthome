@@ -14,6 +14,8 @@ const useAuthCheck = (setUser, setUserLoading, setNotify) => {
       if (userFinalData?.userId) {
         setUser(userFinalData);
         setUserLoading(false);
+      } else {
+        setUserLoading(false);
       }
     } catch (err) {
       setUserLoading(false);

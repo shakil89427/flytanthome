@@ -57,6 +57,7 @@ const FeaturedInfluencers = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
+      console.log("Featured", data);
       setLastVisible(response.docs[response.docs.length - 1]);
       setInfluencers((prev) => [...prev, ...data]);
       setLoading(false);
@@ -74,7 +75,7 @@ const FeaturedInfluencers = () => {
       startAfter(lastVisible),
       limit(20)
     );
-    if (activeIndex === influencers?.length) {
+    if (activeIndex >= influencers?.length) {
       getFeatured(q);
     }
   }, [activeIndex]);

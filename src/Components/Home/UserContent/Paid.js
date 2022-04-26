@@ -31,6 +31,7 @@ const Paid = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
+      console.log("Paid", data);
       setLastVisible(response.docs[response.docs.length - 1]);
       setSponsorships((prev) => [...prev, ...data]);
       setLoading(false);
@@ -49,7 +50,7 @@ const Paid = () => {
       startAfter(lastVisible),
       limit(10)
     );
-    if (activeIndex === sponsorships?.length) {
+    if (activeIndex >= sponsorships?.length) {
       getPaid(q);
     }
   }, [activeIndex]);
