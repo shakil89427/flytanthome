@@ -14,13 +14,14 @@ import Ads from "./Pages/Ads";
 import Blogs from "./Pages/Blogs";
 import Terms from "./Pages/Terms";
 import Contact from "./Pages/Contact";
+import SponsorshipDetails from "./Pages/SponsorshipDetails";
 
 function App() {
   const { pathname } = useLocation();
   const paths = ["/", "/brands", "/influencers"];
   return (
-    <div className="flex flex-col justify-between min-h-screen">
-      <div>
+    <>
+      <div className="min-h-screen">
         {!paths.includes(pathname) && <NavBar />}
         <Routes>
           <Route path="/" element={<Home />} />
@@ -35,6 +36,10 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route
+            path="/sponsorshipdetails/:id"
+            element={<SponsorshipDetails />}
+          />
+          <Route
             path="/profile"
             element={
               <PrivateRoute>
@@ -45,7 +50,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -9,11 +9,12 @@ import Logout from "../Logout/Logout";
 import { GiHamburgerMenu } from "react-icons/gi";
 import LargeTop from "./LargeTop";
 import SmallSide from "./SmallSide";
+import Spinner from "../Spinner/Spinner";
 
 const NavBar = ({ color }) => {
   useInstaConnect();
   const navigate = useNavigate();
-  const { showLogin, notify } = useStore();
+  const { userLoading, showLogin, notify } = useStore();
   const [showSide, setShowSide] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
 
@@ -40,6 +41,7 @@ const NavBar = ({ color }) => {
         {showLogin && <Login />}
         {showLogout && <Logout setShowLogout={setShowLogout} />}
         {notify && <Toast />}
+        {userLoading && <Spinner />}
       </div>
     </div>
   );

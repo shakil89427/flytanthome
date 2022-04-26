@@ -51,7 +51,7 @@ const FeaturedInfluencers = () => {
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
-        return { id: item.id, ...item.data() };
+        return { ...item.data(), id: item.id };
       });
       if (!data?.length) {
         setLoading(false);

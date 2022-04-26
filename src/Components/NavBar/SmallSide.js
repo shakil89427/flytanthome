@@ -86,7 +86,7 @@ const SmallSide = ({ showSide, setShowSide, setShowLogout }) => {
               }}
               className={styles.item}
             >
-              <AiOutlineLogout className="text-xl -rotate-45" />
+              <AiOutlineLogout className="text-xl" />
               <p>Logout</p>
             </div>
           </div>

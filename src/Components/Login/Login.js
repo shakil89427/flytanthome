@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Spinner from "../Spinner/Spinner";
 import cross from "../../Assets/cross.svg";
 import { styles } from "./CommonStyles";
 import useStore from "../../Store/useStore";
@@ -10,7 +9,7 @@ import UserName from "./UserName";
 import TermsLink from "./TermsLink";
 
 const Login = () => {
-  const { user, setUser, userLoading, setShowLogin } = useStore();
+  const { user, setUser, setShowLogin } = useStore();
   const [show, setShow] = useState("methods");
 
   const back = () => {
@@ -42,13 +41,6 @@ const Login = () => {
       <div onClick={() => setShowLogin(false)} className={styles.main} />
       <div className="fixed z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className={styles.wrapper}>
-          {/* Spinner */}
-          {userLoading && (
-            <div className={styles.spinnerContainer}>
-              <Spinner />
-            </div>
-          )}
-
           {/* Exit Button */}
           <img onClick={exit} className={styles.exit} src={cross} alt="" />
 

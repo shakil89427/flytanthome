@@ -8,6 +8,7 @@ import {
   AiFillTwitterSquare,
 } from "react-icons/ai";
 import { MdNavigateNext } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 /* Styles Start */
 const styles = {
@@ -26,6 +27,7 @@ const styles = {
 /* Styles End */
 
 const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
+  const navigate = useNavigate();
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
 
@@ -67,7 +69,10 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
           }}
         >
           {sponsorships.map((sponsorship, index) => (
-            <SwiperSlide onClick={() => console.log(index)} key={index}>
+            <SwiperSlide
+              onClick={() => navigate(`/sponsorshipdetails/${sponsorship.id}`)}
+              key={index}
+            >
               <div>
                 <p className={styles.applied}>
                   {sponsorship?.applied ? sponsorship.applied : "0"} applied
