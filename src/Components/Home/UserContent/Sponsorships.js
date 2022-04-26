@@ -72,6 +72,7 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
             <SwiperSlide
               onClick={() => navigate(`/sponsorshipdetails/${sponsorship.id}`)}
               key={index}
+              className="cursor-pointer"
             >
               <div>
                 <p className={styles.applied}>

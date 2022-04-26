@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Scroll from "../Components/Scroll/Scroll";
 import {
   getFirestore,
   doc,
@@ -84,12 +85,13 @@ const SponsorshipDetails = () => {
   }, [updateId]);
 
   return (
-    <div className="">
+    <div>
+      <Scroll />
       {loading && <Spinner />}
       {details?.name && similar?.length && (
-        <div className="max-w-[1000px] mx-auto py-20 grid grid-cols-12 gap-20">
+        <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
           {/* Left Side */}
-          <div className="col-span-8">
+          <div className="w-full md:w-8/12">
             <img
               className="w-full h-96 mb-5"
               src={details?.blob[0]?.path}
@@ -188,16 +190,16 @@ const SponsorshipDetails = () => {
           </div>
 
           {/* Right Side */}
-          <div className="col-span-4">
+          <div className="w-full md:w-4/12">
             <p className="text-xl font-semibold text-center mb-5">
               More related campaigns
             </p>
-            <div className="flex flex-col gap-10">
+            <div className="grid grid-cols-2 md:grid-cols-1 gap-x-5 gap-y-10">
               {similar?.map((item) => (
                 <div
                   onClick={() => setUpdateId(item.id)}
                   key={item.id}
-                  className="relative"
+                  className="relative cursor-pointer"
                 >
                   <div className="bg-[#F5B63A] text-white text-sm absolute top-5 right-0 px-3 py-1 rounded-tl-md rounded-bl-md">
                     {item?.applied} applied
@@ -206,7 +208,7 @@ const SponsorshipDetails = () => {
                     style={{ backgroundImage: `url(${item.blob[0]?.path})` }}
                     className="w-full h-48 bg-cover bg-center bg-no-repeat rounded-md"
                   />
-                  <div className="mt-3 pr-5">
+                  <div className="mt-3 md:pr-5">
                     <div className="flex items-center justify-between mb-2">
                       <p className="bg-[#FFDE2F] text-xs py-1 px-3 rounded-3xl font-medium">
                         {item.barter ? "Barter" : "Paid"} campaign
