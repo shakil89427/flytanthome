@@ -4,9 +4,10 @@ import { FiSend } from "react-icons/fi";
 import { AiOutlineBell } from "react-icons/ai";
 import { FaBullhorn } from "react-icons/fa";
 import { TiArrowSortedDown } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 /* Styles Start */
 const styles = {
-  profile: "flex items-center text-white gap-14",
+  profile: "flex items-center text-white gap-10",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   contactBtn:
     "w-28 h-10 border text-sm font-semibold border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:border-white hover:border-2",
@@ -16,8 +17,8 @@ const styles = {
 /* Styles End */
 
 const LargeTop = ({ setShowLogout }) => {
+  const navigate = useNavigate();
   const { user, setShowLogin } = useStore();
-  console.log(user);
   return (
     <div className="hidden lg:block ml-auto">
       {user?.userId ? (
@@ -26,16 +27,18 @@ const LargeTop = ({ setShowLogout }) => {
             <FaBullhorn className="-rotate-45" />
             <p>Create Campaign</p>
           </div>
-          <div className="flex items-center gap-5">
-            <AiOutlineBell className="text-5xl bg-[#5F5F5F] p-3 rounded-full cursor-pointer" />
-            <FiSend className="text-3xl cursor-pointer" />
-          </div>
+          <AiOutlineBell className="text-5xl bg-[#5F5F5F] p-3 rounded-full cursor-pointer" />
+          <FiSend className="text-3xl cursor-pointer" />
           <div className="flex items-center gap-1">
             <div
+              onClick={() => navigate("/profile")}
               style={{ backgroundImage: `url(${user?.profileImageUrl})` }}
-              className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center"
+              className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center cursor-pointer"
             />
-            <TiArrowSortedDown className="text-2xl cursor-pointer" />
+            <TiArrowSortedDown
+              onClick={() => setShowLogout(true)}
+              className="text-2xl cursor-pointer"
+            />
           </div>
         </div>
       ) : (

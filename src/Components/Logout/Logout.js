@@ -19,7 +19,7 @@ const Logout = ({ setShowLogout }) => {
         onClick={() => setShowLogout(false)}
         className="fixed bg-[#1a1717dc] w-full h-screen top-0 left-0 z-30"
       />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 w-[90vw] md:w-auto">
         <div className="bg-white rounded-lg px-5 lg:px-10 py-12 md:py-20 text-center mx-2 relative">
           <img
             onClick={() => setShowLogout(false)}

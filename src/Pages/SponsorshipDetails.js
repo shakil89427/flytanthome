@@ -34,12 +34,13 @@ const SponsorshipDetails = () => {
   const [updateId, setUpdateId] = useState(id);
   const db = getFirestore();
 
-  const getSimilar = async (status) => {
+  const getSimilar = async (status, categories) => {
     const colRef = collection(db, "sponsorship");
     const q = query(
       colRef,
       where("isApproved", "==", true),
       where("barter", "==", status),
+      where("categories", "array-contains-any", categories),
       orderBy("creationDate", "desc"),
       limit(6)
     );
@@ -57,6 +58,7 @@ const SponsorshipDetails = () => {
         setLoading(false);
       }
     } catch (err) {
+      console.log(err);
       setLoading(false);
     }
   };
@@ -68,7 +70,7 @@ const SponsorshipDetails = () => {
       const data = await response.data();
       if (data?.name) {
         setDetails(data);
-        getSimilar(data.barter);
+        getSimilar(data.barter, data.categories);
       } else {
         setLoading(false);
         //Show error
@@ -88,7 +90,7 @@ const SponsorshipDetails = () => {
     <div>
       <Scroll />
       {loading && <Spinner />}
-      {details?.name && similar?.length && (
+      {details?.name && (
         <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
           {/* Left Side */}
           <div className="w-full md:w-8/12">

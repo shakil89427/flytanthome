@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import "swiper/css";
-import "swiper/css/autoplay";
+import "swiper/css";
+import {
+  AiFillInstagram,
+  AiFillFacebook,
+  AiFillLinkedin,
+  AiFillYoutube,
+} from "react-icons/ai";
+import { MdNavigateNext } from "react-icons/md";
 import {
   getFirestore,
   collection,
@@ -16,11 +23,14 @@ import {
 
 /* Styles Start */
 const styles = {
-  heading: "font-semibold text-xl md:text-3xl mx-5 mb-10",
-  img: "h-[450px] rounded-md bg-cover bg-center bg-no-repeat",
-  tag: "absolute top-[80%] left-8 bg-green-400 px-5 py-1 rounded-xl text-sm text-white",
-  profileWrapper: "flex items-center gap-2 mt-3",
-  profileImg: "w-10 h-10 rounded-full bg-cover bg-center bg-no-repeat",
+  heading: "font-semibold text-xl md:text-3xl",
+  image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
+  nameWrapper: "flex items-center justify-between",
+  name: "text-lg md:text-xl text-black font-semibold",
+  icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
+  options: "flex gap-2 flex-wrap mt-3",
+  option: "bg-[#DDDDDD] text-xs px-3 py-1 rounded-xl",
+  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer",
 };
 /* Styles End */
 
@@ -31,6 +41,9 @@ const PopularInfluencers = ({ popular }) => {
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "users");
+
+  const [swiper, setSwiper] = useState();
+  const nextRef = useRef();
 
   const getPopular = async (q) => {
     if (activeIndex === "Last" || loading) return;
@@ -44,7 +57,6 @@ const PopularInfluencers = ({ popular }) => {
         setLoading(false);
         return setActiveIndex("Last");
       }
-      console.log("Popular", data);
       setLastVisible(response.docs[response.docs.length - 1]);
       setInfluencers((prev) => [...prev, ...data]);
       setLoading(false);
@@ -77,61 +89,84 @@ const PopularInfluencers = ({ popular }) => {
     getPopular(q);
   }, []);
 
+  useEffect(() => {
+    if (swiper) {
+      swiper.params.navigation.nextEl = nextRef.current;
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  }, [swiper]);
+
   return (
-    <div style={{ padding: "0" }} className="mb-24 r-box">
+    <div className="r-box py-12 mt-5 relative">
       <h1 className={styles.heading}>Popular Influencers</h1>
-      <Swiper
-        onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
-        modules={[Autoplay]}
-        autoplay={{ disableOnInteraction: false }}
-        speed={500}
-        slidesPerView={1.5}
-        initialSlide={1}
-        spaceBetween={40}
-        centeredSlides
-        centeredSlidesBounds
-        pagination={{
-          clickable: true,
-        }}
-        breakpoints={{
-          640: {
-            slidesPerView: 2.3,
-          },
-          768: {
-            slidesPerView: 2.6,
-          },
-          1086: {
-            slidesPerView: 3.5,
-          },
-        }}
-      >
-        {influencers.map((item, index) => (
-          <SwiperSlide key={index} onClick={() => console.log(index)}>
-            <div className="relative">
+      <div className="my-5">
+        <Swiper
+          modules={[Navigation, Pagination]}
+          navigation={{
+            nextEl: nextRef?.current,
+          }}
+          onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
+          parallax
+          observer
+          observeParents
+          initialSlide={1}
+          onSwiper={setSwiper}
+          slidesPerView={1.3}
+          spaceBetween={20}
+          breakpoints={{
+            640: {
+              slidesPerView: 2.3,
+            },
+            768: {
+              slidesPerView: 3.3,
+            },
+            1086: {
+              slidesPerView: 4,
+            },
+          }}
+        >
+          {influencers.map((item, index) => (
+            <SwiperSlide onClick={() => console.log(index)} key={index}>
               <div
-                className={styles.img}
-                style={{
-                  backgroundImage: `url(${item?.profileImageUrl})`,
-                }}
+                className={styles.image}
+                style={{ backgroundImage: `url(${item?.profileImageUrl})` }}
                 alt=""
               />
-              <p className={styles.tag}>Food</p>
-              <div className={styles.profileWrapper}>
-                <div
-                  className={styles.profileImg}
-                  style={{
-                    backgroundImage: `url(${item?.profileImageUrl})`,
-                  }}
-                  alt=""
-                />
-                <p className="font-light text-sm">
-                  by <span className="font-bold italic">{item?.name}</span>
-                </p>
+              <div className="pr-4 mt-2">
+                <div className={styles.nameWrapper}>
+                  <p className={styles.name}>{item?.name}</p>
+                  <p className="text-sm">
+                    {item?.gender?.charAt(0)}{" "}
+                    {new Date().getFullYear() -
+                      item?.dateOfBirth?.slice(
+                        item?.dateOfBirth?.length - 4,
+                        item?.dateOfBirth?.length
+                      )}
+                    , {item?.countryCode.toUpperCase()}
+                  </p>
+                </div>
+                <div className={styles.icons}>
+                  {item?.linkedAccounts?.Instagram && <AiFillInstagram />}
+                  {item?.linkedAccounts?.Facebook && <AiFillFacebook />}
+                  {item?.linkedAccounts?.Linkedin && <AiFillLinkedin />}
+                  {item?.linkedAccounts?.Youtube && <AiFillYoutube />}
+                </div>
+                <div className={styles.options}>
+                  {item?.categories?.map((option, index2) => (
+                    <p key={index2} className={styles.option}>
+                      {option}
+                    </p>
+                  ))}
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className={styles.next} ref={nextRef}>
+          <MdNavigateNext />
+        </div>
+      </div>
     </div>
   );
 };

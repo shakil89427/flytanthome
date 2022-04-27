@@ -31,7 +31,6 @@ const Latest = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
-      console.log("Latest", data);
       setLastVisible(response.docs[response.docs.length - 1]);
       setSponsorships((prev) => [...prev, ...data]);
       setLoading(false);

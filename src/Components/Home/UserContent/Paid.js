@@ -31,7 +31,6 @@ const Paid = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
-      console.log("Paid", data);
       setLastVisible(response.docs[response.docs.length - 1]);
       setSponsorships((prev) => [...prev, ...data]);
       setLoading(false);
