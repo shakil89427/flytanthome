@@ -143,14 +143,14 @@ const FeaturedInfluencers = () => {
                         item?.dateOfBirth?.length - 4,
                         item?.dateOfBirth?.length
                       )}
-                    , {item?.countryCode}
+                    , {item?.countryCode.toUpperCase()}
                   </p>
                 </div>
                 <div className={styles.icons}>
-                  <AiFillInstagram />
-                  <AiFillFacebook />
-                  <AiFillLinkedin />
-                  <AiFillYoutube />
+                  {item?.linkedAccounts?.Instagram && <AiFillInstagram />}
+                  {item?.linkedAccounts?.Facebook && <AiFillFacebook />}
+                  {item?.linkedAccounts?.Linkedin && <AiFillLinkedin />}
+                  {item?.linkedAccounts?.Youtube && <AiFillYoutube />}
                 </div>
                 <div className={styles.options}>
                   {item?.categories?.map((option, index2) => (

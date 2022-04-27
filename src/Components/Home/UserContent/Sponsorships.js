@@ -14,11 +14,11 @@ import { useNavigate } from "react-router-dom";
 const styles = {
   heading: "font-semibold text-xl md:text-3xl",
   applied:
-    "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-lg rounded-bl-lg",
+    "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-md rounded-bl-md",
   image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
   typeWrapper: "flex items-center justify-between",
   type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
-  title: "font-semibold my-1",
+  title: "font-semibold my-1 text-lg md:text-xl",
   bottomWrapper: "flex flex-col gap-2",
   followers: "text-xs font-medium",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
@@ -132,7 +132,7 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
                         )}
                       </div>
                       {type !== "Latest" && (
-                        <p>
+                        <p className="text-xs">
                           {Math.round(
                             (Date.now() - sponsorship?.creationDate) / 86400000
                           )}{" "}
