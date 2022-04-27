@@ -10,11 +10,11 @@ const styles = {
     "absolute inset-0 bg-no-repeat bg-contain bg-right-bottom hidden lg:block z-10 bgImage",
   heading: "text-5xl lg:text-6xl font-semibold",
   formMain:
-    "flex flex-col md:flex-row gap-2 md:gap-0 md:rounded-md overflow-hidden mt-8 mb-5 w-full lg:w-5/6",
+    "flex flex-col md:flex-row gap-2 md:gap-0 md:rounded-tl-md md:rounded-bl-md overflow-hidden mt-8 mb-5 w-full lg:w-5/6",
   inputWrapper:
     "flex border items-center px-5 py-3 bg-white gap-3 w-full rounded-md md:rounded-none",
   input: "w-full border-0 outline-none text-black",
-  btn: "bg-[#262424] px-7 py-3 md:py-0 rounded-md md:rounded-none",
+  btn: "bg-gray-800 px-7 py-3 md:py-0 rounded-md md:rounded-none md:rounded-tr-md md:rounded-br-md border border-white font-medium",
   popularWrapper: "flex items-center mt-8 gap-3",
   popularText: "font-semibold",
   popularItem: "border px-4 py-1 rounded-md font-medium cursor-pointer",

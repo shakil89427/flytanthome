@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import defaultUser from "../../Assets/defaultUser.png";
-import useStore from "../../Store/useStore";
 
 /* Styles Start */
 const styles = {
@@ -10,7 +9,7 @@ const styles = {
   profileWrapper: "flex gap-3",
   profileImage: "w-32 h-32 rounded-full bg-center bg-no-repeat bg-cover",
   topName: "text-xl md:text-2xl font-semibold mt-4",
-  country: "text-sm font-medium",
+  country: "text-sm font-medium uppercase",
   completeBtn:
     "border py-2 w-60 rounded-xl shadow-md font-medium border-gray-400 cursor-pointer text-center",
   topRight: "flex flex-col justify-between items-center",
@@ -29,8 +28,7 @@ const styles = {
 };
 /* Styles End */
 
-const Details = () => {
-  const { user } = useStore();
+const Details = ({ user, value }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -68,9 +66,13 @@ const Details = () => {
               </p>
             </span>
           </div>
-          <p className={styles.completeBtn}>
-            {progress === 100 ? "Edit Profile" : "Complete your Profile"}
-          </p>
+          {value ? (
+            <p className={styles.completeBtn}>
+              {progress === 100 ? "Edit Profile" : "Complete your Profile"}
+            </p>
+          ) : (
+            <p className={styles.completeBtn}>Send Message</p>
+          )}
         </div>
         <div className={styles.topRight}>
           <span>

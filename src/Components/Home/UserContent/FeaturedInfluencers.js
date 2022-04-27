@@ -20,6 +20,7 @@ import {
   limit,
   startAfter,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 /* Styles Start */
 const styles = {
@@ -35,6 +36,7 @@ const styles = {
 /* Styles End */
 
 const FeaturedInfluencers = () => {
+  const navigate = useNavigate();
   const [influencers, setInfluencers] = useState([]);
   const [activeIndex, setActiveIndex] = useState(1);
   const [lastVisible, setLastVisible] = useState(null);
@@ -126,7 +128,11 @@ const FeaturedInfluencers = () => {
           }}
         >
           {influencers.map((item, index) => (
-            <SwiperSlide onClick={() => console.log(index)} key={index}>
+            <SwiperSlide
+              onClick={() => navigate(`/influencer/${item?.id}`)}
+              key={index}
+              className="cursor-pointer"
+            >
               <div
                 className={styles.image}
                 style={{ backgroundImage: `url(${item?.profileImageUrl})` }}

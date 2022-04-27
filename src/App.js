@@ -15,6 +15,7 @@ import Blogs from "./Pages/Blogs";
 import Terms from "./Pages/Terms";
 import Contact from "./Pages/Contact";
 import SponsorshipDetails from "./Pages/SponsorshipDetails";
+import Influencer from "./Pages/Influencer";
 
 function App() {
   const { pathname } = useLocation();
@@ -37,13 +38,25 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route
             path="/sponsorshipdetails/:id"
-            element={<SponsorshipDetails />}
+            element={
+              <PrivateRoute>
+                <SponsorshipDetails />
+              </PrivateRoute>
+            }
           />
           <Route
             path="/profile"
             element={
               <PrivateRoute>
                 <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/influencer/:id"
+            element={
+              <PrivateRoute>
+                <Influencer />
               </PrivateRoute>
             }
           />

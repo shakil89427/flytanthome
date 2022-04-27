@@ -5,13 +5,9 @@ const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
   const { user, userLoading } = useStore();
 
+  if (user?.userId) return children;
   if (userLoading) return null;
-
-  if (!user?.userId) {
-    navigate("/");
-  } else {
-    return children;
-  }
+  if (!user?.userId) navigate("/");
 };
 
 export default PrivateRoute;

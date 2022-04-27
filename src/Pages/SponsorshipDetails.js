@@ -118,29 +118,11 @@ const SponsorshipDetails = () => {
                   Apply
                 </p>
               </div>
-
-              <p className="mb-14">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Voluptates, nihil. Consequatur nam harum ducimus, at laborum a
-                rem accusantium molestias asperiores, sunt eveniet reiciendis
-                sit quisquam dolore, necessitatibus consectetur magni modi.
-                Tempore similique at magnam veritatis. Vitae praesentium
-                deserunt dolore.
-              </p>
               <h5 className="text-xl font-semibold mb-5">Description</h5>
-              <p className="mb-14">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                alias dignissimos quia dicta? Deleniti, earum placeat? Quisquam
-                numquam pariatur ipsa temporibus recusandae minima repellendus
-                aut. Soluta rem aperiam commodi, repudiandae harum quia voluptas
-                dicta, mollitia cumque quae, ex nesciunt odio facere! Velit fuga
-                quo illo, illum labore eaque quod tempora eveniet quidem non
-                iste harum dignissimos nulla expedita temporibus inventore hic
-                quos possimus laborum ex, natus, provident ipsam? Vitae
-                consequatur incidunt quisquam quasi perferendis laboriosam quo
-                laudantium tenetur molestiae hic atque, repellat dignissimos eum
-                unde aliquid. Dolorum porro similique voluptatem temporibus non,
-                dolore tenetur soluta molestias corporis iste dolores veritatis?
+              <p className="mb-14 text-gray-700">
+                {details?.description
+                  ? details?.description
+                  : details?.barterDescription}
               </p>
               <h5 className="text-xl font-semibold mb-5">Catagories</h5>
               <div className="flex items-center gap-3 mb-10">
