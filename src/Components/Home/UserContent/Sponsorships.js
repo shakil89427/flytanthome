@@ -107,7 +107,11 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
                         {Math.round(
                           (Date.now() - sponsorship?.creationDate) / 86400000
                         )}{" "}
-                        days ago
+                        {Math.round(
+                          (Date.now() - sponsorship?.creationDate) / 86400000
+                        ) > 1
+                          ? "days ago"
+                          : "day ago"}
                       </p>
                     )}
                   </div>
@@ -136,7 +140,11 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
                           {Math.round(
                             (Date.now() - sponsorship?.creationDate) / 86400000
                           )}{" "}
-                          days ago
+                          {Math.round(
+                            (Date.now() - sponsorship?.creationDate) / 86400000
+                          ) > 1
+                            ? "days ago"
+                            : "day ago"}
                         </p>
                       )}
                     </div>

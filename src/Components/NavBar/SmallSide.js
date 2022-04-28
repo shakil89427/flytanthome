@@ -1,6 +1,7 @@
 import React from "react";
 import logoBlack from "../../Assets/logoBlack.png";
 import cross from "../../Assets/cross.svg";
+import defaultUser from "../../Assets/defaultUser.png";
 import { FiSend } from "react-icons/fi";
 import { AiOutlineBell } from "react-icons/ai";
 import { FaBullhorn } from "react-icons/fa";
@@ -54,7 +55,11 @@ const SmallSide = ({ showSide, setShowSide, setShowLogout }) => {
               className={styles.item}
             >
               <div
-                style={{ backgroundImage: `url(${user?.profileImageUrl})` }}
+                style={{
+                  backgroundImage: `url(${
+                    user?.profileImageUrl ? user?.profileImageUrl : defaultUser
+                  })`,
+                }}
                 className={styles.userImg}
               />
               <p>Profile</p>

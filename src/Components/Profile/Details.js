@@ -81,18 +81,20 @@ const Details = ({ user, value }) => {
             </p>
             <p className="font-semibold text-center">Social Score</p>
           </span>
-          <div
-            style={{
-              backgroundImage: `conic-gradient(black ${
-                progress * 3.6
-              }deg,#e0e0eb ${progress * 3.6}deg)`,
-            }}
-            className={styles.progress}
-          >
-            <span className="relative text-sm tracking-tighter font-bold">
-              {progress}%
-            </span>
-          </div>
+          {value && (
+            <div
+              style={{
+                backgroundImage: `conic-gradient(black ${
+                  progress * 3.6
+                }deg,#e0e0eb ${progress * 3.6}deg)`,
+              }}
+              className={styles.progress}
+            >
+              <span className="relative text-sm tracking-tighter font-bold">
+                {progress}%
+              </span>
+            </div>
+          )}
         </div>
       </div>
       {user?.bio && <p>{user.bio}</p>}
@@ -116,7 +118,7 @@ const Details = ({ user, value }) => {
       )}
       {user?.categories?.length && (
         <div>
-          <p className={styles.infoName}>Influence Catagories</p>
+          <p className={styles.infoName}>Influence Categories</p>
           <div className={styles.catagories}>
             {user.categories.map((catagory) => (
               <p className={styles.catagory} key={catagory}>

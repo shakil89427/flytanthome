@@ -30,6 +30,8 @@ const SponsorshipDetails = () => {
   const [details, setDetails] = useState({});
   const [similar, setSimilar] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [description, setDescription] = useState("");
+  const [full, setFull] = useState(false);
   const { id } = useParams();
   const [updateId, setUpdateId] = useState(id);
   const db = getFirestore();
@@ -70,6 +72,11 @@ const SponsorshipDetails = () => {
       const data = await response.data();
       if (data?.name) {
         setDetails(data);
+        if (data?.description) {
+          setDescription(data?.description);
+        } else {
+          setDescription(data?.barterDescription);
+        }
         getSimilar(data.barter, data.categories);
       } else {
         setLoading(false);
@@ -118,12 +125,28 @@ const SponsorshipDetails = () => {
                   Apply
                 </p>
               </div>
-              <h5 className="text-xl font-semibold mb-5">Description</h5>
-              <p className="mb-14 text-gray-700">
-                {details?.description
-                  ? details?.description
-                  : details?.barterDescription}
-              </p>
+              {!details?.barter && (
+                <h5 className="text-xl font-semibold mb-5">Description</h5>
+              )}
+              <div className="mb-14 text-gray-700">
+                {description?.length <= 250 ? (
+                  <p>{description}</p>
+                ) : (
+                  <p>
+                    {full ? (
+                      <span>{description}</span>
+                    ) : (
+                      <span>{description?.slice(0, 250)}</span>
+                    )}
+                    <span
+                      onClick={() => setFull(!full)}
+                      className="text-xs font-medium cursor-pointer text-gray-400 pl-1"
+                    >
+                      {full ? "Show less" : "...Show more"}
+                    </span>
+                  </p>
+                )}
+              </div>
               <h5 className="text-xl font-semibold mb-5">Catagories</h5>
               <div className="flex items-center gap-3 mb-10">
                 {details?.categories?.map((item) => (

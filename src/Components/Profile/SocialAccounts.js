@@ -80,7 +80,35 @@ const SocialAccounts = ({ value }) => {
           <p>Click here to link your {selected}</p>
         </div>
       )}
-      {!value && <div className="my-32 text-center">No Data Found</div>}
+      {!value && (
+        <div className="my-32 flex items-center justify-center">
+          {selected === "Instagram" && (
+            <div className="p-4 bg-black text-white rounded-full text-3xl">
+              <AiOutlineInstagram />
+            </div>
+          )}
+          {selected === "Youtube" && (
+            <div className="p-4 bg-black text-white rounded-full text-3xl">
+              <AiOutlineYoutube />
+            </div>
+          )}
+          {selected === "Twitter" && (
+            <div className="p-4 bg-black text-white rounded-full text-3xl">
+              <AiOutlineTwitter />
+            </div>
+          )}
+          {selected === "Linkedin" && (
+            <div className="p-4 bg-black text-white rounded-full text-3xl">
+              <AiOutlineLinkedin />
+            </div>
+          )}
+          {selected === "Tiktok" && (
+            <div className="p-4 bg-black text-white rounded-full text-3xl">
+              <FaTiktok />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

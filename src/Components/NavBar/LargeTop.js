@@ -1,5 +1,6 @@
 import React from "react";
 import useStore from "../../Store/useStore";
+import defaultUser from "../../Assets/defaultUser.png";
 import { FiSend } from "react-icons/fi";
 import { AiOutlineBell } from "react-icons/ai";
 import { FaBullhorn } from "react-icons/fa";
@@ -32,7 +33,11 @@ const LargeTop = ({ setShowLogout }) => {
           <div className="flex items-center gap-1">
             <div
               onClick={() => navigate("/profile")}
-              style={{ backgroundImage: `url(${user?.profileImageUrl})` }}
+              style={{
+                backgroundImage: `url(${
+                  user?.profileImageUrl ? user?.profileImageUrl : defaultUser
+                })`,
+              }}
               className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center cursor-pointer"
             />
             <TiArrowSortedDown
