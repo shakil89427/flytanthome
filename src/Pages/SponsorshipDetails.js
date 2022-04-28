@@ -25,8 +25,20 @@ import {
   AiFillYoutube,
 } from "react-icons/ai";
 import Spinner from "../Components/Spinner/Spinner";
+import useApplySponsorship from "../Hooks/useApplySponsorship";
+import SocialError from "../Components/SponsorshipDetails/SocialError";
+import Methods from "../Components/SponsorshipDetails/Methods";
 
 const SponsorshipDetails = () => {
+  const {
+    apply,
+    socialError,
+    setSocialError,
+    showMethods,
+    setShowMethods,
+    setFreeTrials,
+    setNumberOfApplies,
+  } = useApplySponsorship();
   const [details, setDetails] = useState({});
   const [similar, setSimilar] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,15 +50,15 @@ const SponsorshipDetails = () => {
 
   const getSimilar = async (status, categories) => {
     const colRef = collection(db, "sponsorship");
-    const q = query(
-      colRef,
-      where("isApproved", "==", true),
-      where("barter", "==", status),
-      where("categories", "array-contains-any", categories),
-      orderBy("creationDate", "desc"),
-      limit(6)
-    );
     try {
+      const q = query(
+        colRef,
+        where("isApproved", "==", true),
+        where("barter", "==", status),
+        where("categories", "array-contains-any", categories),
+        orderBy("creationDate", "desc"),
+        limit(6)
+      );
       const response = await getDocs(q);
       const data = response?.docs?.map((item) => {
         return { ...item.data(), id: item.id };
@@ -60,7 +72,6 @@ const SponsorshipDetails = () => {
         setLoading(false);
       }
     } catch (err) {
-      console.log(err);
       setLoading(false);
     }
   };
@@ -69,7 +80,7 @@ const SponsorshipDetails = () => {
     setLoading(true);
     try {
       const response = await getDoc(docRef);
-      const data = await response.data();
+      const data = await { ...response.data(), id: response.id };
       if (data?.name) {
         setDetails(data);
         if (data?.description) {
@@ -97,6 +108,14 @@ const SponsorshipDetails = () => {
     <div>
       <Scroll />
       {loading && <Spinner />}
+      {socialError && <SocialError setSocialError={setSocialError} />}
+      {!showMethods && (
+        <Methods
+          setShowMethods={setShowMethods}
+          setFreeTrials={setFreeTrials}
+          setNumberOfApplies={setNumberOfApplies}
+        />
+      )}
       {details?.name && (
         <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
           {/* Left Side */}
@@ -121,7 +140,10 @@ const SponsorshipDetails = () => {
                 <p className="py-3 px-5 border-2 border-black rounded-3xl w-[45%] text-center font-medium">
                   Message
                 </p>
-                <p className="py-3 px-5 bg-black text-white border-2 border-black w-[45%] rounded-3xl text-center font-medium">
+                <p
+                  onClick={() => apply(details)}
+                  className="py-3 px-5 bg-black text-white border-2 border-black w-[45%] rounded-3xl text-center font-medium cursor-pointer"
+                >
                   Apply
                 </p>
               </div>

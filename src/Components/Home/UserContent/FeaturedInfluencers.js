@@ -80,7 +80,6 @@ const FeaturedInfluencers = () => {
         startAfter(featuredInfluencers?.lastVisible),
         limit(20)
       );
-      console.log(activeIndex, featuredInfluencers?.data?.length);
       if (activeIndex >= featuredInfluencers?.data?.length) {
         console.log("hi");
         getFeatured(q);
