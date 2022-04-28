@@ -27,21 +27,19 @@ import {
 import Spinner from "../Components/Spinner/Spinner";
 import useApplySponsorship from "../Hooks/useApplySponsorship";
 import SocialError from "../Components/SponsorshipDetails/SocialError";
-import Methods from "../Components/SponsorshipDetails/Methods";
+import useStore from "../Store/useStore";
 
 const SponsorshipDetails = () => {
-  const {
-    apply,
-    socialError,
-    setSocialError,
-    showMethods,
-    setShowMethods,
-    setFreeTrials,
-    setNumberOfApplies,
-  } = useApplySponsorship();
   const [details, setDetails] = useState({});
-  const [similar, setSimilar] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { apply, socialError, setSocialError } = useApplySponsorship(
+    details,
+    setDetails,
+    loading,
+    setLoading
+  );
+  const { user } = useStore();
+  const [similar, setSimilar] = useState([]);
   const [description, setDescription] = useState("");
   const [full, setFull] = useState(false);
   const { id } = useParams();
@@ -109,13 +107,6 @@ const SponsorshipDetails = () => {
       <Scroll />
       {loading && <Spinner />}
       {socialError && <SocialError setSocialError={setSocialError} />}
-      {!showMethods && (
-        <Methods
-          setShowMethods={setShowMethods}
-          setFreeTrials={setFreeTrials}
-          setNumberOfApplies={setNumberOfApplies}
-        />
-      )}
       {details?.name && (
         <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
           {/* Left Side */}
@@ -140,12 +131,18 @@ const SponsorshipDetails = () => {
                 <p className="py-3 px-5 border-2 border-black rounded-3xl w-[45%] text-center font-medium">
                   Message
                 </p>
-                <p
-                  onClick={() => apply(details)}
-                  className="py-3 px-5 bg-black text-white border-2 border-black w-[45%] rounded-3xl text-center font-medium cursor-pointer"
-                >
-                  Apply
-                </p>
+                {user?.appliedCampaigns?.includes(details?.id) ? (
+                  <p className="py-3 px-5 bg-gray-700 text-white border-2 border-black w-[45%] rounded-3xl text-center font-medium">
+                    Applied
+                  </p>
+                ) : (
+                  <p
+                    onClick={() => apply()}
+                    className="py-3 px-5 bg-black text-white border-2 border-black w-[45%] rounded-3xl text-center font-medium cursor-pointer"
+                  >
+                    Apply
+                  </p>
+                )}
               </div>
               {!details?.barter && (
                 <h5 className="text-xl font-semibold mb-5">Description</h5>
