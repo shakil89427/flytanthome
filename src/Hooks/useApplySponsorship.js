@@ -4,7 +4,7 @@ import useStore from "../Store/useStore";
 
 const useApplySponsorship = (details, setDetails, loading, setLoading) => {
   const [socialError, setSocialError] = useState(false);
-  const { user, setUser } = useStore();
+  const { user, setUser, setNotify } = useStore();
   const db = getFirestore();
 
   const updateUserData = (updatedUser) => {
@@ -15,10 +15,12 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
           console.log(res.data());
           setUser(res.data());
           setLoading(false);
+          setNotify({ status: true, message: "Applied Successfully" });
         });
       })
       .catch((err) => {
         setLoading(false);
+        setNotify({ status: false, message: "Something went wrong" });
       });
   };
 
@@ -26,7 +28,9 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
     const sponsorshipRef = doc(db, "sponsorship", details.id);
     const updatedData = {
       applied: details?.applied + 1,
-      influencers: [...details.influencers, user.userId],
+      influencers: details?.influencers
+        ? [...details?.influencers, user?.userId]
+        : [user?.userId],
     };
     setLoading(true);
     updateDoc(sponsorshipRef, updatedData)
@@ -39,6 +43,7 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
       })
       .catch((err) => {
         setLoading(false);
+        setNotify({ status: false, message: "Something went wrong" });
       });
   };
 
@@ -50,14 +55,18 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
     if (user?.freeTrials > 0) {
       const updatedUser = {
         freeTrials: user.freeTrials - 1,
-        appliedCampaigns: [...user.appliedCampaigns, details.id],
+        appliedCampaigns: user?.appliedCampaigns
+          ? [...user?.appliedCampaigns, details?.id]
+          : [details?.id],
       };
       return updateSponsorshipData(updatedUser);
     }
     if (user?.numberOfApplies > 0) {
       const updatedUser = {
         numberOfApplies: user.numberOfApplies - 1,
-        appliedCampaigns: [...user.appliedCampaigns, details.id],
+        appliedCampaigns: user?.appliedCampaigns
+          ? [...user?.appliedCampaigns, details?.id]
+          : [details?.id],
       };
       updateSponsorshipData(updatedUser);
     }
