@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css";
+import useStore from "../../../Store/useStore";
 import {
   AiFillInstagram,
   AiFillFacebook,
@@ -37,9 +38,8 @@ const styles = {
 
 const FeaturedInfluencers = () => {
   const navigate = useNavigate();
-  const [influencers, setInfluencers] = useState([]);
+  const { featuredInfluencers, setFeaturedInfluencers } = useStore();
   const [activeIndex, setActiveIndex] = useState(1);
-  const [lastVisible, setLastVisible] = useState(null);
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "users");
@@ -59,8 +59,12 @@ const FeaturedInfluencers = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
-      setLastVisible(response.docs[response.docs.length - 1]);
-      setInfluencers((prev) => [...prev, ...data]);
+      setFeaturedInfluencers((prev) => {
+        return {
+          data: [...prev.data, ...data],
+          lastVisible: response?.docs[response?.docs?.length - 1],
+        };
+      });
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -68,27 +72,32 @@ const FeaturedInfluencers = () => {
   };
 
   useEffect(() => {
-    if (!influencers?.length) return;
-    const q = query(
-      colRef,
-      where("shouldShowTrending", "==", true),
-      orderBy("socialScore", "desc"),
-      startAfter(lastVisible),
-      limit(20)
-    );
-    if (activeIndex >= influencers?.length) {
-      getFeatured(q);
+    if (featuredInfluencers?.data?.length) {
+      const q = query(
+        colRef,
+        where("shouldShowTrending", "==", true),
+        orderBy("socialScore", "desc"),
+        startAfter(featuredInfluencers?.lastVisible),
+        limit(20)
+      );
+      console.log(activeIndex, featuredInfluencers?.data?.length);
+      if (activeIndex >= featuredInfluencers?.data?.length) {
+        console.log("hi");
+        getFeatured(q);
+      }
     }
   }, [activeIndex]);
 
   useEffect(() => {
-    const q = query(
-      colRef,
-      where("shouldShowTrending", "==", true),
-      orderBy("socialScore", "desc"),
-      limit(20)
-    );
-    getFeatured(q);
+    if (!featuredInfluencers?.data?.length) {
+      const q = query(
+        colRef,
+        where("shouldShowTrending", "==", true),
+        orderBy("socialScore", "desc"),
+        limit(20)
+      );
+      getFeatured(q);
+    }
   }, []);
 
   useEffect(() => {
@@ -127,7 +136,7 @@ const FeaturedInfluencers = () => {
             },
           }}
         >
-          {influencers.map((item, index) => (
+          {featuredInfluencers?.data?.map((item, index) => (
             <SwiperSlide
               onClick={() => navigate(`/influencer/${item?.id}`)}
               key={index}

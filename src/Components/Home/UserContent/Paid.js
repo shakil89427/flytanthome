@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sponsorships from "./Sponsorships";
+import useStore from "../../../Store/useStore";
 import {
   getFirestore,
   collection,
@@ -12,9 +13,8 @@ import {
 } from "firebase/firestore";
 
 const Paid = () => {
-  const [sponsorships, setSponsorships] = useState([]);
+  const { paidSponsorships, setPaidSponsorships } = useStore();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [lastVisible, setLastVisible] = useState(null);
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
@@ -31,8 +31,12 @@ const Paid = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
-      setLastVisible(response.docs[response.docs.length - 1]);
-      setSponsorships((prev) => [...prev, ...data]);
+      setPaidSponsorships((prev) => {
+        return {
+          data: [...prev.data, ...data],
+          lastVisible: response?.docs[response?.docs?.length - 1],
+        };
+      });
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -40,34 +44,37 @@ const Paid = () => {
   };
 
   useEffect(() => {
-    if (!sponsorships?.length) return;
-    const q = query(
-      colRef,
-      where("isApproved", "==", true),
-      where("barter", "==", false),
-      orderBy("creationDate", "desc"),
-      startAfter(lastVisible),
-      limit(10)
-    );
-    if (activeIndex >= sponsorships?.length) {
-      getPaid(q);
+    if (paidSponsorships?.data?.length) {
+      const q = query(
+        colRef,
+        where("isApproved", "==", true),
+        where("barter", "==", false),
+        orderBy("creationDate", "desc"),
+        startAfter(paidSponsorships.lastVisible),
+        limit(10)
+      );
+      if (activeIndex >= paidSponsorships?.data?.length) {
+        getPaid(q);
+      }
     }
   }, [activeIndex]);
 
   useEffect(() => {
-    const q = query(
-      colRef,
-      where("isApproved", "==", true),
-      where("barter", "==", false),
-      orderBy("creationDate", "desc"),
-      limit(10)
-    );
-    getPaid(q);
+    if (!paidSponsorships?.data?.length) {
+      const q = query(
+        colRef,
+        where("isApproved", "==", true),
+        where("barter", "==", false),
+        orderBy("creationDate", "desc"),
+        limit(10)
+      );
+      getPaid(q);
+    }
   }, []);
 
   return (
     <Sponsorships
-      sponsorships={sponsorships}
+      sponsorships={paidSponsorships?.data}
       type={"Paid"}
       setActiveIndex={setActiveIndex}
     />

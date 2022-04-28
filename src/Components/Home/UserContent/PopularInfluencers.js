@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css";
+import useStore from "../../../Store/useStore";
 import {
   AiFillInstagram,
   AiFillFacebook,
@@ -37,9 +38,8 @@ const styles = {
 
 const PopularInfluencers = ({ popular }) => {
   const navigate = useNavigate();
-  const [influencers, setInfluencers] = useState([]);
+  const { popularInfluencers, setPopularInfluencers } = useStore();
   const [activeIndex, setActiveIndex] = useState(1);
-  const [lastVisible, setLastVisible] = useState(null);
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "users");
@@ -59,8 +59,12 @@ const PopularInfluencers = ({ popular }) => {
         setLoading(false);
         return setActiveIndex("Last");
       }
-      setLastVisible(response.docs[response.docs.length - 1]);
-      setInfluencers((prev) => [...prev, ...data]);
+      setPopularInfluencers((prev) => {
+        return {
+          data: [...prev.data, ...data],
+          lastVisible: response?.docs[response?.docs?.length - 1],
+        };
+      });
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -68,27 +72,30 @@ const PopularInfluencers = ({ popular }) => {
   };
 
   useEffect(() => {
-    if (!influencers?.length) return;
-    const q = query(
-      colRef,
-      where("shouldShowInfluencer", "==", true),
-      orderBy("socialScore", "desc"),
-      startAfter(lastVisible),
-      limit(20)
-    );
-    if (activeIndex >= influencers?.length) {
-      getPopular(q);
+    if (popularInfluencers?.data?.length) {
+      const q = query(
+        colRef,
+        where("shouldShowInfluencer", "==", true),
+        orderBy("socialScore", "desc"),
+        startAfter(popularInfluencers?.lastVisible),
+        limit(20)
+      );
+      if (activeIndex >= popularInfluencers?.data?.length) {
+        getPopular(q);
+      }
     }
   }, [activeIndex]);
 
   useEffect(() => {
-    const q = query(
-      colRef,
-      where("shouldShowInfluencer", "==", true),
-      orderBy("socialScore", "desc"),
-      limit(20)
-    );
-    getPopular(q);
+    if (!popularInfluencers?.data?.length) {
+      const q = query(
+        colRef,
+        where("shouldShowInfluencer", "==", true),
+        orderBy("socialScore", "desc"),
+        limit(20)
+      );
+      getPopular(q);
+    }
   }, []);
 
   useEffect(() => {
@@ -128,7 +135,7 @@ const PopularInfluencers = ({ popular }) => {
             },
           }}
         >
-          {influencers.map((item, index) => (
+          {popularInfluencers?.data?.map((item, index) => (
             <SwiperSlide
               onClick={() => navigate(`/influencer/${item?.id}`)}
               key={index}

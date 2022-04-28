@@ -12,6 +12,26 @@ const Store = () => {
   const [userLoading, setUserLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
   const [notify, setNotify] = useState(false);
+  const [featuredInfluencers, setFeaturedInfluencers] = useState({
+    data: [],
+    lastVisible: false,
+  });
+  const [latestSponsorships, setLatestSponsorships] = useState({
+    data: [],
+    lastVisible: false,
+  });
+  const [paidSponsorships, setPaidSponsorships] = useState({
+    data: [],
+    lastVisible: false,
+  });
+  const [barterSponsorships, setBarterSponsorships] = useState({
+    data: [],
+    lastVisible: false,
+  });
+  const [popularInfluencers, setPopularInfluencers] = useState({
+    data: [],
+    lastVisible: false,
+  });
 
   /* Auth Status Check */
   useAuthCheck(setUser, setUserLoading, setNotify);
@@ -27,6 +47,16 @@ const Store = () => {
     setShowLogin,
     notify,
     setNotify,
+    featuredInfluencers,
+    setFeaturedInfluencers,
+    latestSponsorships,
+    setLatestSponsorships,
+    paidSponsorships,
+    setPaidSponsorships,
+    barterSponsorships,
+    setBarterSponsorships,
+    popularInfluencers,
+    setPopularInfluencers,
   };
 };
 

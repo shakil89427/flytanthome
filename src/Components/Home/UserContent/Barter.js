@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sponsorships from "./Sponsorships";
+import useStore from "../../../Store/useStore";
 import {
   getFirestore,
   collection,
@@ -12,9 +13,8 @@ import {
 } from "firebase/firestore";
 
 const Barter = () => {
-  const [sponsorships, setSponsorships] = useState([]);
+  const { barterSponsorships, setBarterSponsorships } = useStore();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [lastVisible, setLastVisible] = useState(null);
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
@@ -31,8 +31,12 @@ const Barter = () => {
         setLoading(false);
         return setActiveIndex("Last");
       }
-      setLastVisible(response.docs[response.docs.length - 1]);
-      setSponsorships((prev) => [...prev, ...data]);
+      setBarterSponsorships((prev) => {
+        return {
+          data: [...prev.data, ...data],
+          lastVisible: response?.docs[response?.docs?.length - 1],
+        };
+      });
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -40,34 +44,37 @@ const Barter = () => {
   };
 
   useEffect(() => {
-    if (!sponsorships?.length) return;
-    const q = query(
-      colRef,
-      where("isApproved", "==", true),
-      where("barter", "==", true),
-      orderBy("creationDate", "desc"),
-      startAfter(lastVisible),
-      limit(10)
-    );
-    if (activeIndex >= sponsorships?.length) {
-      getBarter(q);
+    if (barterSponsorships?.data?.length) {
+      const q = query(
+        colRef,
+        where("isApproved", "==", true),
+        where("barter", "==", true),
+        orderBy("creationDate", "desc"),
+        startAfter(barterSponsorships?.lastVisible),
+        limit(10)
+      );
+      if (activeIndex >= barterSponsorships?.data?.length) {
+        getBarter(q);
+      }
     }
   }, [activeIndex]);
 
   useEffect(() => {
-    const q = query(
-      colRef,
-      where("isApproved", "==", true),
-      where("barter", "==", true),
-      orderBy("creationDate", "desc"),
-      limit(10)
-    );
-    getBarter(q);
+    if (!barterSponsorships?.data?.length) {
+      const q = query(
+        colRef,
+        where("isApproved", "==", true),
+        where("barter", "==", true),
+        orderBy("creationDate", "desc"),
+        limit(10)
+      );
+      getBarter(q);
+    }
   }, []);
 
   return (
     <Sponsorships
-      sponsorships={sponsorships}
+      sponsorships={barterSponsorships?.data}
       type={"Barter"}
       setActiveIndex={setActiveIndex}
     />
