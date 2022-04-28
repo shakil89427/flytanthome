@@ -36,7 +36,7 @@ const styles = {
 };
 /* Styles End */
 
-const PopularInfluencers = ({ popular }) => {
+const PopularInfluencers = () => {
   const navigate = useNavigate();
   const { popularInfluencers, setPopularInfluencers } = useStore();
   const [activeIndex, setActiveIndex] = useState(1);

@@ -5,7 +5,7 @@ import Scroll from "../Components/Scroll/Scroll";
 import useStore from "../Store/useStore";
 
 const styles = {
-  main: "grid grid-cols-1 lg:grid-cols-2 py-14 max-w-[1100px] px-5 gap-10 lg:gap-20 mx-auto",
+  main: "grid grid-cols-1 lg:grid-cols-2 pt-14 pb-32 max-w-[1100px] px-5 gap-10 lg:gap-20 mx-auto",
 };
 
 const Profile = () => {

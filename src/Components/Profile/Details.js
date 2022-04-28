@@ -11,15 +11,17 @@ const styles = {
   topName: "text-xl md:text-2xl font-semibold mt-4",
   country: "text-sm font-medium uppercase",
   completeBtn:
-    "border py-2 w-60 rounded-xl shadow-md font-medium border-gray-400 cursor-pointer text-center",
+    "border py-4 w-72 rounded-md shadow-md font-medium border-gray-400 cursor-pointer text-center",
   topRight: "flex flex-col justify-between items-center",
   score:
-    "border w-14 h-14 mx-auto rounded-full flex items-center justify-center border-black mb-3 text-2xl border-gray-400",
-  progress:
-    "relative w-[50px] h-[50px] rounded-full flex items-center justify-center progress before:content-[''] before:absolute before:w-[42px] before:h-[42px] before:bg-white before:rounded-full",
-  infoName: "text-xl font-medium mb-2",
-  catagories: "flex items-center gap-3 flex-wrap",
-  catagory: "bg-[#DDDDDD] text-xs px-5 py-[2px] rounded-3xl",
+    "border w-[65px] h-[65px] mx-auto rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400",
+  progress: "w-[60px] h-[60px] rounded-full flex items-center justify-center",
+  progressInner:
+    "font-semibold bg-white w-[92%] h-[92%] rounded-full flex items-center justify-center",
+  infoName: "font-medium mb-2 text-gray-400 ",
+  infoItem: "text-lg font-medium",
+  catagories: "flex items-center gap-3 flex-wrap mt-4",
+  catagory: "py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium",
   /* Right */
   title: "text-2xl font-semibold mt-3",
   socials: "flex items-center justify-between mt-5 font-medium",
@@ -90,30 +92,28 @@ const Details = ({ user, value }) => {
               }}
               className={styles.progress}
             >
-              <span className="relative text-sm tracking-tighter font-bold">
-                {progress}%
-              </span>
+              <div className={styles.progressInner}>{progress}%</div>
             </div>
           )}
         </div>
       </div>
-      {user?.bio && <p>{user.bio}</p>}
+      {user?.bio && <p className="text-gray-600">{user.bio}</p>}
       {user?.name && (
         <div>
           <p className={styles.infoName}>Name</p>
-          <p>{user.name}</p>
+          <p className={styles.infoItem}>{user.name}</p>
         </div>
       )}
       {user?.email && (
         <div>
           <p className={styles.infoName}>Email</p>
-          <p>{user.email}</p>
+          <p className={styles.infoItem}>{user.email}</p>
         </div>
       )}
       {user?.dateOfBirth && (
         <div>
           <p className={styles.infoName}>DOB</p>
-          {user.dateOfBirth}
+          <p className={styles.infoItem}>{user.dateOfBirth}</p>
         </div>
       )}
       {user?.categories?.length && (

@@ -6,10 +6,12 @@ import PopularInfluencers from "./PopularInfluencers";
 import Latest from "./Latest";
 import Paid from "./Paid";
 import Barter from "./Barter";
+import Scroll from "../../Scroll/Scroll";
 
 const UserContent = () => {
   return (
     <>
+      <Scroll />
       <Banner />
       <FeaturedInfluencers />
       <AdBanner />

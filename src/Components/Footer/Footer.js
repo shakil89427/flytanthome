@@ -9,7 +9,7 @@ import {
   AiFillAndroid,
 } from "react-icons/ai";
 import { HiMail } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assets/logo.png";
 
 const styles = {
@@ -17,7 +17,7 @@ const styles = {
   wrapper:
     "grid grid-cols-1 lg:grid-cols-3 gap-y-20 border-b border-white r-box py-20",
   info: "flex flex-col items-center justify-between",
-  logo: "w-64",
+  logo: "w-64 cursor-pointer",
   infoText: "my-5",
   iconMain: "flex flex-col md:flex-row gap-y-5 gap-x-2",
   iconWrapper: "flex items-center gap-2 mt-3",
@@ -37,6 +37,7 @@ const styles = {
 };
 
 const Footer = () => {
+  const navigate = useNavigate();
   const icons = [
     [
       { url: "https://www.instagram.com/flytant/", icon: <AiFillInstagram /> },
@@ -67,9 +68,12 @@ const Footer = () => {
         {/* Logo Part */}
         <div className={styles.info}>
           <span>
-            <Link to="/">
-              <img className={styles.logo} src={logo} alt="" />
-            </Link>
+            <img
+              onClick={() => navigate("/")}
+              className={styles.logo}
+              src={logo}
+              alt=""
+            />
             <p className={styles.infoText}>Connecting Brands & Influencers</p>
           </span>
           {/* Icons Part */}

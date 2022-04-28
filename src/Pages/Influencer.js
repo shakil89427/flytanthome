@@ -7,7 +7,7 @@ import SocialAccounts from "../Components/Profile/SocialAccounts";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 const styles = {
-  main: "grid grid-cols-1 lg:grid-cols-2 py-14 max-w-[1100px] px-5 mx-auto gap-10 lg:gap-20",
+  main: "grid grid-cols-1 lg:grid-cols-2 pt-14 pb-32 max-w-[1100px] px-5 mx-auto gap-10 lg:gap-20",
 };
 
 const Influencer = () => {

@@ -1,6 +1,6 @@
 import React from "react";
+import bannerBg from "../../../Assets/userHome/bannerBg2.png";
 import NavBar from "../../NavBar/NavBar";
-import "./CSS/Banner.css";
 import { BsSearch } from "react-icons/bs";
 
 /* Styles Start */
@@ -14,7 +14,7 @@ const styles = {
   inputWrapper:
     "flex border items-center px-5 py-3 bg-white gap-3 w-full rounded-md md:rounded-none",
   input: "w-full border-0 outline-none text-black",
-  btn: "bg-gray-800 px-7 py-3 md:py-0 rounded-md md:rounded-none md:rounded-tr-md md:rounded-br-md border border-white font-medium",
+  btn: "bg-[#5F5F5F] px-7 py-3 md:py-0 rounded-md md:rounded-none md:rounded-tr-md md:rounded-br-md border border-white font-medium",
   popularWrapper: "flex items-center mt-8 gap-3",
   popularText: "font-semibold",
   popularItem: "border px-4 py-1 rounded-md font-medium cursor-pointer",
@@ -26,7 +26,10 @@ const Banner = () => {
     <div className="bg-black">
       <NavBar color={"transparent"} />
       <div className={styles.main}>
-        <div className={styles.bgImage} />
+        <div
+          style={{ backgroundImage: `url(${bannerBg})` }}
+          className={styles.bgImage}
+        />
         <div className="lg:w-4/6 z-20 my-10">
           <h1 style={{ lineHeight: "110%" }} className={styles.heading}>
             Find <span className="font-bold">Influencers</span>
