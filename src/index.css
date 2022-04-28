@@ -71,3 +71,15 @@ input[type="number"] {
   }
 }
 /* Responsive Container End */
+
+/* Nav SideBar Icons Start */
+.i2 {
+  display: none;
+}
+.nav_side_icons:hover .i1 {
+  display: none;
+}
+.nav_side_icons:hover .i2 {
+  display: block;
+}
+/* Nav SideBar Icons End */

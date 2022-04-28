@@ -2,9 +2,12 @@ import React from "react";
 import logoBlack from "../../Assets/logoBlack.png";
 import cross from "../../Assets/cross.svg";
 import defaultUser from "../../Assets/defaultUser.png";
-import { FiSend } from "react-icons/fi";
-import { AiOutlineBell } from "react-icons/ai";
-import { FaBullhorn } from "react-icons/fa";
+import bellBlack from "../../Assets/navBar/bellBlack.svg";
+import bellWhite from "../../Assets/navBar/bellWhite.svg";
+import flyBlack from "../../Assets/navBar/flyBlack.svg";
+import flyWhite from "../../Assets/navBar/flyWhite.svg";
+import mikeBlack from "../../Assets/navBar/mikeBlack.svg";
+import mikeWhite from "../../Assets/navBar/mikeWhite.svg";
 import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
 import { SiMinutemailer } from "react-icons/si";
 import useStore from "../../Store/useStore";
@@ -16,7 +19,7 @@ const styles = {
   head: "h-14 flex items-center justify-between border-b px-5 gap-8",
   userImg: "w-6 h-6 rounded-full bg-cover bg-center bg-no-repeat",
   items: "px-2 flex flex-col gap-3 pt-5 text-md font-medium",
-  item: "flex items-center gap-3  h-12 rounded-md px-3 hover:bg-black hover:text-white duration-150 cursor-pointer",
+  item: "flex items-center gap-3  h-12 rounded-md px-3 hover:bg-black hover:text-white duration-150 cursor-pointer nav_side_icons",
 };
 
 const SmallSide = ({ showSide, setShowSide, setShowLogout }) => {
@@ -67,19 +70,22 @@ const SmallSide = ({ showSide, setShowSide, setShowLogout }) => {
 
             {/* Notifications */}
             <div className={styles.item}>
-              <AiOutlineBell className="text-2xl" />
+              <img className="i1 w-6" src={bellBlack} alt="" />
+              <img className="i2 w-6" src={bellWhite} alt="" />
               <p>Notifications</p>
             </div>
 
             {/* Messages */}
             <div className={styles.item}>
-              <FiSend className="text-xl" />
+              <img className="i1 w-6" src={flyBlack} alt="" />
+              <img className="i2 w-6" src={flyWhite} alt="" />
               <p>Message</p>
             </div>
 
             {/* Create Campaign */}
             <div className={styles.item}>
-              <FaBullhorn className="text-xl -rotate-45" />
+              <img className="i1 w-6" src={mikeBlack} alt="" />
+              <img className="i2 w-6" src={mikeWhite} alt="" />
               <p>Create Campaign</p>
             </div>
 
@@ -91,7 +97,7 @@ const SmallSide = ({ showSide, setShowSide, setShowLogout }) => {
               }}
               className={styles.item}
             >
-              <AiOutlineLogout className="text-xl" />
+              <AiOutlineLogout className="text-2xl" />
               <p>Logout</p>
             </div>
           </div>
