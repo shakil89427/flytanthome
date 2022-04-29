@@ -32,6 +32,7 @@ const Store = () => {
     data: [],
     lastVisible: false,
   });
+  const [sponsorshipDetails, setSponsorshipDetails] = useState([]);
 
   /* Auth Status Check */
   useAuthCheck(setUser, setUserLoading, setNotify);
@@ -57,6 +58,8 @@ const Store = () => {
     setBarterSponsorships,
     popularInfluencers,
     setPopularInfluencers,
+    sponsorshipDetails,
+    setSponsorshipDetails,
   };
 };
 

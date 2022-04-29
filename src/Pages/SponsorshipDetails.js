@@ -30,15 +30,15 @@ import SocialError from "../Components/SponsorshipDetails/SocialError";
 import useStore from "../Store/useStore";
 
 const SponsorshipDetails = () => {
+  const { user, sponsorshipDetails, setSponsorshipDetails } = useStore();
   const [details, setDetails] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { apply, socialError, setSocialError } = useApplySponsorship(
     details,
     setDetails,
     loading,
     setLoading
   );
-  const { user } = useStore();
   const [similar, setSimilar] = useState([]);
   const [description, setDescription] = useState("");
   const [full, setFull] = useState(false);
@@ -46,7 +46,7 @@ const SponsorshipDetails = () => {
   const [updateId, setUpdateId] = useState(id);
   const db = getFirestore();
 
-  const getSimilar = async (status, categories) => {
+  const getSimilar = async (status, categories, info) => {
     const colRef = collection(db, "sponsorship");
     try {
       const q = query(
@@ -63,13 +63,31 @@ const SponsorshipDetails = () => {
       });
       if (data?.length) {
         const validData = data.filter((item) => updateId !== item.id);
+        setDetails(info?.data);
+        setDescription(info?.description);
         setSimilar(validData.slice(0, 5));
+        setSponsorshipDetails([
+          ...sponsorshipDetails,
+          { ...info, similar: validData?.slice(0, 5) },
+        ]);
         setLoading(false);
         window.scrollTo(0, 0);
       } else {
+        setDetails(info?.data);
+        setDescription(info?.description);
+        setSimilar([]);
+        setSponsorshipDetails([
+          ...sponsorshipDetails,
+          { ...info, similar: [] },
+        ]);
         setLoading(false);
+        window.scrollTo(0, 0);
       }
     } catch (err) {
+      setDetails(info?.data);
+      setDescription(info?.description);
+      setSimilar([]);
+      setSponsorshipDetails([...sponsorshipDetails, { ...info, similar: [] }]);
       setLoading(false);
     }
   };
@@ -79,17 +97,20 @@ const SponsorshipDetails = () => {
     try {
       const response = await getDoc(docRef);
       const data = await { ...response.data(), id: response.id };
-      if (data?.name) {
-        setDetails(data);
-        if (data?.description) {
-          setDescription(data?.description);
-        } else {
-          setDescription(data?.barterDescription);
-        }
-        getSimilar(data.barter, data.categories);
+      if (data?.description) {
+        setDescription(data?.description);
+        getSimilar(data?.barter, data?.categories, {
+          data,
+          description: data?.description,
+        });
+      } else if (data?.barterDescription) {
+        setDescription(data?.barterDescription);
+        getSimilar(data?.barter, data?.categories, {
+          data,
+          description: data?.barterDescription,
+        });
       } else {
         setLoading(false);
-        //Show error
       }
     } catch (err) {
       setLoading(false);
@@ -99,7 +120,20 @@ const SponsorshipDetails = () => {
 
   useEffect(() => {
     const docRef = doc(db, "sponsorship", updateId);
-    getDetails(docRef);
+    if (sponsorshipDetails?.length) {
+      const matched = sponsorshipDetails?.find(
+        (item) => item?.data?.id === updateId
+      );
+      if (matched?.data) {
+        setDetails(matched?.data);
+        setSimilar(matched?.similar);
+        setDescription(matched?.description);
+      } else {
+        getDetails(docRef);
+      }
+    } else {
+      getDetails(docRef);
+    }
   }, [updateId]);
 
   return (

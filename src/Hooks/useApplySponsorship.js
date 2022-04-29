@@ -12,7 +12,6 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
     updateDoc(userRef, updatedUser)
       .then(() => {
         getDoc(userRef).then((res) => {
-          console.log(res.data());
           setUser(res.data());
           setLoading(false);
           setNotify({ status: true, message: "Applied Successfully" });
@@ -36,7 +35,6 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
     updateDoc(sponsorshipRef, updatedData)
       .then(() => {
         getDoc(sponsorshipRef).then((res) => {
-          console.log({ ...res?.data(), id: res?.id });
           setDetails({ ...res?.data(), id: res?.id });
           updateUserData(updatedUser);
         });
@@ -48,8 +46,6 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
   };
 
   const apply = () => {
-    console.log(user);
-    console.log(details);
     if (loading) return;
     if (!user?.linkedAccounts) return setSocialError(true);
     if (user?.freeTrials > 0) {
