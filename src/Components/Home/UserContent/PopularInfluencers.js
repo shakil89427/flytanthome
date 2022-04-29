@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css";
 import useStore from "../../../Store/useStore";
@@ -111,15 +111,12 @@ const PopularInfluencers = () => {
       <h1 className={styles.heading}>Popular Influencers</h1>
       <div className="my-5">
         <Swiper
-          modules={[Navigation, Pagination]}
+          modules={[Navigation]}
           navigation={{
             nextEl: nextRef?.current,
           }}
           onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
-          parallax
-          observer
-          observeParents
-          initialSlide={1}
+          initialSlide={0}
           onSwiper={setSwiper}
           slidesPerView={1.3}
           spaceBetween={20}

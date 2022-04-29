@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import { Navigation } from "swiper";
 import "swiper/css";
 import {
   AiFillInstagram,
@@ -44,15 +44,12 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
       <h1 className={styles.heading}>{type} Sponsorships</h1>
       <div className="my-5">
         <Swiper
-          modules={[Navigation, Pagination]}
+          modules={[Navigation]}
           navigation={{
             nextEl: nextRef?.current,
           }}
           onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
-          parallax
-          observer
-          observeParents
-          initialSlide={1}
+          initialSlide={0}
           onSwiper={setSwiper}
           slidesPerView={1.3}
           spaceBetween={20}
