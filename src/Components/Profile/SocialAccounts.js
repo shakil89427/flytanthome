@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   AiOutlineInstagram,
   AiOutlineYoutube,
@@ -6,7 +7,6 @@ import {
   AiOutlineLinkedin,
 } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
-
 /* Styles Start */
 const styles = {
   main: "grid grid-cols-1 lg:grid-cols-2 py-14 px-5 md:px-28 gap-10 lg:gap-20",
@@ -24,14 +24,6 @@ const styles = {
 const SocialAccounts = ({ value }) => {
   const socials = ["Instagram", "Youtube", "Twitter", "Linkedin", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
-
-  const openPopup = () => {
-    window.open(
-      `https://www.instagram.com/oauth/authorize?client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&scope=user_profile,user_media&response_type=code`,
-      "",
-      "width=400,height=600,left=600,top=80"
-    );
-  };
 
   return (
     <div>
@@ -53,14 +45,20 @@ const SocialAccounts = ({ value }) => {
         <div className={styles.selectedMain}>
           <p>No account linked</p>
           {selected === "Instagram" && (
-            <span onClick={openPopup} className={styles.selected}>
+            <a
+              href={`https://www.instagram.com/oauth/authorize?client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&scope=user_profile,user_media&response_type=code`}
+              className={styles.selected}
+            >
               <AiOutlineInstagram />
-            </span>
+            </a>
           )}
           {selected === "Youtube" && (
-            <span className={styles.selected}>
+            <a
+              href={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=token&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
+              className={styles.selected}
+            >
               <AiOutlineYoutube />
-            </span>
+            </a>
           )}
           {selected === "Twitter" && (
             <span className={styles.selected}>
@@ -114,3 +112,5 @@ const SocialAccounts = ({ value }) => {
 };
 
 export default SocialAccounts;
+
+// ya29.A0ARrdaM9pPuYrvxpBlLeIUXLxNi-1TQ62CSKhpHHCghwIWXsBjlEwu9XMx8O5Urw9yLdOra33vZ3bgmdj03bxm4WNKVYSJIONJeODzr6jQr8eFVb-FUw3t9JYi0wXEFEGhJtAWJrpVL3H176hxyADCmboIGSD

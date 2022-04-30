@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
+import ActivityCheck from "./Components/ActivityCheck/ActivityCheck";
 import NavBar from "./Components/NavBar/NavBar";
 import Footer from "./Components/Footer/Footer";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
@@ -22,6 +23,7 @@ function App() {
   const paths = ["/", "/brands", "/influencers"];
   return (
     <>
+      <ActivityCheck />
       <div className="min-h-screen">
         {!paths.includes(pathname) && <NavBar />}
         <Routes>

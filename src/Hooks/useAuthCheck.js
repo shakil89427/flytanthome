@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import useStore from "../Store/useStore";
 
-const useAuthCheck = (setUser, setUserLoading, setNotify) => {
+const useAuthCheck = () => {
   const auth = getAuth();
   const database = getFirestore();
+  const { setUser, setUserLoading, setNotify } = useStore();
 
   const checkOnDB = async (currentUser) => {
     const userRef = doc(database, "users", currentUser.uid);

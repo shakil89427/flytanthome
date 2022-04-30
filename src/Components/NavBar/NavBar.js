@@ -4,7 +4,6 @@ import logo from "../../Assets/logo.png";
 import useStore from "../../Store/useStore";
 import { useNavigate } from "react-router-dom";
 import Toast from "../Toast/Toast";
-import useInstaConnect from "../../Hooks/useInstaConnect";
 import Logout from "../Logout/Logout";
 import { GiHamburgerMenu } from "react-icons/gi";
 import LargeTop from "./LargeTop";
@@ -12,7 +11,6 @@ import SmallSide from "./SmallSide";
 import Spinner from "../Spinner/Spinner";
 
 const NavBar = ({ color }) => {
-  useInstaConnect();
   const navigate = useNavigate();
   const { userLoading, showLogin, notify } = useStore();
   const [showSide, setShowSide] = useState(false);

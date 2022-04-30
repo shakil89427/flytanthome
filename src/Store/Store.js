@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../Firebase/firebaseConfig";
-import useAuthCheck from "../Hooks/useAuthCheck";
-
 /* Initialize Firebase */
 const app = initializeApp(firebaseConfig);
 
@@ -33,9 +31,6 @@ const Store = () => {
     lastVisible: false,
   });
   const [sponsorshipDetails, setSponsorshipDetails] = useState([]);
-
-  /* Auth Status Check */
-  useAuthCheck(setUser, setUserLoading, setNotify);
 
   /* Returned Items */
   return {

@@ -13,7 +13,7 @@ const useInstaConnect = () => {
   const getFullData = async (username) => {
     try {
       const response = await axios.get(
-        `https://www.instagram.com/${username}/?__a=1`
+        `https://www.instagram.com/${username}/channel/?__a=1`
       );
       console.log(response);
     } catch (err) {
@@ -52,8 +52,10 @@ const useInstaConnect = () => {
     }
   };
   useEffect(() => {
-    const code = location?.search?.split("code=")[1];
-    if (code) getToken(code);
+    const code = location?.search?.split("code=")[1]?.split("#")[0];
+    if (code) {
+      getToken(code);
+    }
   }, [location]);
 };
 
