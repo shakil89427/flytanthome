@@ -6,17 +6,22 @@ const useYoutubeConnect = () => {
   const location = useLocation();
 
   const getplayLists = async (token) => {
-    const response = await axios.get(
-      "https://www.googleapis.com/youtube/v3/playlists",
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        params: {
-          part: "contentDetails",
-          mine: true,
-        },
-      }
-    );
-    console.log(response.data);
+    try {
+      const response = await axios.get(
+        "https://www.googleapis.com/youtube/v3/channels",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          params: {
+            part: "id",
+            mine: true,
+          },
+        }
+      );
+      const channels = response?.data?.items?.map((item) => item.id);
+      console.log("Channels", channels);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
