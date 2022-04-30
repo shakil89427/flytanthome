@@ -52,8 +52,8 @@ const useInstaConnect = () => {
     }
   };
   useEffect(() => {
-    const code = location?.search?.split("code=")[1]?.split("#")[0];
-    if (code) {
+    if (location?.search?.includes("state=instagram")) {
+      const code = location?.search?.split("code=")[1]?.split("&state")[0];
       getToken(code);
     }
   }, [location]);

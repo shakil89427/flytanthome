@@ -46,15 +46,16 @@ const SocialAccounts = ({ value }) => {
           <p>No account linked</p>
           {selected === "Instagram" && (
             <a
-              href={`https://www.instagram.com/oauth/authorize?client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&scope=user_profile,user_media&response_type=code`}
+              href={`https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=instagram&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}`}
               className={styles.selected}
             >
               <AiOutlineInstagram />
             </a>
           )}
+          {/*  */}
           {selected === "Youtube" && (
             <a
-              href={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=token&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
+              href={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=youtubev3&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
               className={styles.selected}
             >
               <AiOutlineYoutube />
