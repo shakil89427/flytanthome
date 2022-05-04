@@ -56,9 +56,9 @@ const SponsorshipDetails = () => {
   const navigate = useNavigate();
 
   const getSimilar = async (info) => {
-    if (!info?.categories?.length) return;
-    const colRef = collection(db, "sponsorship");
     setSimilarLoading(true);
+    if (!info?.categories?.length) return setSimilarLoading(false);
+    const colRef = collection(db, "sponsorship");
     try {
       const q = query(
         colRef,
@@ -73,6 +73,7 @@ const SponsorshipDetails = () => {
         return { ...item.data(), id: item.id };
       });
       const valid = data.filter((item) => item.id !== id);
+      console.log(valid);
       setSimilar(valid);
       setSimilarLoading(false);
     } catch (err) {
@@ -257,7 +258,9 @@ const SponsorshipDetails = () => {
             More related campaigns
           </p>
           {similarLoading && <Spinner position={true} />}
-          {!similarLoading && similar?.length && (
+          {!similarLoading && !similar?.length ? (
+            <p className="text-center">No data found</p>
+          ) : (
             <div className="grid grid-cols-2 md:grid-cols-1 gap-x-5 gap-y-10">
               {similar?.map((item) => (
                 <div
