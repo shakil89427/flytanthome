@@ -31,7 +31,7 @@ const Login = () => {
     if (user?.required) {
       setShow("");
     }
-    if (user?.userId) {
+    if (user?.id) {
       setShowLogin(false);
     }
   }, [user]);

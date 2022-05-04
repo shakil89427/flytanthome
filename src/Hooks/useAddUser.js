@@ -24,7 +24,7 @@ const useAddUser = () => {
         phoneNumber: data.phoneNumber ? data.phoneNumber : "",
         profileImageUrl: "",
         shouldShowInfluencer: false,
-        userId: data.uid,
+        id: data.uid,
       };
       setUser({ required: true, tempData: current });
       setUserLoading(false);
@@ -53,7 +53,7 @@ const useAddUser = () => {
     }
     setUserLoading(true);
     const newData = { ...user.tempData, username };
-    const userRef = doc(database, "users", newData.userId);
+    const userRef = doc(database, "users", newData.id);
     setDoc(userRef, newData)
       .then(() => {
         setUser(newData);

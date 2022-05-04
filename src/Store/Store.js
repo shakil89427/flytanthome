@@ -7,6 +7,7 @@ const app = initializeApp(firebaseConfig);
 /* Main Store */
 const Store = () => {
   const [user, setUser] = useState({});
+  const [users, setUsers] = useState([]);
   const [userLoading, setUserLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
   const [notify, setNotify] = useState(false);
@@ -30,13 +31,15 @@ const Store = () => {
     data: [],
     lastVisible: false,
   });
-  const [sponsorshipDetails, setSponsorshipDetails] = useState([]);
+  const [sponsorships, setSponsorships] = useState([]);
 
   /* Returned Items */
   return {
     app,
     user,
     setUser,
+    users,
+    setUsers,
     userLoading,
     setUserLoading,
     showLogin,
@@ -53,8 +56,8 @@ const Store = () => {
     setBarterSponsorships,
     popularInfluencers,
     setPopularInfluencers,
-    sponsorshipDetails,
-    setSponsorshipDetails,
+    sponsorships,
+    setSponsorships,
   };
 };
 

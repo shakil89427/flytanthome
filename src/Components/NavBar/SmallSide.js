@@ -47,12 +47,12 @@ const SmallSide = ({ showSide, setShowSide, setShowLogout }) => {
           />
         </div>
 
-        {user?.userId ? (
+        {user?.id ? (
           <div className={styles.items}>
             {/* Profile */}
             <div
               onClick={() => {
-                navigate("/profile");
+                navigate(`/profile/${user?.id}`);
                 setShowSide(false);
               }}
               className={styles.item}

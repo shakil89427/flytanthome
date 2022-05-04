@@ -5,7 +5,7 @@ import useStore from "../Store/useStore";
 
 const Home = () => {
   const { user } = useStore();
-  return <>{user?.userId ? <UserContent /> : <PublicContent />}</>;
+  return <>{user?.id ? <UserContent /> : <PublicContent />}</>;
 };
 
 export default Home;

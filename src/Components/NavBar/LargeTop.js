@@ -22,7 +22,7 @@ const LargeTop = ({ setShowLogout }) => {
   const { user, setShowLogin } = useStore();
   return (
     <div className="hidden lg:block ml-auto">
-      {user?.userId ? (
+      {user?.id ? (
         <div className={styles.profile}>
           <div className="bg-white flex items-center text-black h-12 px-5 rounded-3xl gap-2 cursor-pointer">
             <img src={mike} alt="" />
@@ -34,7 +34,7 @@ const LargeTop = ({ setShowLogout }) => {
           <img className="cursor-pointer" src={fly} alt="" />
           <div className="flex items-center gap-1">
             <div
-              onClick={() => navigate("/profile")}
+              onClick={() => navigate(`/profile/${user?.id}`)}
               style={{
                 backgroundImage: `url(${
                   user?.profileImageUrl ? user?.profileImageUrl : defaultUser

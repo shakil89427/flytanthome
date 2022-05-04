@@ -134,7 +134,7 @@ const FeaturedInfluencers = () => {
         >
           {featuredInfluencers?.data?.map((item, index) => (
             <SwiperSlide
-              onClick={() => navigate(`/influencer/${item?.id}`)}
+              onClick={() => navigate(`/profile/${item?.id}`)}
               key={index}
               className="cursor-pointer"
             >

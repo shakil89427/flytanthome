@@ -12,8 +12,8 @@ const useAuthCheck = () => {
     const userRef = doc(database, "users", currentUser.uid);
     try {
       const userData = await getDoc(userRef);
-      const userFinalData = userData.data();
-      if (userFinalData?.userId) {
+      const userFinalData = { ...userData.data(), id: userData?.id };
+      if (userFinalData?.id) {
         setUser(userFinalData);
         setUserLoading(false);
       } else {

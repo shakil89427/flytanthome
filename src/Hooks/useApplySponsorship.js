@@ -1,4 +1,4 @@
-import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import useStore from "../Store/useStore";
 
@@ -7,36 +7,23 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
   const { user, setUser, setNotify } = useStore();
   const db = getFirestore();
 
-  const updateUserData = (updatedUser) => {
-    const userRef = doc(db, "users", user?.userId);
-    updateDoc(userRef, updatedUser)
-      .then(() => {
-        getDoc(userRef).then((res) => {
-          setUser(res.data());
-          setLoading(false);
-          setNotify({ status: true, message: "Applied Successfully" });
-        });
-      })
-      .catch((err) => {
-        setLoading(false);
-        setNotify({ status: false, message: "Something went wrong" });
-      });
-  };
-
-  const updateSponsorshipData = (updatedUser) => {
+  const updateInfo = (updatedUser) => {
     const sponsorshipRef = doc(db, "sponsorship", details.id);
+    const userRef = doc(db, "users", user?.id);
     const updatedData = {
       applied: details?.applied + 1,
       influencers: details?.influencers
-        ? [...details?.influencers, user?.userId]
-        : [user?.userId],
+        ? [...details?.influencers, user?.id]
+        : [user?.id],
     };
     setLoading(true);
     updateDoc(sponsorshipRef, updatedData)
       .then(() => {
-        getDoc(sponsorshipRef).then((res) => {
-          setDetails({ ...res?.data(), id: res?.id });
-          updateUserData(updatedUser);
+        updateDoc(userRef, updatedUser).then(() => {
+          setDetails({ ...details, ...updatedData });
+          setUser({ ...user, ...updatedUser });
+          setLoading(false);
+          setNotify({ status: true, message: "Applied Successfully" });
         });
       })
       .catch((err) => {
@@ -55,7 +42,7 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
           ? [...user?.appliedCampaigns, details?.id]
           : [details?.id],
       };
-      return updateSponsorshipData(updatedUser);
+      return updateInfo(updatedUser);
     }
     if (user?.numberOfApplies > 0) {
       const updatedUser = {
@@ -64,7 +51,7 @@ const useApplySponsorship = (details, setDetails, loading, setLoading) => {
           ? [...user?.appliedCampaigns, details?.id]
           : [details?.id],
       };
-      updateSponsorshipData(updatedUser);
+      updateInfo(updatedUser);
     }
   };
 

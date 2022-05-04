@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import Spinner from "../Spinner/Spinner";
 import defaultUser from "../../Assets/defaultUser.png";
+import Scroll from "../Scroll/Scroll";
+import useStore from "../../Store/useStore";
+import Instagram from "./Instagram";
+import Youtube from "./Youtube";
+import Twitter from "./Twitter";
+import Linkedin from "./Linkedin";
+import Tiktok from "./Tiktok";
+import { useParams } from "react-router-dom";
 
-/* Styles Start */
 const styles = {
-  left: "flex flex-col gap-10",
+  main: "grid grid-cols-1 lg:grid-cols-2 pt-14 pb-32 max-w-[1100px] px-5 gap-10 lg:gap-20 mx-auto",
   profileTop: "flex justify-between gap-5",
   profileLeft: "flex flex-col gap-10",
   profileWrapper: "flex gap-3",
@@ -18,7 +27,7 @@ const styles = {
   progress: "w-[60px] h-[60px] rounded-full flex items-center justify-center",
   progressInner:
     "font-semibold bg-white w-[92%] h-[92%] rounded-full flex items-center justify-center",
-  infoName: "font-medium mb-2 text-gray-400 ",
+  infoName: "font-medium mb-2 mt-8 text-gray-400 ",
   infoItem: "text-lg font-medium",
   catagories: "flex items-center gap-3 flex-wrap mt-4",
   catagory: "py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium",
@@ -28,108 +37,177 @@ const styles = {
   selectedSocial:
     "relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[2px] before:rounded-full",
 };
-/* Styles End */
 
-const Details = ({ user, value }) => {
+const Profile = () => {
+  const { user, featuredInfluencers, popularInfluencers, users, setUsers } =
+    useStore();
+  const { id } = useParams();
+  const db = getFirestore();
+  const [details, setDetails] = useState({});
   const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const socials = ["Instagram", "Youtube", "Twitter", "Linkedin", "Tiktok"];
+  const [selected, setSelected] = useState(socials[0]);
 
   useEffect(() => {
+    if (id === user?.id) return setDetails({ ...user, access: true });
+    const exist1 = featuredInfluencers?.data?.find((user) => user.id === id);
+    if (exist1?.id) return setDetails({ ...exist1, access: false });
+    const exist2 = popularInfluencers?.data?.find((user) => user.id === id);
+    if (exist2?.id) return setDetails({ ...exist2, access: false });
+    const exist3 = users?.find((user) => user.id === id);
+    if (exist3?.id) return setDetails({ ...exist3, access: false });
+    const userRef = doc(db, "users", id);
+    getDoc(userRef)
+      .then((data) => {
+        const temp = { ...data?.data(), id: data?.id };
+        if (temp?.id) {
+          setDetails({ ...temp, access: false });
+          setUsers([...users, temp]);
+        } else {
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+  }, [id]);
+
+  useEffect(() => {
+    if (!details.id) return;
     let initialProgress = 8;
-    if (!user?.userId) return setProgress(0);
-    if (!user?.profileImageUrl) initialProgress--;
-    if (!user?.name) initialProgress--;
-    if (!user?.categories?.length) initialProgress--;
-    if (!user?.bio) initialProgress--;
-    if (!user?.gender) initialProgress--;
-    if (!user?.dateOfBirth) initialProgress--;
-    if (!user?.email) initialProgress--;
+    if (!details?.profileImageUrl) initialProgress--;
+    if (!details?.name) initialProgress--;
+    if (!details?.categories?.length) initialProgress--;
+    if (!details?.bio) initialProgress--;
+    if (!details?.gender) initialProgress--;
+    if (!details?.dateOfBirth) initialProgress--;
+    if (!details?.email) initialProgress--;
     setProgress(Math.round((initialProgress / 8) * 100));
-  }, [user]);
+    setLoading(false);
+  }, [details]);
 
   return (
-    <div className={styles.left}>
-      <div className={styles.profileTop}>
-        <div className={styles.profileLeft}>
-          <div className={styles.profileWrapper}>
-            <div
-              style={{
-                backgroundImage: `url(${
-                  user?.profileImageUrl ? user?.profileImageUrl : defaultUser
-                })`,
-              }}
-              className={styles.profileImage}
-            ></div>
-            <span>
-              <p className={styles.topName}>{user?.username}</p>
-              <p className={styles.country}>
-                {user?.countryCode}
-                {user?.countryCode && user?.gender && ", "}
-                {user?.gender?.charAt(0)}
-              </p>
-            </span>
-          </div>
-          {value ? (
-            <p className={styles.completeBtn}>
-              {progress === 100 ? "Edit Profile" : "Complete your Profile"}
-            </p>
-          ) : (
-            <p className={styles.completeBtn}>Send Message</p>
-          )}
-        </div>
-        <div className={styles.topRight}>
-          <span>
-            <p className={styles.score}>
-              {user?.socialScore ? user?.socialScore : "0"}
-            </p>
-            <p className="font-semibold text-center">Social Score</p>
-          </span>
-          {value && (
-            <div
-              style={{
-                backgroundImage: `conic-gradient(black ${
-                  progress * 3.6
-                }deg,#e0e0eb ${progress * 3.6}deg)`,
-              }}
-              className={styles.progress}
-            >
-              <div className={styles.progressInner}>{progress}%</div>
+    <>
+      <Scroll />
+      {loading && <Spinner />}
+      {!loading && details?.id && (
+        <div className={styles.main}>
+          <div className={styles.left}>
+            <div className={styles.profileTop}>
+              <div className={styles.profileLeft}>
+                <div className={styles.profileWrapper}>
+                  <div
+                    style={{
+                      backgroundImage: `url(${
+                        details?.profileImageUrl
+                          ? details?.profileImageUrl
+                          : defaultUser
+                      })`,
+                    }}
+                    className={styles.profileImage}
+                  ></div>
+                  <span>
+                    <p className={styles.topName}>{details?.username}</p>
+                    <p className={styles.country}>
+                      {details?.countryCode}
+                      {details?.countryCode && details?.gender && ", "}
+                      {details?.gender?.charAt(0)}
+                    </p>
+                  </span>
+                </div>
+                {details?.access ? (
+                  <p className={styles.completeBtn}>
+                    {progress === 100
+                      ? "Edit Profile"
+                      : "Complete your Profile"}
+                  </p>
+                ) : (
+                  <p className={styles.completeBtn}>Send Message</p>
+                )}
+              </div>
+              <div className={styles.topRight}>
+                <span>
+                  <p className={styles.score}>
+                    {details?.socialScore ? details?.socialScore : "0"}
+                  </p>
+                  <p className="font-semibold text-center">Social Score</p>
+                </span>
+                {details?.access && (
+                  <div
+                    style={{
+                      backgroundImage: `conic-gradient(black ${
+                        progress * 3.6
+                      }deg,#e0e0eb ${progress * 3.6}deg)`,
+                    }}
+                    className={styles.progress}
+                  >
+                    <div className={styles.progressInner}>{progress}%</div>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-        </div>
-      </div>
-      {user?.bio && <p className="text-gray-600">{user.bio}</p>}
-      {user?.name && (
-        <div>
-          <p className={styles.infoName}>Name</p>
-          <p className={styles.infoItem}>{user.name}</p>
-        </div>
-      )}
-      {user?.email && (
-        <div>
-          <p className={styles.infoName}>Email</p>
-          <p className={styles.infoItem}>{user.email}</p>
-        </div>
-      )}
-      {user?.dateOfBirth && (
-        <div>
-          <p className={styles.infoName}>DOB</p>
-          <p className={styles.infoItem}>{user.dateOfBirth}</p>
-        </div>
-      )}
-      {user?.categories?.length && (
-        <div>
-          <p className={styles.infoName}>Influence Categories</p>
-          <div className={styles.catagories}>
-            {user.categories.map((catagory) => (
-              <p className={styles.catagory} key={catagory}>
-                {catagory}
-              </p>
-            ))}
+            {details?.bio && (
+              <p className="text-gray-600 mt-8">{details.bio}</p>
+            )}
+            {details?.name && (
+              <div>
+                <p className={styles.infoName}>Name</p>
+                <p className={styles.infoItem}>{details.name}</p>
+              </div>
+            )}
+            {details?.email && (
+              <div>
+                <p className={styles.infoName}>Email</p>
+                <p className={styles.infoItem}>{details.email}</p>
+              </div>
+            )}
+            {details?.dateOfBirth && (
+              <div>
+                <p className={styles.infoName}>DOB</p>
+                <p className={styles.infoItem}>{details.dateOfBirth}</p>
+              </div>
+            )}
+            {details?.categories?.length && (
+              <div>
+                <p className={styles.infoName}>Influence Categories</p>
+                <div className={styles.catagories}>
+                  {details.categories.map((catagory) => (
+                    <p className={styles.catagory} key={catagory}>
+                      {catagory}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <div>
+            <p className={styles.title}>Social Accounts</p>
+            <div className={styles.socials}>
+              {socials.map((social) => (
+                <p
+                  onClick={() => social !== selected && setSelected(social)}
+                  className={
+                    selected === social
+                      ? styles.selectedSocial
+                      : "cursor-pointer"
+                  }
+                  key={social}
+                >
+                  {social}
+                </p>
+              ))}
+            </div>
+            {selected === "Instagram" && <Instagram details={details} />}
+            {selected === "Instagram" && <Youtube details={details} />}
+            {selected === "Instagram" && <Twitter details={details} />}
+            {selected === "Instagram" && <Linkedin details={details} />}
+            {selected === "Instagram" && <Tiktok details={details} />}
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
-export default Details;
+export default Profile;
