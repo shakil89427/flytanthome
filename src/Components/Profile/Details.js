@@ -199,10 +199,10 @@ const Profile = () => {
               ))}
             </div>
             {selected === "Instagram" && <Instagram details={details} />}
-            {selected === "Instagram" && <Youtube details={details} />}
-            {selected === "Instagram" && <Twitter details={details} />}
-            {selected === "Instagram" && <Linkedin details={details} />}
-            {selected === "Instagram" && <Tiktok details={details} />}
+            {selected === "Youtube" && <Youtube details={details} />}
+            {selected === "Twitter" && <Twitter details={details} />}
+            {selected === "Linkedin" && <Linkedin details={details} />}
+            {selected === "Tiktok" && <Tiktok details={details} />}
           </div>
         </div>
       )}
