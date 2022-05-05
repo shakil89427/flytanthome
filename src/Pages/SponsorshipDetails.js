@@ -11,6 +11,7 @@ import {
   limit,
   orderBy,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import {
   AiOutlineInstagram,
@@ -25,13 +26,14 @@ import {
   AiFillYoutube,
 } from "react-icons/ai";
 import Spinner from "../Components/Spinner/Spinner";
-import useApplySponsorship from "../Hooks/useApplySponsorship";
 import SocialError from "../Components/SponsorshipDetails/SocialError";
 import useStore from "../Store/useStore";
 
 const SponsorshipDetails = () => {
   const {
     user,
+    setUser,
+    setNotify,
     latestSponsorships,
     paidSponsorships,
     barterSponsorships,
@@ -42,19 +44,65 @@ const SponsorshipDetails = () => {
   const [loading, setLoading] = useState(false);
   const [detailsLoading, setDetailsLoading] = useState(true);
   const [similarLoading, setSimilarLoading] = useState(true);
-  const { apply, socialError, setSocialError } = useApplySponsorship(
-    details,
-    setDetails,
-    loading,
-    setLoading
-  );
   const [similar, setSimilar] = useState([]);
   const [description, setDescription] = useState("");
   const [full, setFull] = useState(false);
+  const [socialError, setSocialError] = useState(false);
   const { id } = useParams();
   const db = getFirestore();
   const navigate = useNavigate();
 
+  /* Update info on db after apply */
+  const updateInfo = (updatedUser) => {
+    const sponsorshipRef = doc(db, "sponsorship", details.id);
+    const userRef = doc(db, "users", user?.id);
+    const updatedData = {
+      applied: details?.applied + 1,
+      influencers: details?.influencers
+        ? [...details?.influencers, user?.id]
+        : [user?.id],
+    };
+    setLoading(true);
+    updateDoc(sponsorshipRef, updatedData)
+      .then(() => {
+        updateDoc(userRef, updatedUser).then(() => {
+          setDetails({ ...details, ...updatedData });
+          setUser({ ...user, ...updatedUser });
+          setLoading(false);
+          setNotify({ status: true, message: "Applied Successfully" });
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setNotify({ status: false, message: "Something went wrong" });
+      });
+  };
+
+  /* Process to apply */
+  const apply = () => {
+    if (loading) return;
+    if (!user?.linkedAccounts) return setSocialError(true);
+    if (user?.freeTrials > 0) {
+      const updatedUser = {
+        freeTrials: user.freeTrials - 1,
+        appliedCampaigns: user?.appliedCampaigns
+          ? [...user?.appliedCampaigns, details?.id]
+          : [details?.id],
+      };
+      return updateInfo(updatedUser);
+    }
+    if (user?.numberOfApplies > 0) {
+      const updatedUser = {
+        numberOfApplies: user.numberOfApplies - 1,
+        appliedCampaigns: user?.appliedCampaigns
+          ? [...user?.appliedCampaigns, details?.id]
+          : [details?.id],
+      };
+      updateInfo(updatedUser);
+    }
+  };
+
+  /* getting similar sponsorship from db */
   const getSimilar = async (info) => {
     setSimilarLoading(true);
     if (!info?.categories?.length) return setSimilarLoading(false);
@@ -73,7 +121,6 @@ const SponsorshipDetails = () => {
         return { ...item.data(), id: item.id };
       });
       const valid = data.filter((item) => item.id !== id);
-      console.log(valid);
       setSimilar(valid);
       setSimilarLoading(false);
     } catch (err) {
@@ -81,6 +128,7 @@ const SponsorshipDetails = () => {
     }
   };
 
+  /* getting sponsorship detail from db */
   const getDetails = async () => {
     const docRef = doc(db, "sponsorship", id);
     setDetailsLoading(true);
@@ -99,6 +147,7 @@ const SponsorshipDetails = () => {
     }
   };
 
+  /* Checking sponsorship details on store */
   useEffect(() => {
     const exist1 = latestSponsorships?.data?.find((item) => item?.id === id);
     if (exist1?.id) {
@@ -127,6 +176,7 @@ const SponsorshipDetails = () => {
     getDetails();
   }, [id]);
 
+  /* getting description from sponsorship */
   useEffect(() => {
     if (details?.description) setDescription(details?.description);
     if (details?.barterDescription) setDescription(details?.barterDescription);
