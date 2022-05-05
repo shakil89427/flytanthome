@@ -1,7 +1,47 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { AiOutlineYoutube } from "react-icons/ai";
 
 const Youtube = ({ details }) => {
+  const [videos, setVideos] = useState([]);
+  const getItems = async (channelId) => {
+    try {
+      const playlistsData = await axios.get(
+        "https://www.googleapis.com/youtube/v3/playlists",
+        {
+          params: {
+            part: "id",
+            channelId,
+            key: process.env.REACT_APP_GOOGLE_API_KEY,
+          },
+        }
+      );
+      const playlistsItemsData = await axios.get(
+        "https://www.googleapis.com/youtube/v3/playlistItems",
+        {
+          params: {
+            part: "snippet",
+            playlistId: playlistsData?.data?.items[0].id,
+            key: process.env.REACT_APP_GOOGLE_API_KEY,
+          },
+        }
+      );
+      const videoIds = playlistsItemsData?.data?.items?.map(
+        (item) => item.snippet
+      );
+      setVideos(videoIds);
+      console.log(videoIds);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (details?.linkedAccounts?.Youtube?.channelId) {
+      getItems(details?.linkedAccounts?.Youtube?.channelId);
+    }
+  }, [details]);
+
   return (
     <div className="flex flex-col items-center gap-5 mt-52 text-gray-500 text-sm font-medium">
       <a
