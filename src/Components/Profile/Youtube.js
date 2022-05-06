@@ -15,7 +15,7 @@ const styles = {
   topic:
     "w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium",
   topicName: "text-sm font-medium",
-  channelContainer: "py-8 border-b-2 flex justify-center gap-2",
+  channelContainer: "py-8 border-b-2 flex gap-2",
   channelBg: "w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat",
   channelTitle: "text-xl font-medium mt-3 mb-2",
   channelDescription: "text-sm pr-5 text",
@@ -48,6 +48,7 @@ const Youtube = ({ details }) => {
           },
         }
       );
+      setChannelInfo(response1.data.items[0]);
       const response2 = await axios.get(
         "https://www.googleapis.com/youtube/v3/search",
         {
@@ -62,6 +63,10 @@ const Youtube = ({ details }) => {
         }
       );
       const videoIds = response2.data.items.map((item) => item.id.videoId);
+      if (videoIds.length < 1) {
+        setError("No videos found");
+        return setLoading(false);
+      }
       const response3 = await axios.get(
         "https://www.googleapis.com/youtube/v3/videos",
         {
@@ -72,7 +77,6 @@ const Youtube = ({ details }) => {
           },
         }
       );
-      setChannelInfo(response1.data.items[0]);
       setVideos(response3.data.items);
     } catch (err) {
       setError("Something went wrong");
@@ -89,7 +93,6 @@ const Youtube = ({ details }) => {
       setLoading(false);
     }
   }, [videos]);
-
   useEffect(() => {
     if (details?.linkedAccounts?.Youtube?.channelId) {
       setLoading(true);
@@ -104,7 +107,7 @@ const Youtube = ({ details }) => {
           <Spinner position={true} />
         </div>
       )}
-      {!details?.linkedAccounts?.Youtube?.channelId && details.access && (
+      {!details?.linkedAccounts?.Youtube?.channelId && details?.access && (
         <div className={styles.connect}>
           <p>No account linked</p>
           <a
@@ -115,11 +118,10 @@ const Youtube = ({ details }) => {
           <p>Click here to link your youtube</p>
         </div>
       )}
-      {!details?.linkedAccounts?.Youtube?.channelId && !details.access && (
+      {!details?.linkedAccounts?.Youtube?.channelId && !details?.access && (
         <p className={styles.notFound}>No data found</p>
       )}
-      {error && <p className={styles.notFound}>{error}</p>}
-      {!loading && videos?.length > 0 && (
+      {!loading && channelInfo?.snippet && (
         <div>
           <div className={styles.topicsMain}>
             <div className={styles.topicWrapper}>
@@ -140,11 +142,14 @@ const Youtube = ({ details }) => {
             </div>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
-                {parseFloat(
-                  channelInfo?.statistics?.viewCount /
-                    channelInfo?.statistics?.subscriberCount /
-                    100
-                ).toFixed(2)}
+                {channelInfo?.statistics?.viewCount !== "0" &&
+                channelInfo?.statistics?.subscriberCount !== "0"
+                  ? parseFloat(
+                      parseInt(channelInfo?.statistics?.viewCount) /
+                        parseInt(channelInfo?.statistics?.subscriberCount) /
+                        100
+                    ).toFixed(2)
+                  : 0}
                 %
               </p>
               <p className={styles.topicName}>Engagement</p>
@@ -168,34 +173,37 @@ const Youtube = ({ details }) => {
               </p>
             </span>
           </div>
-          <div className="py-8">
-            <p className={styles.latest}>Latest videos</p>
-            <div className="mt-3 grid grid-cols-2 gap-3">
-              {videos.map((video) => (
-                <div
-                  key={video.id}
-                  style={{
-                    backgroundImage: `url(${video.snippet.thumbnails.high.url})`,
-                  }}
-                  className={styles.videoBg}
-                >
-                  <div className={styles.videoStatistic}>
-                    <div className={styles.videoInner}>
-                      <img className="w-6" src={views} alt="" />
-                      <img className="w-6" src={likes} alt="" />
-                      <img className="w-6" src={comments} alt="" />
-                      <p>{video.statistics.viewCount}</p>
-                      <p>{video.statistics.likeCount}</p>
-                      <p>{video.statistics.commentCount}</p>
-                    </div>
+        </div>
+      )}
+      {!loading && videos?.length > 0 && (
+        <div className="py-8">
+          <p className={styles.latest}>Latest videos</p>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {videos.map((video) => (
+              <div
+                key={video.id}
+                style={{
+                  backgroundImage: `url(${video.snippet.thumbnails.high.url})`,
+                }}
+                className={styles.videoBg}
+              >
+                <div className={styles.videoStatistic}>
+                  <div className={styles.videoInner}>
+                    <img className="w-6" src={views} alt="" />
+                    <img className="w-6" src={likes} alt="" />
+                    <img className="w-6" src={comments} alt="" />
+                    <p>{video.statistics.viewCount}</p>
+                    <p>{video.statistics.likeCount}</p>
+                    <p>{video.statistics.commentCount}</p>
                   </div>
-                  <p className={styles.videoTitle}>{video.snippet.title}</p>
                 </div>
-              ))}
-            </div>
+                <p className={styles.videoTitle}>{video.snippet.title}</p>
+              </div>
+            ))}
           </div>
         </div>
       )}
+      {!loading && error && <p className={styles.notFound}>{error}</p>}
     </div>
   );
 };

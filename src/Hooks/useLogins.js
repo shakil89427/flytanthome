@@ -21,7 +21,6 @@ const useLogins = () => {
     setUserLoading(true);
     try {
       const response = await signInWithPopup(auth, provider);
-      console.log(response);
       if (response?.user) {
         addTempUser(response.user);
       }

@@ -13,7 +13,9 @@ const useYoutubeConnect = () => {
   const addToDb = (channelId) => {
     const userRef = doc(db, "users", user.id);
     const updated = {
-      linkedAccounts: { ...user.linkedAccounts, Youtube: { channelId } },
+      linkedAccounts: user?.linkedAccounts
+        ? { ...user.linkedAccounts, Youtube: { channelId } }
+        : { Youtube: { channelId } },
     };
     updateDoc(userRef, updated)
       .then(() => {
@@ -21,7 +23,8 @@ const useYoutubeConnect = () => {
         setNotify({ status: true, message: "Youtube linked successfully" });
         navigate("/", { replace: true });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         setNotify({ status: false, message: "Cannot link Youtube" });
         navigate("/", { replace: true });
       });
