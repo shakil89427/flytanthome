@@ -186,7 +186,11 @@ const SponsorshipDetails = () => {
   return (
     <div>
       <Scroll />
-      {loading && <Spinner />}
+      {loading && (
+        <div className="fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]">
+          <Spinner />
+        </div>
+      )}
       {socialError && <SocialError setSocialError={setSocialError} />}
       <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
         {/* Left Side */}
