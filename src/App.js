@@ -16,14 +16,19 @@ import Blogs from "./Pages/Blogs";
 import Terms from "./Pages/Terms";
 import Contact from "./Pages/Contact";
 import SponsorshipDetails from "./Pages/SponsorshipDetails";
+import useStore from "./Store/useStore";
 
 function App() {
+  const { authLoading } = useStore();
   const { pathname } = useLocation();
   const paths = ["/", "/brands", "/influencers"];
   return (
     <>
       <ActivityCheck />
-      <div className="min-h-screen">
+      <div
+        style={{ opacity: authLoading ? "0" : "1" }}
+        className="min-h-screen duration-300"
+      >
         {!paths.includes(pathname) && <NavBar />}
         <Routes>
           <Route path="/" element={<Home />} />
@@ -55,7 +60,12 @@ function App() {
           />
         </Routes>
       </div>
-      <Footer />
+      <div
+        style={{ opacity: authLoading ? "0" : "1" }}
+        className="duration-300"
+      >
+        <Footer />
+      </div>
     </>
   );
 }

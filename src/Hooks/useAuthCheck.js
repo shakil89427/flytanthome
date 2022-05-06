@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import useStore from "../Store/useStore";
@@ -6,7 +6,8 @@ import useStore from "../Store/useStore";
 const useAuthCheck = () => {
   const auth = getAuth();
   const database = getFirestore();
-  const { setUser, setUserLoading, setNotify } = useStore();
+  const { setUser, setNotify, setAuthLoading } = useStore();
+  const [run, setRun] = useState(true);
 
   const checkOnDB = async (currentUser) => {
     const userRef = doc(database, "users", currentUser.uid);
@@ -15,24 +16,26 @@ const useAuthCheck = () => {
       const userFinalData = { ...userData.data(), id: userData?.id };
       if (userFinalData?.userId) {
         setUser(userFinalData);
-        setUserLoading(false);
+        setAuthLoading(false);
       } else {
-        setUserLoading(false);
+        setAuthLoading(false);
       }
     } catch (err) {
-      setUserLoading(false);
+      setAuthLoading(false);
       setNotify({ status: false, message: err?.message });
     }
   };
 
   useEffect(() => {
+    if (!run) return;
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         checkOnDB(currentUser);
       } else {
         setUser({});
-        setUserLoading(false);
+        setAuthLoading(false);
       }
+      setRun(false);
     });
   }, [auth]);
 };

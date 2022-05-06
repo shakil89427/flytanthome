@@ -3,8 +3,8 @@ import useLogins from "../../Hooks/useLogins";
 import useStore from "../../Store/useStore";
 import cross from "../../Assets/cross.svg";
 
-const Logout = ({ setShowLogout }) => {
-  const { user } = useStore();
+const Logout = () => {
+  const { user, setShowLogout } = useStore();
   const { signOutUser } = useLogins();
 
   useEffect(() => {

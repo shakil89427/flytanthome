@@ -8,10 +8,16 @@ const app = initializeApp(firebaseConfig);
 const Store = () => {
   const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
-  const [userLoading, setUserLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
   const [notify, setNotify] = useState(false);
   const [featuredInfluencers, setFeaturedInfluencers] = useState({
+    data: [],
+    lastVisible: false,
+  });
+  const [popularInfluencers, setPopularInfluencers] = useState({
     data: [],
     lastVisible: false,
   });
@@ -27,10 +33,6 @@ const Store = () => {
     data: [],
     lastVisible: false,
   });
-  const [popularInfluencers, setPopularInfluencers] = useState({
-    data: [],
-    lastVisible: false,
-  });
   const [sponsorships, setSponsorships] = useState([]);
 
   /* Returned Items */
@@ -40,10 +42,14 @@ const Store = () => {
     setUser,
     users,
     setUsers,
+    authLoading,
+    setAuthLoading,
     userLoading,
     setUserLoading,
     showLogin,
     setShowLogin,
+    showLogout,
+    setShowLogout,
     notify,
     setNotify,
     featuredInfluencers,

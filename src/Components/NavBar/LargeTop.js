@@ -17,9 +17,9 @@ const styles = {
 };
 /* Styles End */
 
-const LargeTop = ({ setShowLogout }) => {
+const LargeTop = () => {
   const navigate = useNavigate();
-  const { user, setShowLogin } = useStore();
+  const { user, setShowLogin, setShowLogout } = useStore();
   return (
     <div className="hidden lg:block ml-auto">
       {user?.id ? (

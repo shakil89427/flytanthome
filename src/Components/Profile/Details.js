@@ -12,6 +12,8 @@ import Tiktok from "./Tiktok";
 import { useParams } from "react-router-dom";
 
 const styles = {
+  spinnerDiv:
+    "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
   main: "grid grid-cols-1 lg:grid-cols-2 pt-14 pb-32 max-w-[1100px] px-5 gap-10 lg:gap-20 mx-auto",
   profileTop: "flex justify-between gap-5",
   profileLeft: "flex flex-col gap-10",
@@ -90,7 +92,11 @@ const Profile = () => {
   return (
     <>
       <Scroll />
-      {loading && <Spinner />}
+      {loading && (
+        <div className={styles.spinnerDiv}>
+          <Spinner />
+        </div>
+      )}
       {!loading && details?.id && (
         <div className={styles.main}>
           <div className={styles.left}>

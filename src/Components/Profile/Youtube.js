@@ -102,11 +102,7 @@ const Youtube = ({ details }) => {
 
   return (
     <div>
-      {loading && (
-        <div className="relative py-10">
-          <Spinner position={true} />
-        </div>
-      )}
+      {loading && <Spinner />}
       {!details?.linkedAccounts?.Youtube?.channelId && details?.access && (
         <div className={styles.connect}>
           <p>No account linked</p>

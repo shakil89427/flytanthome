@@ -22,9 +22,9 @@ const styles = {
   item: "flex items-center gap-3  h-12 rounded-md px-3 hover:bg-black hover:text-white duration-150 cursor-pointer nav_side_icons",
 };
 
-const SmallSide = ({ showSide, setShowSide, setShowLogout }) => {
+const SmallSide = ({ showSide, setShowSide }) => {
   const navigate = useNavigate();
-  const { user, setShowLogin } = useStore();
+  const { user, setShowLogin, setShowLogout } = useStore();
   return (
     <div className="lg:hidden">
       {showSide && (
