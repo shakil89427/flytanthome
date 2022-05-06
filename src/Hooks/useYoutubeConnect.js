@@ -5,7 +5,7 @@ import useStore from "../Store/useStore";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 
 const useYoutubeConnect = () => {
-  const { user, userLoading, setUser, setNotify } = useStore();
+  const { user, authLoading, setUser, setNotify } = useStore();
   const location = useLocation();
   const navigate = useNavigate();
   const db = getFirestore();
@@ -50,12 +50,12 @@ const useYoutubeConnect = () => {
   };
 
   useEffect(() => {
-    if (userLoading) return;
+    if (authLoading) return;
     if (location?.hash?.includes("state=youtubev3") && user?.id) {
       const token = location?.hash?.split("token=")[1]?.split("&token_type")[0];
       getChannels(token);
     }
-  }, [userLoading]);
+  }, [authLoading]);
 };
 
 export default useYoutubeConnect;

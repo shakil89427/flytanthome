@@ -13,7 +13,8 @@ import useAddUser from "./useAddUser";
 const useLogins = () => {
   const auth = getAuth();
   const { addTempUser } = useAddUser();
-  const { userLoading, setUserLoading, setNotify } = useStore();
+  const { setUser, userLoading, setUserLoading, setShowLogout, setNotify } =
+    useStore();
 
   /* Common SignIn */
   const signIn = async (provider) => {
@@ -57,7 +58,10 @@ const useLogins = () => {
   /* Signout */
   const signOutUser = () => {
     signOut(auth)
-      .then(() => {})
+      .then(() => {
+        setShowLogout(false);
+        setUser({});
+      })
       .catch((err) => {});
   };
 

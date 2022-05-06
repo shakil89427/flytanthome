@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useLogins from "../../Hooks/useLogins";
 import useStore from "../../Store/useStore";
 import cross from "../../Assets/cross.svg";
@@ -6,12 +6,6 @@ import cross from "../../Assets/cross.svg";
 const Logout = () => {
   const { user, setShowLogout } = useStore();
   const { signOutUser } = useLogins();
-
-  useEffect(() => {
-    if (!user?.username) {
-      setShowLogout(false);
-    }
-  }, [user]);
 
   return (
     <>

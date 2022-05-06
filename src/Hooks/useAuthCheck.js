@@ -6,10 +6,10 @@ import useStore from "../Store/useStore";
 const useAuthCheck = () => {
   const auth = getAuth();
   const database = getFirestore();
-  const { setUser, setNotify, setAuthLoading } = useStore();
-  const [run, setRun] = useState(true);
+  const { setUser, setNotify, authLoading, setAuthLoading } = useStore();
+  const [currentUser, setCurrentUser] = useState(false);
 
-  const checkOnDB = async (currentUser) => {
+  const checkOnDB = async () => {
     const userRef = doc(database, "users", currentUser.uid);
     try {
       const userData = await getDoc(userRef);
@@ -27,15 +27,18 @@ const useAuthCheck = () => {
   };
 
   useEffect(() => {
-    if (!run) return;
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        checkOnDB(currentUser);
+    if (currentUser && authLoading) {
+      checkOnDB();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (current) => {
+      if (current) {
+        setCurrentUser(current);
       } else {
-        setUser({});
         setAuthLoading(false);
       }
-      setRun(false);
     });
   }, [auth]);
 };
