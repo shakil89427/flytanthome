@@ -11,8 +11,8 @@ const useAddUser = () => {
     const userRef = doc(database, "users", data.uid);
     try {
       const userData = await getDoc(userRef);
-      const finalData = userData.data();
-      if (finalData) {
+      const finalData = { ...userData.data(), id: userData.id };
+      if (finalData?.userId) {
         setUser(finalData);
         setUserLoading(false);
         return navigate("/");

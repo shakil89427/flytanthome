@@ -13,7 +13,7 @@ const useAuthCheck = () => {
     try {
       const userData = await getDoc(userRef);
       const userFinalData = { ...userData.data(), id: userData?.id };
-      if (userFinalData?.id) {
+      if (userFinalData?.userId) {
         setUser(userFinalData);
         setUserLoading(false);
       } else {
