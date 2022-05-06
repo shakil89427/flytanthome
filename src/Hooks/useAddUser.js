@@ -56,7 +56,7 @@ const useAddUser = () => {
     const userRef = doc(database, "users", newData.userId);
     setDoc(userRef, newData)
       .then(() => {
-        setUser(newData);
+        setUser({ ...newData, id: newData.userId });
         setUserLoading(false);
         navigate("/");
       })
