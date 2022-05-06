@@ -29,7 +29,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user?.required) {
-      setShow("");
+      setShow("username");
     }
     if (user?.id) {
       setShowLogin(false);
@@ -54,7 +54,7 @@ const Login = () => {
           {show === "verifyOTP" && <VerifyOTP setShow={setShow} />}
 
           {/* Get Username And Add User to DB*/}
-          {user?.required && <UserName back={back} />}
+          {show === "username" && <UserName back={back} />}
 
           {/* Terms and Conditions Linkup */}
           {!user.required && <TermsLink />}
