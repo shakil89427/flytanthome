@@ -1,13 +1,9 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import useStore from "../Store/useStore";
+import useStore from "../../Store/useStore";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 
-const useYoutubeConnect = () => {
-  const { user, authLoading, setUser, setNotify } = useStore();
-  const location = useLocation();
-  const navigate = useNavigate();
+const useYoutubeConnect = (setLoading) => {
+  const { user, setUser, setNotify } = useStore();
   const db = getFirestore();
 
   const addToDb = (channelId) => {
@@ -21,16 +17,16 @@ const useYoutubeConnect = () => {
       .then(() => {
         setUser({ ...user, ...updated });
         setNotify({ status: true, message: "Youtube linked successfully" });
-        navigate("/", { replace: true });
       })
       .catch((err) => {
-        console.log(err);
         setNotify({ status: false, message: "Cannot link Youtube" });
-        navigate("/", { replace: true });
+        setLoading(false);
       });
   };
 
-  const getChannels = async (token) => {
+  const getChannels = async (event) => {
+    if (!event?.data?.youtube) return;
+    const token = event?.data?.token;
     try {
       const response = await axios.get(
         "https://www.googleapis.com/youtube/v3/channels",
@@ -46,16 +42,23 @@ const useYoutubeConnect = () => {
       addToDb(channels[0]);
     } catch (err) {
       setNotify({ status: false, message: "Cannot link Youtube" });
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (authLoading) return;
-    if (location?.hash?.includes("state=youtubev3") && user?.id) {
-      const token = location?.hash?.split("token=")[1]?.split("&token_type")[0];
-      getChannels(token);
-    }
-  }, [authLoading]);
+  const openPopup = () => {
+    setLoading(true);
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=youtubev3&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`;
+    const options =
+      "toolbar=no, menubar=no, width=400, height=600, top=100, left=100";
+
+    window.open(url, "Youtube", options);
+    window.addEventListener("message", (event) => getChannels(event), {
+      once: true,
+    });
+  };
+
+  return { openPopup };
 };
 
 export default useYoutubeConnect;

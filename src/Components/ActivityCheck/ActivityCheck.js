@@ -1,13 +1,12 @@
 import React from "react";
 import useAuthCheck from "../../Hooks/useAuthCheck";
-import useInstaConnect from "../../Hooks/useInstaConnect";
-import useYoutubeConnect from "../../Hooks/useYoutubeConnect";
 import useStore from "../../Store/useStore";
 import Login from "../Login/Login";
 import Logout from "../Logout/Logout";
 import Toast from "../Toast/Toast";
 import Loading from "../Loading/Loading";
 import Spinner from "../Spinner/Spinner";
+import useSocialCheck from "../../Hooks/useSocialCheck";
 
 const styles = {
   spinnerDiv:
@@ -18,8 +17,7 @@ const ActivityCheck = () => {
   const { showLogin, showLogout, notify, authLoading, userLoading } =
     useStore();
   useAuthCheck();
-  useInstaConnect();
-  useYoutubeConnect();
+  useSocialCheck();
 
   return (
     <>

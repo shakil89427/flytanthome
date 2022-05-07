@@ -1,10 +1,11 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Spinner from "../../Components/Spinner/Spinner";
 import youtube from "../../Assets/profileSocials/youtube.png";
 import views from "../../Assets/profileSocials/youtube/views.png";
 import likes from "../../Assets/profileSocials/youtube/likes.png";
 import comments from "../../Assets/profileSocials/youtube/comments.png";
+import useConnect from "../../Hooks/Youtube/useConnect";
+import useLoadData from "../../Hooks/Youtube/useLoadData";
 
 const styles = {
   connect:
@@ -35,85 +36,31 @@ const Youtube = ({ details }) => {
   const [viewsPerVideo, setViewsPerVideo] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
-  const getData = async (channelId) => {
-    try {
-      const response1 = await axios.get(
-        "https://www.googleapis.com/youtube/v3/channels",
-        {
-          params: {
-            id: channelId,
-            part: "snippet,statistics",
-            key: process.env.REACT_APP_GOOGLE_API_KEY,
-          },
-        }
-      );
-      setChannelInfo(response1.data.items[0]);
-      const response2 = await axios.get(
-        "https://www.googleapis.com/youtube/v3/search",
-        {
-          params: {
-            part: "id",
-            channelId,
-            maxResults: 20,
-            order: "date",
-            type: "video",
-            key: process.env.REACT_APP_GOOGLE_API_KEY,
-          },
-        }
-      );
-      const videoIds = response2.data.items.map((item) => item.id.videoId);
-      if (videoIds.length < 1) {
-        setError("No videos found");
-        return setLoading(false);
-      }
-      const response3 = await axios.get(
-        "https://www.googleapis.com/youtube/v3/videos",
-        {
-          params: {
-            part: "snippet,statistics",
-            id: videoIds.toString(),
-            key: process.env.REACT_APP_GOOGLE_API_KEY,
-          },
-        }
-      );
-      setVideos(response3.data.items);
-    } catch (err) {
-      setError("Something went wrong");
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (videos?.length) {
-      const totalviews = videos.reduce((total, current) => {
-        return total + parseInt(current.statistics.viewCount);
-      }, 0);
-      setViewsPerVideo(totalviews / videos.length);
-      setLoading(false);
-    }
-  }, [videos]);
-  useEffect(() => {
-    if (details?.linkedAccounts?.Youtube?.channelId) {
-      setLoading(true);
-      getData(details?.linkedAccounts?.Youtube?.channelId);
-    }
-  }, [details]);
+  const { openPopup } = useConnect(setLoading);
+  useLoadData(
+    details,
+    setChannelInfo,
+    setError,
+    setLoading,
+    videos,
+    setVideos,
+    setViewsPerVideo
+  );
 
   return (
     <div>
       {loading && <Spinner />}
-      {!details?.linkedAccounts?.Youtube?.channelId && details?.access && (
-        <div className={styles.connect}>
-          <p>No account linked</p>
-          <a
-            href={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=youtubev3&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
-          >
-            <img className="w-1/2 mx-auto" src={youtube} alt="" />
-          </a>
-          <p>Click here to link your youtube</p>
-        </div>
-      )}
+      {!loading &&
+        !details?.linkedAccounts?.Youtube?.channelId &&
+        details?.access && (
+          <div className={styles.connect}>
+            <p>No account linked</p>
+            <p onClick={openPopup}>
+              <img className="w-1/2 mx-auto" src={youtube} alt="" />
+            </p>
+            <p>Click here to link your youtube</p>
+          </div>
+        )}
       {!details?.linkedAccounts?.Youtube?.channelId && !details?.access && (
         <p className={styles.notFound}>No data found</p>
       )}

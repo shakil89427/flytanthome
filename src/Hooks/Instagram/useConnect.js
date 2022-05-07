@@ -1,11 +1,8 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import useStore from "../Store/useStore";
+import useStore from "../../Store/useStore";
 
-const useInstaConnect = () => {
+const useConnect = () => {
   const { setNotify } = useStore();
-  const location = useLocation();
   const instaClientId = process.env.REACT_APP_INSTAGRAM_CLIENT_ID;
   const instaClientSecret = process.env.REACT_APP_INSTAGRAM_CLIENT_SECRET;
   const instaRedirectUri = process.env.REACT_APP_INSTAGRAM_REDIRECT_URI;
@@ -35,7 +32,9 @@ const useInstaConnect = () => {
   };
 
   /* Get Token */
-  const getToken = async (code) => {
+  const getToken = async (event) => {
+    if (!event?.data?.instagram) return;
+    const code = event?.data?.code;
     const url = "https://api.instagram.com/oauth/access_token";
     const headers = {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -43,20 +42,24 @@ const useInstaConnect = () => {
     const params = `client_id=${instaClientId}&client_secret=${instaClientSecret}&grant_type=authorization_code&redirect_uri=${instaRedirectUri}&code=${code}`;
     try {
       const response = await axios.post(url, params, headers);
-      if (response?.data) {
-        const { access_token } = response.data;
-        getuserInfo(access_token);
-      }
+      getuserInfo(response.data.access_token);
     } catch (err) {
       setNotify({ status: false, message: err?.message });
     }
   };
-  useEffect(() => {
-    if (location?.search?.includes("state=instagram")) {
-      const code = location?.search?.split("code=")[1]?.split("&state")[0];
-      getToken(code);
-    }
-  }, [location]);
+
+  const openPopup = () => {
+    const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=instagram&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}`;
+    const options =
+      "toolbar=no, menubar=no, width=400, height=600, top=100, left=100";
+
+    window.open(url, "Instagram", options);
+    window.addEventListener("message", (event) => getToken(event), {
+      once: true,
+    });
+  };
+
+  return { openPopup };
 };
 
-export default useInstaConnect;
+export default useConnect;

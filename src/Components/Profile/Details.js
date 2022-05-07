@@ -73,7 +73,7 @@ const Profile = () => {
       .catch((err) => {
         setLoading(false);
       });
-  }, [id]);
+  }, [id, user]);
 
   useEffect(() => {
     if (!details.id) return;
