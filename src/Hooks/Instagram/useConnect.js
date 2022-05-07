@@ -32,9 +32,7 @@ const useConnect = () => {
   };
 
   /* Get Token */
-  const getToken = async (event) => {
-    if (!event?.data?.instagram) return;
-    const code = event?.data?.code;
+  const getToken = async (code) => {
     const url = "https://api.instagram.com/oauth/access_token";
     const headers = {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -53,10 +51,19 @@ const useConnect = () => {
     const options =
       "toolbar=no, menubar=no, width=400, height=600, top=100, left=100";
 
-    window.open(url, "Instagram", options);
-    window.addEventListener("message", (event) => getToken(event), {
-      once: true,
-    });
+    let popup = window.open(url, "new", options);
+    let check = setInterval(() => {
+      try {
+        if (popup.location.search.includes("state=instagram")) {
+          clearInterval(check);
+          const code = popup?.location?.search
+            ?.split("code=")[1]
+            ?.split("&state")[0];
+          getToken(code);
+          popup.close();
+        }
+      } catch (err) {}
+    }, 100);
   };
 
   return { openPopup };

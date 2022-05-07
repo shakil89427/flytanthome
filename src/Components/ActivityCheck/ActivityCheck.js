@@ -6,7 +6,6 @@ import Logout from "../Logout/Logout";
 import Toast from "../Toast/Toast";
 import Loading from "../Loading/Loading";
 import Spinner from "../Spinner/Spinner";
-import useSocialCheck from "../../Hooks/useSocialCheck";
 
 const styles = {
   spinnerDiv:
@@ -17,7 +16,6 @@ const ActivityCheck = () => {
   const { showLogin, showLogout, notify, authLoading, userLoading } =
     useStore();
   useAuthCheck();
-  useSocialCheck();
 
   return (
     <>

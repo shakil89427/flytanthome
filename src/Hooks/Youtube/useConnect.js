@@ -24,11 +24,9 @@ const useYoutubeConnect = (setLoading) => {
       });
   };
 
-  const getChannels = async (event) => {
-    if (!event?.data?.youtube) return;
+  const getChannels = async (token) => {
     setLoading(true);
     try {
-      const token = event?.data?.token;
       const response = await axios.get(
         "https://www.googleapis.com/youtube/v3/channels",
         {
@@ -52,10 +50,20 @@ const useYoutubeConnect = (setLoading) => {
     const options =
       "toolbar=no, menubar=no, width=400, height=600, top=100, left=100";
 
-    window.open(url, "Youtube", options);
-    window.addEventListener("message", (event) => getChannels(event), {
-      once: true,
-    });
+    let popup = window.open(url, "new", options);
+
+    let check = setInterval(() => {
+      try {
+        if (popup.location.hash.includes("state=youtubev3")) {
+          clearInterval(check);
+          const token = popup?.location?.hash
+            ?.split("token=")[1]
+            ?.split("&token_type")[0];
+          getChannels(token);
+          popup.close();
+        }
+      } catch (err) {}
+    }, 100);
   };
 
   return { openPopup };
