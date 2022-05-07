@@ -96,14 +96,3 @@ const useConnect = (setLoading) => {
 };
 
 export default useConnect;
-
-// const getFullData = async (username) => {
-//   try {
-//     const response = await axios.get(
-//       `https://www.instagram.com/${username}/channel/?__a=1`
-//     );
-//     console.log(response);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };

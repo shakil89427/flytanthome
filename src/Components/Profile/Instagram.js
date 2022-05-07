@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import instagram from "../../Assets/profileSocials/instagram.png";
 import Spinner from "../../Components/Spinner/Spinner";
@@ -7,7 +8,23 @@ const Instagram = ({ details }) => {
   const [loading, setLoading] = useState(false);
   const { openPopup } = useConnect(setLoading);
 
-  useEffect(() => {}, [details]);
+  const getFullData = async ({ username, accessToken }) => {
+    try {
+      const response = await axios.get(
+        `https://www.instagram.com/${username}/channel/?__a=1`
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (details?.linkedAccounts?.Instagram?.accessToken) {
+      getFullData(details?.linkedAccounts?.Instagram);
+    }
+  }, [details]);
+
   return (
     <>
       {loading && <Spinner />}
