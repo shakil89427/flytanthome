@@ -1,22 +1,30 @@
 import axios from "axios";
+import useStore from "../../Store/useStore";
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
 
-const useConnect = () => {
-  /* Get tokens */
-  const getToken = async (code) => {
-    const url = "https://api.twitter.com/2/oauth2/token";
+const useConnect = (details) => {
+  const { user, setUser, setNotify } = useStore();
+  const db = getFirestore();
 
-    const params = `client_id=${process.env.REACT_APP_TWITTER_OAUTH2_CLIENT_ID}&grant_type=authorization_code&redirect_uri=${process.env.REACT_APP_TWITTER_REDIRECT_URI}&code=${code}&code_verifier=challenge`;
-
-    const headers = {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  /* Get Info and update on db */
+  const getInfo = async (code) => {
+    const response = await axios.post("http://localhost:5000/twitterinfo", {
+      code,
+    });
+    const updated = {
+      linkedAccounts: user?.linkedAccounts
+        ? { ...user.linkedAccounts, Twitter: { ...response.data } }
+        : { Twitter: { ...response.data } },
     };
-
-    try {
-      const response1 = await axios.post(url, params, headers);
-      console.log(response1.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const userRef = doc(db, "users", user.id);
+    updateDoc(userRef, updated)
+      .then(() => {
+        setUser({ ...user, ...updated });
+        setNotify({ status: true, message: "Twitter linked successfully" });
+      })
+      .catch((err) => {
+        setNotify({ status: false, message: "Cannot link Twitter" });
+      });
   };
 
   /* Create popup */
@@ -30,7 +38,7 @@ const useConnect = () => {
       const code = localStorage.getItem("twitterCode");
       if (code?.length > 0) {
         clearInterval(check);
-        getToken(code);
+        getInfo(code);
         localStorage.clear("twitterCode");
       }
     }, 100);

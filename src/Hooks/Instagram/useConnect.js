@@ -79,6 +79,9 @@ const useConnect = (setLoading) => {
     let popup = window.open(url, "Instagram", options);
     let check = setInterval(() => {
       try {
+        if (popup.closed) {
+          clearInterval(check);
+        }
         if (popup.location.search.includes("state=instagram")) {
           clearInterval(check);
           const code = popup?.location?.search

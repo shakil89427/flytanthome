@@ -9,14 +9,14 @@ const Instagram = ({ details }) => {
   const { openPopup } = useConnect(setLoading);
 
   const getFullData = async ({ username, accessToken }) => {
-    try {
-      const response = await axios.get(
-        `https://www.instagram.com/${username}/channel/?__a=1`
-      );
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const response = await axios.get(
+    //     `https://www.instagram.com/${username}/channel/?__a=1`
+    //   );
+    //   console.log(response);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   useEffect(() => {

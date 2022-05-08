@@ -53,6 +53,9 @@ const useYoutubeConnect = (setLoading) => {
 
     let check = setInterval(() => {
       try {
+        if (popup.closed) {
+          clearInterval(check);
+        }
         if (popup.location.hash.includes("state=youtubev3")) {
           clearInterval(check);
           const token = popup?.location?.hash
