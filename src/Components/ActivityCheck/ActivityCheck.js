@@ -6,6 +6,7 @@ import Logout from "../Logout/Logout";
 import Toast from "../Toast/Toast";
 import Loading from "../Loading/Loading";
 import Spinner from "../Spinner/Spinner";
+import useCheckCode from "../../Hooks/Twitter/useCheckCode";
 
 const styles = {
   spinnerDiv:
@@ -16,6 +17,7 @@ const ActivityCheck = () => {
   const { showLogin, showLogout, notify, authLoading, userLoading } =
     useStore();
   useAuthCheck();
+  useCheckCode();
 
   return (
     <>

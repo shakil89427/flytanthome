@@ -74,10 +74,9 @@ const useConnect = (setLoading) => {
 
   const openPopup = () => {
     const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=instagram&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}`;
-    const options =
-      "toolbar=no, menubar=no, width=400, height=600, top=100, left=100";
+    const options = "toolbar=no, menubar=no, width=400, height=600";
 
-    let popup = window.open(url, "new", options);
+    let popup = window.open(url, "Instagram", options);
     let check = setInterval(() => {
       try {
         if (popup.location.search.includes("state=instagram")) {

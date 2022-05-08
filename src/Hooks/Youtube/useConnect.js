@@ -47,10 +47,9 @@ const useYoutubeConnect = (setLoading) => {
 
   const openPopup = () => {
     const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=youtubev3&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`;
-    const options =
-      "toolbar=no, menubar=no, width=400, height=600, top=100, left=100";
+    const options = "toolbar=no, menubar=no, width=400, height=600";
 
-    let popup = window.open(url, "new", options);
+    let popup = window.open(url, "Youtube", options);
 
     let check = setInterval(() => {
       try {
