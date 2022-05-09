@@ -7,7 +7,7 @@ import useStore from "../../Store/useStore";
 
 const Twitter = ({ details }) => {
   const { twitterData, setTwitterData } = useStore();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const { openPopup } = useConnect(setLoading);
   const db = getFirestore();
@@ -15,7 +15,6 @@ const Twitter = ({ details }) => {
   /* Get user data */
   const getData = async (info) => {
     const userRef = doc(db, "users", details.id);
-    setLoading(true);
     try {
       const response = await axios.post(
         "http://localhost:5000/twitterdata",
@@ -51,9 +50,12 @@ const Twitter = ({ details }) => {
       const valid = twitterData.find((item) => item.validId === details.id);
       if (valid?.validId) {
         setData(valid);
+        setLoading(false);
       } else {
         getData(details?.linkedAccounts?.Twitter);
       }
+    } else {
+      setLoading(false);
     }
   }, [details]);
 

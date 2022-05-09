@@ -22,9 +22,9 @@ const useConnect = (setLoading) => {
       const userRef = doc(db, "users", user?.id);
       await updateDoc(userRef, updatedData);
       setUser({ ...user, ...updatedData });
-      setLoading(false);
       setNotify({ status: true, message: "Instagram linked successfully" });
     } catch (err) {
+      setLoading(false);
       setNotify({ status: false, message: "Cannot link instagram" });
     }
   };

@@ -34,6 +34,7 @@ const Store = () => {
     lastVisible: false,
   });
   const [sponsorships, setSponsorships] = useState([]);
+  const [youtubeData, setYoutubeData] = useState([]);
   const [twitterData, setTwitterData] = useState([]);
 
   /* Returned Items */
@@ -65,6 +66,8 @@ const Store = () => {
     setPopularInfluencers,
     sponsorships,
     setSponsorships,
+    youtubeData,
+    setYoutubeData,
     twitterData,
     setTwitterData,
   };

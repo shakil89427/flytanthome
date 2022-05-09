@@ -21,10 +21,10 @@ const useYoutubeConnect = (setLoading) => {
       const userRef = doc(db, "users", user.id);
       await updateDoc(userRef, updated);
       setUser({ ...user, ...updated });
-      setLoading(false);
       setNotify({ status: true, message: "Youtube linked successfully" });
     } catch (err) {
       setNotify({ status: false, message: "Cannot link Youtube" });
+      setLoading(false);
     }
   };
 

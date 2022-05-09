@@ -5,7 +5,7 @@ import Spinner from "../../Components/Spinner/Spinner";
 import useConnect from "../../Hooks/Instagram/useConnect";
 
 const Instagram = ({ details }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
 
   const getFullData = async ({ username, accessToken }) => {
@@ -17,11 +17,14 @@ const Instagram = ({ details }) => {
     // } catch (err) {
     //   console.log(err);
     // }
+    setLoading(false);
   };
 
   useEffect(() => {
     if (details?.linkedAccounts?.Instagram?.accessToken) {
       getFullData(details?.linkedAccounts?.Instagram);
+    } else {
+      setLoading(false);
     }
   }, [details]);
 
