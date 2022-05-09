@@ -7,7 +7,6 @@ import useStore from "../../Store/useStore";
 import Instagram from "./Instagram";
 import Youtube from "./Youtube";
 import Twitter from "./Twitter";
-import Linkedin from "./Linkedin";
 import Tiktok from "./Tiktok";
 import { useParams } from "react-router-dom";
 
@@ -48,7 +47,7 @@ const Profile = () => {
   const [details, setDetails] = useState({});
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
-  const socials = ["Instagram", "Youtube", "Twitter", "Linkedin", "Tiktok"];
+  const socials = ["Instagram", "Youtube", "Twitter", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
 
   useEffect(() => {
@@ -207,7 +206,6 @@ const Profile = () => {
             {selected === "Instagram" && <Instagram details={details} />}
             {selected === "Youtube" && <Youtube details={details} />}
             {selected === "Twitter" && <Twitter details={details} />}
-            {selected === "Linkedin" && <Linkedin details={details} />}
             {selected === "Tiktok" && <Tiktok details={details} />}
           </div>
         </div>
