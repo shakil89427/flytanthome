@@ -6,42 +6,25 @@ const useYoutubeConnect = (setLoading) => {
   const { user, setUser, setNotify } = useStore();
   const db = getFirestore();
 
-  const addToDb = (channelId) => {
-    const userRef = doc(db, "users", user.id);
-    const updated = {
-      linkedAccounts: user?.linkedAccounts
-        ? { ...user.linkedAccounts, Youtube: { channelId } }
-        : { Youtube: { channelId } },
-    };
-    updateDoc(userRef, updated)
-      .then(() => {
-        setUser({ ...user, ...updated });
-        setNotify({ status: true, message: "Youtube linked successfully" });
-      })
-      .catch((err) => {
-        setNotify({ status: false, message: "Cannot link Youtube" });
-        setLoading(false);
-      });
-  };
-
+  /* Get channelId and set to user db */
   const getChannels = async (token) => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        "https://www.googleapis.com/youtube/v3/channels",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          params: {
-            part: "id",
-            mine: true,
-          },
-        }
-      );
-      const channels = response?.data?.items?.map((item) => item.id);
-      addToDb(channels[0]);
+      const response = await axios.post("http://localhost:5000/youtubeinfo", {
+        token,
+      });
+      const updated = {
+        linkedAccounts: user?.linkedAccounts
+          ? { ...user.linkedAccounts, Youtube: { ...response.data } }
+          : { Youtube: { ...response.data } },
+      };
+      const userRef = doc(db, "users", user.id);
+      await updateDoc(userRef, updated);
+      setUser({ ...user, ...updated });
+      setLoading(false);
+      setNotify({ status: true, message: "Youtube linked successfully" });
     } catch (err) {
       setNotify({ status: false, message: "Cannot link Youtube" });
-      setLoading(false);
     }
   };
 
