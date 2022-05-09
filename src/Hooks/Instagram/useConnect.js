@@ -6,91 +6,50 @@ const useConnect = (setLoading) => {
   const db = getFirestore();
   const { setNotify, user, setUser } = useStore();
 
-  /* Add token to user db */
-  const addTokenToUser = (data) => {
-    const tokenInfo = {
-      accessToken: data?.access_token,
-      tokenExpires: Date.now() + data?.expires_in * 1000,
-    };
-    axios
-      .get(
-        `https://graph.instagram.com/me?fields=id,username&access_token=${tokenInfo?.accessToken}`
-      )
-      .then((res) => {
-        const info = { username: res.data.username, instaId: res.data.id };
-        const updatedData = {
-          linkedAccounts: user?.linkedAccounts
-            ? { ...user?.linkedAccounts, Instagram: { ...info, ...tokenInfo } }
-            : { Instagram: { ...info, ...tokenInfo } },
-        };
-        const userRef = doc(db, "users", user?.id);
-        updateDoc(userRef, updatedData)
-          .then(() => {
-            setUser({ ...user, ...updatedData });
-            setLoading(false);
-            setNotify({
-              status: true,
-              message: "Instagram linked successfully",
-            });
-          })
-          .catch((err) => {
-            setLoading(false);
-            setNotify({ status: false, message: "Cannot link Instagram" });
-          });
-      })
-      .catch((err) => {
-        setLoading(false);
-        setNotify({ status: false, message: "Cannot link Instagram" });
-      });
-  };
-
-  /* Get Token */
-  const getToken = async (code) => {
+  /* Get User info and save to db */
+  const getInfo = async (code) => {
     setLoading(true);
     try {
-      /* Short live token */
-      const response1 = await axios.post(
-        "https://api.instagram.com/oauth/access_token",
-        `client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}&client_secret=${process.env.REACT_APP_INSTAGRAM_CLIENT_SECRET}&grant_type=authorization_code&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&code=${code}`,
-        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-      );
-      /* Long live token */
-      const response2 = await axios.get(
-        "https://graph.instagram.com/access_token",
-        {
-          params: {
-            grant_type: "ig_exchange_token",
-            client_secret: process.env.REACT_APP_INSTAGRAM_CLIENT_SECRET,
-            access_token: response1.data.access_token,
-          },
-        }
-      );
-      addTokenToUser(response2.data);
-    } catch (err) {
+      const response = await axios.post("http://localhost:5000/instainfo", {
+        code,
+        time: Date.now(),
+      });
+      const updatedData = {
+        linkedAccounts: user?.linkedAccounts
+          ? { ...user?.linkedAccounts, Instagram: { ...response.data } }
+          : { Instagram: { ...response.data } },
+      };
+      const userRef = doc(db, "users", user?.id);
+      await updateDoc(userRef, updatedData);
+      setUser({ ...user, ...updatedData });
       setLoading(false);
-      setNotify({ status: false, message: "Cannot link Instagram" });
+      setNotify({ status: true, message: "Instagram linked successfully" });
+    } catch (err) {
+      setNotify({ status: false, message: "Cannot link instagram" });
     }
   };
 
   const openPopup = () => {
     const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=instagram&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}`;
-    const options = "toolbar=no, menubar=no, width=400, height=600";
+    const options = `toolbar=no, menubar=no, width=400, height=550 left=${
+      window.innerWidth / 2 - 200
+    },top=${window.screen.availHeight / 2 - 275}`;
 
-    let popup = window.open(url, "Instagram", options);
+    localStorage.clear("instaCode");
+    window.open(url, "instagram", options);
+
+    let count = 0;
     let check = setInterval(() => {
-      try {
-        if (popup.closed) {
-          clearInterval(check);
-        }
-        if (popup.location.search.includes("state=instagram")) {
-          clearInterval(check);
-          const code = popup?.location?.search
-            ?.split("code=")[1]
-            ?.split("&state")[0];
-          getToken(code);
-          popup.close();
-        }
-      } catch (err) {}
+      const code = localStorage.getItem("instaCode");
+      if (count === 20000) {
+        return clearInterval(check);
+      }
+      if (code?.length > 0) {
+        getInfo(code);
+        localStorage.clear("instaCode");
+        return clearInterval(check);
+      }
+      count = count + 100;
     }, 100);
   };
 

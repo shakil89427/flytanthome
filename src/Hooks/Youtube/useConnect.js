@@ -47,24 +47,25 @@ const useYoutubeConnect = (setLoading) => {
 
   const openPopup = () => {
     const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=youtubev3&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`;
-    const options = "toolbar=no, menubar=no, width=400, height=600";
+    const options = `toolbar=no, menubar=no, width=400, height=550 left=${
+      window.innerWidth / 2 - 200
+    },top=${window.screen.availHeight / 2 - 275}`;
 
-    let popup = window.open(url, "Youtube", options);
+    localStorage.clear("youtubeToken");
+    window.open(url, "youtube", options);
 
+    let count = 0;
     let check = setInterval(() => {
-      try {
-        if (popup.closed) {
-          clearInterval(check);
-        }
-        if (popup.location.hash.includes("state=youtubev3")) {
-          clearInterval(check);
-          const token = popup?.location?.hash
-            ?.split("token=")[1]
-            ?.split("&token_type")[0];
-          getChannels(token);
-          popup.close();
-        }
-      } catch (err) {}
+      const token = localStorage.getItem("youtubeToken");
+      if (count === 20000) {
+        return clearInterval(check);
+      }
+      if (token?.length > 0) {
+        getChannels(token);
+        localStorage.clear("youtubeToken");
+        return clearInterval(check);
+      }
+      count = count + 100;
     }, 100);
   };
 

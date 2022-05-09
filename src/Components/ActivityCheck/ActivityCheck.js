@@ -6,7 +6,7 @@ import Logout from "../Logout/Logout";
 import Toast from "../Toast/Toast";
 import Loading from "../Loading/Loading";
 import Spinner from "../Spinner/Spinner";
-import useCheckCode from "../../Hooks/Twitter/useCheckCode";
+import useCheckCode from "../../Hooks/useCheckCode";
 
 const styles = {
   spinnerDiv:
