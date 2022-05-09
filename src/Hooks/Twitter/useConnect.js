@@ -2,12 +2,13 @@ import axios from "axios";
 import useStore from "../../Store/useStore";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 
-const useConnect = (details) => {
+const useConnect = (setLoading) => {
   const { user, setUser, setNotify } = useStore();
   const db = getFirestore();
 
   /* Get Info and update on db */
   const getInfo = async (code) => {
+    setLoading(true);
     try {
       const response = await axios.post("http://localhost:5000/twitterinfo", {
         code,
@@ -22,6 +23,7 @@ const useConnect = (details) => {
       setUser({ ...user, ...updated });
       setNotify({ status: true, message: "Twitter linked successfully" });
     } catch (err) {
+      setLoading(false);
       setNotify({ status: false, message: "Cannot link Twitter" });
     }
   };

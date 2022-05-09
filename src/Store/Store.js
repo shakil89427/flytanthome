@@ -34,6 +34,7 @@ const Store = () => {
     lastVisible: false,
   });
   const [sponsorships, setSponsorships] = useState([]);
+  const [twitterData, setTwitterData] = useState([]);
 
   /* Returned Items */
   return {
@@ -64,6 +65,8 @@ const Store = () => {
     setPopularInfluencers,
     sponsorships,
     setSponsorships,
+    twitterData,
+    setTwitterData,
   };
 };
 
