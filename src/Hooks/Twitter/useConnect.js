@@ -8,23 +8,22 @@ const useConnect = (details) => {
 
   /* Get Info and update on db */
   const getInfo = async (code) => {
-    const response = await axios.post("http://localhost:5000/twitterinfo", {
-      code,
-    });
-    const updated = {
-      linkedAccounts: user?.linkedAccounts
-        ? { ...user.linkedAccounts, Twitter: { ...response.data } }
-        : { Twitter: { ...response.data } },
-    };
-    const userRef = doc(db, "users", user.id);
-    updateDoc(userRef, updated)
-      .then(() => {
-        setUser({ ...user, ...updated });
-        setNotify({ status: true, message: "Twitter linked successfully" });
-      })
-      .catch((err) => {
-        setNotify({ status: false, message: "Cannot link Twitter" });
+    try {
+      const response = await axios.post("http://localhost:5000/twitterinfo", {
+        code,
       });
+      const updated = {
+        linkedAccounts: user?.linkedAccounts
+          ? { ...user.linkedAccounts, Twitter: { ...response.data } }
+          : { Twitter: { ...response.data } },
+      };
+      const userRef = doc(db, "users", user.id);
+      await updateDoc(userRef, updated);
+      setUser({ ...user, ...updated });
+      setNotify({ status: true, message: "Twitter linked successfully" });
+    } catch (err) {
+      setNotify({ status: false, message: "Cannot link Twitter" });
+    }
   };
 
   /* Create popup */
