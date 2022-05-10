@@ -7,21 +7,25 @@ import useConnect from "../../Hooks/Instagram/useConnect";
 const Instagram = ({ details }) => {
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
+  const [data, setData] = useState({});
 
-  const getFullData = async ({ username, accessToken }) => {
-    // try {
-    //   const response = await axios.get(
-    //     `https://www.instagram.com/${username}/channel/?__a=1`
-    //   );
-    //   console.log(response);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+  const getFullData = async ({ username }) => {
+    try {
+      const response = await axios.post(
+        "https://flytant.herokuapp.com/instadata",
+        {
+          username,
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err.message);
+    }
     setLoading(false);
   };
 
   useEffect(() => {
-    if (details?.linkedAccounts?.Instagram?.accessToken) {
+    if (details?.linkedAccounts?.Instagram) {
       getFullData(details?.linkedAccounts?.Instagram);
     } else {
       setLoading(false);
