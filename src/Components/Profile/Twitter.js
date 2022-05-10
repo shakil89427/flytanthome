@@ -54,7 +54,6 @@ const Twitter = ({ details }) => {
     if (details?.linkedAccounts?.Twitter) {
       const valid = twitterData.find((item) => item.validId === details.id);
       if (valid?.validId) {
-        console.log(valid);
         setData(valid);
         setLoading(false);
       } else {
