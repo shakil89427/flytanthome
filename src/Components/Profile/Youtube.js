@@ -41,7 +41,7 @@ const Youtube = ({ details }) => {
   const getData = async (channelId) => {
     try {
       const response = await axios.post(
-        "https://flytant.herokuapp.com/youtubedata",
+        "http://flytant.herokuapp.com/youtubedata",
         {
           channelId,
         }
@@ -56,11 +56,11 @@ const Youtube = ({ details }) => {
   };
 
   useEffect(() => {
-    if (info?.videosInfo?.length > 0) {
-      const totalviews = info?.videosInfo.reduce((total, current) => {
+    if (info?.videos?.length > 0) {
+      const totalviews = info?.videos.reduce((total, current) => {
         return total + parseInt(current.statistics.viewCount);
       }, 0);
-      setViewsPerVideo(totalviews / info?.videosInfo?.length);
+      setViewsPerVideo(totalviews / info?.videos?.length);
     }
   }, [info]);
 
@@ -95,12 +95,12 @@ const Youtube = ({ details }) => {
       {!details?.linkedAccounts?.Youtube?.channelId && !details?.access && (
         <p className={styles.notFound}>No data found</p>
       )}
-      {!loading && info?.channelInfo?.snippet && (
+      {!loading && info?.snippet && (
         <div>
           <div className={styles.topicsMain}>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
-                {info.channelInfo?.statistics?.subscriberCount}
+                {info?.statistics?.subscriberCount}
               </p>
               <p className={styles.topicName}>Subscriber</p>
             </div>
@@ -109,20 +109,16 @@ const Youtube = ({ details }) => {
               <p className={styles.topicName}>Views/Video</p>
             </div>
             <div className={styles.topicWrapper}>
-              <p className={styles.topic}>
-                {info.channelInfo?.statistics?.viewCount}
-              </p>
+              <p className={styles.topic}>{info?.statistics?.viewCount}</p>
               <p className={styles.topicName}>Views</p>
             </div>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
-                {info?.channelInfo?.statistics?.viewCount !== "0" &&
-                info?.channelInfo?.statistics?.subscriberCount !== "0"
+                {info?.statistics?.viewCount !== "0" &&
+                info?.statistics?.subscriberCount !== "0"
                   ? parseFloat(
-                      parseInt(info?.channelInfo?.statistics?.viewCount) /
-                        parseInt(
-                          info?.channelInfo?.statistics?.subscriberCount
-                        ) /
+                      parseInt(info?.statistics?.viewCount) /
+                        parseInt(info?.statistics?.subscriberCount) /
                         100
                     ).toFixed(2)
                   : 0}
@@ -135,27 +131,25 @@ const Youtube = ({ details }) => {
             <div className="w-fit">
               <div
                 style={{
-                  backgroundImage: `url(${info?.channelInfo?.snippet?.thumbnails?.high?.url})`,
+                  backgroundImage: `url(${info?.snippet?.thumbnails?.high?.url})`,
                 }}
                 className={styles.channelBg}
               />
             </div>
             <span className="w-fit">
-              <p className={styles.channelTitle}>
-                {info?.channelInfo?.snippet?.title}
-              </p>
+              <p className={styles.channelTitle}>{info?.snippet?.title}</p>
               <p className={styles.channelDescription}>
-                {info?.channelInfo?.snippet?.description}
+                {info?.snippet?.description}
               </p>
             </span>
           </div>
         </div>
       )}
-      {!loading && info?.videosInfo?.length > 0 && (
+      {!loading && info?.videos?.length > 0 && (
         <div className="py-8">
           <p className={styles.latest}>Latest videos</p>
           <div className="mt-3 grid grid-cols-2 gap-3">
-            {info?.videosInfo?.map((video) => (
+            {info?.videos?.map((video) => (
               <div
                 key={video.id}
                 style={{
@@ -179,7 +173,7 @@ const Youtube = ({ details }) => {
           </div>
         </div>
       )}
-      {!loading && info?.videosInfo?.length < 1 && (
+      {!loading && info?.videos?.length < 1 && (
         <p className={styles.notFound}>No Videos found</p>
       )}
     </div>
