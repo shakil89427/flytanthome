@@ -9,6 +9,7 @@ import {
 } from "react-icons/ai";
 import { MdNavigateNext } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 /* Styles Start */
 const styles = {
@@ -101,14 +102,7 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
                     )}
                     {type === "Latest" && (
                       <p className="text-xs">
-                        {Math.round(
-                          (Date.now() - sponsorship?.creationDate) / 86400000
-                        )}{" "}
-                        {Math.round(
-                          (Date.now() - sponsorship?.creationDate) / 86400000
-                        ) > 1
-                          ? "days ago"
-                          : "day ago"}
+                        {moment(sponsorship?.creationDate).fromNow()}
                       </p>
                     )}
                   </div>
@@ -134,14 +128,7 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
                       </div>
                       {type !== "Latest" && (
                         <p className="text-xs">
-                          {Math.round(
-                            (Date.now() - sponsorship?.creationDate) / 86400000
-                          )}{" "}
-                          {Math.round(
-                            (Date.now() - sponsorship?.creationDate) / 86400000
-                          ) > 1
-                            ? "days ago"
-                            : "day ago"}
+                          {moment(sponsorship?.creationDate).fromNow()}
                         </p>
                       )}
                     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Scroll from "../Components/Scroll/Scroll";
+import moment from "moment";
 import {
   getFirestore,
   doc,
@@ -207,7 +208,7 @@ const SponsorshipDetails = () => {
                 <div className="flex flex-col gap-5 mt-5">
                   <h3 className="text-2xl font-semibold">{details?.name}</h3>
                   <p className="text-sm">
-                    Posted: {new Date(details?.creationDate).toDateString()}
+                    Posted {moment(details?.creationDate).fromNow()}
                   </p>
                   <p className="text-sm py-2 px-4 bg-[#3FD5F5] w-fit rounded-3xl font-semibold">
                     {details?.barter ? "Barter" : "Paid"} Campaign
@@ -335,10 +336,7 @@ const SponsorshipDetails = () => {
                         {item.barter ? "Barter" : "Paid"} campaign
                       </p>
                       <p className="text-xs">
-                        {Math.floor(
-                          (Date.now() - item?.creationDate) / 86400000
-                        )}{" "}
-                        days ago
+                        {moment(item?.creationDate).fromNow()}
                       </p>
                     </div>
                     <p className="text-md font-semibold">{item.name}</p>
