@@ -10,10 +10,12 @@ const useConnect = (setLoading) => {
   const getInfo = async (code) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/instainfo", {
-        code,
-        time: Date.now(),
-      });
+      const response = await axios.post(
+        "https://flytant.herokuapp.com/instainfo",
+        {
+          code,
+        }
+      );
       const updatedData = {
         linkedAccounts: user?.linkedAccounts
           ? { ...user?.linkedAccounts, Instagram: { ...response.data } }

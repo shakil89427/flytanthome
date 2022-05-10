@@ -10,9 +10,12 @@ const useYoutubeConnect = (setLoading) => {
   const getChannels = async (token) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/youtubeinfo", {
-        token,
-      });
+      const response = await axios.post(
+        "https://flytant.herokuapp.com/youtubeinfo",
+        {
+          token,
+        }
+      );
       const updated = {
         linkedAccounts: user?.linkedAccounts
           ? { ...user.linkedAccounts, Youtube: { ...response.data } }

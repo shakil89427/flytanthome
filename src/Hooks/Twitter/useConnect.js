@@ -10,9 +10,12 @@ const useConnect = (setLoading) => {
   const getInfo = async (code) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/twitterinfo", {
-        code,
-      });
+      const response = await axios.post(
+        "https://flytant.herokuapp.com/twitterinfo",
+        {
+          code,
+        }
+      );
       const updated = {
         linkedAccounts: user?.linkedAccounts
           ? { ...user.linkedAccounts, Twitter: { ...response.data } }

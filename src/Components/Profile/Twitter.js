@@ -17,7 +17,7 @@ const Twitter = ({ details }) => {
     const userRef = doc(db, "users", details.id);
     try {
       const response = await axios.post(
-        "http://localhost:5000/twitterdata",
+        "https://flytant.herokuapp.com/twitterdata",
         info
       );
       if (response?.data?.error) {
