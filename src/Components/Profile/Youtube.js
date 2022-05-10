@@ -41,7 +41,7 @@ const Youtube = ({ details }) => {
   const getData = async (channelId) => {
     try {
       const response = await axios.post(
-        "http://flytant.herokuapp.com/youtubedata",
+        "https://flytant.herokuapp.com/youtubedata",
         {
           channelId,
         }

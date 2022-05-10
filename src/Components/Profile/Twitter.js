@@ -17,7 +17,7 @@ const Twitter = ({ details }) => {
     const userRef = doc(db, "users", details.id);
     try {
       const response = await axios.post(
-        "http://localhost:5000/twitterdata",
+        "https://flytant.herokuapp.com/twitterdata",
         info
       );
       if (response?.data?.error) {
@@ -49,6 +49,7 @@ const Twitter = ({ details }) => {
     if (details?.linkedAccounts?.Twitter) {
       const valid = twitterData.find((item) => item.validId === details.id);
       if (valid?.validId) {
+        console.log(valid);
         setData(valid);
         setLoading(false);
       } else {
