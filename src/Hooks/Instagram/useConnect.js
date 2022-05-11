@@ -44,7 +44,7 @@ const useConnect = (setLoading) => {
     let count = 0;
     let check = setInterval(() => {
       const code = localStorage.getItem("instaCode");
-      if (count === 20000) {
+      if (count === 60) {
         return clearInterval(check);
       }
       if (code?.length > 0) {
@@ -52,8 +52,8 @@ const useConnect = (setLoading) => {
         localStorage.clear("instaCode");
         return clearInterval(check);
       }
-      count = count + 100;
-    }, 100);
+      count = count + 1;
+    }, 1000);
   };
 
   return { openPopup };

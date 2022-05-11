@@ -36,6 +36,7 @@ const Store = () => {
   const [sponsorships, setSponsorships] = useState([]);
   const [youtubeData, setYoutubeData] = useState([]);
   const [twitterData, setTwitterData] = useState([]);
+  const [tiktokData, setTiktokData] = useState([]);
 
   /* Returned Items */
   return {
@@ -70,6 +71,8 @@ const Store = () => {
     setYoutubeData,
     twitterData,
     setTwitterData,
+    tiktokData,
+    setTiktokData,
   };
 };
 

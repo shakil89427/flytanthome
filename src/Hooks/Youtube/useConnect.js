@@ -44,7 +44,7 @@ const useYoutubeConnect = (setLoading) => {
     let count = 0;
     let check = setInterval(() => {
       const token = localStorage.getItem("youtubeToken");
-      if (count === 20000) {
+      if (count === 60) {
         return clearInterval(check);
       }
       if (token?.length > 0) {
@@ -52,8 +52,8 @@ const useYoutubeConnect = (setLoading) => {
         localStorage.clear("youtubeToken");
         return clearInterval(check);
       }
-      count = count + 100;
-    }, 100);
+      count = count + 1;
+    }, 1000);
   };
 
   return { openPopup };
