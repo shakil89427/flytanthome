@@ -18,6 +18,11 @@ const useCheckCode = () => {
     localStorage.setItem("youtubeToken", token);
     window.close();
   }
+  if (location?.search?.includes("state=tiktok")) {
+    const token = location?.search?.split("code=")[1]?.split("&scopes")[0];
+    localStorage.setItem("tiktokCode", token);
+    window.close();
+  }
 };
 
 export default useCheckCode;
