@@ -1,12 +1,12 @@
 import axios from "axios";
-import { doc, getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getFirestore, getDoc } from "firebase/firestore";
 import useStore from "../../Store/useStore";
 
 const useConnect = (setLoading) => {
   const db = getFirestore();
   const { setNotify, user, setUser } = useStore();
 
-  /* Get User info and save to db */
+  /* Get User info */
   const getInfo = async (code) => {
     setLoading(true);
     try {
@@ -14,17 +14,18 @@ const useConnect = (setLoading) => {
         "https://flytant.herokuapp.com/instainfo",
         {
           code,
+          userId: user.id,
         }
       );
-      const updatedData = {
-        linkedAccounts: user?.linkedAccounts
-          ? { ...user?.linkedAccounts, Instagram: { ...response.data } }
-          : { Instagram: { ...response.data } },
-      };
-      const userRef = doc(db, "users", user?.id);
-      await updateDoc(userRef, updatedData);
-      setUser({ ...user, ...updatedData });
-      setNotify({ status: true, message: "Instagram linked successfully" });
+      if (response.data.success) {
+        const userRef = doc(db, "users", user?.id);
+        const response2 = await getDoc(userRef);
+        setUser({ ...response2.data(), id: response2.id });
+        setNotify({ status: true, message: "Instagram linked successfully" });
+      } else {
+        setLoading(false);
+        setNotify({ status: false, message: "Cannot link instagram" });
+      }
     } catch (err) {
       setLoading(false);
       setNotify({ status: false, message: "Cannot link instagram" });

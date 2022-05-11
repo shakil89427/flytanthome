@@ -27,6 +27,7 @@ const Instagram = ({ details }) => {
   useEffect(() => {
     if (details?.linkedAccounts?.Instagram) {
       getFullData(details?.linkedAccounts?.Instagram);
+      console.log(details?.linkedAccounts?.Instagram);
     } else {
       setLoading(false);
     }
