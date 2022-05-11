@@ -1,5 +1,4 @@
 import axios from "axios";
-import { doc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { FaTiktok } from "react-icons/fa";
 import useConnect from "../../Hooks/Tiktok/useConnect";
@@ -7,14 +6,15 @@ const Tiktok = ({ details }) => {
   const [loading, setLoading] = useState(false);
   const { openPopup } = useConnect(setLoading);
 
-  const getData = async (info) => {
-    // const userRef = doc(db, "users", details.id);
+  const getData = async (userId) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/tiktokdata",
-        info
+        "https://flytant.herokuapp.com/tiktokdata",
+        {
+          userId,
+        }
       );
-      console.log(response);
+      console.log(response.data);
       // if (response?.data?.error) {
       //   setLoading(false);
       //   const { Twitter, ...rest } = details.linkedAccounts;
@@ -40,8 +40,8 @@ const Tiktok = ({ details }) => {
   };
 
   useEffect(() => {
-    if (details?.linkedAccounts?.Tiktok) {
-      getData(details?.linkedAccounts?.Tiktok);
+    if (details?.linkedAccounts?.Tiktok?.access_token) {
+      getData(details?.id);
     } else {
       setLoading(false);
     }

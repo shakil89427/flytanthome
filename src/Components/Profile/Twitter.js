@@ -1,5 +1,4 @@
 import axios from "axios";
-import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import twitter from "../../Assets/profileSocials/twitter.png";
 import useConnect from "../../Hooks/Twitter/useConnect";
@@ -13,37 +12,22 @@ const Twitter = ({ details }) => {
   const { twitterData, setTwitterData } = useStore();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
-  const [avg, setAvg] = useState({ likes: 0, retweets: 0, rating: 0 });
+  const [avg, setAvg] = useState({ likes: 0, rating: 0 });
   const { openPopup } = useConnect(setLoading);
-  const db = getFirestore();
 
   /* Get user data */
-  const getData = async (info) => {
-    const userRef = doc(db, "users", details.id);
+  const getData = async (userId) => {
     try {
       const response = await axios.post(
         "https://flytant.herokuapp.com/twitterdata",
-        info
+        {
+          userId,
+        }
       );
-      if (response?.data?.error) {
-        setLoading(false);
-        const { Twitter, ...rest } = details.linkedAccounts;
-        const updated = { linkedAccounts: rest };
-        return await updateDoc(userRef, updated);
-      }
-      const responseData = { ...response.data.userInfo, validId: details.id };
+      const responseData = { ...response.data, validId: details.id };
       setData(responseData);
       setTwitterData([...twitterData, responseData]);
       setLoading(false);
-      if (response?.data?.tokenInfo) {
-        const updated = {
-          linkedAccounts: {
-            ...details.linkedAccounts,
-            Twitter: response?.data?.tokenInfo,
-          },
-        };
-        await updateDoc(userRef, updated);
-      }
     } catch (err) {
       setLoading(false);
     }
@@ -51,13 +35,13 @@ const Twitter = ({ details }) => {
 
   /* Check data exist or not */
   useEffect(() => {
-    if (details?.linkedAccounts?.Twitter) {
+    if (details?.linkedAccounts?.Twitter?.access_token) {
       const valid = twitterData.find((item) => item.validId === details.id);
       if (valid?.validId) {
         setData(valid);
         setLoading(false);
       } else {
-        getData(details?.linkedAccounts?.Twitter);
+        getData(details?.id);
       }
     } else {
       setLoading(false);
@@ -73,10 +57,8 @@ const Twitter = ({ details }) => {
       const totalRetweets = data?.tweets?.reduce((total, current) => {
         return total + current?.public_metrics?.retweet_count;
       }, 0);
-      const retweets = Math.round(totalRetweets / data?.tweets?.length);
-      setAvg((prev) => {
-        return { ...prev, likes, retweets };
-      });
+      const rating = Math.round(totalRetweets / data?.tweets?.length);
+      setAvg({ likes, rating });
     }
   }, [data]);
 
@@ -106,15 +88,15 @@ const Twitter = ({ details }) => {
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
-                {avg.likes}
+                {data?.public_metrics?.following_count}
               </p>
-              <p className="text-sm font-medium">Likes/Tweet</p>
+              <p className="text-sm font-medium">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
-                {avg.retweets}
+                {avg.likes}
               </p>
-              <p className="text-sm font-medium">Retweet/Tweet</p>
+              <p className="text-sm font-medium">Likes/Tweet</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">

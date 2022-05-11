@@ -65,7 +65,7 @@ const Youtube = ({ details }) => {
   }, [info]);
 
   useEffect(() => {
-    if (details?.linkedAccounts?.Youtube) {
+    if (details?.linkedAccounts?.Youtube?.channelId) {
       const valid = youtubeData.find((item) => item?.validId === details.id);
       if (valid?.validId) {
         setInfo(valid);

@@ -9,7 +9,7 @@ const Instagram = ({ details }) => {
   const { openPopup } = useConnect(setLoading);
   const [data, setData] = useState({});
 
-  const getFullData = async ({ username }) => {
+  const getFullData = async (username) => {
     try {
       const response = await axios.post(
         "https://flytant.herokuapp.com/instadata",
@@ -25,8 +25,8 @@ const Instagram = ({ details }) => {
   };
 
   useEffect(() => {
-    if (details?.linkedAccounts?.Instagram) {
-      getFullData(details?.linkedAccounts?.Instagram);
+    if (details?.linkedAccounts?.Instagram?.username) {
+      getFullData(details?.linkedAccounts?.Instagram?.username);
     } else {
       setLoading(false);
     }

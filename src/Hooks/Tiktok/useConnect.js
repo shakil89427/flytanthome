@@ -1,6 +1,6 @@
 import axios from "axios";
 import useStore from "../../Store/useStore";
-import { doc, getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getFirestore, getDoc } from "firebase/firestore";
 
 const useConnect = (setLoading) => {
   const { user, setUser, setNotify } = useStore();
@@ -14,17 +14,18 @@ const useConnect = (setLoading) => {
         "https://flytant.herokuapp.com/tiktokinfo",
         {
           code,
+          userId: user.id,
         }
       );
-      const updated = {
-        linkedAccounts: user?.linkedAccounts
-          ? { ...user.linkedAccounts, Tiktok: { ...response.data } }
-          : { Tiktok: { ...response.data } },
-      };
-      const userRef = doc(db, "users", user.id);
-      await updateDoc(userRef, updated);
-      setUser({ ...user, ...updated });
-      setNotify({ status: true, message: "Tiktok linked successfully" });
+      if (response.data.success) {
+        const userRef = doc(db, "users", user.id);
+        const response2 = await getDoc(userRef);
+        setUser({ ...response2.data(), id: response2.id });
+        setNotify({ status: true, message: "Tiktok linked successfully" });
+      } else {
+        setLoading(false);
+        setNotify({ status: false, message: "Cannot link Tiktok" });
+      }
     } catch (err) {
       setLoading(false);
       setNotify({ status: false, message: "Cannot link Tiktok" });
