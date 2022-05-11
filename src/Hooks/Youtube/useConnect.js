@@ -1,6 +1,6 @@
 import axios from "axios";
 import useStore from "../../Store/useStore";
-import { doc, getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const useYoutubeConnect = (setLoading) => {
   const { user, setUser, setNotify } = useStore();
@@ -14,17 +14,18 @@ const useYoutubeConnect = (setLoading) => {
         "https://flytant.herokuapp.com/youtubeinfo",
         {
           token,
+          userId: user.id,
         }
       );
-      const updated = {
-        linkedAccounts: user?.linkedAccounts
-          ? { ...user.linkedAccounts, Youtube: { ...response.data } }
-          : { Youtube: { ...response.data } },
-      };
-      const userRef = doc(db, "users", user.id);
-      await updateDoc(userRef, updated);
-      setUser({ ...user, ...updated });
-      setNotify({ status: true, message: "Youtube linked successfully" });
+      if (response.data.success) {
+        const userRef = doc(db, "users", user.id);
+        const response2 = await getDoc(userRef);
+        setUser({ ...response2.data(), id: response2.id });
+        setNotify({ status: true, message: "Youtube linked successfully" });
+      } else {
+        setNotify({ status: false, message: "Cannot link Youtube" });
+        setLoading(false);
+      }
     } catch (err) {
       setNotify({ status: false, message: "Cannot link Youtube" });
       setLoading(false);
