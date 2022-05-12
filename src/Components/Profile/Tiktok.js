@@ -17,7 +17,7 @@ const Tiktok = ({ details }) => {
   const getData = async (userId) => {
     try {
       const response = await axios.post(
-        "http://flytant.herokuapp.com/tiktokdata",
+        "https://flytant.herokuapp.com/tiktokdata",
         {
           userId,
         }

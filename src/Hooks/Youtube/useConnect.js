@@ -32,6 +32,12 @@ const useYoutubeConnect = (setLoading) => {
     }
   };
 
+  const getYoutubeCode = () => {
+    const token = localStorage.getItem("youtubeToken");
+    getChannels(token);
+    localStorage.clear("youtubeToken");
+  };
+
   const openPopup = () => {
     const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=youtubev3&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`;
     const options = `toolbar=no, menubar=no, width=400, height=550 left=${
@@ -40,20 +46,7 @@ const useYoutubeConnect = (setLoading) => {
 
     localStorage.clear("youtubeToken");
     window.open(url, "youtube", options);
-
-    let count = 0;
-    let check = setInterval(() => {
-      const token = localStorage.getItem("youtubeToken");
-      if (count === 60) {
-        return clearInterval(check);
-      }
-      if (token?.length > 0) {
-        getChannels(token);
-        localStorage.clear("youtubeToken");
-        return clearInterval(check);
-      }
-      count = count + 1;
-    }, 1000);
+    window.addEventListener("storage", getYoutubeCode, { once: true });
   };
 
   return { openPopup };

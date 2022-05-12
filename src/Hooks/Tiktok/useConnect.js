@@ -32,6 +32,12 @@ const useConnect = (setLoading) => {
     }
   };
 
+  const getTiktokCode = () => {
+    const code = localStorage.getItem("tiktokCode");
+    getInfo(code);
+    localStorage.clear("tiktokCode");
+  };
+
   /* Create popup */
   const openPopup = () => {
     const url = `https://www.tiktok.com/auth/authorize?response_type=code&client_key=${process.env.REACT_APP_TIKTOK_CLIENT_KEY}&redirect_uri=${process.env.REACT_APP_TIKTOK_REDIRECT_URI}&scope=user.info.basic,video.list&state=tiktok`;
@@ -41,20 +47,7 @@ const useConnect = (setLoading) => {
 
     localStorage.clear("tiktokCode");
     window.open(url, "tiktok", options);
-
-    let count = 0;
-    let check = setInterval(() => {
-      const code = localStorage.getItem("tiktokCode");
-      if (count === 60) {
-        return clearInterval(check);
-      }
-      if (code?.length > 0) {
-        getInfo(code);
-        localStorage.clear("tiktokCode");
-        return clearInterval(check);
-      }
-      count = count + 1;
-    }, 1000);
+    window.addEventListener("storage", getTiktokCode, { once: true });
   };
 
   return { openPopup };

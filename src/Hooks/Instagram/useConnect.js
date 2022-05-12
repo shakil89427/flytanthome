@@ -1,5 +1,6 @@
 import axios from "axios";
 import { doc, getFirestore, getDoc } from "firebase/firestore";
+import { useEffect } from "react";
 import useStore from "../../Store/useStore";
 
 const useConnect = (setLoading) => {
@@ -32,6 +33,12 @@ const useConnect = (setLoading) => {
     }
   };
 
+  const getInstaCode = () => {
+    const code = localStorage.getItem("instaCode");
+    getInfo(code);
+    localStorage.clear("instaCode");
+  };
+
   const openPopup = () => {
     const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=instagram&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}`;
     const options = `toolbar=no, menubar=no, width=400, height=550 left=${
@@ -40,20 +47,7 @@ const useConnect = (setLoading) => {
 
     localStorage.clear("instaCode");
     window.open(url, "instagram", options);
-
-    let count = 0;
-    let check = setInterval(() => {
-      const code = localStorage.getItem("instaCode");
-      if (count === 60) {
-        return clearInterval(check);
-      }
-      if (code?.length > 0) {
-        getInfo(code);
-        localStorage.clear("instaCode");
-        return clearInterval(check);
-      }
-      count = count + 1;
-    }, 1000);
+    window.addEventListener("storage", getInstaCode, { once: true });
   };
 
   return { openPopup };

@@ -162,6 +162,7 @@ const Twitter = ({ details }) => {
                     {tweet?.public_metrics?.like_count} likes
                   </p>
                 </div>
+
                 <div>
                   <img className="w-6 h-6 mb-1 mx-auto" src={retweet} alt="" />
                   <p className="text-xs">
