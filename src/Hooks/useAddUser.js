@@ -1,4 +1,13 @@
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
 
@@ -52,13 +61,28 @@ const useAddUser = () => {
       });
     }
     setUserLoading(true);
-    const newData = { ...user.tempData, username };
-    const userRef = doc(database, "users", newData.userId);
-    setDoc(userRef, newData)
-      .then(() => {
-        setUser({ ...newData, id: newData.userId });
-        setUserLoading(false);
-        navigate("/");
+
+    const colRef = collection(database, "users");
+    const q = query(colRef, where("username", "==", username));
+    getDocs(q)
+      .then((res) => {
+        if (res?.docs?.length === 0) {
+          const newData = { ...user.tempData, username };
+          const userRef = doc(database, "users", newData.userId);
+          setDoc(userRef, newData)
+            .then(() => {
+              setUser({ ...newData, id: newData.userId });
+              setUserLoading(false);
+              navigate("/");
+            })
+            .catch((err) => {
+              setUserLoading(false);
+              setNotify({ status: false, message: err?.message });
+            });
+        } else {
+          setUserLoading(false);
+          setNotify({ status: false, message: "Username already taken" });
+        }
       })
       .catch((err) => {
         setUserLoading(false);
