@@ -32,22 +32,30 @@ const useConnect = (setLoading) => {
     }
   };
 
-  const getTwitterCode = () => {
-    const code = localStorage.getItem("twitterCode");
-    getInfo(code);
-    localStorage.clear("twitterCode");
-  };
-
   /* Create popup */
   const openPopup = () => {
-    const url = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.REACT_APP_TWITTER_OAUTH2_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_TWITTER_REDIRECT_URI}&scope=tweet.read%20users.read%20follows.read%20offline.access&state=twitter&code_challenge=challenge&code_challenge_method=plain`;
+    const state = `access${Date.now()}`;
+    const url = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.REACT_APP_TWITTER_OAUTH2_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_TWITTER_REDIRECT_URI}&scope=tweet.read%20users.read%20follows.read%20offline.access&state=${state}&code_challenge=challenge&code_challenge_method=plain`;
     const options = `toolbar=no, menubar=no, width=400, height=550 left=${
       window.innerWidth / 2 - 200
     },top=${window.screen.availHeight / 2 - 275}`;
 
-    localStorage.clear("twitterCode");
+    localStorage.clear("access");
     window.open(url, "twitter", options);
-    window.addEventListener("storage", getTwitterCode, { once: true });
+
+    let check = setInterval(() => {
+      const access = localStorage.getItem("access");
+      if (access?.includes(state)) {
+        clearInterval(check);
+        const code = access.split("code=")[1];
+        getInfo(code);
+        localStorage.clear("access");
+      }
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(check);
+    }, 120000);
   };
 
   return { openPopup };

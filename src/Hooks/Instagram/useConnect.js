@@ -1,6 +1,5 @@
 import axios from "axios";
 import { doc, getFirestore, getDoc } from "firebase/firestore";
-import { useEffect } from "react";
 import useStore from "../../Store/useStore";
 
 const useConnect = (setLoading) => {
@@ -33,21 +32,29 @@ const useConnect = (setLoading) => {
     }
   };
 
-  const getInstaCode = () => {
-    const code = localStorage.getItem("instaCode");
-    getInfo(code);
-    localStorage.clear("instaCode");
-  };
-
   const openPopup = () => {
-    const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=instagram&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}`;
+    const state = `access${Date.now()}`;
+    const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=${state}&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}`;
     const options = `toolbar=no, menubar=no, width=400, height=550 left=${
       window.innerWidth / 2 - 200
     },top=${window.screen.availHeight / 2 - 275}`;
 
-    localStorage.clear("instaCode");
+    localStorage.clear("access");
     window.open(url, "instagram", options);
-    window.addEventListener("storage", getInstaCode, { once: true });
+
+    let check = setInterval(() => {
+      const access = localStorage.getItem("access");
+      if (access?.includes(state)) {
+        clearInterval(check);
+        const code = access.split("code=")[1].split("&state=")[0];
+        getInfo(code);
+        localStorage.clear("access");
+      }
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(check);
+    }, 120000);
   };
 
   return { openPopup };

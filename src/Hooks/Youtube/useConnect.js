@@ -2,12 +2,12 @@ import axios from "axios";
 import useStore from "../../Store/useStore";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 
-const useYoutubeConnect = (setLoading) => {
+const useConnect = (setLoading) => {
   const { user, setUser, setNotify } = useStore();
   const db = getFirestore();
 
   /* Get channelId and set to user db */
-  const getChannels = async (token) => {
+  const getInfo = async (token) => {
     setLoading(true);
     try {
       const response = await axios.post(
@@ -32,24 +32,32 @@ const useYoutubeConnect = (setLoading) => {
     }
   };
 
-  const getYoutubeCode = () => {
-    const token = localStorage.getItem("youtubeToken");
-    getChannels(token);
-    localStorage.clear("youtubeToken");
-  };
-
   const openPopup = () => {
-    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=youtubev3&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`;
+    const state = `access${Date.now()}`;
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=${state}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`;
     const options = `toolbar=no, menubar=no, width=400, height=550 left=${
       window.innerWidth / 2 - 200
     },top=${window.screen.availHeight / 2 - 275}`;
 
-    localStorage.clear("youtubeToken");
+    localStorage.clear("access");
     window.open(url, "youtube", options);
-    window.addEventListener("storage", getYoutubeCode, { once: true });
+
+    let check = setInterval(() => {
+      const access = localStorage.getItem("access");
+      if (access?.includes(state)) {
+        clearInterval(check);
+        const token = access.split("access_token=")[1].split("&token_type=")[0];
+        getInfo(token);
+        localStorage.clear("access");
+      }
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(check);
+    }, 120000);
   };
 
   return { openPopup };
 };
 
-export default useYoutubeConnect;
+export default useConnect;

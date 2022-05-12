@@ -32,22 +32,30 @@ const useConnect = (setLoading) => {
     }
   };
 
-  const getTiktokCode = () => {
-    const code = localStorage.getItem("tiktokCode");
-    getInfo(code);
-    localStorage.clear("tiktokCode");
-  };
-
   /* Create popup */
   const openPopup = () => {
-    const url = `https://www.tiktok.com/auth/authorize?response_type=code&client_key=${process.env.REACT_APP_TIKTOK_CLIENT_KEY}&redirect_uri=${process.env.REACT_APP_TIKTOK_REDIRECT_URI}&scope=user.info.basic,video.list&state=tiktok`;
+    const state = `access${Date.now()}`;
+    const url = `https://www.tiktok.com/auth/authorize?response_type=code&client_key=${process.env.REACT_APP_TIKTOK_CLIENT_KEY}&redirect_uri=${process.env.REACT_APP_TIKTOK_REDIRECT_URI}&scope=user.info.basic,video.list&state=${state}`;
     const options = `toolbar=no, menubar=no, width=400, height=550 left=${
       window.innerWidth / 2 - 200
     },top=${window.screen.availHeight / 2 - 275}`;
 
-    localStorage.clear("tiktokCode");
+    localStorage.clear("access");
     window.open(url, "tiktok", options);
-    window.addEventListener("storage", getTiktokCode, { once: true });
+
+    let check = setInterval(() => {
+      const access = localStorage.getItem("access");
+      if (access?.includes(state)) {
+        clearInterval(check);
+        const code = access.split("code=")[1].split("&scopes=")[0];
+        getInfo(code);
+        localStorage.clear("access");
+      }
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(check);
+    }, 120000);
   };
 
   return { openPopup };
