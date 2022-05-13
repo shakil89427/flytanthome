@@ -140,21 +140,18 @@ const Twitter = ({ details }) => {
               </div>
 
               <p className="px-3 text-xs my-5">{tweet?.text}</p>
-              {tweet?.attachments?.media_keys?.map((key) => (
-                <div key={key}>
-                  {data.media.map(
-                    (item, index) =>
-                      item.media_key === key && (
-                        <img
-                          key={index}
-                          src={item.url}
-                          className="w-full mb-5"
-                          alt=""
-                        />
-                      )
-                  )}
-                </div>
-              ))}
+              {tweet?.attachments?.media_keys?.length > 0 &&
+                data?.media?.map(
+                  (item, index) =>
+                    item.media_key === tweet?.attachments?.media_keys[0] && (
+                      <img
+                        key={index}
+                        src={item.url}
+                        className="w-full mb-5"
+                        alt=""
+                      />
+                    )
+                )}
               <div className="pl-3 w-fit flex items-center gap-5">
                 <div>
                   <img className="w-6 h-6 mb-1 mx-auto" src={likes} alt="" />

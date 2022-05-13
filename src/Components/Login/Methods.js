@@ -14,10 +14,10 @@ const styles = {
   heading: "text-3xl font-bold text-center",
   info: "font-semibold mt-2 text-center",
   loginButtons:
-    "py-8 flex flex-col items-center gap-5 border-b border-[#979797]",
+    "py-5 md:py-8 flex flex-col items-center gap-3 md:gap-5 border-b border-[#979797]",
   loginButton:
-    "flex items-center gap-4 px-5 w-72 py-3 rounded-3xl shadow-lg cursor-pointer text-white",
-  downButtons: "my-7 flex items-center gap-5 justify-center",
+    "flex items-center gap-4 px-5 w-72 py-2 md:py-3 rounded-3xl shadow-lg cursor-pointer text-white",
+  downButtons: "my-4 md:my-7 flex items-center gap-3 md:gap-5 justify-center",
   downButton:
     "flex items-center pl-3 py-1 gap-2 bg-black text-white w-40 rounded-lg cursor-pointer",
 };

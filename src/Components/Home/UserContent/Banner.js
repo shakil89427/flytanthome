@@ -7,8 +7,8 @@ import { BsSearch } from "react-icons/bs";
 const styles = {
   main: "flex items-center text-white lg:min-h-[650px] py-10 relative r-box",
   bgImage:
-    "absolute w-[45%] h-full bottom-0 right-0 bg-no-repeat bg-contain bg-bottom hidden lg:block z-10",
-  heading: "text-5xl lg:text-6xl font-semibold",
+    "absolute w-[40%] h-full bottom-0 right-0 bg-no-repeat bg-contain bg-bottom hidden lg:block z-10",
+  heading: "text-4xl sm:text-5xl lg:text-6xl font-semibold",
   formMain:
     "flex flex-col md:flex-row gap-2 md:gap-0 md:rounded-tl-md md:rounded-bl-md overflow-hidden mt-8 mb-5 w-full lg:w-5/6",
   inputWrapper:

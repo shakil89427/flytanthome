@@ -17,11 +17,12 @@ const styles = {
   profileTop: "flex justify-between gap-5",
   profileLeft: "flex flex-col gap-10",
   profileWrapper: "flex gap-3",
-  profileImage: "w-32 h-32 rounded-full bg-center bg-no-repeat bg-cover",
-  topName: "text-xl md:text-2xl font-semibold mt-4",
+  profileImage:
+    "w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-center bg-no-repeat bg-cover",
+  topName: "text-lg sm:text-xl md:text-2xl font-semibold mt-4 break-words",
   country: "text-sm font-medium uppercase",
   completeBtn:
-    "border py-4 w-72 rounded-md shadow-md font-medium border-gray-400 cursor-pointer text-center",
+    "border py-4 w-60 sm:w-72 rounded-md shadow-md font-medium border-gray-400 cursor-pointer text-center",
   topRight: "flex flex-col justify-between items-center",
   score:
     "border w-[65px] h-[65px] mx-auto rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400",

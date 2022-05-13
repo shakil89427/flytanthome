@@ -39,7 +39,7 @@ const Login = () => {
   return (
     <>
       <div onClick={() => setShowLogin(false)} className={styles.main} />
-      <div className="fixed z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] md:w-auto">
+      <div className="fixed z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:w-auto">
         <div className={styles.wrapper}>
           {/* Exit Button */}
           <img onClick={exit} className={styles.exit} src={cross} alt="" />
