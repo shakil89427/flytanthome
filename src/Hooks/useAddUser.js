@@ -4,6 +4,7 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  limit,
   query,
   setDoc,
   where,
@@ -63,7 +64,7 @@ const useAddUser = () => {
     setUserLoading(true);
 
     const colRef = collection(database, "users");
-    const q = query(colRef, where("username", "==", username));
+    const q = query(colRef, where("username", "==", username), limit(1));
     getDocs(q)
       .then((res) => {
         if (res?.docs?.length === 0) {
