@@ -13,24 +13,25 @@ import {
 } from "firebase/firestore";
 
 const Barter = () => {
-  const { barterSponsorships, setBarterSponsorships } = useStore();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const {
+    barterSponsorships,
+    setBarterSponsorships,
+    barterIndex,
+    setBarterIndex,
+  } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
 
   const getBarter = async (q) => {
-    if (activeIndex === "Last" || loading) return;
+    if (loading) return;
     setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (!data?.length) {
-        setLoading(false);
-        return setActiveIndex("Last");
-      }
+      if (!data?.length) return setLoading(false);
       setBarterSponsorships((prev) => {
         return {
           data: [...prev.data, ...data],
@@ -53,11 +54,11 @@ const Barter = () => {
         startAfter(barterSponsorships?.lastVisible),
         limit(10)
       );
-      if (activeIndex >= barterSponsorships?.data?.length) {
+      if (barterIndex + 6 >= barterSponsorships?.data?.length) {
         getBarter(q);
       }
     }
-  }, [activeIndex]);
+  }, [barterIndex]);
 
   useEffect(() => {
     if (!barterSponsorships?.data?.length) {
@@ -76,7 +77,8 @@ const Barter = () => {
     <Sponsorships
       sponsorships={barterSponsorships?.data}
       type={"Barter"}
-      setActiveIndex={setActiveIndex}
+      activeIndex={barterIndex}
+      setActiveIndex={setBarterIndex}
     />
   );
 };

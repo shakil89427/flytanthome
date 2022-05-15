@@ -27,7 +27,7 @@ const styles = {
 };
 /* Styles End */
 
-const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
+const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
   const navigate = useNavigate();
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
@@ -49,8 +49,8 @@ const Sponsorships = ({ sponsorships, type, setActiveIndex }) => {
           navigation={{
             nextEl: nextRef?.current,
           }}
-          onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
-          initialSlide={0}
+          onSlideChange={(val) => setActiveIndex(val?.realIndex)}
+          initialSlide={activeIndex}
           onSwiper={setSwiper}
           slidesPerView={1.3}
           spaceBetween={20}

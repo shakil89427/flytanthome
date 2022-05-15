@@ -13,24 +13,21 @@ import {
 } from "firebase/firestore";
 
 const Paid = () => {
-  const { paidSponsorships, setPaidSponsorships } = useStore();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { paidSponsorships, setPaidSponsorships, paidIndex, setPaidIndex } =
+    useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
 
   const getPaid = async (q) => {
-    if (activeIndex === "Last" || loading) return;
+    if (loading) return;
     setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (!data?.length) {
-        setLoading(false);
-        return setActiveIndex("Last");
-      }
+      if (!data?.length) return setLoading(false);
       setPaidSponsorships((prev) => {
         return {
           data: [...prev.data, ...data],
@@ -53,11 +50,11 @@ const Paid = () => {
         startAfter(paidSponsorships.lastVisible),
         limit(10)
       );
-      if (activeIndex >= paidSponsorships?.data?.length) {
+      if (paidIndex + 6 >= paidSponsorships?.data?.length) {
         getPaid(q);
       }
     }
-  }, [activeIndex]);
+  }, [paidIndex]);
 
   useEffect(() => {
     if (!paidSponsorships?.data?.length) {
@@ -76,7 +73,8 @@ const Paid = () => {
     <Sponsorships
       sponsorships={paidSponsorships?.data}
       type={"Paid"}
-      setActiveIndex={setActiveIndex}
+      activeIndex={paidIndex}
+      setActiveIndex={setPaidIndex}
     />
   );
 };

@@ -33,6 +33,11 @@ const Store = () => {
     data: [],
     lastVisible: false,
   });
+  const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [latestIndex, setLatestIndex] = useState(0);
+  const [paidIndex, setPaidIndex] = useState(0);
+  const [barterIndex, setBarterIndex] = useState(0);
+  const [popularIndex, setPopularIndex] = useState(0);
   const [sponsorships, setSponsorships] = useState([]);
   const [youtubeData, setYoutubeData] = useState([]);
   const [twitterData, setTwitterData] = useState([]);
@@ -67,6 +72,16 @@ const Store = () => {
     setPopularInfluencers,
     sponsorships,
     setSponsorships,
+    featuredIndex,
+    setFeaturedIndex,
+    latestIndex,
+    setLatestIndex,
+    paidIndex,
+    setPaidIndex,
+    barterIndex,
+    setBarterIndex,
+    popularIndex,
+    setPopularIndex,
     youtubeData,
     setYoutubeData,
     twitterData,

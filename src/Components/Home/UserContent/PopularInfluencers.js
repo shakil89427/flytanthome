@@ -38,8 +38,12 @@ const styles = {
 
 const PopularInfluencers = () => {
   const navigate = useNavigate();
-  const { popularInfluencers, setPopularInfluencers } = useStore();
-  const [activeIndex, setActiveIndex] = useState(1);
+  const {
+    popularInfluencers,
+    setPopularInfluencers,
+    popularIndex,
+    setPopularIndex,
+  } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "users");
@@ -48,17 +52,14 @@ const PopularInfluencers = () => {
   const nextRef = useRef();
 
   const getPopular = async (q) => {
-    if (activeIndex === "Last" || loading) return;
+    if (loading) return;
     setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (!data?.length) {
-        setLoading(false);
-        return setActiveIndex("Last");
-      }
+      if (!data?.length) return setLoading(false);
       setPopularInfluencers((prev) => {
         return {
           data: [...prev.data, ...data],
@@ -80,11 +81,11 @@ const PopularInfluencers = () => {
         startAfter(popularInfluencers?.lastVisible),
         limit(20)
       );
-      if (activeIndex >= popularInfluencers?.data?.length) {
+      if (popularIndex + 6 >= popularInfluencers?.data?.length) {
         getPopular(q);
       }
     }
-  }, [activeIndex]);
+  }, [popularIndex]);
 
   useEffect(() => {
     if (!popularInfluencers?.data?.length) {
@@ -115,8 +116,8 @@ const PopularInfluencers = () => {
           navigation={{
             nextEl: nextRef?.current,
           }}
-          onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
-          initialSlide={0}
+          onSlideChange={(val) => setPopularIndex(val?.realIndex)}
+          initialSlide={popularIndex}
           onSwiper={setSwiper}
           slidesPerView={1.3}
           spaceBetween={20}

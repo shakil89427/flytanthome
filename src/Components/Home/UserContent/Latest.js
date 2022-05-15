@@ -13,24 +13,25 @@ import {
 } from "firebase/firestore";
 
 const Latest = () => {
-  const { latestSponsorships, setLatestSponsorships } = useStore();
-  const [activeIndex, setActiveIndex] = useState(1);
+  const {
+    latestSponsorships,
+    setLatestSponsorships,
+    latestIndex,
+    setLatestIndex,
+  } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
 
   const getLaitest = async (q) => {
-    if (activeIndex === "Last" || loading) return;
+    if (loading) return;
     setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (!data?.length) {
-        setLoading(false);
-        return setActiveIndex("Last");
-      }
+      if (!data?.length) return setLoading(false);
       setLatestSponsorships((prev) => {
         return {
           data: [...prev.data, ...data],
@@ -52,11 +53,11 @@ const Latest = () => {
         startAfter(latestSponsorships.lastVisible),
         limit(10)
       );
-      if (activeIndex >= latestSponsorships?.data?.length) {
+      if (latestIndex + 6 >= latestSponsorships?.data?.length) {
         getLaitest(q);
       }
     }
-  }, [activeIndex]);
+  }, [latestIndex]);
 
   useEffect(() => {
     if (!latestSponsorships?.data?.length) {
@@ -74,7 +75,8 @@ const Latest = () => {
     <Sponsorships
       sponsorships={latestSponsorships?.data}
       type={"Latest"}
-      setActiveIndex={setActiveIndex}
+      activeIndex={latestIndex}
+      setActiveIndex={setLatestIndex}
     />
   );
 };

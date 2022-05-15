@@ -216,9 +216,9 @@ const SponsorshipDetails = () => {
                 </div>
 
                 <div className="flex items-center justify-between my-14">
-                  <p className="py-3 px-5 border-2 border-black rounded-3xl w-[45%] text-center font-medium">
+                  {/* <p className="py-3 px-5 border-2 border-black rounded-3xl w-[45%] text-center font-medium">
                     Message
-                  </p>
+                  </p> */}
                   {user?.appliedCampaigns?.includes(details?.id) ? (
                     <p className="py-3 px-5 bg-gray-700 text-white border-2 border-black w-[45%] rounded-3xl text-center font-medium">
                       Applied

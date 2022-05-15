@@ -38,8 +38,12 @@ const styles = {
 
 const FeaturedInfluencers = () => {
   const navigate = useNavigate();
-  const { featuredInfluencers, setFeaturedInfluencers } = useStore();
-  const [activeIndex, setActiveIndex] = useState(1);
+  const {
+    featuredInfluencers,
+    setFeaturedInfluencers,
+    featuredIndex,
+    setFeaturedIndex,
+  } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "users");
@@ -48,17 +52,14 @@ const FeaturedInfluencers = () => {
   const nextRef = useRef();
 
   const getFeatured = async (q) => {
-    if (activeIndex === "Last" || loading) return;
+    if (loading) return;
     setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (!data?.length) {
-        setLoading(false);
-        return setActiveIndex("Last");
-      }
+      if (!data?.length) return setLoading(false);
       setFeaturedInfluencers((prev) => {
         return {
           data: [...prev.data, ...data],
@@ -80,12 +81,11 @@ const FeaturedInfluencers = () => {
         startAfter(featuredInfluencers?.lastVisible),
         limit(20)
       );
-      if (activeIndex >= featuredInfluencers?.data?.length) {
-        console.log("hi");
+      if (featuredIndex + 6 >= featuredInfluencers?.data?.length) {
         getFeatured(q);
       }
     }
-  }, [activeIndex]);
+  }, [featuredIndex]);
 
   useEffect(() => {
     if (!featuredInfluencers?.data?.length) {
@@ -115,8 +115,8 @@ const FeaturedInfluencers = () => {
           navigation={{
             nextEl: nextRef?.current,
           }}
-          onSlideChange={(val) => setActiveIndex(val?.realIndex + 6)}
-          initialSlide={0}
+          onSlideChange={(val) => setFeaturedIndex(val?.realIndex)}
+          initialSlide={featuredIndex}
           onSwiper={setSwiper}
           slidesPerView={1.3}
           spaceBetween={20}
