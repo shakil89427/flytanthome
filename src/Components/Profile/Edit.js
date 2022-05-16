@@ -4,6 +4,7 @@ import defaultUser from "../../Assets/defaultUser.png";
 import moment from "moment";
 import useStore from "../../Store/useStore";
 import Spinner from "../Spinner/Spinner";
+import { AiOutlineEdit } from "react-icons/ai";
 import {
   collection,
   doc,
@@ -15,6 +16,12 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen bg-[#49494980] flex items-center justify-center z-10",
@@ -22,19 +29,24 @@ const styles = {
   top: "flex items-center justify-between w-full px-3 mb-4",
   spinnerDiv:
     "absolute inset-0 flex items-center justify-center z-30 bg-[#aaa8a871]",
+  image: "w-20 h-20 rounded-full relative bg-cover bg-no-repeat bg-center",
+  fileInput:
+    "bg-black border-2 border-white text-white rounded-full w-6 h-6 flex items-center justify-center absolute top-12 right-0 cursor-pointer",
   save: "bg-black text-white w-full py-2 rounded-md text-sm mt-2",
   strength: "h-[6px] bg-gray-300 rounded-3xl relative overflow-hidden mt-2",
-  editMain: "mx-14 flex flex-col gap-4 mt-3 items-center",
+  editMain: "mx-14 flex flex-col gap-5 mt-3 items-center",
   input:
     "w-full outline-none border-0 border-b border-gray-300 focus:border-black pr-2 mt-2 text-sm",
 };
 
 const Edit = ({ progress, setEdit }) => {
-  const { setNotify, user, setUser } = useStore();
+  const { app, setNotify, user, setUser } = useStore();
   const db = getFirestore();
+  const storage = getStorage(app);
   const colRef = collection(db, "users");
   const [loading, setLoading] = useState(false);
 
+  const [image, setImage] = useState(null);
   const [username, setUsername] = useState(user?.username);
   const [name, setName] = useState(user?.name);
   const [bio, setBio] = useState(user?.bio);
@@ -46,8 +58,9 @@ const Edit = ({ progress, setEdit }) => {
   );
   const [gender, setGender] = useState(user?.gender);
 
-  const updateData = () => {
-    const finalData = {
+  /* Update data on db */
+  const updateData = (profileImageUrl) => {
+    let finalData = {
       username,
       name,
       bio,
@@ -55,6 +68,9 @@ const Edit = ({ progress, setEdit }) => {
       dateOfBirth: moment(dateOfBirth).format("MMM DD YYYY"),
       gender,
     };
+    if (profileImageUrl) {
+      finalData.profileImageUrl = profileImageUrl;
+    }
     const userRef = doc(db, "users", user.id);
     updateDoc(userRef, finalData)
       .then(() => {
@@ -71,6 +87,30 @@ const Edit = ({ progress, setEdit }) => {
       });
   };
 
+  /* Upload image and get url */
+  const uploadImage = () => {
+    if (!image) return updateData();
+    const storageRef = ref(storage, `/files/${Date.now() + image.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+    uploadTask.on(
+      "state_changed",
+      () => {},
+      (err) => {
+        setLoading(false);
+        setNotify({ status: false, message: "Something went wrong" });
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((url) => updateData(url))
+          .catch((err) => {
+            setLoading(false);
+            setNotify({ status: false, message: "Something went wrong" });
+          });
+      }
+    );
+  };
+
+  /* Check data */
   const checkData = async (e) => {
     e.preventDefault();
     const regex = /^[0-9a-zA-Z]+$/;
@@ -81,12 +121,12 @@ const Edit = ({ progress, setEdit }) => {
       });
     }
     setLoading(true);
-    if (username === user?.username) return updateData();
+    if (username === user?.username) return uploadImage();
     try {
       const q = query(colRef, where("username", "==", username), limit(1));
       const res = await getDocs(q);
       if (res?.docs?.length === 0) {
-        updateData();
+        uploadImage();
       } else {
         setLoading(false);
         setNotify({ status: false, message: "Username already taken" });
@@ -111,6 +151,7 @@ const Edit = ({ progress, setEdit }) => {
           src={cross}
           alt=""
         />
+        <div></div>
         {/* Strength */}
         <div className="text-sm mx-10">
           <p className="font-medium">Profile Strength</p>
@@ -129,18 +170,38 @@ const Edit = ({ progress, setEdit }) => {
         {/* main */}
         <form className={styles.editMain} onSubmit={checkData}>
           <p className="text-lg font-medium">Complete Profile</p>
-          <img
-            className="w-20 h-20 rounded-full"
-            src={user?.profileImageUrl ? user?.profileImageUrl : defaultUser}
-            alt=""
-          />
+          <div
+            style={{
+              backgroundImage: `url(${
+                image
+                  ? URL.createObjectURL(image)
+                  : user?.profileImageUrl
+                  ? user?.profileImageUrl
+                  : defaultUser
+              })`,
+            }}
+            className={styles.image}
+          >
+            <div className={styles.fileInput}>
+              <label htmlFor="file-input">
+                <AiOutlineEdit />
+              </label>
+              <input
+                className="hidden"
+                id="file-input"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </div>
+          </div>
           {/* Username */}
           <div className="w-full relative">
             <p className="text-xs font-semibold">Username</p>
             <input
               required
               minLength="3"
-              maxlength="15"
+              maxLength="15"
               placeholder="Enter your username"
               onChange={(e) =>
                 setUsername(e.target.value.slice(0, 15).toLowerCase())
@@ -160,7 +221,7 @@ const Edit = ({ progress, setEdit }) => {
             <input
               required
               minLength="3"
-              maxlength="20"
+              maxLength="20"
               placeholder="Enter your name"
               onChange={(e) => setName(e.target.value.slice(0, 20))}
               value={name}
@@ -178,7 +239,7 @@ const Edit = ({ progress, setEdit }) => {
             <input
               required
               minLength="10"
-              maxlength="130"
+              maxLength="130"
               placeholder="Write about you"
               onChange={(e) => setBio(e.target.value.slice(0, 150))}
               value={bio}
