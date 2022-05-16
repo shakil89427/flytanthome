@@ -215,23 +215,18 @@ const SponsorshipDetails = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between my-14">
-                  {/* <p className="py-3 px-5 border-2 border-black rounded-3xl w-[45%] text-center font-medium">
-                    Message
-                  </p> */}
-                  {user?.appliedCampaigns?.includes(details?.id) ? (
-                    <p className="py-3 px-5 bg-gray-700 text-white border-2 border-black w-[45%] rounded-3xl text-center font-medium">
-                      Applied
-                    </p>
-                  ) : (
-                    <p
-                      onClick={() => apply()}
-                      className="py-3 px-5 bg-black text-white border-2 border-black w-[45%] rounded-3xl text-center font-medium cursor-pointer"
-                    >
-                      Apply
-                    </p>
-                  )}
-                </div>
+                {user?.appliedCampaigns?.includes(details?.id) ? (
+                  <p className="my-14 py-3 px-5 bg-gray-700 text-white border-2 border-black rounded-3xl text-center font-medium">
+                    Applied
+                  </p>
+                ) : (
+                  <p
+                    onClick={() => apply()}
+                    className="my-14 py-3 px-5 bg-black text-white border-2 border-black rounded-3xl text-center font-medium cursor-pointer"
+                  >
+                    Apply
+                  </p>
+                )}
                 {!details?.barter && (
                   <h5 className="text-xl font-semibold mb-5">Description</h5>
                 )}

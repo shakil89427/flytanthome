@@ -17,6 +17,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="date"] {
+  -moz-appearance: textfield;
+}
+input[value="0000-00-00"]::-webkit-datetime-edit {
+  color: transparent;
+}
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;

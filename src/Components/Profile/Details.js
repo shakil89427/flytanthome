@@ -9,6 +9,7 @@ import Youtube from "./Youtube";
 import Twitter from "./Twitter";
 import Tiktok from "./Tiktok";
 import { useParams } from "react-router-dom";
+import Edit from "./Edit";
 
 const styles = {
   spinnerDiv:
@@ -50,6 +51,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const socials = ["Instagram", "Youtube", "Twitter", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     if (id === user?.id) return setDetails({ ...user, access: true });
@@ -91,6 +93,7 @@ const Profile = () => {
 
   return (
     <>
+      {edit && <Edit details={details} progress={progress} setEdit={setEdit} />}
       <Scroll />
       {loading && (
         <div className={styles.spinnerDiv}>
@@ -122,14 +125,15 @@ const Profile = () => {
                     </p>
                   </span>
                 </div>
-                {details?.access ? (
-                  <p className={styles.completeBtn}>
+                {details?.access && (
+                  <p
+                    onClick={() => setEdit(true)}
+                    className={styles.completeBtn}
+                  >
                     {progress === 100
                       ? "Edit Profile"
                       : "Complete your Profile"}
                   </p>
-                ) : (
-                  <p className={styles.completeBtn}>Send Message</p>
                 )}
               </div>
               <div className={styles.topRight}>
