@@ -80,6 +80,7 @@ const CreateCampaign = () => {
                   type="file"
                   accept="image/*"
                   multiple
+                  required
                   onChange={(e) => {
                     setImages([...e.target.files].slice(0, 4));
                     e.target.value = null;
