@@ -93,7 +93,7 @@ const Profile = () => {
 
   return (
     <>
-      {edit && <Edit details={details} progress={progress} setEdit={setEdit} />}
+      {edit && <Edit progress={progress} setEdit={setEdit} />}
       <Scroll />
       {loading && (
         <div className={styles.spinnerDiv}>

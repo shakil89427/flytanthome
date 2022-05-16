@@ -149,10 +149,7 @@ const FeaturedInfluencers = () => {
                   <p className="text-sm">
                     {item?.gender?.charAt(0)}{" "}
                     {new Date().getFullYear() -
-                      item?.dateOfBirth?.slice(
-                        item?.dateOfBirth?.length - 4,
-                        item?.dateOfBirth?.length
-                      )}
+                      new Date(item?.dateOfBirth).getFullYear()}
                     , {item?.countryCode.toUpperCase()}
                   </p>
                 </div>

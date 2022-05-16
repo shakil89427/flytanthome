@@ -49,18 +49,18 @@ const useAddUser = () => {
     if (!username.match(regex)) {
       return setNotify({ status: false, message: "Type alphanumeric only" });
     }
-    if (username.length < 3) {
-      return setNotify({
-        status: false,
-        message: "username cannot be less than 3 characters",
-      });
-    }
-    if (username.length > 15) {
-      return setNotify({
-        status: false,
-        message: "username cannot be more than 15 characters",
-      });
-    }
+    // if (username.length < 3) {
+    //   return setNotify({
+    //     status: false,
+    //     message: "username cannot be less than 3 characters",
+    //   });
+    // }
+    // if (username.length > 15) {
+    //   return setNotify({
+    //     status: false,
+    //     message: "username cannot be more than 15 characters",
+    //   });
+    // }
     setUserLoading(true);
 
     const colRef = collection(database, "users");

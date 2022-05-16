@@ -18,11 +18,14 @@ const UserName = ({ back }) => {
       <form className={styles.usernameForm} onSubmit={addUser}>
         <p>Enter your username</p>
         <input
+          minLength="3"
           className={styles.username}
           placeholder="Enter username here"
           type="text"
           value={username}
-          onChange={(e) => setUsername(e.target.value.toLowerCase())}
+          onChange={(e) =>
+            setUsername(e.target.value.slice(0, 15).toLowerCase())
+          }
         />
         <button type="submit" className={styles.submitBtn}>
           Submit
