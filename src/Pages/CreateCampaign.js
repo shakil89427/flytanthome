@@ -123,7 +123,7 @@ const CreateCampaign = () => {
             onClick={() => page > 1 && setPage((prev) => prev - 1)}
             type="button"
             style={{ backgroundColor: page === 1 ? "#686767" : "black" }}
-            className=" w-9 h-9 p-2 flex items-center justify-center rounded"
+            className=" w-9 h-9 p-2 flex items-center justify-center rounded-md"
           >
             <img src={upArrow} alt="" />
           </button>
@@ -133,7 +133,7 @@ const CreateCampaign = () => {
             style={{
               backgroundColor: disable ? "#686767" : "black",
             }}
-            className=" w-9 h-9 p-2 flex items-center justify-center rounded"
+            className=" w-9 h-9 p-2 flex items-center justify-center rounded-md"
           >
             <img src={downArrow} alt="" />
           </button>
