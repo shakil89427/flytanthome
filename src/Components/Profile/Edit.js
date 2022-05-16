@@ -53,7 +53,7 @@ const Edit = ({ progress, setEdit }) => {
   const [email, setEmail] = useState(user?.email);
   const [dateOfBirth, setDateOfBirth] = useState(
     user?.dateOfBirth
-      ? moment(user.dateOfBirth).format("YYYY-MM-DD")
+      ? moment(new Date(user.dateOfBirth)).format("YYYY-MM-DD")
       : moment().format("YYYY-MM-DD")
   );
   const [gender, setGender] = useState(user?.gender);

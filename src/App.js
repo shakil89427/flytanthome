@@ -17,6 +17,7 @@ import Terms from "./Pages/Terms";
 import Contact from "./Pages/Contact";
 import SponsorshipDetails from "./Pages/SponsorshipDetails";
 import useStore from "./Store/useStore";
+import CreateCampaign from "./Pages/CreateCampaign";
 
 function App() {
   const { authLoading } = useStore();
@@ -42,6 +43,14 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/createcampaign"
+            element={
+              <PrivateRoute>
+                <CreateCampaign />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/sponsorshipdetails/:id"
             element={

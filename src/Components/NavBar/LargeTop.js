@@ -24,7 +24,10 @@ const LargeTop = () => {
     <div className="hidden lg:block ml-auto">
       {user?.id ? (
         <div className={styles.profile}>
-          <div className="bg-white flex items-center text-black h-12 px-5 rounded-3xl gap-2 cursor-pointer">
+          <div
+            onClick={() => navigate("/createcampaign")}
+            className="bg-white flex items-center text-black h-12 px-5 rounded-3xl gap-2 cursor-pointer"
+          >
             <img src={mike} alt="" />
             <p>Create Campaign</p>
           </div>

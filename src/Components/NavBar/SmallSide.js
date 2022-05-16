@@ -83,7 +83,13 @@ const SmallSide = ({ showSide, setShowSide }) => {
             </div>
 
             {/* Create Campaign */}
-            <div className={styles.item}>
+            <div
+              onClick={() => {
+                navigate("/createcampaign");
+                setShowSide(false);
+              }}
+              className={styles.item}
+            >
               <img className="i1 w-6" src={mikeBlack} alt="" />
               <img className="i2 w-6" src={mikeWhite} alt="" />
               <p>Create Campaign</p>
