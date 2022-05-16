@@ -65,7 +65,7 @@ const CreateCampaign = () => {
         {page === 3 && (
           <div>
             <p className="text-xl font-medium">Please select images</p>
-            <div className="my-6 flex items-center gap-3">
+            <div className="my-6 flex flex-wrap gap-4 w-fit">
               <div className="bg-gray-300 w-24 h-24 rounded-md  relative">
                 <label htmlFor="file-input">
                   <img
