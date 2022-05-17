@@ -276,7 +276,7 @@ const Edit = ({ progress, setEdit }) => {
           <div className="w-full">
             <p className="text-xs font-semibold">Categories</p>
             <div className="relative">
-              <p className="w-full border-0 border-b border-gray-300 mt-2 text-sm flex items-center gap-1 flex-wrap pb-1">
+              <div className="w-full border-0 border-b border-gray-300 mt-2 text-sm flex items-center gap-1 flex-wrap pb-1">
                 <button
                   onClick={() => setShowCategories(true)}
                   type="button"
@@ -296,7 +296,7 @@ const Edit = ({ progress, setEdit }) => {
                 ) : (
                   <p className="text-gray-500 ml-2">No categories added</p>
                 )}
-              </p>
+              </div>
               {showCategories && (
                 <div className="absolute bg-white bottom-0 right-0 w-1/2  pt-6 shadow-xl text-sm border rounded-md">
                   <img
