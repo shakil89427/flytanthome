@@ -250,7 +250,7 @@ const SponsorshipDetails = () => {
                   )}
                 </div>
                 <h5 className="text-xl font-semibold mb-5">Catagories</h5>
-                <div className="flex items-center gap-3 mb-10">
+                <div className="flex items-center gap-3 mb-10 flex-wrap">
                   {details?.categories?.map((item) => (
                     <p
                       className="py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium"
