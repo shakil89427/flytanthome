@@ -3,15 +3,37 @@ import correct from "../Assets/onboard/correct.png";
 import upArrow from "../Assets/onboard/up.png";
 import downArrow from "../Assets/onboard/down.png";
 import plus from "../Assets/plus.png";
+import arrowDownBlack from "../Assets/arrowDownBlack.png";
+import { BsSearch } from "react-icons/bs";
+import selected from "../Assets/selected.png";
+import allCategories from "../Assets/categories";
 
 const CreateCampaign = () => {
   const [page, setPage] = useState(1);
   const [disable, setDisable] = useState(true);
+  const [showType, setShowType] = useState(false);
+  const [showGenders, setShowGenders] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
+  const [filterKey, setFilterKey] = useState("");
+
+  const allPlatforms = [
+    { key: "A", item: "Instagram" },
+    { key: "B", item: "Youtube" },
+    { key: "C", item: "Twitter" },
+    { key: "D", item: "Tiktok" },
+  ];
+  const allGenders = ["Male", "Female", "Any"];
+  const [filtered, setFiltered] = useState([]);
 
   /* Data states */
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
+  const [type, setType] = useState({});
+  const [platforms, setPlatforms] = useState([]);
+  const [followers, setFollowers] = useState("");
+  const [gender, setGender] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   /* Next or submit */
   const next = (e) => {
@@ -22,11 +44,38 @@ const CreateCampaign = () => {
 
   /* Check state */
   useEffect(() => {
-    if (page === 1 && title.length > 0) return setDisable(false);
-    if (page === 2 && description.length > 0) return setDisable(false);
-    if (page === 3 && images.length > 0) return setDisable(false);
+    if (page === 1 && title?.length > 0) return setDisable(false);
+    if (page === 2 && description?.length > 0) return setDisable(false);
+    if (page === 3 && images?.length > 0) return setDisable(false);
+    if (page === 4 && type?.barterDescription?.length > 0)
+      return setDisable(false);
+    if (page === 4 && type?.price?.length > 0) return setDisable(false);
+    if (page === 5 && platforms?.length > 0) return setDisable(false);
+    if (page === 6 && followers?.length > 0) return setDisable(false);
+    if (page === 7 && gender) return setDisable(false);
+    if (page === 8 && categories.length > 0) return setDisable(false);
     setDisable(true);
-  }, [page, title, description, images]);
+  }, [
+    page,
+    title,
+    description,
+    images,
+    showType,
+    type,
+    platforms,
+    followers,
+    gender,
+    categories,
+  ]);
+
+  useEffect(() => {
+    if (filterKey.length < 1) return setFiltered(allCategories);
+    setFiltered(
+      allCategories.filter((c) =>
+        c.toLowerCase().includes(filterKey.toLowerCase())
+      )
+    );
+  }, [filterKey]);
 
   return (
     <div className="r-box py-24 flex items-center justify-center">
@@ -80,11 +129,7 @@ const CreateCampaign = () => {
                   type="file"
                   accept="image/*"
                   multiple
-                  required
-                  onChange={(e) => {
-                    setImages([...e.target.files].slice(0, 4));
-                    e.target.value = null;
-                  }}
+                  onChange={(e) => setImages([...e.target.files].slice(0, 4))}
                 />
               </div>
               {images.map((image) => (
@@ -100,23 +145,257 @@ const CreateCampaign = () => {
           </div>
         )}
 
-        {/* Submit part */}
-        <div className="flex items-center gap-2 mt-5">
-          <button
-            disabled={disable}
-            type="submit"
-            style={{
-              backgroundColor: disable ? "#686767" : "black",
-              cursor: disable ? "auto" : "pointer",
-            }}
-            className="text-white flex items-center gap-2 px-7 py-2 rounded-md"
-          >
-            <p>Done</p>
-            <img className="w-4" src={correct} alt="" />
-          </button>
+        {/* Catagory */}
+        {page === 4 && (
+          /* Giveaway */
+          <div>
+            <p className="text-xl font-medium">Do you want to:</p>
+            <div
+              style={{
+                backgroundColor: showType === "Barter" ? "black" : "white",
+                color: showType === "Barter" ? "white" : "black",
+              }}
+              onClick={() => {
+                showType !== "Barter" && setShowType("Barter");
+                showType !== "Barter" &&
+                  setType({ barter: true, barterDescription: "" });
+              }}
+              className="border-2 border-black rounded-md flex items-center gap-8 px-5 w-64 h-12 font-medium mt-5 mb-2 cursor-pointer"
+            >
+              <p
+                style={{
+                  borderColor: showType === "Barter" ? "white" : "black",
+                }}
+                className="border-2 px-2 rounded-md"
+              >
+                A
+              </p>
+              <p>Giveaway Product</p>
+            </div>
+            {/* Description */}
+            {showType === "Barter" && (
+              <div className="mb-2">
+                <p className="text-md font-medium">Describe your giveaway</p>
+                <textarea
+                  required
+                  onChange={(e) =>
+                    setType({ ...type, barterDescription: e.target.value })
+                  }
+                  value={type?.barterDescription}
+                  className="border w-full mt-1 border-black rounded-md p-2 outline-none"
+                  rows="3"
+                />
+              </div>
+            )}
 
-          {!disable && <p className="text-xs">Press 'Enter'</p>}
-        </div>
+            {/* Paid */}
+            <div
+              style={{
+                backgroundColor: showType === "Paid" ? "black" : "white",
+                color: showType === "Paid" ? "white" : "black",
+              }}
+              onClick={() => {
+                showType !== "Paid" && setShowType("Paid");
+                showType !== "Paid" && setType({ barter: false, price: "" });
+              }}
+              className="border-2 border-black rounded-md flex items-center gap-8 px-5 w-64 h-12 font-medium cursor-pointer"
+            >
+              <p
+                style={{
+                  borderColor: showType === "Paid" ? "white" : "black",
+                }}
+                className="border-2 border-black px-2 rounded-md"
+              >
+                B
+              </p>
+              <p>Pay Influencers</p>
+            </div>
+            {/* Price */}
+            {showType === "Paid" && (
+              <div className="mt-2">
+                <p className="text-md font-medium">Enter the pricing</p>
+                <div className="relative border mt-1">
+                  <input
+                    required
+                    onChange={(e) =>
+                      setType({ ...type, price: e.target.value })
+                    }
+                    value={type?.price}
+                    className="border w-full border-black rounded-md p-2 outline-none pl-5"
+                    type="number"
+                  />
+                  <p className="absolute top-1/2 -translate-y-1/2 left-2">$</p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Platforms */}
+        {page === 5 && (
+          <div>
+            <p className="text-xl font-medium">Select the Platform</p>
+            {allPlatforms.map(({ key, item }) => (
+              <div
+                key={key}
+                style={{
+                  backgroundColor: platforms.includes(item) ? "black" : "white",
+                  color: platforms.includes(item) ? "white" : "black",
+                }}
+                onClick={() => {
+                  setPlatforms(
+                    platforms.includes(item)
+                      ? platforms.filter((platform) => platform !== item)
+                      : [...platforms, item]
+                  );
+                }}
+                className="border-2 border-black rounded-md flex items-center gap-8 px-5 w-64 h-12 font-medium mt-4 cursor-pointer"
+              >
+                <p
+                  style={{
+                    borderColor: platforms.includes(item) ? "white" : "black",
+                  }}
+                  className="border-2 px-2 rounded-md"
+                >
+                  {key}
+                </p>
+                <p>{item}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Followers */}
+        {page === 6 && (
+          <div>
+            <p className="text-xl font-medium">Minimum followers</p>
+            <input
+              required
+              value={followers}
+              onChange={(e) => setFollowers(e.target.value)}
+              className="border w-full mt-3 border-black rounded-md p-2 outline-none"
+              type="number"
+            />
+          </div>
+        )}
+
+        {/* Gender */}
+        {page === 7 && (
+          <div>
+            <p className="text-xl font-medium">
+              Gender for your Target Audience
+            </p>
+            <div className="w-fit relative">
+              <div
+                style={{ color: gender ? "black" : "#7c7b7b" }}
+                onClick={() => setShowGenders(!showGenders)}
+                className=" border-2 border-black w-64 h-12 flex items-center justify-between px-5 mt-3 rounded-md font-medium cursor-pointer"
+              >
+                <p>{gender || "Select Gender"}</p>
+                <img className="w-5" src={arrowDownBlack} alt="" />
+              </div>
+              {showGenders && (
+                <div className="absolute w-full left-0 top-11 bg-white border-2 border-black border-t-0 rounded-bl-md rounded-br-md">
+                  {allGenders.map((g) => (
+                    <p
+                      onClick={() => {
+                        setGender(g);
+                        setShowGenders(false);
+                      }}
+                      key={g}
+                      className="px-5 py-2 cursor-pointer hover:bg-gray-100"
+                    >
+                      {g}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Catagories */}
+        {page === 8 && (
+          <div>
+            <p className="text-xl font-medium">
+              Choose categories for your product
+            </p>
+            <div
+              style={{ color: categories.length > 0 ? "black" : "#7c7b7b" }}
+              onClick={() => setShowCategories(true)}
+              className=" border-2 border-black w-fit min-w-[300px] max-w-[100%] h-12 flex items-center justify-between gap-5 px-2 mt-3 rounded-md font-medium cursor-pointer"
+            >
+              <p>
+                {categories?.toString()?.replace(/,/g, ", ") ||
+                  "Select Categories"}
+              </p>
+              <img className="w-5" src={arrowDownBlack} alt="" />
+            </div>
+            {showCategories && (
+              <div className="">
+                <div
+                  onClick={() => setShowCategories(false)}
+                  className="fixed w-full h-screen top-0 left-0 bg-[#807f7f60]"
+                />
+                <div className="bg-white py-5 px-5 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[400px] rounded-md">
+                  <p className="text-lg font-medium">Select Categories</p>
+                  <div className="flex items-center border border-black rounded-md pl-2 overflow-hidden my-6">
+                    <BsSearch />
+                    <input
+                      value={filterKey}
+                      onChange={(e) => setFilterKey(e.target.value)}
+                      className="w-full p-1 outline-none"
+                      type="text"
+                    />
+                  </div>
+                  <div className="max-h-[350px] overflow-y-scroll">
+                    {filtered.map((category) => (
+                      <div
+                        onClick={() =>
+                          setCategories(
+                            categories.includes(category)
+                              ? categories
+                                  .filter((c) => c !== category)
+                                  .slice(0, 5)
+                              : [...categories, category].slice(0, 5)
+                          )
+                        }
+                        key={category}
+                        className="flex items-center justify-between pr-5 mb-4 cursor-pointer"
+                      >
+                        <p>{category}</p>
+                        {categories.includes(category) && (
+                          <img className="w-6" src={selected} alt="" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowCategories(false)}
+                    className="bg-black text-white w-3/4 block mx-auto mt-5 p-2 rounded-md"
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Submit part */}
+        <button
+          disabled={disable}
+          type="submit"
+          style={{
+            backgroundColor: disable ? "#686767" : "black",
+            cursor: disable ? "auto" : "pointer",
+          }}
+          className="text-white flex items-center gap-2 px-7 py-2 rounded-md mt-5"
+        >
+          <p>Done</p>
+          <img className="w-4" src={correct} alt="" />
+        </button>
         <div className="flex items-center gap-3 justify-end mt-14">
           <button
             disabled={page === 1}
