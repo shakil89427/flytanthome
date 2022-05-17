@@ -1,7 +1,7 @@
 export const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen z-30 bg-[#07070783]",
   wrapper:
-    "bg-white py-3 md:p-5 rounded-lg flex flex-col items-center mx-3 md:w-[500px] lg:w-[550px] relative overflow-hidden z-40",
+    "bg-white p-5 rounded-lg flex flex-col items-center w-full relative z-40",
   exit: "w-6 h-6 absolute top-3 right-4 cursor-pointer",
   heading: "text-3xl font-bold text-center",
   info: "font-semibold mt-2 text-center",
