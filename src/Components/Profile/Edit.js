@@ -5,6 +5,7 @@ import moment from "moment";
 import useStore from "../../Store/useStore";
 import Spinner from "../Spinner/Spinner";
 import { AiOutlineEdit } from "react-icons/ai";
+import allCategories from "../../Assets/categories";
 import {
   collection,
   doc,
@@ -24,15 +25,16 @@ import {
 } from "firebase/storage";
 
 const styles = {
-  main: "fixed top-0 left-0 w-full min-h-screen bg-[#49494980] flex items-center justify-center z-10",
-  inner: "bg-white pt-7 pb-4 w-[95%] max-w-[450px] relative rounded-md",
+  main: "fixed top-0 left-0 w-full min-h-screen bg-[#49494980]",
+  inner:
+    "bg-white pt-7 pb-4 w-[95%] max-w-[450px] max-h-[95vh] fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-md overflow-y-scroll z-30",
   top: "flex items-center justify-between w-full px-3 mb-4",
   spinnerDiv:
-    "absolute inset-0 flex items-center justify-center z-30 bg-[#aaa8a871]",
+    "fixed top-0 left-0 inset-0 flex items-center justify-center bg-[#aaa8a871] z-40",
   image: "w-20 h-20 rounded-full relative bg-cover bg-no-repeat bg-center",
   fileInput:
     "bg-black border-2 border-white text-white rounded-full w-6 h-6 flex items-center justify-center absolute top-12 right-0 cursor-pointer",
-  save: "bg-black text-white w-full py-2 rounded-md text-sm mt-2",
+  save: "w-full py-2 rounded-md text-sm mt-2 text-white bg-black",
   strength: "h-[6px] bg-gray-300 rounded-3xl relative overflow-hidden mt-2",
   editMain: "mx-14 flex flex-col gap-5 mt-3 items-center",
   input:
@@ -45,16 +47,18 @@ const Edit = ({ progress, setEdit }) => {
   const storage = getStorage(app);
   const colRef = collection(db, "users");
   const [loading, setLoading] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
 
   const [image, setImage] = useState(null);
   const [username, setUsername] = useState(user?.username);
   const [name, setName] = useState(user?.name);
   const [bio, setBio] = useState(user?.bio);
   const [email, setEmail] = useState(user?.email);
+  const [categories, setCategories] = useState(user?.categories || []);
   const [dateOfBirth, setDateOfBirth] = useState(
     user?.dateOfBirth
       ? moment(new Date(user.dateOfBirth)).format("YYYY-MM-DD")
-      : moment().format("YYYY-MM-DD")
+      : false
   );
   const [gender, setGender] = useState(user?.gender);
 
@@ -67,6 +71,7 @@ const Edit = ({ progress, setEdit }) => {
       email,
       dateOfBirth: moment(dateOfBirth).format("MMM DD YYYY"),
       gender,
+      categories,
     };
     if (profileImageUrl) {
       finalData.profileImageUrl = profileImageUrl;
@@ -113,6 +118,9 @@ const Edit = ({ progress, setEdit }) => {
   /* Check data */
   const checkData = async (e) => {
     e.preventDefault();
+    if (categories.length < 1) {
+      return setNotify({ status: false, message: "Please select categories" });
+    }
     const regex = /^[0-9a-zA-Z]+$/;
     if (!username.match(regex)) {
       return setNotify({
@@ -138,20 +146,21 @@ const Edit = ({ progress, setEdit }) => {
   };
 
   return (
-    <div className={styles.main}>
+    <>
+      {loading && (
+        <div className={styles.spinnerDiv}>
+          <Spinner />
+        </div>
+      )}
+      <div className={styles.main} />
       <div className={styles.inner}>
-        {loading && (
-          <div className={styles.spinnerDiv}>
-            <Spinner />
-          </div>
-        )}
         <img
           onClick={() => setEdit(false)}
           className="w-6 h-6 cursor-pointer absolute top-2 right-2"
           src={cross}
           alt=""
         />
-        <div></div>
+
         {/* Strength */}
         <div className="text-sm mx-10">
           <p className="font-medium">Profile Strength</p>
@@ -184,7 +193,7 @@ const Edit = ({ progress, setEdit }) => {
           >
             <div className={styles.fileInput}>
               <label htmlFor="file-input">
-                <AiOutlineEdit />
+                <AiOutlineEdit className="cursor-pointer" />
               </label>
               <input
                 className="hidden"
@@ -263,16 +272,84 @@ const Edit = ({ progress, setEdit }) => {
             />
           </div>
 
+          {/* Categories */}
+          <div className="w-full">
+            <p className="text-xs font-semibold">Categories</p>
+            <div className="relative">
+              <p className="w-full border-0 border-b border-gray-300 mt-2 text-sm flex items-center gap-1 flex-wrap pb-1">
+                <button
+                  onClick={() => setShowCategories(true)}
+                  type="button"
+                  className="border px-4 bg-black text-white rounded-md"
+                >
+                  Edit
+                </button>
+                {categories.length > 0 ? (
+                  categories.map((ca) => (
+                    <p
+                      className="bg-gray-200 text-xs py-[1px] px-2 rounded-md"
+                      key={ca}
+                    >
+                      {ca}
+                    </p>
+                  ))
+                ) : (
+                  <p className="text-gray-500 ml-2">No categories added</p>
+                )}
+              </p>
+              {showCategories && (
+                <div className="absolute bg-white bottom-0 right-0 w-1/2  pt-6 shadow-xl text-sm border rounded-md">
+                  <img
+                    onClick={() => setShowCategories(false)}
+                    className="absolute top-1 right-1 w-5 cursor-pointer"
+                    src={cross}
+                    alt=""
+                  />
+                  <div className="h-[300px] overflow-y-scroll">
+                    {allCategories.map((c) => (
+                      <p
+                        onClick={() =>
+                          setCategories(
+                            categories.includes(c)
+                              ? categories.filter((i) => i !== c)
+                              : [...categories, c]
+                          )
+                        }
+                        style={{
+                          backgroundColor: categories.includes(c)
+                            ? "black"
+                            : "white",
+                          color: categories.includes(c) ? "white" : "black",
+                        }}
+                        className="cursor-pointer hover:bg-gray-200 px-2 my-1 mx-2 rounded-md"
+                        key={c}
+                      >
+                        {c}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* DOB */}
           <div className="w-full">
             <p className="text-xs font-semibold">DOB</p>
-            <input
-              max={moment(Date.now() - 86400000).format("YYYY-MM-DD")}
-              value={dateOfBirth}
-              className={styles.input}
-              type="date"
-              onChange={(e) => setDateOfBirth(e.target.value)}
-            />
+            <div className="relative">
+              <input
+                value={dateOfBirth}
+                className={styles.input}
+                type="date"
+                onChange={(e) => setDateOfBirth(e.target.value)}
+                required
+              />
+              {!dateOfBirth && (
+                <p className="absolute text-sm text-gray-500 bg-white bottom-1">
+                  Select your date of birth
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Gender */}
@@ -320,7 +397,7 @@ const Edit = ({ progress, setEdit }) => {
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
