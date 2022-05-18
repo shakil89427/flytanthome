@@ -216,7 +216,7 @@ const SponsorshipDetails = () => {
           {detailsLoading && <Spinner position={true} />}
           {details?.id && (
             <div>
-              <div className="relative">
+              <div className="relative border">
                 <Swiper
                   modules={[Navigation]}
                   navigation={{
@@ -226,17 +226,18 @@ const SponsorshipDetails = () => {
                   onSwiper={setSwiper}
                   slidesPerView={1}
                 >
-                  {details?.blob?.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <div
-                        className={styles.image}
-                        style={{
-                          backgroundImage: `url(${item.path})`,
-                        }}
-                        alt=""
-                      />
-                    </SwiperSlide>
-                  ))}
+                  {details?.blob &&
+                    details?.blob?.map((item, index) => (
+                      <SwiperSlide key={index}>
+                        <div
+                          className={styles.image}
+                          style={{
+                            backgroundImage: `url(${item.path})`,
+                          }}
+                          alt=""
+                        />
+                      </SwiperSlide>
+                    ))}
                 </Swiper>
                 <div
                   style={{
