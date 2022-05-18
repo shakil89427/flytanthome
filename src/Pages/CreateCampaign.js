@@ -13,6 +13,7 @@ import {
   getDownloadURL,
   getStorage,
   ref,
+  uploadBytes,
   uploadBytesResumable,
 } from "firebase/storage";
 import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
@@ -70,7 +71,7 @@ const CreateCampaign = () => {
   };
 
   /* Update data to db */
-  const updateData = (blob) => {
+  const updateData = async (blob) => {
     const data = {
       applied: 0,
       currency: "$",
@@ -85,54 +86,39 @@ const CreateCampaign = () => {
       categories,
       creationDate: Date.now(),
     };
-    const colRef = collection(db, "sponsorship");
-    const docRef = doc(colRef);
-    setDoc(docRef, { ...data, campaignId: docRef.id })
-      .then((res) => {
-        setLoading(false);
-        navigate("/");
-        setNotify({ status: true, message: "Creation successfull" });
-      })
-      .catch((err) => {
-        setLoading(false);
-        setNotify({ status: false, message: "Something went wrong" });
-      });
+    try {
+      const colRef = collection(db, "sponsorship");
+      const docRef = doc(colRef);
+      await setDoc(docRef, { ...data, campaignId: docRef.id });
+      setLoading(false);
+      navigate("/");
+      setNotify({ status: true, message: "Creation successfull" });
+    } catch (err) {
+      setLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+    }
   };
 
   /* Upload images */
-  const uploadImage = () => {
-    const promises = [];
-    const blob = [];
-    images.forEach((image) => {
-      const storageRef = ref(storage, `/files/${Date.now() + image.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, image);
-      promises.push(uploadTask);
-      uploadTask.on(
-        "state_changed",
-        () => {},
-        (err) => {
-          setLoading(false);
-          setNotify({ status: false, message: "Something went wrong" });
-        },
-        async () => {
-          getDownloadURL(uploadTask.snapshot.ref)
-            .then((url) =>
-              blob.push({ path: url, type: "image", videoThumbnail: "" })
-            )
-            .catch((err) => {
-              setLoading(false);
-              setNotify({ status: false, message: "Something went wrong" });
-            });
-        }
-      );
-    });
-    Promise.all(promises)
-      .then(() => updateData(blob))
-      .catch((err) => {
-        setLoading(false);
-        setNotify({ status: false, message: "Something went wrong" });
+  const uploadImage = async () => {
+    try {
+      const uploadPromises = images.map((image) => {
+        const storageRef = ref(storage, `/files/${Date.now() + image.name}`);
+        return uploadBytes(storageRef, image);
       });
+      const uploads = await Promise.all(uploadPromises);
+      const urlPromises = uploads.map((upload) => getDownloadURL(upload.ref));
+      const urls = await Promise.all(urlPromises);
+      const blob = urls.map((url) => {
+        return { path: url, type: "image", videoThumbnail: "" };
+      });
+      updateData(blob);
+    } catch (err) {
+      setLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+    }
   };
+
   /* Next or submit */
   const next = (e) => {
     e.preventDefault();
@@ -328,7 +314,7 @@ const CreateCampaign = () => {
                     <input
                       required
                       onChange={(e) =>
-                        setType({ ...type, price: e.target.value })
+                        setType({ ...type, price: parseInt(e.target.value) })
                       }
                       value={type.price}
                       className="border w-full border-black rounded-md p-2 outline-none pl-5"
@@ -387,7 +373,7 @@ const CreateCampaign = () => {
               <input
                 required
                 value={followers}
-                onChange={(e) => setFollowers(e.target.value)}
+                onChange={(e) => setFollowers(parseInt(e.target.value))}
                 className="border w-full mt-3 border-black rounded-md p-2 outline-none"
                 type="number"
                 min={0}
