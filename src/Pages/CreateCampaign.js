@@ -78,6 +78,7 @@ const CreateCampaign = () => {
       minFollowers: followers,
       gender,
       categories,
+      isApproved: false,
       creationDate: Date.now(),
     };
     try {
