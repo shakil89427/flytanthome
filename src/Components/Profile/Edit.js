@@ -37,9 +37,9 @@ const styles = {
     "bg-black border-2 border-white text-white rounded-full w-6 h-6 flex items-center justify-center absolute top-12 right-0 cursor-pointer",
   save: "w-full py-2 rounded-md text-sm mt-2 text-white bg-black",
   strength: "h-[6px] bg-gray-300 rounded-3xl relative overflow-hidden mt-2",
-  editMain: "mx-14 flex flex-col gap-5 mt-5 items-center",
+  editMain: "mx-14 flex flex-col gap-8 mt-5 items-center",
   input:
-    "w-full outline-none border-0 border-b border-gray-300 focus:border-black pr-2 mt-2 text-sm",
+    "w-full outline-none border-0 border-b border-gray-300 focus:border-black pr-2 mt-2 text-md",
 };
 
 const Edit = ({ progress, setEdit }) => {
@@ -171,7 +171,7 @@ const Edit = ({ progress, setEdit }) => {
           <Spinner />
         </div>
       )}
-      <div className={styles.main} />
+      <div onClick={() => setShowCategories(false)} className={styles.main} />
       <div className={styles.inner}>
         <img
           onClick={() => setEdit(false)}
@@ -197,35 +197,37 @@ const Edit = ({ progress, setEdit }) => {
         </div>
         {/* main */}
         <form className={styles.editMain} onSubmit={checkData}>
-          <p className="text-lg font-medium">Complete Profile</p>
-          <div
-            style={{
-              backgroundImage: `url(${
-                image
-                  ? URL.createObjectURL(image)
-                  : user?.profileImageUrl
-                  ? user?.profileImageUrl
-                  : defaultUser
-              })`,
-            }}
-            className={styles.image}
-          >
-            <div className={styles.fileInput}>
-              <label htmlFor="file-input">
-                <AiOutlineEdit className="cursor-pointer" />
-              </label>
-              <input
-                className="hidden"
-                id="file-input"
-                type="file"
-                accept="image/*"
-                onChange={(e) => setImage(e.target.files[0])}
-              />
+          <div className="flex flex-col items-center justify-center gap-2">
+            <p className="text-lg font-medium">Complete Profile</p>
+            <div
+              style={{
+                backgroundImage: `url(${
+                  image
+                    ? URL.createObjectURL(image)
+                    : user?.profileImageUrl
+                    ? user?.profileImageUrl
+                    : defaultUser
+                })`,
+              }}
+              className={styles.image}
+            >
+              <div className={styles.fileInput}>
+                <label htmlFor="file-input">
+                  <AiOutlineEdit className="cursor-pointer" />
+                </label>
+                <input
+                  className="hidden"
+                  id="file-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
+              </div>
             </div>
           </div>
           {/* Username */}
           <div className="w-full relative">
-            <p className="text-sm font-semibold">Username</p>
+            <p className="text-lg font-semibold">Username</p>
             <input
               required
               minLength="3"
@@ -245,7 +247,7 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Name */}
           <div className="w-full relative">
-            <p className="text-sm font-semibold">Name</p>
+            <p className="text-lg font-semibold">Name</p>
             <input
               required
               minLength="3"
@@ -263,7 +265,7 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Bio */}
           <div className="w-full relative">
-            <p className="text-sm font-semibold">About</p>
+            <p className="text-lg font-semibold">About</p>
             <input
               required
               minLength="10"
@@ -281,7 +283,7 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Email */}
           <div className="w-full">
-            <p className="text-sm font-semibold">Email</p>
+            <p className="text-lg font-semibold">Email</p>
             <input
               placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
@@ -293,7 +295,7 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Categories */}
           <div className="w-full">
-            <p className="text-sm font-semibold">
+            <p className="text-lg font-semibold">
               Categories <small>(max 5)</small>{" "}
             </p>
             <div className="relative">
@@ -308,7 +310,7 @@ const Edit = ({ progress, setEdit }) => {
                 {categories.length > 0 ? (
                   categories.map((ca) => (
                     <p
-                      className="bg-gray-200 text-xs py-[1px] px-2 rounded-md"
+                      className="bg-gray-200 text-sm py-[1px] px-2 rounded-md"
                       key={ca}
                     >
                       {ca}
@@ -319,59 +321,65 @@ const Edit = ({ progress, setEdit }) => {
                 )}
               </div>
               {showCategories && (
-                <div className="absolute bg-white bottom-0 right-0 w-3/4  pt-7 shadow-xl text-sm border rounded-md">
-                  <img
+                <>
+                  <div
                     onClick={() => setShowCategories(false)}
-                    className="absolute top-1 right-1 w-5 cursor-pointer"
-                    src={cross}
-                    alt=""
+                    className="fixed top-0 left-0 w-full h-full"
                   />
-                  <div className="border mb-2 mx-2 rounded-md border-black pl-2 flex items-center overflow-hidden">
-                    <BsSearch />
-                    <input
-                      value={filterKey}
-                      placeholder="Type your keyword"
-                      onChange={(e) => setFilterKey(e.target.value)}
-                      className="p-1 pl-2 w-full outline-none text-sm"
-                      type="text"
+                  <div className="absolute bg-white bottom-0 right-0 w-3/4  pt-7 shadow-xl text-sm border rounded-md z-40">
+                    <img
+                      onClick={() => setShowCategories(false)}
+                      className="absolute top-1 right-1 w-5 cursor-pointer"
+                      src={cross}
+                      alt=""
                     />
+                    <div className="border mb-2 mx-2 rounded-md border-black pl-2 flex items-center overflow-hidden">
+                      <BsSearch />
+                      <input
+                        value={filterKey}
+                        placeholder="Type your keyword"
+                        onChange={(e) => setFilterKey(e.target.value)}
+                        className="p-1 pl-2 w-full outline-none text-sm"
+                        type="text"
+                      />
+                    </div>
+                    <div className="h-[300px] overflow-y-scroll">
+                      {filtered?.length < 1 && (
+                        <p className="text-center text-gray-500 mt-5">
+                          No category found
+                        </p>
+                      )}
+                      {filtered.map((c) => (
+                        <p
+                          onClick={() =>
+                            setCategories(
+                              categories.includes(c)
+                                ? categories.filter((i) => i !== c).slice(0, 5)
+                                : [...categories, c].slice(0, 5)
+                            )
+                          }
+                          style={{
+                            backgroundColor: categories.includes(c)
+                              ? "black"
+                              : "white",
+                            color: categories.includes(c) ? "white" : "black",
+                          }}
+                          className="cursor-pointer hover:bg-gray-200 px-2 py-1 my-1 mx-2 rounded-md"
+                          key={c}
+                        >
+                          {c}
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                  <div className="h-[300px] overflow-y-scroll">
-                    {filtered?.length < 1 && (
-                      <p className="text-center text-gray-500 mt-5">
-                        No category found
-                      </p>
-                    )}
-                    {filtered.map((c) => (
-                      <p
-                        onClick={() =>
-                          setCategories(
-                            categories.includes(c)
-                              ? categories.filter((i) => i !== c).slice(0, 5)
-                              : [...categories, c].slice(0, 5)
-                          )
-                        }
-                        style={{
-                          backgroundColor: categories.includes(c)
-                            ? "black"
-                            : "white",
-                          color: categories.includes(c) ? "white" : "black",
-                        }}
-                        className="cursor-pointer hover:bg-gray-200 px-2 py-1 my-1 mx-2 rounded-md"
-                        key={c}
-                      >
-                        {c}
-                      </p>
-                    ))}
-                  </div>
-                </div>
+                </>
               )}
             </div>
           </div>
 
           {/* DOB */}
           <div className="w-full">
-            <p className="text-sm font-semibold">DOB</p>
+            <p className="text-lg font-semibold">DOB</p>
             <input
               value={dateOfBirth}
               className={styles.input}
@@ -383,12 +391,12 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Gender */}
           <div className="w-full">
-            <p className="text-sm font-semibold">Gender</p>
-            <div className="text-sm flex items-center justify-between mt-2">
+            <p className="text-lg font-semibold">Gender</p>
+            <div className="text-md flex items-center justify-between mt-2">
               <span className="flex gap-1">
                 <input
                   onChange={() => setGender("Male")}
-                  className="w-[16px] h-[16px]"
+                  className="w-[18px] h-[20px]"
                   type="radio"
                   id="Male"
                   name="Gender"
@@ -400,7 +408,7 @@ const Edit = ({ progress, setEdit }) => {
               <span className="flex gap-1">
                 <input
                   onChange={() => setGender("Female")}
-                  className="w-[16px] h-[16px]"
+                  className="w-[18px] h-[20px]"
                   type="radio"
                   id="Female"
                   name="Gender"
@@ -411,7 +419,7 @@ const Edit = ({ progress, setEdit }) => {
               <span className="flex gap-1">
                 <input
                   onChange={() => setGender("Prefer not to say")}
-                  className="w-[16px] h-[16px]"
+                  className="w-[18px] h-[20px]"
                   type="radio"
                   id="Prefer not to say"
                   name="Gender"

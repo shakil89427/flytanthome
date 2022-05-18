@@ -32,7 +32,7 @@ const styles = {
   icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
   options: "flex gap-2 flex-wrap mt-3",
   option: "bg-[#DDDDDD] text-xs px-3 py-1 rounded-xl",
-  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer",
+  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 /* Styles End */
 
@@ -50,6 +50,7 @@ const FeaturedInfluencers = () => {
 
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
+  console.log(nextRef);
 
   const getFeatured = async (q) => {
     if (loading) return;
@@ -147,10 +148,14 @@ const FeaturedInfluencers = () => {
                 <div className={styles.nameWrapper}>
                   <p className={styles.name}>{item?.name}</p>
                   <p className="text-sm">
-                    {item?.gender?.charAt(0)}{" "}
-                    {new Date().getFullYear() -
-                      new Date(item?.dateOfBirth).getFullYear()}
-                    , {item?.countryCode.toUpperCase()}
+                    <span>{item?.gender?.charAt(0)} </span>
+                    <span>
+                      {new Date().getFullYear() -
+                        new Date(item?.dateOfBirth).getFullYear()}
+                    </span>
+                    {item?.countryCode && (
+                      <span>, {item?.countryCode.toUpperCase()}</span>
+                    )}
                   </p>
                 </div>
                 <div className={styles.icons}>

@@ -1,14 +1,15 @@
 import React from "react";
-import bannerBg from "../../../Assets/userHome/bannerBg2.png";
 import NavBar from "../../NavBar/NavBar";
-import { BsSearch } from "react-icons/bs";
+import bannerBg from "../../../Assets/userHome/bannerBg2.png";
+import { AiFillApple } from "react-icons/ai";
+import playstore from "../../../Assets/playstore.png";
 
 /* Styles Start */
 const styles = {
-  main: "flex items-center text-white lg:min-h-[650px] py-10 relative r-box",
+  main: "text-white xl:min-h-[620px] py-10 relative r-box",
   bgImage:
-    "absolute w-[40%] h-full bottom-0 right-0 bg-no-repeat bg-contain bg-bottom hidden lg:block z-10",
-  heading: "text-4xl sm:text-5xl lg:text-6xl font-semibold",
+    "absolute inset-0 bg-no-repeat bg-contain bg-right invisible xl:visible",
+  heading: "text-5xl lg:text-6xl font-semibold",
   formMain:
     "flex flex-col md:flex-row gap-2 md:gap-0 md:rounded-tl-md md:rounded-bl-md overflow-hidden mt-8 mb-5 w-full lg:w-5/6",
   inputWrapper:
@@ -24,35 +25,44 @@ const styles = {
 const Banner = () => {
   return (
     <div className="bg-black">
-      <NavBar color={"transparent"} />
+      <NavBar />
       <div className={styles.main}>
         <div
           style={{ backgroundImage: `url(${bannerBg})` }}
           className={styles.bgImage}
         />
-        <div className="lg:w-4/6 z-20 my-10">
+        <div className="xl:w-4/6 my-12 lg:my-28 relative">
           <h1 style={{ lineHeight: "110%" }} className={styles.heading}>
             Find <span className="font-bold">Influencers</span>
           </h1>
           <h1 style={{ lineHeight: "110%" }} className={styles.heading}>
             & <span className="font-bold">Brands</span> for collaboration
           </h1>
-
-          <form className={styles.formMain} action="#">
-            <span className={styles.inputWrapper}>
-              <BsSearch className="text-[#929292]" />
-              <input
-                placeholder="Try Brand name or Top influencers"
-                className={styles.input}
-                type="text"
-              />
-            </span>
-            <button className={styles.btn}>Search</button>
-          </form>
-          <div className={styles.popularWrapper}>
-            <p className={styles.popularText}>Popular:</p>
-            <p className={styles.popularItem}>Top influencers</p>
-            <p className={styles.popularItem}>Fashion bloggers</p>
+          <div className="flex gap-3 text-black mt-10 flex-wrap">
+            <a
+              href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center pl-3 bg-white w-44 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
+            >
+              <img className="w-6 mx-1" src={playstore} alt="" />
+              <span>
+                <p className="text-xs">Download it from</p>
+                <p className="font-bold">Play Store</p>
+              </span>
+            </a>
+            <a
+              href="https://apps.apple.com/in/app/flytant/id1530158515"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center pl-3  bg-white w-44 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
+            >
+              <AiFillApple className="text-3xl" />
+              <span>
+                <p className="text-xs">Download on the</p>
+                <p className="font-bold">App Store</p>
+              </span>
+            </a>
           </div>
         </div>
       </div>

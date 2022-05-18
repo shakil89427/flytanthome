@@ -28,7 +28,7 @@ const LargeTop = () => {
             className="bg-white flex items-center text-black h-12 px-5 rounded-3xl gap-2 cursor-pointer"
           >
             <img src={mike} alt="" />
-            <p>Create Campaign</p>
+            <p className="font-medium">Create Campaign</p>
           </div>
           <div
             onClick={() => setShow(!show)}
@@ -46,16 +46,19 @@ const LargeTop = () => {
             {show && (
               <>
                 <div className="fixed top-0 left-0 w-screen h-screen z-40" />
-                <div className="absolute top-full right-0 bg-gray-800 w-[130px] p-2 rounded-md z-50">
+                <div className="absolute top-full right-0 bg-gray-800 w-[180px] p-2 rounded-md z-50">
                   <p
                     onClick={() => navigate(`/profile/${user?.id}`)}
-                    className="hover:bg-white hover:text-black py-1 px-3 text-sm font-medium rounded-sm cursor-pointer"
+                    className="hover:bg-white hover:text-black py-2 my-1 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
-                    Profile
+                    Social Profile
+                  </p>
+                  <p className="hover:bg-white hover:text-black py-2 my-1 px-3 text-md font-medium rounded-sm cursor-pointer">
+                    My Campaigns
                   </p>
                   <p
                     onClick={() => setShowLogout(true)}
-                    className="hover:bg-white hover:text-black py-1 px-3 text-sm font-medium rounded-sm cursor-pointer"
+                    className="hover:bg-white hover:text-black py-2 my-1 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
                     Logout
                   </p>

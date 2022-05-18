@@ -24,7 +24,7 @@ const Banner = () => {
           <p className="text-lg lg:text-2xl  my-5">
             Find influencers and Brands of your niche
           </p>
-          <div className="flex flex-col md:flex-row gap-3 text-black mt-14">
+          <div className="flex gap-3 text-black mt-14 flex-wrap">
             <a
               href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
               target="_blank"

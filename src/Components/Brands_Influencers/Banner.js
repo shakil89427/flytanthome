@@ -28,7 +28,7 @@ const Banner = ({ data }) => {
             <p className="text-lg font-medium mt-10 mb-14 lg:pr-36 relative before:content[''] before:absolute before:w-28 before:h-[3px] before:bg-white before:-bottom-5 before:left-0 after:content[''] after:absolute after:w-4 after:h-[3px] after:bg-white after:-bottom-5 after:left-32">
               {data.info}
             </p>
-            <div className="flex flex-col xl:flex-row gap-3">
+            <div className="flex flex-wrap gap-3">
               <a
                 href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
                 target="_blank"
