@@ -29,7 +29,7 @@ const Banner = ({ data }) => {
             </p>
             <div className="flex flex-col xl:flex-row gap-3">
               <a
-                href="https://firebasestorage.googleapis.com/v0/b/flytant-app.appspot.com/o/androidApp%2FFlytant1.0.2%2FUpdated%2FFlytant.apk?alt=media&token=cc06343b-0789-40a7-99e7-aafbc948b00e"
+                href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 w-44 bg-white text-black pl-5 rounded-lg py-2 hover:scale-105 duration-150"
