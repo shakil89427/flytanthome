@@ -20,6 +20,7 @@ const Preview = ({
   name,
   description,
   images,
+  gender,
   type,
   platforms,
   followers,
@@ -65,7 +66,11 @@ const Preview = ({
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className={styles.next} ref={nextRef}>
+        <div
+          style={{ visibility: images?.length > 1 ? "visible" : "hidden" }}
+          className={styles.next}
+          ref={nextRef}
+        >
           <MdNavigateNext />
         </div>
       </div>
@@ -81,6 +86,18 @@ const Preview = ({
           <p className="text-xl font-semibold mb-2">Description</p>
           <p className="text-gray-500">{description}</p>
         </div>
+
+        <div>
+          <p className="text-xl font-semibold mb-2">Gender</p>
+          <p className="text-gray-500">{gender}</p>
+        </div>
+
+        {type?.price && (
+          <div>
+            <p className="text-xl font-semibold mb-2">Price</p>
+            <p className="text-gray-500">$ {type?.price}</p>
+          </div>
+        )}
 
         <div className="">
           <p className="text-xl font-semibold mb-2">Categories</p>

@@ -15,12 +15,18 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
 import Spinner from "../Components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 
 const CreateCampaign = () => {
-  const { app, setNotify } = useStore();
+  const { user, app, setNotify } = useStore();
   const storage = getStorage(app);
   const db = getFirestore();
   const navigate = useNavigate();
@@ -72,6 +78,9 @@ const CreateCampaign = () => {
   /* Update data to db */
   const updateData = (blob) => {
     const data = {
+      applied: 0,
+      currency: "$",
+      userId: user.userId,
       name,
       description,
       ...type,
@@ -83,16 +92,12 @@ const CreateCampaign = () => {
       creationDate: Date.now(),
     };
     const colRef = collection(db, "sponsorship");
-    addDoc(colRef, data)
+    const docRef = doc(colRef);
+    setDoc(docRef, { ...data, campaignId: docRef.id })
       .then((res) => {
-        if (res.id) {
-          setLoading(false);
-          navigate("/");
-          setNotify({ status: true, message: "Creation successfull" });
-        } else {
-          setLoading(false);
-          setNotify({ status: false, message: "Something went wrong" });
-        }
+        setLoading(false);
+        navigate("/");
+        setNotify({ status: true, message: "Creation successfull" });
       })
       .catch((err) => {
         setLoading(false);
@@ -115,7 +120,7 @@ const CreateCampaign = () => {
           setLoading(false);
           setNotify({ status: false, message: "Something went wrong" });
         },
-        () => {
+        async () => {
           getDownloadURL(uploadTask.snapshot.ref)
             .then((url) =>
               blob.push({ path: url, type: "image", videoThumbnail: "" })
@@ -152,9 +157,9 @@ const CreateCampaign = () => {
     if (page === 3 && images?.length > 0) return setDisable(false);
     if (page === 4 && type?.barterDescription?.length > 0)
       return setDisable(false);
-    if (page === 4 && type?.price?.length > 0) return setDisable(false);
+    if (page === 4 && type?.price > 0) return setDisable(false);
     if (page === 5 && platforms?.length > 0) return setDisable(false);
-    if (page === 6 && followers?.length > 0) return setDisable(false);
+    if (page === 6 && followers > 0) return setDisable(false);
     if (page === 7 && gender) return setDisable(false);
     if (page === 8 && categories.length > 0) return setDisable(false);
     setDisable(true);
@@ -329,18 +334,12 @@ const CreateCampaign = () => {
                     <input
                       required
                       onChange={(e) =>
-                        setType({
-                          ...type,
-                          price: e.target.value,
-                        })
+                        setType({ ...type, price: e.target.value })
                       }
-                      value={type?.price}
+                      value={type.price}
                       className="border w-full border-black rounded-md p-2 outline-none pl-5"
                       type="number"
                       min={0}
-                      onInput={(e) =>
-                        (e.target.value = e.target.value.replace(/[^\d]/, ""))
-                      }
                     />
                     <p className="absolute top-1/2 -translate-y-1/2 left-2">
                       $
@@ -397,9 +396,7 @@ const CreateCampaign = () => {
                 onChange={(e) => setFollowers(e.target.value)}
                 className="border w-full mt-3 border-black rounded-md p-2 outline-none"
                 type="number"
-                onInput={(e) =>
-                  (e.target.value = e.target.value.replace(/[^\d]/, ""))
-                }
+                min={0}
               />
             </div>
           )}
@@ -463,7 +460,9 @@ const CreateCampaign = () => {
                     className="fixed w-full h-screen top-0 left-0 bg-[#807f7f60]"
                   />
                   <div className="bg-white py-5 px-5 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[400px] rounded-md">
-                    <p className="text-lg font-medium">Select Categories</p>
+                    <p className="text-lg font-medium">
+                      Select Categories <small>(max 5)</small>
+                    </p>
                     <div className="flex items-center border border-black rounded-md pl-2 overflow-hidden my-6">
                       <BsSearch />
                       <input
@@ -559,6 +558,7 @@ const CreateCampaign = () => {
           name={name}
           description={description}
           images={images}
+          gender={gender}
           type={type}
           platforms={platforms}
           followers={followers}

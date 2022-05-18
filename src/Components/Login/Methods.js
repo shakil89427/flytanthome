@@ -1,13 +1,9 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
-import {
-  AiFillFacebook,
-  AiOutlineTwitter,
-  AiFillApple,
-  AiFillAndroid,
-} from "react-icons/ai";
+import { AiFillFacebook, AiOutlineTwitter, AiFillApple } from "react-icons/ai";
 import { IoKeypadSharp } from "react-icons/io5";
 import useLogins from "../../Hooks/useLogins";
+import playstoreWhite from "../../Assets/playstoreWhite.png";
 
 /* Styles Start */
 const styles = {
@@ -84,10 +80,10 @@ const Methods = ({ setShow }) => {
           rel="noreferrer"
           className={styles.downButton}
         >
-          <AiFillAndroid className="text-2xl" />
+          <img className="w-5" src={playstoreWhite} alt="" />
           <span>
-            <p className="text-xs">Download our</p>
-            <p className="text-sm">Android App</p>
+            <p className="text-xs">Download from</p>
+            <p className="text-sm">Play Store</p>
           </span>
         </a>
         <a

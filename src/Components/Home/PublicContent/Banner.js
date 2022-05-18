@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./CSS/Banner.css";
 import NavBar from "../../NavBar/NavBar";
 import bannerBg from "../../../Assets/publicHome/bannerBg.png";
-import { AiFillAndroid, AiFillApple } from "react-icons/ai";
+import { AiFillApple } from "react-icons/ai";
 import { BsPlayCircle } from "react-icons/bs";
 import cross from "../../../Assets/cross.svg";
+import playstore from "../../../Assets/playstore.png";
 
 const Banner = () => {
   const [play, setPlay] = useState(false);
@@ -30,10 +31,10 @@ const Banner = () => {
               rel="noreferrer"
               className="flex items-center pl-3 bg-white w-44 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
             >
-              <AiFillAndroid className="text-3xl" />
+              <img className="w-6" src={playstore} alt="" />
               <span>
-                <p className="text-xs">Download our</p>
-                <p className="font-bold">Android App</p>
+                <p className="text-xs">Download from</p>
+                <p className="font-bold">Play Store</p>
               </span>
             </a>
             <a

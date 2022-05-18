@@ -1,8 +1,9 @@
 import React from "react";
 import NavBar from "../NavBar/NavBar";
-import { AiFillAndroid, AiFillApple } from "react-icons/ai";
+import { AiFillApple } from "react-icons/ai";
 import "./CSS/Banner.css";
 import blackDots from "../../Assets/blackDots.png";
+import playstore from "../../Assets/playstore.png";
 
 const Banner = ({ data }) => {
   return (
@@ -34,10 +35,10 @@ const Banner = ({ data }) => {
                 rel="noreferrer"
                 className="flex items-center gap-2 w-44 bg-white text-black pl-5 rounded-lg py-2 hover:scale-105 duration-150"
               >
-                <AiFillAndroid className="text-3xl" />
+                <img className="w-6" src={playstore} alt="" />
                 <span>
-                  <p className="text-xs">Download our</p>
-                  <p className="font-bold">Android App</p>
+                  <p className="text-xs">Download from</p>
+                  <p className="font-bold">Play Store</p>
                 </span>
               </a>
               <a

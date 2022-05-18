@@ -238,7 +238,14 @@ const SponsorshipDetails = () => {
                     </SwiperSlide>
                   ))}
                 </Swiper>
-                <div className={styles.next} ref={nextRef}>
+                <div
+                  style={{
+                    visibility:
+                      details?.blob?.length > 1 ? "visible" : "hidden",
+                  }}
+                  className={styles.next}
+                  ref={nextRef}
+                >
                   <MdNavigateNext />
                 </div>
               </div>
@@ -287,6 +294,16 @@ const SponsorshipDetails = () => {
                     </p>
                   )}
                 </div>
+                <h5 className="text-xl font-semibold mb-5">Gender</h5>
+                <p className="mb-10">{details?.gender}</p>
+
+                {details?.price && (
+                  <div>
+                    <h5 className="text-xl font-semibold mb-5">Price</h5>
+                    <p className="mb-10">$ {details?.price}</p>
+                  </div>
+                )}
+
                 <h5 className="text-xl font-semibold mb-5">Catagories</h5>
                 <div className="flex items-center gap-3 mb-10 flex-wrap">
                   {details?.categories?.map((item) => (

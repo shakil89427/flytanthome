@@ -6,11 +6,11 @@ import {
   AiFillYoutube,
   AiFillLinkedin,
   AiFillApple,
-  AiFillAndroid,
 } from "react-icons/ai";
 import { HiMail } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assets/logo.png";
+import playstoreWhite from "../../Assets/playstoreWhite.png";
 
 const styles = {
   main: "bg-black text-white py-14",
@@ -120,10 +120,10 @@ const Footer = () => {
             rel="noreferrer"
             className={styles.appBtn}
           >
-            <AiFillAndroid className={styles.appIcon} />
+            <img className="w-6 mr-4" src={playstoreWhite} alt="" />
             <div>
-              <p className={styles.download}>Download our</p>
-              <p className={styles.appCatagory}>Android App</p>
+              <p className={styles.download}>Download from</p>
+              <p className={styles.appCatagory}>Play Store</p>
             </div>
           </a>
           <a
