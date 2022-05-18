@@ -82,7 +82,7 @@ const Methods = ({ setShow }) => {
         >
           <img className="w-5" src={playstoreWhite} alt="" />
           <span>
-            <p className="text-xs">Download from</p>
+            <p className="text-xs">Download it from</p>
             <p className="text-sm">Play Store</p>
           </span>
         </a>

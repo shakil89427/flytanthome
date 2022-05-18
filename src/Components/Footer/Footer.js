@@ -122,7 +122,7 @@ const Footer = () => {
           >
             <img className="w-6 mr-4" src={playstoreWhite} alt="" />
             <div>
-              <p className={styles.download}>Download from</p>
+              <p className={styles.download}>Download it from</p>
               <p className={styles.appCatagory}>Play Store</p>
             </div>
           </a>

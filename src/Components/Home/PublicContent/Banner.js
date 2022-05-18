@@ -31,9 +31,9 @@ const Banner = () => {
               rel="noreferrer"
               className="flex items-center pl-3 bg-white w-44 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
             >
-              <img className="w-6" src={playstore} alt="" />
+              <img className="w-6 mx-1" src={playstore} alt="" />
               <span>
-                <p className="text-xs">Download from</p>
+                <p className="text-xs">Download it from</p>
                 <p className="font-bold">Play Store</p>
               </span>
             </a>

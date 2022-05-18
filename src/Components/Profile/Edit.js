@@ -5,6 +5,7 @@ import moment from "moment";
 import useStore from "../../Store/useStore";
 import Spinner from "../Spinner/Spinner";
 import { AiOutlineEdit } from "react-icons/ai";
+import { BsSearch } from "react-icons/bs";
 import allCategories from "../../Assets/categories";
 import {
   collection,
@@ -47,6 +48,8 @@ const Edit = ({ progress, setEdit }) => {
   const storage = getStorage(app);
   const colRef = collection(db, "users");
   const [loading, setLoading] = useState(false);
+  const [filterKey, setFilterKey] = useState("");
+  const [filtered, setFiltered] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
 
   const [image, setImage] = useState(null);
@@ -61,6 +64,15 @@ const Edit = ({ progress, setEdit }) => {
       : ""
   );
   const [gender, setGender] = useState(user?.gender);
+
+  useEffect(() => {
+    if (filterKey.length < 1) return setFiltered(allCategories);
+    setFiltered(
+      allCategories.filter((c) =>
+        c.toLowerCase().includes(filterKey.toLowerCase())
+      )
+    );
+  }, [filterKey]);
 
   /* Update data on db */
   const updateData = (profileImageUrl) => {
@@ -307,15 +319,30 @@ const Edit = ({ progress, setEdit }) => {
                 )}
               </div>
               {showCategories && (
-                <div className="absolute bg-white bottom-0 right-0 w-3/4  pt-6 shadow-xl text-sm border rounded-md">
+                <div className="absolute bg-white bottom-0 right-0 w-3/4  pt-7 shadow-xl text-sm border rounded-md">
                   <img
                     onClick={() => setShowCategories(false)}
                     className="absolute top-1 right-1 w-5 cursor-pointer"
                     src={cross}
                     alt=""
                   />
+                  <div className="border mb-2 mx-2 rounded-md border-black pl-2 flex items-center overflow-hidden">
+                    <BsSearch />
+                    <input
+                      value={filterKey}
+                      placeholder="Type your keyword"
+                      onChange={(e) => setFilterKey(e.target.value)}
+                      className="p-1 pl-2 w-full outline-none text-sm"
+                      type="text"
+                    />
+                  </div>
                   <div className="h-[300px] overflow-y-scroll">
-                    {allCategories.map((c) => (
+                    {filtered?.length < 1 && (
+                      <p className="text-center text-gray-500 mt-5">
+                        No category found
+                      </p>
+                    )}
+                    {filtered.map((c) => (
                       <p
                         onClick={() =>
                           setCategories(

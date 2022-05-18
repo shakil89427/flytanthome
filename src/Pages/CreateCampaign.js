@@ -15,13 +15,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import {
-  addDoc,
-  collection,
-  doc,
-  getFirestore,
-  setDoc,
-} from "firebase/firestore";
+import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 import Spinner from "../Components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 
@@ -459,45 +453,52 @@ const CreateCampaign = () => {
                     onClick={() => setShowCategories(false)}
                     className="fixed w-full h-screen top-0 left-0 bg-[#807f7f60]"
                   />
-                  <div className="bg-white py-5 px-5 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[400px] rounded-md">
-                    <p className="text-lg font-medium">
-                      Select Categories <small>(max 5)</small>
-                    </p>
-                    <div className="flex items-center border border-black rounded-md pl-2 overflow-hidden my-6">
-                      <BsSearch />
-                      <input
-                        value={filterKey}
-                        onChange={(e) => setFilterKey(e.target.value)}
-                        className="w-full p-1 outline-none"
-                        type="text"
-                      />
-                    </div>
-                    <div className="max-h-[350px] overflow-y-scroll">
-                      {filtered.map((category) => (
-                        <div
-                          onClick={() =>
-                            setCategories(
-                              categories.includes(category)
-                                ? categories
-                                    .filter((c) => c !== category)
-                                    .slice(0, 5)
-                                : [...categories, category].slice(0, 5)
-                            )
-                          }
-                          key={category}
-                          className="flex items-center justify-between pr-5 mb-4 cursor-pointer"
-                        >
-                          <p>{category}</p>
-                          {categories.includes(category) && (
-                            <img className="w-6" src={selected} alt="" />
-                          )}
-                        </div>
-                      ))}
+                  <div className="bg-white py-5 px-5 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[350px] rounded-md flex flex-col justify-between">
+                    <div className="w-full">
+                      <p className="text-lg font-medium text-center">
+                        Select Categories <small>(max 5)</small>
+                      </p>
+                      <div className="flex items-center border border-black rounded-md pl-2 overflow-hidden mt-6 pr-1">
+                        <BsSearch />
+                        <input
+                          value={filterKey}
+                          onChange={(e) => setFilterKey(e.target.value)}
+                          className="w-full p-1 outline-none"
+                          type="text"
+                        />
+                      </div>
+                      <div className="h-[40vh] overflow-y-scroll my-3">
+                        {filtered?.length < 1 && (
+                          <p className="text-center text-gray-500">
+                            No category found
+                          </p>
+                        )}
+                        {filtered.map((category) => (
+                          <div
+                            onClick={() =>
+                              setCategories(
+                                categories.includes(category)
+                                  ? categories
+                                      .filter((c) => c !== category)
+                                      .slice(0, 5)
+                                  : [...categories, category].slice(0, 5)
+                              )
+                            }
+                            key={category}
+                            className="flex items-center justify-between pr-5 mb-4 cursor-pointer"
+                          >
+                            <p>{category}</p>
+                            {categories.includes(category) && (
+                              <img className="w-6" src={selected} alt="" />
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => setShowCategories(false)}
-                      className="bg-black text-white w-3/4 block mx-auto mt-5 p-2 rounded-md"
+                      className="bg-black text-white w-3/4 block mx-auto p-2 rounded-md"
                     >
                       Done
                     </button>
