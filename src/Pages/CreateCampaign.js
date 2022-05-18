@@ -9,13 +9,7 @@ import selected from "../Assets/selected.png";
 import allCategories from "../Assets/categories";
 import Preview from "../Components/Preview/Preview";
 import useStore from "../Store/useStore";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytes,
-  uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 import Spinner from "../Components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
