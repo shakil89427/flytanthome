@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import useStore from "../../Store/useStore";
 import defaultUser from "../../Assets/defaultUser.png";
 import mike from "../../Assets/navBar/mikeBlack.svg";
-import bell from "../../Assets/navBar/bellWhite.svg";
-import fly from "../../Assets/navBar/flyWhite.svg";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 /* Styles Start */
@@ -20,6 +18,7 @@ const styles = {
 const LargeTop = () => {
   const navigate = useNavigate();
   const { user, setShowLogin, setShowLogout } = useStore();
+  const [show, setShow] = useState(false);
   return (
     <div className="hidden lg:block ml-auto">
       {user?.id ? (
@@ -31,13 +30,11 @@ const LargeTop = () => {
             <img src={mike} alt="" />
             <p>Create Campaign</p>
           </div>
-          <div className="bg-[#5F5F5F] h-12 w-12 rounded-full flex items-center justify-center cursor-pointer">
-            <img src={bell} alt="" />
-          </div>
-          <img className="cursor-pointer" src={fly} alt="" />
-          <div className="flex items-center gap-1">
+          <div
+            onClick={() => setShow(!show)}
+            className="flex items-center gap-1 relative"
+          >
             <div
-              onClick={() => navigate(`/profile/${user?.id}`)}
               style={{
                 backgroundImage: `url(${
                   user?.profileImageUrl ? user?.profileImageUrl : defaultUser
@@ -45,10 +42,26 @@ const LargeTop = () => {
               }}
               className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center cursor-pointer"
             />
-            <TiArrowSortedDown
-              onClick={() => setShowLogout(true)}
-              className="text-2xl cursor-pointer"
-            />
+            <TiArrowSortedDown className="text-2xl cursor-pointer" />
+            {show && (
+              <>
+                <div className="fixed top-0 left-0 w-screen h-screen z-40" />
+                <div className="absolute top-full right-0 bg-gray-800 w-[130px] p-2 rounded-md z-50">
+                  <p
+                    onClick={() => navigate(`/profile/${user?.id}`)}
+                    className="hover:bg-white hover:text-black py-1 px-3 text-sm font-medium rounded-sm cursor-pointer"
+                  >
+                    Profile
+                  </p>
+                  <p
+                    onClick={() => setShowLogout(true)}
+                    className="hover:bg-white hover:text-black py-1 px-3 text-sm font-medium rounded-sm cursor-pointer"
+                  >
+                    Logout
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       ) : (

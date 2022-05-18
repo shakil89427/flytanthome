@@ -4,9 +4,10 @@ import { Navigation } from "swiper";
 import "swiper/css";
 import {
   AiFillInstagram,
-  AiFillFacebook,
+  AiFillYoutube,
   AiFillTwitterSquare,
 } from "react-icons/ai";
+import { FaTiktok } from "react-icons/fa";
 import { MdNavigateNext } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -120,10 +121,14 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                           <AiFillInstagram />
                         )}
                         {sponsorship?.platforms?.includes("Twitter") && (
+                          <AiFillYoutube />
+                        )}
+
+                        {sponsorship?.platforms?.includes("Twitter") && (
                           <AiFillTwitterSquare />
                         )}
-                        {sponsorship?.platforms?.includes("Facebook") && (
-                          <AiFillFacebook />
+                        {sponsorship?.platforms?.includes("Twitter") && (
+                          <FaTiktok className="w-3" />
                         )}
                       </div>
                       {type !== "Latest" && (

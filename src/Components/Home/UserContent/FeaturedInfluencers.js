@@ -6,10 +6,10 @@ import "swiper/css";
 import useStore from "../../../Store/useStore";
 import {
   AiFillInstagram,
-  AiFillFacebook,
-  AiFillLinkedin,
+  AiOutlineTwitter,
   AiFillYoutube,
 } from "react-icons/ai";
+import { FaTiktok } from "react-icons/fa";
 import { MdNavigateNext } from "react-icons/md";
 import {
   getFirestore,
@@ -155,9 +155,9 @@ const FeaturedInfluencers = () => {
                 </div>
                 <div className={styles.icons}>
                   {item?.linkedAccounts?.Instagram && <AiFillInstagram />}
-                  {item?.linkedAccounts?.Facebook && <AiFillFacebook />}
-                  {item?.linkedAccounts?.Linkedin && <AiFillLinkedin />}
                   {item?.linkedAccounts?.Youtube && <AiFillYoutube />}
+                  {item?.linkedAccounts?.Twitter && <AiOutlineTwitter />}
+                  {item?.linkedAccounts?.Tiktok && <FaTiktok className="w-3" />}
                 </div>
                 <div className={styles.options}>
                   {item?.categories?.map((option, index2) => (

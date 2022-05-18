@@ -6,10 +6,10 @@ import "swiper/css";
 import useStore from "../../../Store/useStore";
 import {
   AiFillInstagram,
-  AiFillFacebook,
-  AiFillLinkedin,
+  AiOutlineTwitter,
   AiFillYoutube,
 } from "react-icons/ai";
+import { FaTiktok } from "react-icons/fa";
 import { MdNavigateNext } from "react-icons/md";
 import {
   getFirestore,
@@ -150,18 +150,15 @@ const PopularInfluencers = () => {
                   <p className="text-sm">
                     {item?.gender?.charAt(0)}{" "}
                     {new Date().getFullYear() -
-                      item?.dateOfBirth?.slice(
-                        item?.dateOfBirth?.length - 4,
-                        item?.dateOfBirth?.length
-                      )}
+                      new Date(item?.dateOfBirth).getFullYear()}
                     , {item?.countryCode.toUpperCase()}
                   </p>
                 </div>
                 <div className={styles.icons}>
                   {item?.linkedAccounts?.Instagram && <AiFillInstagram />}
-                  {item?.linkedAccounts?.Facebook && <AiFillFacebook />}
-                  {item?.linkedAccounts?.Linkedin && <AiFillLinkedin />}
                   {item?.linkedAccounts?.Youtube && <AiFillYoutube />}
+                  {item?.linkedAccounts?.Twitter && <AiOutlineTwitter />}
+                  {item?.linkedAccounts?.Tiktok && <FaTiktok className="w-3" />}
                 </div>
                 <div className={styles.options}>
                   {item?.categories?.map((option, index2) => (

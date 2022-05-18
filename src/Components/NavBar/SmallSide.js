@@ -69,18 +69,18 @@ const SmallSide = ({ showSide, setShowSide }) => {
             </div>
 
             {/* Notifications */}
-            <div className={styles.item}>
+            {/* <div className={styles.item}>
               <img className="i1 w-6" src={bellBlack} alt="" />
               <img className="i2 w-6" src={bellWhite} alt="" />
               <p>Notifications</p>
-            </div>
+            </div> */}
 
             {/* Messages */}
-            <div className={styles.item}>
+            {/* <div className={styles.item}>
               <img className="i1 w-6" src={flyBlack} alt="" />
               <img className="i2 w-6" src={flyWhite} alt="" />
               <p>Message</p>
-            </div>
+            </div> */}
 
             {/* Create Campaign */}
             <div

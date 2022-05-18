@@ -52,6 +52,23 @@ const CreateCampaign = () => {
   const [gender, setGender] = useState(false);
   const [categories, setCategories] = useState([]);
 
+  const filterImage = (e) => {
+    const temp = [...e.target.files];
+    if (temp.length < 1) return;
+    if (images.length < 1) {
+      return setImages(temp.slice(0, 5));
+    }
+    const imgs = [];
+    temp.forEach((item) => {
+      images.forEach((i) => {
+        if (i.name !== item.name) {
+          imgs.push(i);
+        }
+      });
+    });
+    setImages([...temp, ...imgs].slice(0, 5));
+  };
+
   /* Update data to db */
   const updateData = (blob) => {
     const data = {
@@ -205,7 +222,9 @@ const CreateCampaign = () => {
           {/* Images */}
           {page === 3 && (
             <div>
-              <p className="text-xl font-medium">Please select images</p>
+              <p className="text-xl font-medium">
+                Please select images <small>(max 5)</small>{" "}
+              </p>
               <div className="my-6 flex flex-wrap gap-4 w-fit">
                 <div className="bg-gray-300 w-24 h-24 rounded-md  relative">
                   <label htmlFor="file-input">
@@ -221,7 +240,7 @@ const CreateCampaign = () => {
                     type="file"
                     accept="image/*"
                     multiple
-                    onChange={(e) => setImages([...e.target.files].slice(0, 5))}
+                    onChange={filterImage}
                   />
                 </div>
                 {images.map((image) => (
@@ -310,11 +329,18 @@ const CreateCampaign = () => {
                     <input
                       required
                       onChange={(e) =>
-                        setType({ ...type, price: e.target.value })
+                        setType({
+                          ...type,
+                          price: e.target.value,
+                        })
                       }
                       value={type?.price}
                       className="border w-full border-black rounded-md p-2 outline-none pl-5"
                       type="number"
+                      min={0}
+                      onInput={(e) =>
+                        (e.target.value = e.target.value.replace(/[^\d]/, ""))
+                      }
                     />
                     <p className="absolute top-1/2 -translate-y-1/2 left-2">
                       $
@@ -371,6 +397,9 @@ const CreateCampaign = () => {
                 onChange={(e) => setFollowers(e.target.value)}
                 className="border w-full mt-3 border-black rounded-md p-2 outline-none"
                 type="number"
+                onInput={(e) =>
+                  (e.target.value = e.target.value.replace(/[^\d]/, ""))
+                }
               />
             </div>
           )}
@@ -414,7 +443,7 @@ const CreateCampaign = () => {
           {page === 8 && (
             <div>
               <p className="text-xl font-medium">
-                Choose categories for your product
+                Choose categories for your product <small>(max 5)</small>
               </p>
               <div
                 style={{ color: categories.length > 0 ? "black" : "#7c7b7b" }}
@@ -497,7 +526,7 @@ const CreateCampaign = () => {
               <button
                 onClick={() => setPreview(true)}
                 type="button"
-                className="text-white bg-black flex items-center justify-center w-36 h-10 rounded-md"
+                className="text-black bg-white border-2 border-black font-medium flex items-center justify-center w-36 h-10 rounded-md"
               >
                 Preview
               </button>

@@ -112,32 +112,40 @@ const Tiktok = ({ details }) => {
             <p className="text-xl font-medium">{data?.display_name}</p>
           </div>
           <p className="text-xl font-medium my-5">Latest Post</p>
-          {data?.videos?.map((video) => (
-            <div key={video?.id} className="flex flex-col w-full gap-4">
-              <div className="border rounded-md overflow-hidden">
-                <img src={video?.cover_image_url} alt="" />
-                <p className="text-xs my-3 px-3">{video?.video_description}</p>
-                <div className="pl-3 w-fit flex items-center gap-5 my-5">
-                  <div>
-                    <img className="w-6 h-6 mb-1 mx-auto" src={like} alt="" />
-                    <p className="text-xs">{video?.like_count} likes</p>
-                  </div>
-                  <div>
-                    <img
-                      className="w-6 h-6 mb-1 mx-auto"
-                      src={comment}
-                      alt=""
-                    />
-                    <p className="text-xs">{video?.comment_count} Comments</p>
-                  </div>
-                  <div>
-                    <img className="w-6 h-6 mb-1 mx-auto" src={share} alt="" />
-                    <p className="text-xs">{video?.share_count} Share</p>
+          <div className="max-h-[600px] overflow-y-scroll">
+            {data?.videos?.map((video) => (
+              <div key={video?.id} className="flex flex-col w-full gap-4">
+                <div className="border rounded-md overflow-hidden">
+                  <img src={video?.cover_image_url} alt="" />
+                  <p className="text-xs my-3 px-3">
+                    {video?.video_description}
+                  </p>
+                  <div className="pl-3 w-fit flex items-center gap-5 my-5">
+                    <div>
+                      <img className="w-6 h-6 mb-1 mx-auto" src={like} alt="" />
+                      <p className="text-xs">{video?.like_count} likes</p>
+                    </div>
+                    <div>
+                      <img
+                        className="w-6 h-6 mb-1 mx-auto"
+                        src={comment}
+                        alt=""
+                      />
+                      <p className="text-xs">{video?.comment_count} Comments</p>
+                    </div>
+                    <div>
+                      <img
+                        className="w-6 h-6 mb-1 mx-auto"
+                        src={share}
+                        alt=""
+                      />
+                      <p className="text-xs">{video?.share_count} Share</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </>

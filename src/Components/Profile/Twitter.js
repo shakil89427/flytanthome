@@ -122,53 +122,59 @@ const Twitter = ({ details }) => {
             </span>
           </div>
           <p className="text-xl font-medium my-5">Latest Tweets</p>
-          {data?.tweets?.map((tweet) => (
-            <div className="border my-3 py-6 rounded-md" key={tweet.id}>
-              <div className="px-3 flex items-center gap-3">
-                <div
-                  style={{
-                    backgroundImage: `url(${data?.profile_image_url})`,
-                  }}
-                  className="w-12 h-12 rounded-full bg-cover bg-center bg-no-repeat"
-                />
-                <span>
-                  <p className="text-sm">{data?.name}</p>
-                  <p className="text-xs text-gray-400">
-                    {moment(tweet?.created_at).fromNow()}
-                  </p>
-                </span>
-              </div>
-
-              <p className="px-3 text-xs my-5">{tweet?.text}</p>
-              {tweet?.attachments?.media_keys?.length > 0 &&
-                data?.media?.map(
-                  (item, index) =>
-                    item.media_key === tweet?.attachments?.media_keys[0] && (
-                      <img
-                        key={index}
-                        src={item.url}
-                        className="w-full mb-5"
-                        alt=""
-                      />
-                    )
-                )}
-              <div className="pl-3 w-fit flex items-center gap-5">
-                <div>
-                  <img className="w-6 h-6 mb-1 mx-auto" src={likes} alt="" />
-                  <p className="text-xs">
-                    {tweet?.public_metrics?.like_count} likes
-                  </p>
+          <div className="max-h-[600px] overflow-y-scroll">
+            {data?.tweets?.map((tweet) => (
+              <div className="border my-3 py-6 rounded-md" key={tweet.id}>
+                <div className="px-3 flex items-center gap-3">
+                  <div
+                    style={{
+                      backgroundImage: `url(${data?.profile_image_url})`,
+                    }}
+                    className="w-12 h-12 rounded-full bg-cover bg-center bg-no-repeat"
+                  />
+                  <span>
+                    <p className="text-sm">{data?.name}</p>
+                    <p className="text-xs text-gray-400">
+                      {moment(tweet?.created_at).fromNow()}
+                    </p>
+                  </span>
                 </div>
 
-                <div>
-                  <img className="w-6 h-6 mb-1 mx-auto" src={retweet} alt="" />
-                  <p className="text-xs">
-                    {tweet?.public_metrics?.retweet_count} retweets
-                  </p>
+                <p className="px-3 text-xs my-5">{tweet?.text}</p>
+                {tweet?.attachments?.media_keys?.length > 0 &&
+                  data?.media?.map(
+                    (item, index) =>
+                      item.media_key === tweet?.attachments?.media_keys[0] && (
+                        <img
+                          key={index}
+                          src={item.url}
+                          className="w-full mb-5"
+                          alt=""
+                        />
+                      )
+                  )}
+                <div className="pl-3 w-fit flex items-center gap-5">
+                  <div>
+                    <img className="w-6 h-6 mb-1 mx-auto" src={likes} alt="" />
+                    <p className="text-xs">
+                      {tweet?.public_metrics?.like_count} likes
+                    </p>
+                  </div>
+
+                  <div>
+                    <img
+                      className="w-6 h-6 mb-1 mx-auto"
+                      src={retweet}
+                      alt=""
+                    />
+                    <p className="text-xs">
+                      {tweet?.public_metrics?.retweet_count} retweets
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </>

@@ -28,7 +28,7 @@ const styles = {
     "absolute inset-0 bg-[#0a0a0a8c] text-white flex items-center justify-center text-sm text-center opacity-0 hover:opacity-100 duration-150",
   videoInner: "grid grid-cols-3 gap-x-5 gap-y-3 items-center",
   videoTitle:
-    "absolute w-full bottom-0 left-0 bg-[#0a0a0a8c] py-1 px-5 text-white",
+    "absolute w-full bottom-0 left-0 bg-[#0a0a0a8c] py-1 px-2 text-white text-sm break-words",
 };
 
 const Youtube = ({ details }) => {
@@ -148,7 +148,7 @@ const Youtube = ({ details }) => {
       {!loading && info?.videos?.length > 0 && (
         <div className="py-8">
           <p className={styles.latest}>Latest videos</p>
-          <div className="mt-3 grid grid-cols-2 gap-3">
+          <div className="mt-3 grid grid-cols-2 gap-3 max-h-[600px] overflow-y-scroll">
             {info?.videos?.map((video) => (
               <div
                 key={video.id}

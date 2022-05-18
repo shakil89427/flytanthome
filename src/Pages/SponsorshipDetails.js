@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Scroll from "../Components/Scroll/Scroll";
 import moment from "moment";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css";
+import { MdNavigateNext } from "react-icons/md";
 import {
   getFirestore,
   doc,
@@ -17,18 +22,20 @@ import {
 import {
   AiOutlineInstagram,
   AiFillInstagram,
-  AiOutlineFacebook,
-  AiFillFacebook,
   AiOutlineTwitter,
   AiFillTwitterSquare,
-  AiOutlineLinkedin,
-  AiFillLinkedin,
   AiOutlineYoutube,
   AiFillYoutube,
 } from "react-icons/ai";
+import { FaTiktok } from "react-icons/fa";
 import Spinner from "../Components/Spinner/Spinner";
 import SocialError from "../Components/SponsorshipDetails/SocialError";
 import useStore from "../Store/useStore";
+
+const styles = {
+  image: "h-80 rounded-md bg-cover bg-center bg-no-repeat",
+  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer",
+};
 
 const SponsorshipDetails = () => {
   const {
@@ -52,6 +59,16 @@ const SponsorshipDetails = () => {
   const { id } = useParams();
   const db = getFirestore();
   const navigate = useNavigate();
+  const [swiper, setSwiper] = useState();
+  const nextRef = useRef();
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.params.navigation.nextEl = nextRef.current;
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  }, [swiper]);
 
   /* Update info on db after apply */
   const updateInfo = (updatedUser) => {
@@ -193,17 +210,38 @@ const SponsorshipDetails = () => {
         </div>
       )}
       {socialError && <SocialError setSocialError={setSocialError} />}
-      <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
+      <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-28">
         {/* Left Side */}
-        <div className="w-full md:w-8/12 relative">
+        <div className="w-full md:w-7/12 relative">
           {detailsLoading && <Spinner position={true} />}
           {details?.id && (
             <div>
-              <img
-                className="w-full h-96 mb-5"
-                src={details?.blob[0]?.path}
-                alt=""
-              />
+              <div className="relative">
+                <Swiper
+                  modules={[Navigation]}
+                  navigation={{
+                    nextEl: nextRef?.current,
+                  }}
+                  initialSlide={0}
+                  onSwiper={setSwiper}
+                  slidesPerView={1}
+                >
+                  {details?.blob?.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <div
+                        className={styles.image}
+                        style={{
+                          backgroundImage: `url(${item.path})`,
+                        }}
+                        alt=""
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <div className={styles.next} ref={nextRef}>
+                  <MdNavigateNext />
+                </div>
+              </div>
               <div className="pr-5">
                 <div className="flex flex-col gap-5 mt-5">
                   <h3 className="text-2xl font-semibold">{details?.name}</h3>
@@ -272,28 +310,23 @@ const SponsorshipDetails = () => {
                       <p>Instagram</p>
                     </span>
                   )}
-                  {details?.platforms?.includes("Facebook") && (
+                  {details?.platforms?.includes("Youtube") && (
                     <span className="flex flex-col gap-1 items-center">
-                      <AiOutlineFacebook className="text-3xl" />
-                      <p>Facebook</p>
+                      <AiOutlineYoutube className="text-3xl" />
+                      <p>Youtube</p>
                     </span>
                   )}
+
                   {details?.platforms?.includes("Twitter") && (
                     <span className="flex flex-col gap-1 items-center">
                       <AiOutlineTwitter className="text-3xl" />
                       <p>Twitter</p>
                     </span>
                   )}
-                  {details?.platforms?.includes("Linkedin") && (
+                  {details?.platforms?.includes("Tiktok") && (
                     <span className="flex flex-col gap-1 items-center">
-                      <AiOutlineLinkedin className="text-3xl" />
-                      <p>Linkedin</p>
-                    </span>
-                  )}
-                  {details?.platforms?.includes("Youtube") && (
-                    <span className="flex flex-col gap-1 items-center">
-                      <AiOutlineYoutube className="text-3xl" />
-                      <p>Youtube</p>
+                      <FaTiktok className="text-3xl p-1" />
+                      <p>Tiktok</p>
                     </span>
                   )}
                 </div>
@@ -303,7 +336,7 @@ const SponsorshipDetails = () => {
         </div>
 
         {/* Right Side */}
-        <div className="w-full md:w-4/12 relative">
+        <div className="w-full md:w-5/12 relative">
           <p className="text-xl font-semibold text-center mb-5">
             More related campaigns
           </p>
@@ -342,17 +375,15 @@ const SponsorshipDetails = () => {
                       {item?.platforms?.includes("Instagram") && (
                         <AiFillInstagram />
                       )}
-                      {item?.platforms?.includes("Facebook") && (
-                        <AiFillFacebook />
+                      {item?.platforms?.includes("Youtube") && (
+                        <AiFillYoutube />
                       )}
+
                       {item?.platforms?.includes("Twitter") && (
                         <AiFillTwitterSquare />
                       )}
-                      {item?.platforms?.includes("Linkedin") && (
-                        <AiFillLinkedin />
-                      )}
-                      {item?.platforms?.includes("Youtube") && (
-                        <AiFillYoutube />
+                      {item?.platforms?.includes("Tiktok") && (
+                        <FaTiktok className="w-3" />
                       )}
                     </div>
                   </div>

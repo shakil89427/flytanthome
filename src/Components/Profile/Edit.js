@@ -36,7 +36,7 @@ const styles = {
     "bg-black border-2 border-white text-white rounded-full w-6 h-6 flex items-center justify-center absolute top-12 right-0 cursor-pointer",
   save: "w-full py-2 rounded-md text-sm mt-2 text-white bg-black",
   strength: "h-[6px] bg-gray-300 rounded-3xl relative overflow-hidden mt-2",
-  editMain: "mx-14 flex flex-col gap-5 mt-3 items-center",
+  editMain: "mx-14 flex flex-col gap-5 mt-5 items-center",
   input:
     "w-full outline-none border-0 border-b border-gray-300 focus:border-black pr-2 mt-2 text-sm",
 };
@@ -55,11 +55,7 @@ const Edit = ({ progress, setEdit }) => {
   const [bio, setBio] = useState(user?.bio);
   const [email, setEmail] = useState(user?.email);
   const [categories, setCategories] = useState(user?.categories || []);
-  const [dateOfBirth, setDateOfBirth] = useState(
-    user?.dateOfBirth
-      ? moment(new Date(user.dateOfBirth)).format("YYYY-MM-DD")
-      : ""
-  );
+  const [dateOfBirth, setDateOfBirth] = useState(user?.dateOfBirth);
   const [gender, setGender] = useState(user?.gender);
 
   /* Update data on db */
@@ -213,7 +209,7 @@ const Edit = ({ progress, setEdit }) => {
           </div>
           {/* Username */}
           <div className="w-full relative">
-            <p className="text-xs font-semibold">Username</p>
+            <p className="text-sm font-semibold">Username</p>
             <input
               required
               minLength="3"
@@ -233,7 +229,7 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Name */}
           <div className="w-full relative">
-            <p className="text-xs font-semibold">Name</p>
+            <p className="text-sm font-semibold">Name</p>
             <input
               required
               minLength="3"
@@ -251,7 +247,7 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Bio */}
           <div className="w-full relative">
-            <p className="text-xs font-semibold">About</p>
+            <p className="text-sm font-semibold">About</p>
             <input
               required
               minLength="10"
@@ -269,7 +265,7 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Email */}
           <div className="w-full">
-            <p className="text-xs font-semibold">Email</p>
+            <p className="text-sm font-semibold">Email</p>
             <input
               placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
@@ -281,7 +277,9 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* Categories */}
           <div className="w-full">
-            <p className="text-xs font-semibold">Categories</p>
+            <p className="text-sm font-semibold">
+              Categories <small>(max 5)</small>{" "}
+            </p>
             <div className="relative">
               <div className="w-full border-0 border-b border-gray-300 mt-2 text-sm flex items-center gap-1 flex-wrap pb-1">
                 <button
@@ -305,7 +303,7 @@ const Edit = ({ progress, setEdit }) => {
                 )}
               </div>
               {showCategories && (
-                <div className="absolute bg-white bottom-0 right-0 w-1/2  pt-6 shadow-xl text-sm border rounded-md">
+                <div className="absolute bg-white bottom-0 right-0 w-3/4  pt-6 shadow-xl text-sm border rounded-md">
                   <img
                     onClick={() => setShowCategories(false)}
                     className="absolute top-1 right-1 w-5 cursor-pointer"
@@ -318,8 +316,8 @@ const Edit = ({ progress, setEdit }) => {
                         onClick={() =>
                           setCategories(
                             categories.includes(c)
-                              ? categories.filter((i) => i !== c)
-                              : [...categories, c]
+                              ? categories.filter((i) => i !== c).slice(0, 5)
+                              : [...categories, c].slice(0, 5)
                           )
                         }
                         style={{
@@ -328,7 +326,7 @@ const Edit = ({ progress, setEdit }) => {
                             : "white",
                           color: categories.includes(c) ? "white" : "black",
                         }}
-                        className="cursor-pointer hover:bg-gray-200 px-2 my-1 mx-2 rounded-md"
+                        className="cursor-pointer hover:bg-gray-200 px-2 py-1 my-1 mx-2 rounded-md"
                         key={c}
                       >
                         {c}
@@ -342,7 +340,7 @@ const Edit = ({ progress, setEdit }) => {
 
           {/* DOB */}
           <div className="w-full">
-            <p className="text-xs font-semibold">DOB</p>
+            <p className="text-sm font-semibold">DOB</p>
             <input
               value={dateOfBirth}
               className={styles.input}
@@ -350,25 +348,11 @@ const Edit = ({ progress, setEdit }) => {
               onChange={(e) => setDateOfBirth(e.target.value)}
               required
             />
-            {/* <div className="relative">
-              <input
-                value={dateOfBirth}
-                className={styles.input}
-                type="date"
-                onChange={(e) => setDateOfBirth(e.target.value)}
-                required
-              />
-              {!dateOfBirth && (
-                <p className="absolute text-sm text-gray-500 bg-white bottom-1">
-                  Select your date of birth
-                </p>
-              )}
-            </div> */}
           </div>
 
           {/* Gender */}
           <div className="w-full">
-            <p className="text-xs font-semibold">Gender</p>
+            <p className="text-sm font-semibold">Gender</p>
             <div className="text-sm flex items-center justify-between mt-2">
               <span className="flex gap-1">
                 <input

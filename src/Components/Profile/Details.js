@@ -158,7 +158,7 @@ const Profile = () => {
               </div>
             </div>
             {details?.bio && (
-              <p className="text-gray-600 mt-8">{details.bio}</p>
+              <p className="text-gray-600 mt-8 break-words">{details.bio}</p>
             )}
             {details?.name && (
               <div>
