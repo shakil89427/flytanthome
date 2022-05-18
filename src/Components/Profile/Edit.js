@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cross from "../../Assets/cross.svg";
 import defaultUser from "../../Assets/defaultUser.png";
 import moment from "moment";
@@ -58,7 +58,7 @@ const Edit = ({ progress, setEdit }) => {
   const [dateOfBirth, setDateOfBirth] = useState(
     user?.dateOfBirth
       ? moment(new Date(user.dateOfBirth)).format("YYYY-MM-DD")
-      : false
+      : ""
   );
   const [gender, setGender] = useState(user?.gender);
 
@@ -144,6 +144,13 @@ const Edit = ({ progress, setEdit }) => {
       setNotify({ status: false, message: "Something went wrong" });
     }
   };
+
+  useEffect(() => {
+    document.body.style.overflowY = "hidden";
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, []);
 
   return (
     <>
@@ -336,7 +343,14 @@ const Edit = ({ progress, setEdit }) => {
           {/* DOB */}
           <div className="w-full">
             <p className="text-xs font-semibold">DOB</p>
-            <div className="relative">
+            <input
+              value={dateOfBirth}
+              className={styles.input}
+              type="date"
+              onChange={(e) => setDateOfBirth(e.target.value)}
+              required
+            />
+            {/* <div className="relative">
               <input
                 value={dateOfBirth}
                 className={styles.input}
@@ -349,7 +363,7 @@ const Edit = ({ progress, setEdit }) => {
                   Select your date of birth
                 </p>
               )}
-            </div>
+            </div> */}
           </div>
 
           {/* Gender */}

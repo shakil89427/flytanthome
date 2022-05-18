@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useLogins from "../../Hooks/useLogins";
 import useStore from "../../Store/useStore";
 import cross from "../../Assets/cross.svg";
@@ -6,6 +6,13 @@ import cross from "../../Assets/cross.svg";
 const Logout = () => {
   const { user, setShowLogout } = useStore();
   const { signOutUser } = useLogins();
+
+  useEffect(() => {
+    document.body.style.overflowY = "hidden";
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, []);
 
   return (
     <>

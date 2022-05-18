@@ -36,6 +36,13 @@ const Login = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    document.body.style.overflowY = "hidden";
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, []);
+
   return (
     <>
       <div onClick={() => setShowLogin(false)} className={styles.main} />
