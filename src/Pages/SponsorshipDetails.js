@@ -216,7 +216,7 @@ const SponsorshipDetails = () => {
           {detailsLoading && <Spinner position={true} />}
           {details?.id && (
             <div>
-              <div className="relative border">
+              <div className="relative">
                 <Swiper
                   modules={[Navigation]}
                   navigation={{
