@@ -9,6 +9,7 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
+import { formatPhoneNumber } from "react-phone-number-input";
 import { useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
 
@@ -31,7 +32,13 @@ const useAddUser = () => {
         deviceType: "Website",
         email: data?.email ? data?.email : "",
         freeTrials: 3,
-        phoneNumber: data?.phoneNumber ? data?.phoneNumber : "",
+        phoneNumber:
+          data?.phoneNumber?.length > 1
+            ? formatPhoneNumber(data?.phoneNumber)
+                .match(/[0-9]/g)
+                .join()
+                .replace(/,/g, "")
+            : "",
         profileImageUrl: "",
         shouldShowInfluencer: false,
         userId: data.uid,

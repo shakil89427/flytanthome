@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { styles } from "./CommonStyles";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
@@ -9,11 +9,22 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
+import axios from "axios";
 
 const SendOTP = ({ back, setShow }) => {
   const auth = getAuth();
-  const { userLoading, setUserLoading, setNotify } = useStore();
+  const { userLoading, setUserLoading, setNotify, country, setCountry } =
+    useStore();
   const [number, setNumber] = useState();
+
+  useEffect(() => {
+    axios
+      .get("https://extreme-ip-lookup.com/json/")
+      .then((data) => console.log(data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const sendOTP = (e) => {
     e.preventDefault();
