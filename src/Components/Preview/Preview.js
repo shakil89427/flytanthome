@@ -120,7 +120,13 @@ const Preview = ({
 
         <div className="">
           <p className="text-xl font-semibold mb-2">Minimum followers</p>
-          <p>{followers}</p>
+          <p>
+            {followers < 1000
+              ? followers
+              : Math.abs(followers / 1000)
+                  .toString()
+                  .slice(0, 3) + "k"}
+          </p>
         </div>
 
         <div className="">

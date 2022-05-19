@@ -319,7 +319,13 @@ const SponsorshipDetails = () => {
                 <h5 className="text-xl font-semibold mb-5">
                   Minimum followers
                 </h5>
-                <p className="mb-10">{details?.minFollowers}</p>
+                <p className="mb-10">
+                  {details?.minFollowers < 1000
+                    ? details?.minFollowers
+                    : Math.abs(details?.minFollowers / 1000)
+                        .toString()
+                        .slice(0, 3) + "k"}
+                </p>
                 <p className="text-xl font-semibold mb-5">Platform required</p>
                 <div className="flex items-center gap-3 text-xs">
                   {details?.platforms?.includes("Instagram") && (
@@ -387,7 +393,13 @@ const SponsorshipDetails = () => {
                     </div>
                     <p className="text-md font-semibold">{item.name}</p>
                     <p className="text-xs my-1">
-                      Min {item.minFollowers} followers required
+                      Min{" "}
+                      {item.minFollowers < 1000
+                        ? item.minFollowers
+                        : Math.abs(item.minFollowers / 1000)
+                            .toString()
+                            .slice(0, 3) + "k"}{" "}
+                      followers required
                     </p>
                     <div className="flex items-center gap-2 text-lg text-gray-400 mt-2">
                       {item?.platforms?.includes("Instagram") && (

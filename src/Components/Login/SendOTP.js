@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { styles } from "./CommonStyles";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";

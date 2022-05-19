@@ -112,7 +112,13 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
 
                   <div className={styles.bottomWrapper}>
                     <p className={styles.followers}>
-                      Min {sponsorship.minFollowers} followers required
+                      Min{" "}
+                      {sponsorship.minFollowers < 1000
+                        ? sponsorship.minFollowers
+                        : Math.abs(sponsorship.minFollowers / 1000)
+                            .toString()
+                            .slice(0, 3) + "k"}{" "}
+                      followers required
                     </p>
 
                     <div className="flex justify-between">
