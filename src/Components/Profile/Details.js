@@ -80,7 +80,12 @@ const Profile = () => {
   useEffect(() => {
     if (!details.id) return;
     let initialProgress = 8;
-    if (!details?.profileImageUrl) initialProgress--;
+    if (
+      !details?.profileImageUrl ||
+      details?.profileImageUrl?.toLowerCase().includes("default") ||
+      details?.profileImageUrl === ""
+    )
+      initialProgress--;
     if (!details?.name) initialProgress--;
     if (!details?.categories?.length) initialProgress--;
     if (!details?.bio) initialProgress--;
@@ -109,7 +114,11 @@ const Profile = () => {
                   <div
                     style={{
                       backgroundImage: `url(${
-                        details?.profileImageUrl
+                        details?.profileImageUrl &&
+                        !details?.profileImageUrl
+                          ?.toLowerCase()
+                          ?.includes("default") &&
+                        details?.profileImageUrl !== ""
                           ? details?.profileImageUrl
                           : defaultUser
                       })`,

@@ -109,7 +109,7 @@ const Edit = ({ progress, setEdit }) => {
     if (!image) return updateData();
     const storageRef = ref(
       storage,
-      `/profile_images/${user.userId + Date.now() + image.name}`
+      `/profile_images/${user.userId + Date.now() + image?.name}`
     );
     const uploadTask = uploadBytesResumable(storageRef, image);
     uploadTask.on(
@@ -207,7 +207,11 @@ const Edit = ({ progress, setEdit }) => {
                 backgroundImage: `url(${
                   image
                     ? URL.createObjectURL(image)
-                    : user?.profileImageUrl
+                    : user?.profileImageUrl &&
+                      !user?.profileImageUrl
+                        ?.toLowerCase()
+                        ?.includes("default") &&
+                      user?.profileImageUrl !== ""
                     ? user?.profileImageUrl
                     : defaultUser
                 })`,

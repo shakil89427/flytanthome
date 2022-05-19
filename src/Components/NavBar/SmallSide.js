@@ -2,10 +2,6 @@ import React from "react";
 import logoBlack from "../../Assets/logoBlack.png";
 import cross from "../../Assets/cross.svg";
 import defaultUser from "../../Assets/defaultUser.png";
-import bellBlack from "../../Assets/navBar/bellBlack.svg";
-import bellWhite from "../../Assets/navBar/bellWhite.svg";
-import flyBlack from "../../Assets/navBar/flyBlack.svg";
-import flyWhite from "../../Assets/navBar/flyWhite.svg";
 import mikeBlack from "../../Assets/navBar/mikeBlack.svg";
 import mikeWhite from "../../Assets/navBar/mikeWhite.svg";
 import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
@@ -60,27 +56,17 @@ const SmallSide = ({ showSide, setShowSide }) => {
               <div
                 style={{
                   backgroundImage: `url(${
-                    user?.profileImageUrl ? user?.profileImageUrl : defaultUser
+                    user?.profileImageUrl &&
+                    !user?.profileImageUrl.toLowerCase()?.includes("default") &&
+                    user?.profileImageUrl !== ""
+                      ? user?.profileImageUrl
+                      : defaultUser
                   })`,
                 }}
                 className={styles.userImg}
               />
               <p>Profile</p>
             </div>
-
-            {/* Notifications */}
-            {/* <div className={styles.item}>
-              <img className="i1 w-6" src={bellBlack} alt="" />
-              <img className="i2 w-6" src={bellWhite} alt="" />
-              <p>Notifications</p>
-            </div> */}
-
-            {/* Messages */}
-            {/* <div className={styles.item}>
-              <img className="i1 w-6" src={flyBlack} alt="" />
-              <img className="i2 w-6" src={flyWhite} alt="" />
-              <p>Message</p>
-            </div> */}
 
             {/* Create Campaign */}
             <div

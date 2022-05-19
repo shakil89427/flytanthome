@@ -56,8 +56,16 @@ const PopularInfluencers = () => {
     setLoading(true);
     try {
       const response = await getDocs(q);
-      const data = response?.docs.map((item) => {
-        return { ...item.data(), id: item.id };
+      const data = [];
+      response?.docs.forEach((item) => {
+        const val = { ...item?.data(), id: item?.id };
+        if (
+          val?.profileImageUrl &&
+          !val?.profileImageUrl?.toLowerCase().includes("default") &&
+          val?.profileImageUrl !== ""
+        ) {
+          data.push(val);
+        }
       });
       if (!data?.length) return setLoading(false);
       setPopularInfluencers((prev) => {

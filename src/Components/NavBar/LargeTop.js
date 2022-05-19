@@ -37,7 +37,11 @@ const LargeTop = () => {
             <div
               style={{
                 backgroundImage: `url(${
-                  user?.profileImageUrl ? user?.profileImageUrl : defaultUser
+                  user?.profileImageUrl &&
+                  !user?.profileImageUrl?.toLowerCase().includes("default") &&
+                  user?.profileImageUrl !== ""
+                    ? user?.profileImageUrl
+                    : defaultUser
                 })`,
               }}
               className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center cursor-pointer"
