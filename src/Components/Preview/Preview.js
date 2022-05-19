@@ -10,6 +10,7 @@ import {
   AiOutlineYoutube,
 } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
+import moment from "moment";
 
 const styles = {
   image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
@@ -77,6 +78,17 @@ const Preview = ({
 
       <div className="flex flex-col gap-7 my-5">
         <p className="text-2xl font-semibold">{name}</p>
+        <p>Posted: {moment().format("MMM DD YYYY")} </p>
+
+        {type?.price && (
+          <p className=" border-2 w-fit px-5 py-1 border-black rounded-md">
+            $ {type?.price}
+          </p>
+        )}
+
+        <p className="bg-black text-white text-center py-2 rounded-md text-lg">
+          View Influencers
+        </p>
 
         {type.barter && (
           <p className="text-gray-500">{type.barterDescription}</p>
@@ -86,18 +98,6 @@ const Preview = ({
           <p className="text-xl font-semibold mb-2">Description</p>
           <p className="text-gray-500">{description}</p>
         </div>
-
-        <div>
-          <p className="text-xl font-semibold mb-2">Gender</p>
-          <p className="text-gray-500">{gender}</p>
-        </div>
-
-        {type?.price && (
-          <div>
-            <p className="text-xl font-semibold mb-2">Price</p>
-            <p className="text-gray-500">$ {type?.price}</p>
-          </div>
-        )}
 
         <div className="">
           <p className="text-xl font-semibold mb-2">Categories</p>
@@ -111,6 +111,11 @@ const Preview = ({
               </p>
             ))}
           </div>
+        </div>
+
+        <div>
+          <p className="text-xl font-semibold mb-2">Preffered gender</p>
+          <p className="text-gray-500">{gender}</p>
         </div>
 
         <div className="">

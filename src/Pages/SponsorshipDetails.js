@@ -259,6 +259,12 @@ const SponsorshipDetails = () => {
                   <p className="text-sm py-2 px-4 bg-[#3FD5F5] w-fit rounded-3xl font-semibold">
                     {details?.barter ? "Barter" : "Paid"} Campaign
                   </p>
+
+                  {details?.price && (
+                    <p className="border-2 px-7 py-1 w-fit font-medium mt-1 rounded-md border-black">
+                      $ {details?.price}
+                    </p>
+                  )}
                 </div>
 
                 {user?.appliedCampaigns?.includes(details?.id) ? (
@@ -295,15 +301,6 @@ const SponsorshipDetails = () => {
                     </p>
                   )}
                 </div>
-                <h5 className="text-xl font-semibold mb-5">Gender</h5>
-                <p className="mb-10">{details?.gender}</p>
-
-                {details?.price && (
-                  <div>
-                    <h5 className="text-xl font-semibold mb-5">Price</h5>
-                    <p className="mb-10">$ {details?.price}</p>
-                  </div>
-                )}
 
                 <h5 className="text-xl font-semibold mb-5">Catagories</h5>
                 <div className="flex items-center gap-3 mb-10 flex-wrap">
@@ -316,6 +313,9 @@ const SponsorshipDetails = () => {
                     </p>
                   ))}
                 </div>
+
+                <h5 className="text-xl font-semibold mb-5">Preffered gender</h5>
+                <p className="mb-10">{details?.gender}</p>
                 <h5 className="text-xl font-semibold mb-5">
                   Minimum followers
                 </h5>
