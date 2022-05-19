@@ -48,7 +48,7 @@ const Career = () => {
 
   const uploadFile = (e) => {
     e.preventDefault();
-    const storageRef = ref(storage, `/files/${Date.now() + file.name}`);
+    const storageRef = ref(storage, `/career/${Date.now() + file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     setUploading(true);
     uploadTask.on(

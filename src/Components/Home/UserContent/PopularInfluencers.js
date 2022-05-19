@@ -146,7 +146,7 @@ const PopularInfluencers = () => {
               />
               <div className="pr-4 mt-2">
                 <div className={styles.nameWrapper}>
-                  <p className={styles.name}>{item?.name}</p>
+                  <p className={styles.name}>@{item?.username}</p>
                   <p className="text-sm">
                     <span>{item?.gender?.charAt(0)} </span>
                     <span>

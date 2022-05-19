@@ -254,13 +254,13 @@ const SponsorshipDetails = () => {
                 <div className="flex flex-col gap-5 mt-5">
                   <h3 className="text-2xl font-semibold">{details?.name}</h3>
                   <p className="text-sm">
-                    Posted {moment(details?.creationDate).fromNow()}
+                    Posted {moment(details?.creationDate * 1000).fromNow()}
                   </p>
-                  <p className="text-sm py-2 px-4 bg-[#3FD5F5] w-fit rounded-3xl font-semibold">
-                    {details?.barter ? "Barter" : "Paid"} Campaign
-                  </p>
-
-                  {details?.price && (
+                  {details?.barter ? (
+                    <p className="text-sm py-2 px-4 bg-[#3FD5F5] w-fit rounded-3xl font-semibold">
+                      Barter Campaign
+                    </p>
+                  ) : (
                     <p className="border-2 px-7 py-1 w-fit font-medium mt-1 rounded-md border-black">
                       $ {details?.price}
                     </p>
@@ -382,7 +382,7 @@ const SponsorshipDetails = () => {
                         {item.barter ? "Barter" : "Paid"} campaign
                       </p>
                       <p className="text-xs">
-                        {moment(item?.creationDate).fromNow()}
+                        {moment(item?.creationDate * 1000).fromNow()}
                       </p>
                     </div>
                     <p className="text-md font-semibold">{item.name}</p>

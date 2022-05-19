@@ -107,7 +107,10 @@ const Edit = ({ progress, setEdit }) => {
   /* Upload image and get url */
   const uploadImage = () => {
     if (!image) return updateData();
-    const storageRef = ref(storage, `/files/${Date.now() + image.name}`);
+    const storageRef = ref(
+      storage,
+      `/profile_images/${user.userId + Date.now() + image.name}`
+    );
     const uploadTask = uploadBytesResumable(storageRef, image);
     uploadTask.on(
       "state_changed",

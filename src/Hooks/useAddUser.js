@@ -29,9 +29,9 @@ const useAddUser = () => {
       }
       const current = {
         deviceType: "Website",
-        email: data.email ? data.email : "",
+        email: data?.email ? data?.email : "",
         freeTrials: 3,
-        phoneNumber: data.phoneNumber ? data.phoneNumber : "",
+        phoneNumber: data?.phoneNumber ? data?.phoneNumber : "",
         profileImageUrl: "",
         shouldShowInfluencer: false,
         userId: data.uid,
@@ -49,18 +49,6 @@ const useAddUser = () => {
     if (!username.match(regex)) {
       return setNotify({ status: false, message: "Type alphanumeric only" });
     }
-    // if (username.length < 3) {
-    //   return setNotify({
-    //     status: false,
-    //     message: "username cannot be less than 3 characters",
-    //   });
-    // }
-    // if (username.length > 15) {
-    //   return setNotify({
-    //     status: false,
-    //     message: "username cannot be more than 15 characters",
-    //   });
-    // }
     setUserLoading(true);
 
     const colRef = collection(database, "users");

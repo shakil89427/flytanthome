@@ -103,7 +103,7 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                     )}
                     {type === "Latest" && (
                       <p className="text-xs">
-                        {moment(sponsorship?.creationDate).fromNow()}
+                        {moment(sponsorship?.creationDate * 1000).fromNow()}
                       </p>
                     )}
                   </div>
@@ -133,7 +133,7 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                       </div>
                       {type !== "Latest" && (
                         <p className="text-xs">
-                          {moment(sponsorship?.creationDate).fromNow()}
+                          {moment(sponsorship?.creationDate * 1000).fromNow()}
                         </p>
                       )}
                     </div>

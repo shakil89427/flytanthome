@@ -99,7 +99,7 @@ const Youtube = ({ details }) => {
       {!details?.linkedAccounts?.Youtube?.channelId && !details?.access && (
         <div className={styles.connect}>
           <p>No account linked</p>
-          <p onClick={openPopup}>
+          <p>
             <img className="w-1/2 mx-auto" src={youtube} alt="" />
           </p>
         </div>

@@ -76,11 +76,11 @@ const CreateCampaign = () => {
       ...type,
       blob,
       platforms,
-      minFollowers: followers,
+      minFollowers: parseInt(followers),
       gender,
       categories,
       isApproved: false,
-      creationDate: Date.now(),
+      creationDate: Date.now() / 1000,
     };
     if (type?.price) {
       data.price = parseInt(type.price);
@@ -102,14 +102,17 @@ const CreateCampaign = () => {
   const uploadImage = async () => {
     try {
       const uploadPromises = images.map((image) => {
-        const storageRef = ref(storage, `/files/${Date.now() + image.name}`);
+        const storageRef = ref(
+          storage,
+          `/sponsor_campaign_images/${user.userId}/${Date.now() + image.name}`
+        );
         return uploadBytes(storageRef, image);
       });
       const uploads = await Promise.all(uploadPromises);
       const urlPromises = uploads.map((upload) => getDownloadURL(upload.ref));
       const urls = await Promise.all(urlPromises);
       const blob = urls.map((url) => {
-        return { path: url, type: "image", videoThumbnail: "" };
+        return { path: url, type: "image" };
       });
       updateData(blob);
     } catch (err) {

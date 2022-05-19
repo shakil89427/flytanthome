@@ -140,7 +140,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <p className={styles.copyright}>© FLytant 2022</p>
+      <p className={styles.copyright}>© Flytant 2022</p>
     </div>
   );
 };
