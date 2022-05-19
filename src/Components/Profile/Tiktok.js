@@ -73,7 +73,14 @@ const Tiktok = ({ details }) => {
         )}
       {!loading &&
         !details?.linkedAccounts?.Tiktok?.access_token &&
-        !details?.access && <p className="mt-20 text-center">No data found</p>}
+        !details?.access && (
+          <div className="flex flex-col items-center gap-5 mt-40 text-gray-500 text-sm font-medium">
+            <p>No account linked</p>
+            <p className="bg-black text-white text-3xl p-5 rounded-full">
+              <FaTiktok />
+            </p>
+          </div>
+        )}
       {!loading && data?.display_name && (
         <div>
           <div className="flex justify-between border-b-2 py-8">

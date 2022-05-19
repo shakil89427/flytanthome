@@ -32,7 +32,7 @@ const styles = {
   icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
   options: "flex gap-2 flex-wrap mt-3",
   option: "bg-[#DDDDDD] text-xs px-3 py-1 rounded-xl",
-  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  next: "absolute bg-white top-[35%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 /* Styles End */
 
@@ -107,9 +107,9 @@ const FeaturedInfluencers = () => {
     }
   }, [swiper]);
   return (
-    <div className="r-box py-12 mt-5 relative">
+    <div className="r-box my-20">
       <h1 className={styles.heading}>Featured Influencers</h1>
-      <div className="my-5">
+      <div className="my-5 relative">
         <Swiper
           modules={[Navigation]}
           navigation={{

@@ -66,6 +66,8 @@ input[type="number"] {
 @media only screen and (min-width: 1024px) {
   .r-box {
     width: 970px;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 @media only screen and (min-width: 1280px) {

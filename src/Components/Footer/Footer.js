@@ -31,7 +31,7 @@ const styles = {
   appBtn:
     "bg-[#303030] w-56 flex items-center px-5 py-1 border-2 border-white rounded-lg z-10 cursor-pointer overflow-hidden before:duration-300 relative before:absolute before:content-[''] before:w-0 before:h-full before:top-0 before:left-0 before:bg-black hover:before:w-full before:-z-10",
   appIcon: "text-3xl mr-3",
-  download: "text-sm text-gray-300",
+  download: "text-sm font-medium text-gray-300",
   appCatagory: "font-semibold text-lg",
   copyright: "text-center text-[#ABABAB] mt-7",
 };
@@ -122,7 +122,7 @@ const Footer = () => {
           >
             <img className="w-6 mr-4" src={playstoreWhite} alt="" />
             <div>
-              <p className={styles.download}>Download it from</p>
+              <p className={styles.download}>GET IT ON</p>
               <p className={styles.appCatagory}>Play Store</p>
             </div>
           </a>
@@ -134,13 +134,13 @@ const Footer = () => {
           >
             <AiFillApple className={styles.appIcon} />
             <div>
-              <p className={styles.download}>Download on the</p>
+              <p className={styles.download}>DOWNLOAD ON THE</p>
               <p className={styles.appCatagory}>App Store</p>
             </div>
           </a>
         </div>
       </div>
-      <p className={styles.copyright}>© Copyright Flytant Pvt Ltd.</p>
+      <p className={styles.copyright}>© FLytant 2022</p>
     </div>
   );
 };

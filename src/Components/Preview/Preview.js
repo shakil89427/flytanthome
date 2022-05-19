@@ -14,7 +14,7 @@ import moment from "moment";
 
 const styles = {
   image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
-  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  next: "absolute bg-white top-[40%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 
 const Preview = ({

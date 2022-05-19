@@ -87,13 +87,22 @@ const Youtube = ({ details }) => {
           <div className={styles.connect}>
             <p>No account linked</p>
             <p onClick={openPopup}>
-              <img className="w-1/2 mx-auto" src={youtube} alt="" />
+              <img
+                className="w-1/2 mx-auto cursor-pointer"
+                src={youtube}
+                alt=""
+              />
             </p>
             <p>Click here to link your youtube</p>
           </div>
         )}
       {!details?.linkedAccounts?.Youtube?.channelId && !details?.access && (
-        <p className={styles.notFound}>No data found</p>
+        <div className={styles.connect}>
+          <p>No account linked</p>
+          <p onClick={openPopup}>
+            <img className="w-1/2 mx-auto" src={youtube} alt="" />
+          </p>
+        </div>
       )}
       {!loading && info?.snippet && (
         <div>

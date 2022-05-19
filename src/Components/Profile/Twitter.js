@@ -71,14 +71,25 @@ const Twitter = ({ details }) => {
           <div className="flex flex-col items-center gap-5 mt-40 text-gray-500 text-sm font-medium">
             <p>No account linked</p>
             <p onClick={openPopup}>
-              <img className="w-1/2 mx-auto" src={twitter} alt="" />
+              <img
+                className="w-1/2 mx-auto cursor-pointer"
+                src={twitter}
+                alt=""
+              />
             </p>
             <p>Click here to link your twitter</p>
           </div>
         )}
       {!loading &&
         !details?.linkedAccounts?.Twitter?.access_token &&
-        !details.access && <p className="mt-20 text-center">No data found</p>}
+        !details.access && (
+          <div className="flex flex-col items-center gap-5 mt-40 text-gray-500 text-sm font-medium">
+            <p>No account linked</p>
+            <p>
+              <img className="w-1/2 mx-auto " src={twitter} alt="" />
+            </p>
+          </div>
+        )}
       {!loading && data?.id && (
         <div>
           <div className="flex justify-between border-b-2 py-8">

@@ -9,9 +9,9 @@ const styles = {
   profile: "flex items-center text-white gap-10",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   contactBtn:
-    "w-28 h-10 border text-sm font-semibold border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:border-white hover:border-2",
+    "w-40 h-12 border-2 text-xl font-medium border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:border-white hover:border-2",
   loginBtn:
-    "bg-white w-36 h-10 border text-sm border-white flex items-center justify-center rounded-md duration-150 hover:scale-105 font-semibold hover:border-2",
+    "bg-white w-52 h-12 border text-xl border-white flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium hover:border-2",
 };
 /* Styles End */
 
@@ -46,19 +46,19 @@ const LargeTop = () => {
             {show && (
               <>
                 <div className="fixed top-0 left-0 w-screen h-screen z-40" />
-                <div className="absolute top-full right-0 bg-gray-800 w-[180px] p-2 rounded-md z-50">
+                <div className="absolute top-full right-0 bg-gray-800 w-[220px] p-2 rounded-md z-50">
                   <p
                     onClick={() => navigate(`/profile/${user?.id}`)}
-                    className="hover:bg-white hover:text-black py-2 my-1 px-3 text-md font-medium rounded-sm cursor-pointer"
+                    className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
                     Social Profile
                   </p>
-                  <p className="hover:bg-white hover:text-black py-2 my-1 px-3 text-md font-medium rounded-sm cursor-pointer">
+                  <p className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer">
                     My Campaigns
                   </p>
                   <p
                     onClick={() => setShowLogout(true)}
-                    className="hover:bg-white hover:text-black py-2 my-1 px-3 text-md font-medium rounded-sm cursor-pointer"
+                    className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
                     Logout
                   </p>

@@ -13,9 +13,10 @@ const styles = {
     "py-5 md:py-8 flex flex-col items-center gap-3 md:gap-5 border-b border-[#979797]",
   loginButton:
     "flex items-center gap-4 px-5 w-72 py-2 md:py-3 rounded-3xl shadow-lg cursor-pointer text-white",
-  downButtons: "my-4 md:my-7 flex items-center gap-3 md:gap-5 justify-center",
+  downButtons:
+    "my-4 md:my-7 flex items-center flex-wrap gap-3 md:gap-5 justify-center",
   downButton:
-    "flex items-center pl-3 py-1 gap-2 bg-black text-white w-40 rounded-lg cursor-pointer",
+    "flex items-center pl-3 py-1 gap-2 bg-black text-white w-44 rounded-lg cursor-pointer",
 };
 /* Styles End */
 
@@ -80,10 +81,10 @@ const Methods = ({ setShow }) => {
           rel="noreferrer"
           className={styles.downButton}
         >
-          <img className="w-5" src={playstoreWhite} alt="" />
+          <img className="w-5 ml-1" src={playstoreWhite} alt="" />
           <span>
-            <p className="text-xs">Download it from</p>
-            <p className="text-sm">Play Store</p>
+            <p className="text-xs">GET IT ON</p>
+            <p className="text-md">Play Store</p>
           </span>
         </a>
         <a
@@ -94,8 +95,8 @@ const Methods = ({ setShow }) => {
         >
           <AiFillApple className="text-2xl" />
           <span>
-            <p className="text-xs">Download on the</p>
-            <p className="text-sm">App Store</p>
+            <p className="text-xs">DOWNLOAD ON THE</p>
+            <p className="text-md">App Store</p>
           </span>
         </a>
       </div>

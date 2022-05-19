@@ -24,7 +24,7 @@ const styles = {
   bottomWrapper: "flex flex-col gap-2",
   followers: "text-xs font-medium",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
-  next: "absolute bg-white top-[40%] right-0 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  next: "absolute bg-white top-[35%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 /* Styles End */
 
@@ -42,9 +42,9 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
   }, [swiper]);
 
   return (
-    <div className="r-box py-8 relative">
+    <div className="r-box my-20">
       <h1 className={styles.heading}>{type} Sponsorships</h1>
-      <div className="my-5">
+      <div className="my-5 relative">
         <Swiper
           modules={[Navigation]}
           navigation={{

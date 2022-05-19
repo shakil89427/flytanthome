@@ -33,24 +33,24 @@ const Banner = ({ data }) => {
                 href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 w-44 bg-white text-black pl-5 rounded-lg py-2 hover:scale-105 duration-150"
+                className="flex items-center gap-2 w-52 bg-white text-black pl-5 rounded-lg py-2 hover:scale-105 duration-150"
               >
                 <img className="w-6 " src={playstore} alt="" />
                 <span>
-                  <p className="text-xs">Download it from</p>
-                  <p className="font-bold">Play Store</p>
+                  <p className="text-sm font-medium">GET IT ON</p>
+                  <p className="font-bold text-lg">Play Store</p>
                 </span>
               </a>
               <a
                 href="https://apps.apple.com/in/app/flytant/id1530158515"
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 w-44 bg-white text-black pl-5 rounded-lg py-2 hover:scale-105 duration-150"
+                className="flex items-center gap-2 w-52 bg-white text-black pl-5 rounded-lg py-2 hover:scale-105 duration-150"
               >
                 <AiFillApple className="text-3xl" />
                 <span>
-                  <p className="text-xs">Download on the</p>
-                  <p className="font-bold">App Store</p>
+                  <p className="text-sm font-medium">DOWNLOAD ON THE</p>
+                  <p className="font-bold text-lg">App Store</p>
                 </span>
               </a>
             </div>

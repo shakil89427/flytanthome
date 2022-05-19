@@ -11,7 +11,7 @@ const NavBar = ({ color }) => {
 
   return (
     <div style={{ backgroundColor: color ? color : "black" }}>
-      <div className="r-box h-14 md:h-24 flex items-center">
+      <div className="r-box h-14 md:h-28 flex items-center">
         <img
           onClick={() => navigate("/")}
           className="cursor-pointer w-[130px] md:w-[200px]"

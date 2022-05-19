@@ -451,7 +451,7 @@ const CreateCampaign = () => {
                           type="text"
                         />
                       </div>
-                      <div className="h-[40vh] overflow-y-scroll my-3">
+                      <div className="h-[60vh] overflow-y-scroll my-3">
                         {filtered?.length < 1 && (
                           <p className="text-center text-gray-500">
                             No category found
@@ -493,7 +493,7 @@ const CreateCampaign = () => {
           )}
 
           {/* Submit part */}
-          <div className="mt-5 flex gap-10">
+          <div className="mt-10 flex gap-10">
             <button
               disabled={disable}
               type="submit"

@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "./Banner";
+import Banner from "../PublicContent/Banner";
 import FeaturedInfluencers from "./FeaturedInfluencers";
 import AdBanner from "./AdBanner";
 import PopularInfluencers from "./PopularInfluencers";
