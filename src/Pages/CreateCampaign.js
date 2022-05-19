@@ -19,6 +19,7 @@ const CreateCampaign = () => {
   const storage = getStorage(app);
   const db = getFirestore();
   const navigate = useNavigate();
+  const regex = /^[0-9]*$/;
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [disable, setDisable] = useState(true);
@@ -66,7 +67,7 @@ const CreateCampaign = () => {
 
   /* Update data to db */
   const updateData = async (blob) => {
-    const data = {
+    let data = {
       applied: 0,
       currency: "$",
       userId: user.userId,
@@ -81,6 +82,9 @@ const CreateCampaign = () => {
       isApproved: false,
       creationDate: Date.now(),
     };
+    if (type?.price) {
+      data.price = parseInt(type.price);
+    }
     try {
       const colRef = collection(db, "sponsorship");
       const docRef = doc(colRef);
@@ -307,14 +311,13 @@ const CreateCampaign = () => {
                   <p className="text-md font-medium">Enter the pricing</p>
                   <div className="relative border mt-1">
                     <input
-                      required
                       onChange={(e) =>
-                        setType({ ...type, price: parseInt(e.target.value) })
+                        regex.test(e.target.value) &&
+                        setType({ ...type, price: e.target.value })
                       }
                       value={type.price}
                       className="border w-full border-black rounded-md p-2 outline-none pl-5"
-                      type="number"
-                      min={0}
+                      type="text"
                     />
                     <p className="absolute top-1/2 -translate-y-1/2 left-2">
                       $
@@ -366,12 +369,12 @@ const CreateCampaign = () => {
             <div>
               <p className="text-xl font-medium">Minimum followers</p>
               <input
-                required
                 value={followers}
-                onChange={(e) => setFollowers(parseInt(e.target.value))}
+                onChange={(e) =>
+                  regex.test(e.target.value) && setFollowers(e.target.value)
+                }
                 className="border w-full mt-3 border-black rounded-md p-2 outline-none"
-                type="number"
-                min={0}
+                type="text"
               />
             </div>
           )}

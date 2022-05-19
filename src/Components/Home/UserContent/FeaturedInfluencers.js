@@ -50,7 +50,6 @@ const FeaturedInfluencers = () => {
 
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
-  console.log(nextRef);
 
   const getFeatured = async (q) => {
     if (loading) return;
