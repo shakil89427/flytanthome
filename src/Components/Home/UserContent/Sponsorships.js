@@ -42,7 +42,7 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
   }, [swiper]);
 
   return (
-    <div className="r-box my-20">
+    <div className="r-box my-28">
       <h1 className={styles.heading}>{type} Sponsorships</h1>
       <div className="my-5 relative">
         <Swiper
