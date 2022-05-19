@@ -128,7 +128,7 @@ const Profile = () => {
                   <span>
                     <p className={styles.topName}>{details?.username}</p>
                     <p className={styles.country}>
-                      {details?.countryCode}
+                      {details?.country}
                       {details?.countryCode && details?.gender && ", "}
                       {details?.gender?.charAt(0)}
                     </p>
