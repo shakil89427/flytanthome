@@ -25,10 +25,10 @@ const LargeTop = () => {
         <div className={styles.profile}>
           <div
             onClick={() => navigate("/createcampaign")}
-            className="bg-white flex items-center text-black h-12 px-5 rounded-3xl gap-2 cursor-pointer"
+            className="bg-white flex items-center text-black h-12 px-5 rounded-3xl gap-2 cursor-pointer hover:scale-105 duration-150"
           >
             <img src={mike} alt="" />
-            <p className="font-medium">Create Campaign</p>
+            <p className="font-semibold">Create Campaign</p>
           </div>
           <div
             onClick={() => setShow(!show)}

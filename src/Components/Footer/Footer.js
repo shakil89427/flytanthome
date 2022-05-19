@@ -29,10 +29,10 @@ const styles = {
     "w-fit flex flex-col mx-auto md:ml-auto gap-y-5 items-center lg:items-start",
   appHead: "mt-1 lg:mt-0",
   appBtn:
-    "bg-[#303030] w-56 flex items-center px-5 py-1 border-2 border-white rounded-lg z-10 cursor-pointer overflow-hidden before:duration-300 relative before:absolute before:content-[''] before:w-0 before:h-full before:top-0 before:left-0 before:bg-black hover:before:w-full before:-z-10",
-  appIcon: "text-3xl mr-3",
+    "bg-[#303030] w-44 flex items-center pl-3 py-1 border-2 border-white rounded-lg z-10 cursor-pointer overflow-hidden before:duration-300 relative before:absolute before:content-[''] before:w-0 before:h-full before:top-0 before:left-0 before:bg-black hover:before:w-full before:-z-10",
+  appIcon: "text-3xl mr-2",
   download: "text-sm font-medium text-gray-300",
-  appCatagory: "font-semibold text-lg",
+  appCatagory: "font-semibold text-xl",
   copyright: "text-center text-[#ABABAB] mt-7",
 };
 
@@ -120,7 +120,7 @@ const Footer = () => {
             rel="noreferrer"
             className={styles.appBtn}
           >
-            <img className="w-6 mr-4" src={playstoreWhite} alt="" />
+            <img className="w-6 mr-3" src={playstoreWhite} alt="" />
             <div>
               <p className={styles.download}>GET IT ON</p>
               <p className={styles.appCatagory}>Play Store</p>
@@ -134,7 +134,9 @@ const Footer = () => {
           >
             <AiFillApple className={styles.appIcon} />
             <div>
-              <p className={styles.download}>DOWNLOAD ON THE</p>
+              <p style={{ fontSize: "11px" }} className={styles.download}>
+                DOWNLOAD ON THE
+              </p>
               <p className={styles.appCatagory}>App Store</p>
             </div>
           </a>
