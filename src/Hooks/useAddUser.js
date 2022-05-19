@@ -51,39 +51,30 @@ const useAddUser = () => {
     }
   };
 
-  const addUserToDB = (username) => {
+  const addUserToDB = async (username) => {
     const regex = /^[0-9a-zA-Z]+$/;
     if (!username.match(regex)) {
       return setNotify({ status: false, message: "Type alphanumeric only" });
     }
     setUserLoading(true);
-
-    const colRef = collection(database, "users");
-    const q = query(colRef, where("username", "==", username), limit(1));
-    getDocs(q)
-      .then((res) => {
-        if (res?.docs?.length === 0) {
-          const newData = { ...user.tempData, username };
-          const userRef = doc(database, "users", newData.userId);
-          setDoc(userRef, newData)
-            .then(() => {
-              setUser({ ...newData, id: newData.userId });
-              setUserLoading(false);
-              navigate("/");
-            })
-            .catch((err) => {
-              setUserLoading(false);
-              setNotify({ status: false, message: err?.message });
-            });
-        } else {
-          setUserLoading(false);
-          setNotify({ status: false, message: "Username already taken" });
-        }
-      })
-      .catch((err) => {
+    try {
+      const colRef = collection(database, "users");
+      const q = query(colRef, where("username", "==", username), limit(1));
+      const exist = await getDocs(q);
+      if (exist?.docs?.length > 0) {
         setUserLoading(false);
-        setNotify({ status: false, message: err?.message });
-      });
+        return setNotify({ status: false, message: "Username already taken" });
+      }
+      const newData = { ...user.tempData, username };
+      const userRef = doc(database, "users", newData.userId);
+      await setDoc(userRef, newData);
+      setUser({ ...newData, id: newData.userId });
+      setUserLoading(false);
+      navigate("/");
+    } catch (err) {
+      setUserLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+    }
   };
   return { addTempUser, addUserToDB };
 };

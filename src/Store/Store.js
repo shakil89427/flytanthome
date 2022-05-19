@@ -8,7 +8,6 @@ const app = initializeApp(firebaseConfig);
 const Store = () => {
   const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
-  const [country, setCountry] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
   const [userLoading, setUserLoading] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -49,8 +48,6 @@ const Store = () => {
     app,
     user,
     setUser,
-    country,
-    setCountry,
     users,
     setUsers,
     authLoading,

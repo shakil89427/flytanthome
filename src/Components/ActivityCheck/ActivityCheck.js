@@ -7,6 +7,7 @@ import Toast from "../Toast/Toast";
 import Loading from "../Loading/Loading";
 import Spinner from "../Spinner/Spinner";
 import useCheckCode from "../../Hooks/useCheckCode";
+import useLocationCheck from "../../Hooks/useLocationCheck";
 
 const styles = {
   spinnerDiv:
@@ -18,6 +19,7 @@ const ActivityCheck = () => {
     useStore();
   useAuthCheck();
   useCheckCode();
+  useLocationCheck();
 
   return (
     <>
