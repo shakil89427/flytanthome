@@ -20,9 +20,7 @@ const VerifyOTP = ({ setShow }) => {
     const newArr = [...otpArr];
     newArr[index] = value;
     setOtpArr(newArr);
-    if (index === 5) {
-      return e.target.blur();
-    }
+    if (index === 5) return;
     e.target.nextSibling.select();
   };
 
@@ -36,8 +34,12 @@ const VerifyOTP = ({ setShow }) => {
         .confirm(otp)
         .then((response) => addTempUser(response.user))
         .catch((error) => {
+          console.log(error.message.split("/")[1].split(")")[0]);
           setUserLoading(false);
-          setNotify({ status: false, message: error.message });
+          setNotify({
+            status: false,
+            message: error?.message?.split("/")[1]?.split(")")[0],
+          });
         });
     }
   };

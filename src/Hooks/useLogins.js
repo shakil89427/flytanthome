@@ -27,7 +27,10 @@ const useLogins = () => {
       }
     } catch (err) {
       setUserLoading(false);
-      setNotify({ status: false, message: err.message });
+      setNotify({
+        status: false,
+        message: err?.message?.split("/")[1]?.split(")")[0],
+      });
     }
   };
 
