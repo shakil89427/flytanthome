@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logoBlack from "../../Assets/logoBlack.png";
 import cross from "../../Assets/cross.svg";
 import defaultUser from "../../Assets/defaultUser.png";
@@ -21,6 +21,17 @@ const styles = {
 const SmallSide = ({ showSide, setShowSide }) => {
   const navigate = useNavigate();
   const { user, setShowLogin, setShowLogout } = useStore();
+
+  useEffect(() => {
+    if (showSide) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, [showSide]);
   return (
     <div className="lg:hidden">
       {showSide && (
