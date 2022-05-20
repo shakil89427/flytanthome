@@ -57,7 +57,10 @@ const LargeTop = () => {
                   >
                     Social Profile
                   </p>
-                  <p className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer">
+                  <p
+                    onClick={() => navigate(`/mycampaign`)}
+                    className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"
+                  >
                     My Campaigns
                   </p>
                   <p
