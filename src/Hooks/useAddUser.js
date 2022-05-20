@@ -9,7 +9,7 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { formatPhoneNumber } from "react-phone-number-input";
+import { formatPhoneNumberIntl } from "react-phone-number-input";
 import { useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
 
@@ -28,21 +28,21 @@ const useAddUser = () => {
         setUserLoading(false);
         return navigate("/");
       }
-      const current = {
+      let current = {
         deviceType: "Website",
         email: data?.email ? data?.email : "",
         freeTrials: 3,
-        phoneNumber:
-          data?.phoneNumber?.length > 1
-            ? formatPhoneNumber(data?.phoneNumber)
-                .match(/[0-9]/g)
-                .join()
-                .replace(/,/g, "")
-            : "",
         profileImageUrl: "",
         shouldShowInfluencer: false,
         userId: data.uid,
       };
+      if (data?.phoneNumber?.length > 1) {
+        const [, ...rest] = formatPhoneNumberIntl(data?.phoneNumber).split(" ");
+        const num = rest.toString().replace(/,/g, "");
+        current.phoneNumber = num;
+      } else {
+        current.phoneNumber = "";
+      }
       setUser({ required: true, tempData: current });
       setUserLoading(false);
     } catch (err) {

@@ -23,6 +23,7 @@ function App() {
   const { authLoading } = useStore();
   const { pathname } = useLocation();
   const paths = ["/", "/brands", "/influencers"];
+
   return (
     <>
       <ActivityCheck />
