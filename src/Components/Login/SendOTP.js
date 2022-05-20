@@ -12,7 +12,7 @@ import {
 
 const SendOTP = ({ back, setShow }) => {
   const auth = getAuth();
-  const { userLoading, setUserLoading, setNotify } = useStore();
+  const { countryCode, userLoading, setUserLoading, setNotify } = useStore();
   const [number, setNumber] = useState();
 
   const sendOTP = (e) => {
@@ -58,7 +58,7 @@ const SendOTP = ({ back, setShow }) => {
           <PhoneInput
             className={styles.number}
             international
-            defaultCountry="US"
+            defaultCountry={countryCode || "US"}
             countryCallingCodeEditable={false}
             value={number}
             onChange={setNumber}

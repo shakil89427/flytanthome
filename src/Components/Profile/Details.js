@@ -10,7 +10,7 @@ import Twitter from "./Twitter";
 import Tiktok from "./Tiktok";
 import { useParams } from "react-router-dom";
 import Edit from "./Edit";
-
+import countries from "../../Raw/Countries";
 const styles = {
   spinnerDiv:
     "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
@@ -47,6 +47,7 @@ const Profile = () => {
   const { id } = useParams();
   const db = getFirestore();
   const [details, setDetails] = useState({});
+  const [country, setCountry] = useState(false);
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const socials = ["Instagram", "Youtube", "Twitter", "Tiktok"];
@@ -76,6 +77,14 @@ const Profile = () => {
         setLoading(false);
       });
   }, [id, user]);
+
+  useEffect(() => {
+    if (!details?.countryCode) return;
+    const found = countries?.find(
+      (c) => c?.countryCode === details?.countryCode
+    );
+    setCountry(found?.countryName);
+  }, [details]);
 
   useEffect(() => {
     if (!details.id) return;
@@ -128,8 +137,8 @@ const Profile = () => {
                   <span>
                     <p className={styles.topName}>{details?.username}</p>
                     <p className={styles.country}>
-                      {details?.country}
-                      {details?.countryCode && details?.gender && ", "}
+                      {country && country}
+                      {country && details?.gender && ", "}
                       {details?.gender?.charAt(0)}
                     </p>
                   </span>
