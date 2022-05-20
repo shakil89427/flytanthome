@@ -48,7 +48,7 @@ const SendOTP = ({ back, setShow }) => {
   };
 
   return (
-    <div className={styles.inputsMain}>
+    <div className={`${styles.inputsMain} mt-10`}>
       <BiArrowBack onClick={back} className={styles.back} />
       <h1 className={styles.heading}>Phone Number</h1>
       <p className={styles.info}>Login | Sign Up</p>

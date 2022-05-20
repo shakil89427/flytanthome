@@ -26,7 +26,7 @@ import { useNavigate } from "react-router-dom";
 /* Styles Start */
 const styles = {
   heading: "font-semibold text-xl md:text-3xl",
-  image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
+  image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
   nameWrapper: "flex items-center justify-between",
   name: "text-lg md:text-xl text-black font-semibold",
   icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
@@ -147,11 +147,13 @@ const PopularInfluencers = () => {
               key={index}
               className="cursor-pointer"
             >
-              <div
-                className={styles.image}
-                style={{ backgroundImage: `url(${item?.profileImageUrl})` }}
-                alt=""
-              />
+              <div className="w-full aspect-[9/8]">
+                <div
+                  className={styles.image}
+                  style={{ backgroundImage: `url(${item?.profileImageUrl})` }}
+                  alt=""
+                />
+              </div>
               <div className="pr-4 mt-2">
                 <div className={styles.nameWrapper}>
                   <p className={styles.name}>@{item?.username}</p>

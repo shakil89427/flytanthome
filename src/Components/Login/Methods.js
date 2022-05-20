@@ -10,13 +10,13 @@ const styles = {
   heading: "text-3xl font-bold text-center",
   info: "font-semibold mt-2 text-center",
   loginButtons:
-    "py-5 md:py-8 flex flex-col items-center gap-3 md:gap-5 border-b border-[#979797]",
+    "py-8 flex flex-col items-center gap-5 border-b border-[#979797]",
   loginButton:
-    "flex items-center gap-4 px-5 w-72 py-2 md:py-3 rounded-3xl shadow-lg cursor-pointer text-white",
+    "flex items-center font-medium gap-3 px-5 w-72 py-3 rounded-3xl  cursor-pointer text-white",
   downButtons:
     "my-4 md:my-7 flex items-center flex-wrap gap-3 md:gap-5 justify-center",
   downButton:
-    "flex items-center pl-3 py-1 gap-2 bg-black text-white w-44 rounded-lg cursor-pointer",
+    "flex items-center pl-3 h-12 gap-2 bg-black text-white w-44 rounded-lg cursor-pointer",
 };
 /* Styles End */
 
@@ -61,7 +61,7 @@ const Methods = ({ setShow }) => {
           <p>Continue with Apple</p>
         </div>
 
-        <p>or</p>
+        <p className="font-semibold">or</p>
 
         {/* Phone */}
         <div
@@ -81,10 +81,10 @@ const Methods = ({ setShow }) => {
           rel="noreferrer"
           className={styles.downButton}
         >
-          <img className="w-5 ml-1" src={playstoreWhite} alt="" />
+          <img className="w-6 ml-1" src={playstoreWhite} alt="" />
           <span>
-            <p className="text-xs">GET IT ON</p>
-            <p className="text-md">Play Store</p>
+            <p className="text-sm">GET IT ON</p>
+            <p className="text-lg leading-none mb-1">Play Store</p>
           </span>
         </a>
         <a
@@ -93,10 +93,10 @@ const Methods = ({ setShow }) => {
           rel="noreferrer"
           className={styles.downButton}
         >
-          <AiFillApple className="text-2xl" />
+          <AiFillApple className="text-3xl" />
           <span>
-            <p className="text-xs">DOWNLOAD ON THE</p>
-            <p className="text-md">App Store</p>
+            <p className="text-[11px]">DOWNLOAD ON THE</p>
+            <p className="text-lg leading-none mb-1">App Store</p>
           </span>
         </a>
       </div>

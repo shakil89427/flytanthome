@@ -71,7 +71,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
             {/* My Campaign */}
             <div
               onClick={() => {
-                navigate("/mycampaign");
+                navigate("/mycampaigns");
                 setShowSide(false);
               }}
               className={styles.item}
@@ -94,7 +94,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
             </div>
 
             {/* Logout */}
-            <div className="absolute bottom-5 w-full left-0">
+            <div className="absolute bottom-20 md:bottom-10 w-full left-0">
               <div
                 onClick={() => {
                   setShowSide(false);

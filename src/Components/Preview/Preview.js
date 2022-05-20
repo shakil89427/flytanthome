@@ -11,9 +11,10 @@ import {
 } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
 import moment from "moment";
+import millify from "millify";
 
 const styles = {
-  image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
+  image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
   next: "absolute bg-white top-[40%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 
@@ -59,11 +60,15 @@ const Preview = ({
         >
           {images?.map((item, index) => (
             <SwiperSlide key={index}>
-              <div
-                className={styles.image}
-                style={{ backgroundImage: `url(${URL.createObjectURL(item)})` }}
-                alt=""
-              />
+              <div className="aspect-[12/7]">
+                <div
+                  className={styles.image}
+                  style={{
+                    backgroundImage: `url(${URL.createObjectURL(item)})`,
+                  }}
+                  alt=""
+                />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -81,7 +86,7 @@ const Preview = ({
         <p>Posted: {moment().format("MMM DD YYYY")} </p>
 
         {type?.price && (
-          <p className=" border-2 w-fit px-5 py-1 border-black rounded-md">
+          <p className=" border-2 font-semibold w-fit px-5 py-1 border-black rounded-md">
             $ {type?.price}
           </p>
         )}
@@ -120,13 +125,7 @@ const Preview = ({
 
         <div className="">
           <p className="text-xl font-semibold mb-2">Minimum followers</p>
-          <p>
-            {followers < 1000
-              ? followers
-              : Math.abs(followers / 1000)
-                  .toString()
-                  .slice(0, 3) + "k"}
-          </p>
+          <p>{millify(followers)}</p>
         </div>
 
         <div className="">

@@ -31,10 +31,11 @@ import { FaTiktok } from "react-icons/fa";
 import Spinner from "../Components/Spinner/Spinner";
 import SocialError from "../Components/SponsorshipDetails/SocialError";
 import useStore from "../Store/useStore";
+import millify from "millify";
 
 const styles = {
-  image: "h-80 rounded-md bg-cover bg-center bg-no-repeat",
-  next: "absolute bg-white top-[40%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
+  next: "z-10 absolute bg-white top-1/2 -translate-y-1/2 -right-3 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 
 const SponsorshipDetails = () => {
@@ -210,7 +211,7 @@ const SponsorshipDetails = () => {
         </div>
       )}
       {socialError && <SocialError setSocialError={setSocialError} />}
-      <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-28">
+      <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
         {/* Left Side */}
         <div className="w-full md:w-7/12 relative">
           {detailsLoading && <Spinner position={true} />}
@@ -227,15 +228,17 @@ const SponsorshipDetails = () => {
                   slidesPerView={1}
                 >
                   {details?.blob &&
-                    details?.blob?.map((item, index) => (
-                      <SwiperSlide key={index}>
-                        <div
-                          className={styles.image}
-                          style={{
-                            backgroundImage: `url(${item.path})`,
-                          }}
-                          alt=""
-                        />
+                    details?.blob?.map((item) => (
+                      <SwiperSlide key={item?.path}>
+                        <div className="w-full aspect-[12/7]">
+                          <div
+                            className={styles.image}
+                            style={{
+                              backgroundImage: `url(${item.path})`,
+                            }}
+                            alt=""
+                          />
+                        </div>
                       </SwiperSlide>
                     ))}
                 </Swiper>
@@ -250,6 +253,7 @@ const SponsorshipDetails = () => {
                   <MdNavigateNext />
                 </div>
               </div>
+
               <div className="pr-5">
                 <div className="flex flex-col gap-5 mt-5">
                   <h3 className="text-2xl font-semibold">{details?.name}</h3>
@@ -319,13 +323,7 @@ const SponsorshipDetails = () => {
                 <h5 className="text-xl font-semibold mb-5">
                   Minimum followers
                 </h5>
-                <p className="mb-10">
-                  {details?.minFollowers < 1000
-                    ? details?.minFollowers
-                    : Math.abs(details?.minFollowers / 1000)
-                        .toString()
-                        .slice(0, 3) + "k"}
-                </p>
+                <p className="mb-10">{millify(details?.minFollowers)}</p>
                 <p className="text-xl font-semibold mb-5">Platform required</p>
                 <div className="flex items-center gap-3 text-xs">
                   {details?.platforms?.includes("Instagram") && (
@@ -368,20 +366,22 @@ const SponsorshipDetails = () => {
           {!similarLoading && !similar?.length ? (
             <p className="text-center">No data found</p>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-1 gap-x-5 gap-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-x-5 gap-y-10">
               {similar?.map((item) => (
                 <div
                   onClick={() => navigate(`/sponsorshipdetails/${item?.id}`)}
                   key={item.id}
                   className="relative cursor-pointer"
                 >
-                  <div className="bg-[#F5B63A] text-white text-sm absolute top-5 right-0 px-3 py-1 rounded-tl-md rounded-bl-md">
+                  <div className="bg-[#F5B63A] text-white text-sm absolute top-10 shadow-xl right-0 px-3 py-1 rounded-tl-full rounded-bl-full">
                     {item?.applied} applied
                   </div>
-                  <div
-                    style={{ backgroundImage: `url(${item.blob[0]?.path})` }}
-                    className="w-full h-48 bg-cover bg-center bg-no-repeat rounded-md"
-                  />
+                  <div className="w-full aspect-[12/7]">
+                    <div
+                      style={{ backgroundImage: `url(${item.blob[0]?.path})` }}
+                      className="w-full h-full bg-cover bg-center bg-no-repeat rounded-md"
+                    />
+                  </div>
                   <div className="mt-3 md:pr-5">
                     <div className="flex items-center justify-between mb-2">
                       <p className="bg-[#FFDE2F] text-xs py-1 px-3 rounded-3xl font-medium">
@@ -393,13 +393,7 @@ const SponsorshipDetails = () => {
                     </div>
                     <p className="text-md font-semibold">{item.name}</p>
                     <p className="text-xs my-1">
-                      Min{" "}
-                      {item.minFollowers < 1000
-                        ? item.minFollowers
-                        : Math.abs(item.minFollowers / 1000)
-                            .toString()
-                            .slice(0, 3) + "k"}{" "}
-                      followers required
+                      Min {millify(item.minFollowers)} followers required
                     </p>
                     <div className="flex items-center gap-2 text-lg text-gray-400 mt-2">
                       {item?.platforms?.includes("Instagram") && (

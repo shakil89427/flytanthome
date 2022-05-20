@@ -11,13 +11,14 @@ import { FaTiktok } from "react-icons/fa";
 import { MdNavigateNext } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import millify from "millify";
 
 /* Styles Start */
 const styles = {
   heading: "font-semibold text-xl md:text-3xl",
   applied:
-    "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-md rounded-bl-md",
-  image: "h-72 rounded-md bg-cover bg-center bg-no-repeat",
+    "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-full rounded-bl-full shadow-xl",
+  image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
   typeWrapper: "flex items-center justify-between",
   type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
   title: "font-semibold my-1 text-lg md:text-xl",
@@ -77,13 +78,15 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                 <p className={styles.applied}>
                   {sponsorship?.applied ? sponsorship.applied : "0"} applied
                 </p>
-                <div
-                  className={styles.image}
-                  style={{
-                    backgroundImage: `url(${sponsorship?.blob[0].path})`,
-                  }}
-                  alt=""
-                />
+                <div className="w-full aspect-[9/8]">
+                  <div
+                    className={styles.image}
+                    style={{
+                      backgroundImage: `url(${sponsorship?.blob[0].path})`,
+                    }}
+                    alt=""
+                  />
+                </div>
 
                 <div className="mt-2 mr-3">
                   <div className={styles.typeWrapper}>
@@ -112,13 +115,7 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
 
                   <div className={styles.bottomWrapper}>
                     <p className={styles.followers}>
-                      Min{" "}
-                      {sponsorship.minFollowers < 1000
-                        ? sponsorship.minFollowers
-                        : Math.abs(sponsorship.minFollowers / 1000)
-                            .toString()
-                            .slice(0, 3) + "k"}{" "}
-                      followers required
+                      Min {millify(sponsorship.minFollowers)} followers required
                     </p>
 
                     <div className="flex justify-between">

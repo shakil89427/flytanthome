@@ -16,13 +16,15 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import millify from "millify";
 
 /* Styles Start */
 const styles = {
   nonSelect: "text-lg md:text-xl text-gray-600 cursor-pointer font-medium",
   selected:
     "text-lg md:text-xl font-semibold relative before:content-[''] before:absolute before:w-[140%] before:max-w-[150px] before:left-1/2 before:-translate-x-1/2 before:h-[3px] before:bg-black before:-bottom-[2px] before:rounded-full",
-  applied: "bg-[#F5B63A] text-white px-3 py-1 rounded-tl-md rounded-bl-md mb-2",
+  applied:
+    "bg-[#F5B63A] text-white px-3 py-1 rounded-tl-full rounded-bl-full mb-2",
   image: "w-full aspect-[12/8]",
   typeWrapper: "flex items-center justify-between",
   type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
@@ -130,7 +132,7 @@ const MyCampaigns = () => {
                           ? "green"
                           : "red",
                       }}
-                      className="text-white px-3 py-1 rounded-tl-md rounded-bl-md"
+                      className="text-white px-3 py-1 rounded-tl-full rounded-bl-full"
                     >
                       {sponsorship?.isApproved ? "Approved" : "In Review"}
                     </p>
@@ -169,13 +171,8 @@ const MyCampaigns = () => {
 
                     <div className={styles.bottomWrapper}>
                       <p className={styles.followers}>
-                        Min{" "}
-                        {sponsorship.minFollowers < 1000
-                          ? sponsorship.minFollowers
-                          : Math.abs(sponsorship.minFollowers / 1000)
-                              .toString()
-                              .slice(0, 3) + "k"}{" "}
-                        followers required
+                        Min {millify(sponsorship.minFollowers)} followers
+                        required
                       </p>
 
                       <div className="flex justify-between">

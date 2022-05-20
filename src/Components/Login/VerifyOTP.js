@@ -44,7 +44,7 @@ const VerifyOTP = ({ setShow }) => {
     }
   };
   return (
-    <div className={styles.inputsMain}>
+    <div className={`${styles.inputsMain} mt-10`}>
       <BiArrowBack onClick={() => setShow("sendOTP")} className={styles.back} />
       <h1 className={styles.heading}>Enter OTP here</h1>
       <p className="text-xs px-5 text-center my-8">

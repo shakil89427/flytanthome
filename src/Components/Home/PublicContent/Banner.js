@@ -55,36 +55,34 @@ const Banner = () => {
             </a>
           </div>
         </div>
-        <div className="rounded-3xl relative text-white md:w-1/2 h-72 sm:h-[390px] md:h-[240px] lg:h-[370px] xl:h-[390px]">
-          {play ? (
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/i0Nxig4oTz8?autoplay=1"
-              title="Flytant"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;fullscreen"
-              allowfullscreen
-            ></iframe>
-          ) : (
-            <img
-              className="w-full h-full absolute bottom-0"
-              src={bannerBg}
-              alt=""
-            />
-          )}
-          {play ? (
-            <img
-              onClick={() => setPlay(false)}
-              className="absolute top-0 right-0 text-2xl cursor-pointer bg-white"
-              src={cross}
-              alt=""
-            />
-          ) : (
-            <BsPlayCircle
-              onClick={() => setPlay(true)}
-              className="absolute bottom-8 left-8 text-5xl lg:text-6xl cursor-pointer"
-            />
-          )}
+        <div className="md:w-1/2 ">
+          <div className="rounded-3xl relative text-white aspect-[12/8]">
+            {play ? (
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/i0Nxig4oTz8?autoplay=1"
+                title="Flytant"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;fullscreen"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <img className="w-full h-full" src={bannerBg} alt="" />
+            )}
+            {play ? (
+              <img
+                onClick={() => setPlay(false)}
+                className="absolute top-0 right-0 text-2xl cursor-pointer bg-white"
+                src={cross}
+                alt=""
+              />
+            ) : (
+              <BsPlayCircle
+                onClick={() => setPlay(true)}
+                className="absolute bottom-8 left-8 text-5xl lg:text-6xl cursor-pointer"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
