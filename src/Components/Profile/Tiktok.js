@@ -124,7 +124,7 @@ const Tiktok = ({ details }) => {
               <div key={video?.id} className="flex flex-col w-full gap-4">
                 <div className="border rounded-md overflow-hidden">
                   <img src={video?.cover_image_url} alt="" />
-                  <p className="text-xs my-3 px-3">
+                  <p className="text-xs my-3 px-3 break-words">
                     {video?.video_description}
                   </p>
                   <div className="pl-3 w-fit flex items-center gap-5 my-5">

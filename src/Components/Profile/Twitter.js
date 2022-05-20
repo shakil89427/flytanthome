@@ -151,7 +151,7 @@ const Twitter = ({ details }) => {
                   </span>
                 </div>
 
-                <p className="px-3 text-xs my-5">{tweet?.text}</p>
+                <p className="px-3 text-xs my-5 break-words">{tweet?.text}</p>
                 {tweet?.attachments?.media_keys?.length > 0 &&
                   data?.media?.map(
                     (item, index) =>

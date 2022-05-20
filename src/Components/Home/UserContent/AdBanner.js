@@ -4,7 +4,7 @@ import adBannerBg from "../../../Assets/userHome/adBannerBg.png";
 const AdBanner = () => {
   return (
     <div className="r-box">
-      <img src={adBannerBg} alt="" />
+      <img className="aspect-[7/2]" src={adBannerBg} alt="" />
     </div>
   );
 };

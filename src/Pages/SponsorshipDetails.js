@@ -99,6 +99,10 @@ const SponsorshipDetails = () => {
 
   /* Process to apply */
   const apply = () => {
+    return setNotify({
+      status: false,
+      message: "Please download our app first",
+    });
     if (loading) return;
     if (!user?.linkedAccounts) return setSocialError(true);
     if (user?.freeTrials > 0) {
@@ -265,7 +269,7 @@ const SponsorshipDetails = () => {
                       Barter Campaign
                     </p>
                   ) : (
-                    <p className="border-2 px-7 py-1 w-fit font-medium mt-1 rounded-md border-black">
+                    <p className="border-2 font-semibold px-7 py-1 w-fit mt-1 rounded-md border-black">
                       $ {details?.price}
                     </p>
                   )}

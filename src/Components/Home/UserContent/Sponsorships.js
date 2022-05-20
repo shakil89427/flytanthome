@@ -21,7 +21,7 @@ const styles = {
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
   typeWrapper: "flex items-center justify-between",
   type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
-  title: "font-semibold my-1 text-lg md:text-xl",
+  title: "font-semibold my-1 text-lg md:text-xl break-words",
   bottomWrapper: "flex flex-col gap-2",
   followers: "text-xs font-medium",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",

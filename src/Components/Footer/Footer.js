@@ -29,7 +29,7 @@ const styles = {
     "w-fit flex flex-col mx-auto md:ml-auto gap-y-5 items-center lg:items-start",
   appHead: "mt-1 lg:mt-0",
   appBtn:
-    "bg-[#303030] w-44 flex items-center pl-3 py-1 border-2 border-white rounded-lg z-10 cursor-pointer overflow-hidden before:duration-300 relative before:absolute before:content-[''] before:w-0 before:h-full before:top-0 before:left-0 before:bg-black hover:before:w-full before:-z-10",
+    "bg-[#303030] w-52 flex items-center pl-5 py-1 border-2 border-white rounded-lg z-10 cursor-pointer overflow-hidden before:duration-300 relative before:absolute before:content-[''] before:w-0 before:h-full before:top-0 before:left-0 before:bg-black hover:before:w-full before:-z-10",
   appIcon: "text-3xl mr-2",
   download: "text-sm font-medium text-gray-300",
   appCatagory: "font-semibold text-xl leading-none mb-1",

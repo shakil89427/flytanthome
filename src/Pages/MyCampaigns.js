@@ -28,7 +28,7 @@ const styles = {
   image: "w-full aspect-[12/8]",
   typeWrapper: "flex items-center justify-between",
   type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
-  title: "font-semibold my-1 text-lg",
+  title: "font-semibold my-1 text-lg break-words",
   bottomWrapper: "flex flex-col gap-2",
   followers: "text-xs font-medium",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
