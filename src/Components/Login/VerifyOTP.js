@@ -34,7 +34,6 @@ const VerifyOTP = ({ setShow }) => {
         .confirm(otp)
         .then((response) => addTempUser(response.user))
         .catch((error) => {
-          console.log(error.message.split("/")[1].split(")")[0]);
           setUserLoading(false);
           setNotify({
             status: false,

@@ -7,7 +7,7 @@ import useConnect from "../../Hooks/Instagram/useConnect";
 const Instagram = ({ details }) => {
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
-  const [data, setData] = useState({});
+  const [data, setData] = useState(false);
 
   const getFullData = async (username) => {
     try {
@@ -17,7 +17,7 @@ const Instagram = ({ details }) => {
           username,
         }
       );
-      console.log(response);
+      setData(response.data);
     } catch (err) {
       console.log(err.message);
     }
@@ -45,6 +45,7 @@ const Instagram = ({ details }) => {
           <p>Click here to link your instagram</p>
         </div>
       )}
+      {data && <p className="max-h-[600px] overflow-y-scroll mt-5">{data}</p>}
     </>
   );
 };
