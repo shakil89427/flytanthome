@@ -65,9 +65,21 @@ const SmallSide = ({ showSide, setShowSide }) => {
                 }}
                 className={styles.userImg}
               />
-              <p>Profile</p>
+              <p>Social Profile</p>
             </div>
 
+            {/* My Campaign */}
+            <div
+              onClick={() => {
+                navigate("/mycampaign");
+                setShowSide(false);
+              }}
+              className={styles.item}
+            >
+              <img className="i1 w-6" src={mikeBlack} alt="" />
+              <img className="i2 w-6" src={mikeWhite} alt="" />
+              <p>My Campaign</p>
+            </div>
             {/* Create Campaign */}
             <div
               onClick={() => {
@@ -82,15 +94,17 @@ const SmallSide = ({ showSide, setShowSide }) => {
             </div>
 
             {/* Logout */}
-            <div
-              onClick={() => {
-                setShowSide(false);
-                setShowLogout(true);
-              }}
-              className={styles.item}
-            >
-              <AiOutlineLogout className="text-2xl" />
-              <p>Logout</p>
+            <div className="absolute bottom-5 w-full left-0">
+              <div
+                onClick={() => {
+                  setShowSide(false);
+                  setShowLogout(true);
+                }}
+                className="flex items-center gap-3 border-0 h-6 justify-center cursor-pointer w-fit  mx-auto"
+              >
+                <AiOutlineLogout className="text-2xl" />
+                <p>Logout</p>
+              </div>
             </div>
           </div>
         ) : (

@@ -7,10 +7,12 @@ import {
 } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
 import useStore from "../Store/useStore";
+import Spinner from "../Components/Spinner/Spinner";
 import {
   collection,
   getDocs,
   getFirestore,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -33,26 +35,35 @@ const styles = {
 /* Styles End */
 
 const MyCampaign = () => {
-  const { user } = useStore();
+  const { user, setNotify } = useStore();
   const db = getFirestore();
-  const colRef = collection(db, "sponsorship");
+  const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState("All");
   const [allData, setAllData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    getDocs(colRef)
+    if (!user?.userId) return;
+    const colRef = collection(db, "sponsorship");
+    const q = query(
+      colRef,
+      where("userId", "==", user?.userId),
+      orderBy("creationDate", "desc")
+    );
+    getDocs(q)
       .then((res) => {
         const allDocs = res.docs.map((item) => ({
           ...item.data(),
           id: item.id,
         }));
         setAllData(allDocs);
+        setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        setNotify({ ststus: false, message: "Something went wrong" });
+        setLoading(false);
       });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (selected === "All") {
@@ -98,92 +109,98 @@ const MyCampaign = () => {
               Under Review
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-x-10 gap-y-14 mt-24">
-            {filteredData.map((sponsorship) => (
-              <div
-                key={sponsorship?.id}
-                className="relative shadow-lg rounded-lg border-t-8 border-b-8"
-              >
-                <div className="absolute top-4 right-0">
-                  <p className={styles.applied}>
-                    {sponsorship?.applied ? sponsorship.applied : "0"} applied
-                  </p>
-                  <p
-                    style={{
-                      backgroundColor: sponsorship?.isApproved
-                        ? "green"
-                        : "red",
-                    }}
-                    className="text-white px-3 py-1 rounded-tl-md rounded-bl-md"
-                  >
-                    {sponsorship?.isApproved ? "Approved" : "In Review"}
-                  </p>
-                </div>
-
-                <div className={styles.image}>
-                  <div
-                    className="w-full h-full bg-cover bg-center bg-no-repeat"
-                    style={{
-                      backgroundImage: `url(${sponsorship?.blob[0].path})`,
-                    }}
-                    alt=""
-                  />
-                </div>
-
-                <div className="p-2 pb-4">
-                  <div className={styles.typeWrapper}>
+          {loading && <Spinner />}
+          {!loading && filteredData?.length < 1 && (
+            <p className="text-center my-20">No Campaign found</p>
+          )}
+          {!loading && filteredData?.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-x-10 gap-y-14 mt-24">
+              {filteredData.map((sponsorship) => (
+                <div
+                  key={sponsorship?.id}
+                  className="relative shadow-md rounded-lg overflow-hidden"
+                >
+                  <div className="absolute top-4 right-0">
+                    <p className={styles.applied}>
+                      {sponsorship?.applied ? sponsorship.applied : "0"} applied
+                    </p>
                     <p
                       style={{
-                        backgroundColor: sponsorship?.barter
-                          ? "#FFDE2F"
-                          : "#3FD5F5",
+                        backgroundColor: sponsorship?.isApproved
+                          ? "green"
+                          : "red",
                       }}
-                      className={styles.type}
+                      className="text-white px-3 py-1 rounded-tl-md rounded-bl-md"
                     >
-                      {sponsorship?.barter
-                        ? "Paid Campaign"
-                        : "Barter Campaign"}
-                    </p>
-                    <p className="text-xs">
-                      {moment(sponsorship?.creationDate * 1000).fromNow()}
+                      {sponsorship?.isApproved ? "Approved" : "In Review"}
                     </p>
                   </div>
 
-                  <p className={styles.title}>{sponsorship?.name}</p>
+                  <div className={styles.image}>
+                    <div
+                      className="w-full h-full bg-cover bg-center bg-no-repeat"
+                      style={{
+                        backgroundImage: `url(${sponsorship?.blob[0].path})`,
+                      }}
+                      alt=""
+                    />
+                  </div>
 
-                  <div className={styles.bottomWrapper}>
-                    <p className={styles.followers}>
-                      Min{" "}
-                      {sponsorship.minFollowers < 1000
-                        ? sponsorship.minFollowers
-                        : Math.abs(sponsorship.minFollowers / 1000)
-                            .toString()
-                            .slice(0, 3) + "k"}{" "}
-                      followers required
-                    </p>
+                  <div className="p-2 pb-4">
+                    <div className={styles.typeWrapper}>
+                      <p
+                        style={{
+                          backgroundColor: sponsorship?.barter
+                            ? "#FFDE2F"
+                            : "#3FD5F5",
+                        }}
+                        className={styles.type}
+                      >
+                        {sponsorship?.barter
+                          ? "Paid Campaign"
+                          : "Barter Campaign"}
+                      </p>
+                      <p className="text-xs">
+                        {moment(sponsorship?.creationDate * 1000).fromNow()}
+                      </p>
+                    </div>
 
-                    <div className="flex justify-between">
-                      <div className={styles.icons}>
-                        {sponsorship?.platforms?.includes("Instagram") && (
-                          <AiFillInstagram />
-                        )}
-                        {sponsorship?.platforms?.includes("Twitter") && (
-                          <AiFillYoutube />
-                        )}
+                    <p className={styles.title}>{sponsorship?.name}</p>
 
-                        {sponsorship?.platforms?.includes("Twitter") && (
-                          <AiFillTwitterSquare />
-                        )}
-                        {sponsorship?.platforms?.includes("Twitter") && (
-                          <FaTiktok className="w-3" />
-                        )}
+                    <div className={styles.bottomWrapper}>
+                      <p className={styles.followers}>
+                        Min{" "}
+                        {sponsorship.minFollowers < 1000
+                          ? sponsorship.minFollowers
+                          : Math.abs(sponsorship.minFollowers / 1000)
+                              .toString()
+                              .slice(0, 3) + "k"}{" "}
+                        followers required
+                      </p>
+
+                      <div className="flex justify-between">
+                        <div className={styles.icons}>
+                          {sponsorship?.platforms?.includes("Instagram") && (
+                            <AiFillInstagram />
+                          )}
+                          {sponsorship?.platforms?.includes("Twitter") && (
+                            <AiFillYoutube />
+                          )}
+
+                          {sponsorship?.platforms?.includes("Twitter") && (
+                            <AiFillTwitterSquare />
+                          )}
+                          {sponsorship?.platforms?.includes("Twitter") && (
+                            <FaTiktok className="w-3" />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
