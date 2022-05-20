@@ -78,7 +78,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
             >
               <img className="i1 w-6" src={mikeBlack} alt="" />
               <img className="i2 w-6" src={mikeWhite} alt="" />
-              <p>My Campaign</p>
+              <p>My Campaigns</p>
             </div>
             {/* Create Campaign */}
             <div

@@ -34,7 +34,7 @@ const styles = {
 };
 /* Styles End */
 
-const MyCampaign = () => {
+const MyCampaigns = () => {
   const { user, setNotify } = useStore();
   const db = getFirestore();
   const [loading, setLoading] = useState(true);
@@ -207,4 +207,4 @@ const MyCampaign = () => {
   );
 };
 
-export default MyCampaign;
+export default MyCampaigns;
