@@ -32,6 +32,7 @@ import Spinner from "../Components/Spinner/Spinner";
 import SocialError from "../Components/SponsorshipDetails/SocialError";
 import useStore from "../Store/useStore";
 import millify from "millify";
+import DownloadApp from "../Components/DownloadApp/DownloadApp";
 
 const styles = {
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
@@ -57,6 +58,7 @@ const SponsorshipDetails = () => {
   const [description, setDescription] = useState("");
   const [full, setFull] = useState(false);
   const [socialError, setSocialError] = useState(false);
+  const [showDownload, setShowDownload] = useState(false);
   const { id } = useParams();
   const db = getFirestore();
   const navigate = useNavigate();
@@ -99,10 +101,7 @@ const SponsorshipDetails = () => {
 
   /* Process to apply */
   const apply = () => {
-    return setNotify({
-      status: false,
-      message: "Please download our app first",
-    });
+    return setShowDownload(true);
     if (loading) return;
     if (!user?.linkedAccounts) return setSocialError(true);
     if (user?.freeTrials > 0) {
@@ -208,6 +207,7 @@ const SponsorshipDetails = () => {
 
   return (
     <div>
+      {showDownload && <DownloadApp setShowDownload={setShowDownload} />}
       <Scroll />
       {loading && (
         <div className="fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]">

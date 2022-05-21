@@ -18,6 +18,12 @@ const Instagram = ({ details }) => {
         }
       );
       setData(response.data);
+      const info = response.data
+        .match(
+          /<script type="text\/javascript">window\._sharedData = (.*)<\/script>/
+        )[1]
+        .slice(0, -1);
+      console.log(JSON.parse(info));
     } catch (err) {
       console.log(err.message);
     }
