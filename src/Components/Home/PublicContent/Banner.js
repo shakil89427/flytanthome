@@ -24,33 +24,29 @@ const Banner = () => {
           <p className="text-lg lg:text-2xl  my-5">
             Find influencers and Brands of your niche
           </p>
-          <div className="flex gap-3 text-black mt-14 flex-wrap">
+          <div className="flex gap-4 text-black mt-14 flex-wrap">
             <a
               href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center pl-3 bg-white w-44 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
+              className="flex items-center pl-3 bg-white w-52 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
             >
-              <img className="w-6 mx-1" src={playstore} alt="" />
+              <img className="w-9 mx-1" src={playstore} alt="" />
               <span>
-                <p className="text-sm font-medium leading-none">GET IT ON</p>
-                <p className="font-bold text-xl leading-none mt-1">
-                  Play Store
-                </p>
+                <p className="text-sm font-medium ">GET IT ON</p>
+                <p className="font-bold text-xl ">Play Store</p>
               </span>
             </a>
             <a
               href="https://apps.apple.com/in/app/flytant/id1530158515"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center pl-3  bg-white w-44 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
+              className="flex items-center pl-3  bg-white w-52 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
             >
-              <AiFillApple className="text-3xl" />
+              <AiFillApple className="text-5xl" />
               <span>
-                <p className="text-[11px] font-medium leading-none">
-                  DOWNLOAD ON THE
-                </p>
-                <p className="font-bold text-xl leading-none mt-1">App Store</p>
+                <p className="text-[11px] font-medium ">DOWNLOAD ON THE</p>
+                <p className="font-bold text-xl">App Store</p>
               </span>
             </a>
           </div>

@@ -9,9 +9,9 @@ const styles = {
   profile: "flex items-center text-white gap-10",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   contactBtn:
-    "w-40 h-12 border-2 text-xl font-medium border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:border-white hover:border-2",
+    "w-36 h-11 border-2 text-xl font-medium border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:border-white hover:border-2",
   loginBtn:
-    "bg-white w-52 h-12 border text-xl border-white flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium hover:border-2",
+    "bg-white w-48 h-11 text-xl  flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium",
 };
 /* Styles End */
 
@@ -80,14 +80,14 @@ const LargeTop = () => {
             href="mailto:contact@flytant.com"
             target="_blank"
             rel="noreferrer"
-            style={{ letterSpacing: ".8px" }}
+            style={{ letterSpacing: ".6px" }}
             className={styles.contactBtn}
           >
             Contact
           </a>
           <button
             style={{
-              letterSpacing: ".8px",
+              letterSpacing: ".6px",
             }}
             onClick={() => setShowLogin(true)}
             className={styles.loginBtn}

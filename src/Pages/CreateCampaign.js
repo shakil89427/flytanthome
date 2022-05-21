@@ -168,7 +168,7 @@ const CreateCampaign = () => {
   }, [filterKey]);
 
   return (
-    <div className="r-box py-24 flex items-center justify-center">
+    <div className="r-box flex items-center justify-center min-h-[85vh]">
       {loading && (
         <div className="fixed w-full h-screen top-0 left-0 flex items-center justify-center z-20 bg-[#8685856e]">
           <Spinner />

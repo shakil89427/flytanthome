@@ -41,7 +41,7 @@ const Preview = ({
   }, [swiper]);
 
   return (
-    <div className="w-[95%] max-w-[550px] mx-auto relative">
+    <div className="w-[95%] max-w-[550px] mx-auto relative my-24">
       <button
         onClick={() => setPreview(false)}
         className="bg-black text-white px-5 py-2 rounded-md absolute -top-12 left-0"

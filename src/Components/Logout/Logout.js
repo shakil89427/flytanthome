@@ -29,12 +29,9 @@ const Logout = () => {
             alt=""
           />
           <h1 className="text-2xl md:text-3xl font-semibold">
-            You are about to logout
+            LogOut from Flytant ?
           </h1>
-          <h5 className="text-lg md:text-xl font-medium my-3 text-gray-600">
-            Are you Sure?
-          </h5>
-          <p className="text-gray-500 text-md">
+          <p className="text-gray-500 mt-3 text-md">
             You're logged in as {user?.username}
           </p>
           <span className="flex items-center justify-center mt-7 gap-5">
