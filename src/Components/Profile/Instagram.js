@@ -17,13 +17,7 @@ const Instagram = ({ details }) => {
           username,
         }
       );
-      setData(response.data);
-      const info = response.data
-        .match(
-          /<script type="text\/javascript">window\._sharedData = (.*)<\/script>/
-        )[1]
-        .slice(0, -1);
-      console.log(JSON.parse(info));
+      console.log(response.data);
     } catch (err) {
       console.log(err.message);
     }
@@ -51,7 +45,6 @@ const Instagram = ({ details }) => {
           <p>Click here to link your instagram</p>
         </div>
       )}
-      {data && <p className="max-h-[600px] overflow-y-scroll mt-5">{data}</p>}
     </>
   );
 };
