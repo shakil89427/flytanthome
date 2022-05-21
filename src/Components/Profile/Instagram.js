@@ -40,7 +40,11 @@ const Instagram = ({ details }) => {
           <p>No account linked</p>
 
           <p onClick={openPopup}>
-            <img className="w-1/2 mx-auto" src={instagram} alt="" />
+            <img
+              className="w-1/2 mx-auto cursor-pointer"
+              src={instagram}
+              alt=""
+            />
           </p>
           <p>Click here to link your instagram</p>
         </div>
