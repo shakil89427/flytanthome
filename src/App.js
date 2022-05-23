@@ -19,6 +19,7 @@ import SponsorshipDetails from "./Pages/SponsorshipDetails";
 import useStore from "./Store/useStore";
 import CreateCampaign from "./Pages/CreateCampaign";
 import MyCampaigns from "./Pages/MyCampaigns";
+import Subscriptions from "./Pages/Subscriptions";
 
 function App() {
   const { authLoading } = useStore();
@@ -58,6 +59,14 @@ function App() {
             element={
               <PrivateRoute>
                 <CreateCampaign />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/subscriptions"
+            element={
+              <PrivateRoute>
+                <Subscriptions />
               </PrivateRoute>
             }
           />
