@@ -1,12 +1,11 @@
 import axios from "axios";
 import useStore from "../Store/useStore";
 
-const usePayment = (plan, time) => {
+const usePayment = (plan, time, setPaymentLoading) => {
   const { setNotify } = useStore();
 
-  const startToPay = async () => {
+  const procced = (data) => {
     try {
-      const { data } = await axios.post("http://localhost:5000/createpayment");
       const options = {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID,
         amount: data.amount,
@@ -27,9 +26,45 @@ const usePayment = (plan, time) => {
           address: "Razorpay Corporate Office",
         },
       };
-      const rzp1 = new window.Razorpay(options);
-      rzp1.open();
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     } catch (err) {
+      setNotify({ status: false, message: "Something went wrong" });
+    }
+  };
+
+  const createInstance = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:5000/createpayment");
+      procced(data);
+      setPaymentLoading(false);
+    } catch (err) {
+      setPaymentLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+      document.getElementById("razorscript").remove();
+    }
+  };
+
+  const startToPay = async () => {
+    setPaymentLoading(true);
+    try {
+      const addedScript = await new Promise((resolve) => {
+        const src = "https://checkout.razorpay.com/v1/checkout.js";
+        const script = document.createElement("script");
+        script.src = src;
+        script.setAttribute("id", "razorscript");
+        document.body.appendChild(script);
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+      });
+      if (addedScript) {
+        createInstance();
+      } else {
+        setPaymentLoading(true);
+        setNotify({ status: false, message: "Something went wrong" });
+      }
+    } catch (err) {
+      setPaymentLoading(true);
       setNotify({ status: false, message: "Something went wrong" });
     }
   };

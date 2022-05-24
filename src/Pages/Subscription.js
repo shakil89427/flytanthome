@@ -21,11 +21,12 @@ const Subscription = () => {
   const navigate = useNavigate();
   const { remoteConfig, user, setNotify } = useStore();
   const [plans, setPlans] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [show, setShow] = useState(false);
+  const [plan, setPlan] = useState(false);
+  const [dataloading, setDataLoading] = useState(true);
+  const [paymentLoading, setPaymentLoading] = useState(false);
   const [selected, setSelected] = useState(false);
-  const { usd, inr, other } = useCalculate(setPlans, setLoading);
-  const { startToPay } = usePayment(show, selected);
+  const { usd, inr, other } = useCalculate(setPlans, setDataLoading);
+  const { startToPay } = usePayment(plan, selected, setPaymentLoading);
 
   /* Fetch subscription data */
   const getData = async () => {
@@ -75,7 +76,7 @@ const Subscription = () => {
       });
     } catch (err) {
       setNotify({ status: false, message: "Something went wrong" });
-      setLoading(false);
+      setDataLoading(false);
     }
   };
 
@@ -85,8 +86,13 @@ const Subscription = () => {
 
   return (
     <div className="r-box">
-      {loading && <Spinner />}
-      {!loading && (
+      {paymentLoading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-[#c9c7c75b]">
+          <Spinner />
+        </div>
+      )}
+      {dataloading && <Spinner />}
+      {!dataloading && (
         <div className="pt-20 pb-32">
           <div className="mb-20">
             <h1 className="text-center text-3xl font-semibold">
@@ -97,7 +103,7 @@ const Subscription = () => {
               sponsorships
             </p>
           </div>
-          {!show ? (
+          {!plan ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-7">
               {plans?.map((plan) => (
                 <div
@@ -140,7 +146,7 @@ const Subscription = () => {
                   <div className="mt-10">
                     <button
                       onClick={() =>
-                        setShow(plans.find((item) => item?.name === plan?.name))
+                        setPlan(plans.find((item) => item?.name === plan?.name))
                       }
                       className="bg-black text-white w-full py-3 rounded-lg text-sm"
                     >
@@ -160,12 +166,12 @@ const Subscription = () => {
             <div className="border shadow-lg px-5 py-12 rounded-md">
               <div className="w-full max-w-[550px] mx-auto">
                 <p
-                  onClick={() => setShow(false)}
+                  onClick={() => setPlan(false)}
                   className="w-fit bg-black text-white px-7 py-2"
                 >
-                  {show?.name}
+                  {plan?.name}
                 </p>
-                {show?.prices?.map((item) => (
+                {plan?.prices?.map((item) => (
                   <div
                     onClick={() =>
                       selected === item?.priceNow
@@ -180,15 +186,15 @@ const Subscription = () => {
                     className="flex items-center justify-between gap-5 border-2 border-black mt-8 px-5 py-4 rounded-md cursor-pointer hover:bg-gray-200  duration-150"
                   >
                     <p className="font-bold text-lg">
-                      Price {show?.symbol} {item?.priceNow} / {item?.type}
+                      Price {plan?.symbol} {item?.priceNow} / {item?.type}
                     </p>
                     {item?.pricePrev && (
                       <p>
                         <del className="font-medium">
-                          {show?.symbol}
+                          {plan?.symbol}
                           {item?.pricePrev}
                         </del>{" "}
-                        You will get {show?.percentageOff}% off
+                        You will get {plan?.percentageOff}% off
                       </p>
                     )}
                   </div>

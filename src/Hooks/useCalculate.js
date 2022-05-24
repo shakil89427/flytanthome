@@ -1,4 +1,4 @@
-const useCalculate = (setPlans, setLoading) => {
+const useCalculate = (setPlans, setDataLoading) => {
   /* USD Calculate */
   const usd = (allPlans, info) => {
     const maped = allPlans.map((item) => {
@@ -34,7 +34,7 @@ const useCalculate = (setPlans, setLoading) => {
       };
     });
     setPlans(maped);
-    setLoading(false);
+    setDataLoading(false);
   };
 
   /* INR Calculate */
@@ -72,7 +72,7 @@ const useCalculate = (setPlans, setLoading) => {
       };
     });
     setPlans(maped);
-    setLoading(false);
+    setDataLoading(false);
   };
 
   /* Other Calculate */
@@ -110,7 +110,7 @@ const useCalculate = (setPlans, setLoading) => {
       };
     });
     setPlans(maped);
-    setLoading(false);
+    setDataLoading(false);
   };
 
   return { usd, inr, other };
