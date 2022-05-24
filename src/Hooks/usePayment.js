@@ -5,32 +5,31 @@ const usePayment = (plan, time, setPaymentLoading) => {
   const { setNotify } = useStore();
 
   const procced = (data) => {
-    try {
-      const options = {
-        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-        amount: data.amount,
-        currency: data.currency,
-        name: "Flytant",
-        description: "Test Transaction",
-        image:
-          "https://w7.pngwing.com/pngs/912/392/png-transparent-jerry-mouse-tom-cat-tom-and-jerry-poster-tom-and-jerry-mammal-heroes-cat-like-mammal.png",
-        order_id: data.id,
-        handler: function (response) {
-          console.log(response);
-        },
-        prefill: {
-          name: "Shakil Ahmed",
-          email: "shakilahmed89427@gmail.com",
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-      };
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (err) {
-      setNotify({ status: false, message: "Something went wrong" });
-    }
+    const options = {
+      key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+      amount: data?.amount,
+      currency: data?.currency,
+      name: "Flytant",
+      description: "Test Transaction",
+      image:
+        "https://spng.pngfind.com/pngs/s/18-187058_free-png-download-hand-with-dollar-sign-png.png",
+      order_id: data?.id,
+      handler: (response) => {
+        console.log(response);
+      },
+      prefill: {
+        name: "Shakil Ahmed",
+        email: "shakilahmed89427@gmail.com",
+      },
+      notes: {
+        address: "Flytant India",
+      },
+    };
+    const razorpay = new window.Razorpay(options);
+    razorpay.on("payment.failed", (response) => {
+      console.log(response);
+    });
+    razorpay.open();
   };
 
   const createInstance = async () => {
@@ -41,7 +40,6 @@ const usePayment = (plan, time, setPaymentLoading) => {
     } catch (err) {
       setPaymentLoading(false);
       setNotify({ status: false, message: "Something went wrong" });
-      document.getElementById("razorscript").remove();
     }
   };
 
@@ -60,11 +58,11 @@ const usePayment = (plan, time, setPaymentLoading) => {
       if (addedScript) {
         createInstance();
       } else {
-        setPaymentLoading(true);
+        setPaymentLoading(false);
         setNotify({ status: false, message: "Something went wrong" });
       }
     } catch (err) {
-      setPaymentLoading(true);
+      setPaymentLoading(false);
       setNotify({ status: false, message: "Something went wrong" });
     }
   };
