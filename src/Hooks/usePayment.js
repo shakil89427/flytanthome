@@ -34,7 +34,9 @@ const usePayment = (plan, time, setPaymentLoading) => {
 
   const createInstance = async () => {
     try {
-      const { data } = await axios.post("http://localhost:5000/createpayment");
+      const { data } = await axios.post(
+        "https://flytant.herokuapp.com/createpayment"
+      );
       procced(data);
       setPaymentLoading(false);
     } catch (err) {
