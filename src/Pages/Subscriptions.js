@@ -100,24 +100,17 @@ const Subscriptions = () => {
       const matchedSymbol = allCurrencies.find(
         (item) => item.code === currencyCode
       );
-      console.log(matchedSymbol);
       const {
-        data: { quotes },
-      } = await axios.get("http://api.currencylayer.com/live", {
-        params: {
-          access_key: process.env.REACT_APP_CURRENCY_ACCESS_KEY,
-          source: "USD",
-          currencies: currencyCode,
-        },
-      });
-
+        data: { conversion_rates },
+      } = await axios.get(
+        `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_CURRENCY_ACCESS_KEY}/latest/USD`
+      );
       setCurrencyValue({
         currency: currencyCode,
         symbol: matchedSymbol.symbol_native,
-        value: quotes[Object.keys(quotes)[0]],
+        value: conversion_rates[currencyCode],
       });
     } catch (err) {
-      console.log(err);
       setNotify({ status: false, message: "Something went wrong" });
       setLoading(false);
     }
