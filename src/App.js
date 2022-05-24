@@ -19,7 +19,7 @@ import SponsorshipDetails from "./Pages/SponsorshipDetails";
 import useStore from "./Store/useStore";
 import CreateCampaign from "./Pages/CreateCampaign";
 import MyCampaigns from "./Pages/MyCampaigns";
-import Subscriptions from "./Pages/Subscriptions";
+import Subscription from "./Pages/Subscription";
 
 function App() {
   const { authLoading } = useStore();
@@ -63,10 +63,10 @@ function App() {
             }
           />
           <Route
-            path="/subscriptions"
+            path="/subscription"
             element={
               <PrivateRoute>
-                <Subscriptions />
+                <Subscription />
               </PrivateRoute>
             }
           />

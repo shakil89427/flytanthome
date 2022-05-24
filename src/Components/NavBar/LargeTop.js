@@ -64,10 +64,10 @@ const LargeTop = () => {
                     My Campaigns
                   </p>
                   <p
-                    onClick={() => navigate(`/subscriptions`)}
+                    onClick={() => navigate(`/subscription`)}
                     className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
-                    Subscriptions
+                    Subscription
                   </p>
                   <p
                     onClick={() => setShowLogout(true)}

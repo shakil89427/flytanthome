@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import useStore from "../Store/useStore";
+import Spinner from "../Components/Spinner/Spinner";
+import available from "../Assets/available.png";
+import notAvailable from "../Assets/notAvailable.png";
 import {
   getFirestore,
   collection,
@@ -8,59 +12,55 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { getString } from "firebase/remote-config";
-import Spinner from "../Components/Spinner/Spinner";
-import axios from "axios";
-import available from "../Assets/available.png";
-import notAvailable from "../Assets/notAvailable.png";
 import { useNavigate } from "react-router-dom";
 import useCalculate from "../Hooks/useCalculate";
 import usePayment from "../Hooks/usePayment";
 
-const Subscriptions = () => {
+const Subscription = () => {
+  const db = getFirestore();
   const navigate = useNavigate();
   const { remoteConfig, user, setNotify } = useStore();
-  const [allSubscriptions, setAllSubscriptions] = useState([]);
-  const [subscriptions, setSubscriptions] = useState([]);
-  const [currencyValue, setCurrencyValue] = useState({});
+  const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [paymentLoading, setPaymentLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(false);
-  useCalculate(currencyValue, allSubscriptions, setSubscriptions, setLoading);
-  const { startToPay } = usePayment(show, selected, setPaymentLoading);
-  const db = getFirestore();
-  const colRef = collection(db, "subscription");
-  const q = query(colRef, orderBy("inBasePrice", "asc"));
+  const { usd, inr, other } = useCalculate(setPlans, setLoading);
+  const { startToPay } = usePayment(show, selected);
 
-  /* Get actual currency */
-  const applyChanges = async () => {
+  /* Fetch subscription data */
+  const getData = async () => {
     try {
-      const allCountries = JSON.parse(getString(remoteConfig, "country_list"));
-      const allCurrencies = JSON.parse(
-        getString(remoteConfig, "currency_list")
-      );
+      const colRef = collection(db, "subscription");
+      const q = query(colRef, orderBy("inBasePrice", "asc"));
+      const response = await getDocs(q);
+      const allPlans = response.docs.map((doc) => ({ ...doc.data() }));
+      const countries = JSON.parse(getString(remoteConfig, "country_list"));
+      const currencies = JSON.parse(getString(remoteConfig, "currency_list"));
       /* USD */
       if (!user?.countryCode || user?.countryCode === "") {
-        const matchedSymbol = allCurrencies.find((item) => item.code === "USD");
-        return setCurrencyValue({
+        const { symbol_native } = currencies.find(
+          (item) => item.code === "USD"
+        );
+        return usd(allPlans, {
           currency: "USD",
-          symbol: matchedSymbol.symbol_native,
+          symbol: symbol_native,
         });
       }
       /* INR */
       if (user?.countryCode === "IN") {
-        const matchedSymbol = allCurrencies.find((item) => item.code === "INR");
-        return setCurrencyValue({
+        const { symbol_native } = currencies.find(
+          (item) => item.code === "INR"
+        );
+        return inr(allPlans, {
           currency: "INR",
-          symbol: matchedSymbol.symbol_native,
+          symbol: symbol_native,
         });
       }
       /* Others */
-      const { currencyCode } = allCountries.find(
+      const { currencyCode } = countries.find(
         (item) => item.countryCode === user.countryCode
       );
-
-      const matchedSymbol = allCurrencies.find(
+      const { symbol_native } = currencies.find(
         (item) => item.code === currencyCode
       );
       const {
@@ -68,23 +68,11 @@ const Subscriptions = () => {
       } = await axios.get(
         `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_CURRENCY_ACCESS_KEY}/latest/USD`
       );
-      setCurrencyValue({
+      other(allPlans, {
         currency: currencyCode,
-        symbol: matchedSymbol.symbol_native,
+        symbol: symbol_native,
         value: Math.ceil(conversion_rates[currencyCode]),
       });
-    } catch (err) {
-      setNotify({ status: false, message: "Something went wrong" });
-      setLoading(false);
-    }
-  };
-
-  /* Fetch subscription data */
-  const getData = async () => {
-    try {
-      const allData = await getDocs(q);
-      setAllSubscriptions(allData?.docs?.map((doc) => ({ ...doc.data() })));
-      applyChanges();
     } catch (err) {
       setNotify({ status: false, message: "Something went wrong" });
       setLoading(false);
@@ -111,25 +99,24 @@ const Subscriptions = () => {
           </div>
           {!show ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-7">
-              {subscriptions?.map((subscription) => (
+              {plans?.map((plan) => (
                 <div
-                  key={subscription?.planId}
+                  key={plan?.planId}
                   className="flex flex-col justify-between rounded-lg shadow-md border px-4 py-10 hover:scale-105 duration-150"
                 >
                   <div>
                     <p className="bg-black text-white w-fit px-3 py-1">
-                      {subscription?.name}
+                      {plan?.name}
                     </p>
                     <p className="my-8 text-sm">
                       <span className="text-4xl font-bold">
-                        {subscription?.symbol}{" "}
-                        {subscription?.prices[0]?.priceNow}
+                        {plan?.symbol} {plan?.prices[0]?.priceNow}
                       </span>{" "}
                       / month
                     </p>
                     <div className="flex flex-col my-7 gap-8">
                       <p className="font-semibold">Plan Features</p>
-                      {subscription?.features?.map((item, index) => (
+                      {plan?.features?.map((item, index) => (
                         <div
                           key={index}
                           className="flex font-medium items-start text-sm text-[#949393] w-full"
@@ -153,11 +140,7 @@ const Subscriptions = () => {
                   <div className="mt-10">
                     <button
                       onClick={() =>
-                        setShow(
-                          subscriptions.find(
-                            (item) => item?.name === subscription?.name
-                          )
-                        )
+                        setShow(plans.find((item) => item?.name === plan?.name))
                       }
                       className="bg-black text-white w-full py-3 rounded-lg text-sm"
                     >
@@ -229,4 +212,4 @@ const Subscriptions = () => {
   );
 };
 
-export default Subscriptions;
+export default Subscription;
