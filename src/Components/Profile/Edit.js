@@ -6,7 +6,6 @@ import useStore from "../../Store/useStore";
 import Spinner from "../Spinner/Spinner";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
-import allCategories from "../../Assets/categories";
 import {
   collection,
   doc,
@@ -24,6 +23,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { getString } from "firebase/remote-config";
 
 const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen bg-[#49494980]",
@@ -43,7 +43,7 @@ const styles = {
 };
 
 const Edit = ({ progress, setEdit }) => {
-  const { app, setNotify, user, setUser } = useStore();
+  const { remoteConfig, app, setNotify, user, setUser } = useStore();
   const db = getFirestore();
   const storage = getStorage(app);
   const colRef = collection(db, "users");
@@ -66,6 +66,9 @@ const Edit = ({ progress, setEdit }) => {
   const [gender, setGender] = useState(user?.gender);
 
   useEffect(() => {
+    const allCategories = Object.keys(
+      JSON.parse(getString(remoteConfig, "explore_category"))
+    );
     if (filterKey.length < 1) return setFiltered(allCategories);
     setFiltered(
       allCategories.filter((c) =>

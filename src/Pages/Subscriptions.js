@@ -7,7 +7,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { getRemoteConfig, getString } from "firebase/remote-config";
+import { getString } from "firebase/remote-config";
 import Spinner from "../Components/Spinner/Spinner";
 import axios from "axios";
 import available from "../Assets/available.png";
@@ -16,12 +16,11 @@ import { useNavigate } from "react-router-dom";
 
 const Subscriptions = () => {
   const navigate = useNavigate();
-  const { user, app, setNotify } = useStore();
+  const { remoteConfig, user, setNotify } = useStore();
   const [allSubscriptions, setAllSubscriptions] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
   const [currencyValue, setCurrencyValue] = useState({});
   const [loading, setLoading] = useState(true);
-  const remoteConfig = getRemoteConfig(app);
   const db = getFirestore();
   const colRef = collection(db, "subscription");
   const q = query(colRef, orderBy("inBasePrice", "asc"));
@@ -101,7 +100,7 @@ const Subscriptions = () => {
       const matchedSymbol = allCurrencies.find(
         (item) => item.code === currencyCode
       );
-
+      console.log(matchedSymbol);
       const {
         data: { quotes },
       } = await axios.get("http://api.currencylayer.com/live", {
@@ -118,6 +117,7 @@ const Subscriptions = () => {
         value: quotes[Object.keys(quotes)[0]],
       });
     } catch (err) {
+      console.log(err);
       setNotify({ status: false, message: "Something went wrong" });
       setLoading(false);
     }
@@ -130,10 +130,8 @@ const Subscriptions = () => {
       setAllSubscriptions(
         allData?.docs?.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-      const allCountries = await JSON.parse(
-        getString(remoteConfig, "country_list")
-      );
-      const allCurrencies = await JSON.parse(
+      const allCountries = JSON.parse(getString(remoteConfig, "country_list"));
+      const allCurrencies = JSON.parse(
         getString(remoteConfig, "currency_list")
       );
       applyChanges(allCountries, allCurrencies);

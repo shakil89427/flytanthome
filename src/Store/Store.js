@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../Firebase/firebaseConfig";
+import { getRemoteConfig } from "firebase/remote-config";
 /* Initialize Firebase */
 const app = initializeApp(firebaseConfig);
+const remoteConfig = getRemoteConfig(app);
 
 /* Main Store */
 const Store = () => {
@@ -47,6 +49,7 @@ const Store = () => {
   /* Returned Items */
   return {
     app,
+    remoteConfig,
     user,
     setUser,
     countryCode,

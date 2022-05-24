@@ -6,16 +6,16 @@ import plus from "../Assets/plus.png";
 import arrowDownBlack from "../Assets/arrowDownBlack.png";
 import { BsSearch } from "react-icons/bs";
 import selected from "../Assets/selected.png";
-import allCategories from "../Assets/categories";
 import Preview from "../Components/Preview/Preview";
 import useStore from "../Store/useStore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 import Spinner from "../Components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
+import { getString } from "firebase/remote-config";
 
 const CreateCampaign = () => {
-  const { user, app, setNotify } = useStore();
+  const { remoteConfig, user, app, setNotify } = useStore();
   const storage = getStorage(app);
   const db = getFirestore();
   const navigate = useNavigate();
@@ -159,6 +159,9 @@ const CreateCampaign = () => {
   ]);
 
   useEffect(() => {
+    const allCategories = Object.keys(
+      JSON.parse(getString(remoteConfig, "explore_category"))
+    );
     if (filterKey.length < 1) return setFiltered(allCategories);
     setFiltered(
       allCategories.filter((c) =>

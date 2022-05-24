@@ -10,7 +10,7 @@ import Twitter from "./Twitter";
 import Tiktok from "./Tiktok";
 import { useParams } from "react-router-dom";
 import Edit from "./Edit";
-import countries from "../../Raw/Countries";
+import { getString } from "firebase/remote-config";
 const styles = {
   spinnerDiv:
     "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
@@ -42,8 +42,14 @@ const styles = {
 };
 
 const Profile = () => {
-  const { user, featuredInfluencers, popularInfluencers, users, setUsers } =
-    useStore();
+  const {
+    remoteConfig,
+    user,
+    featuredInfluencers,
+    popularInfluencers,
+    users,
+    setUsers,
+  } = useStore();
   const { id } = useParams();
   const db = getFirestore();
   const [details, setDetails] = useState({});
@@ -80,7 +86,8 @@ const Profile = () => {
 
   useEffect(() => {
     if (!details?.countryCode) return;
-    const found = countries?.find(
+    const allCountries = JSON.parse(getString(remoteConfig, "country_list"));
+    const found = allCountries?.find(
       (c) => c?.countryCode === details?.countryCode
     );
     setCountry(found?.countryName);
