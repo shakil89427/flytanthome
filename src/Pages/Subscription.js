@@ -124,12 +124,25 @@ const Subscription = () => {
                     <p className="bg-black text-white w-fit px-3 py-1">
                       {plan?.name}
                     </p>
-                    <p className="my-8 text-sm">
-                      <span className="text-4xl font-bold">
-                        {plan?.symbol} {plan?.prices[0]?.priceNow}
-                      </span>{" "}
-                      / month
-                    </p>
+
+                    <div className="my-8">
+                      <p className="mb-4 text-sm">
+                        <span className="text-4xl font-bold">
+                          {plan?.symbol} {plan?.prices[0]?.priceNow}
+                        </span>{" "}
+                        / month
+                      </p>
+                      <div>
+                        <del className="mr-5 font-medium text-gray-500">
+                          {plan.symbol} {plan.strike}{" "}
+                          <span className="text-sm">/month</span>
+                        </del>
+                        <span className="font-medium">
+                          Get {plan.percentageOff}% Off
+                        </span>
+                      </div>
+                    </div>
+
                     <div className="flex flex-col my-7 gap-8">
                       <p className="font-semibold">Plan Features</p>
                       {plan?.features?.map((item, index) => (
