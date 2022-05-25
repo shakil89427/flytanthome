@@ -20,6 +20,8 @@ import useStore from "./Store/useStore";
 import CreateCampaign from "./Pages/CreateCampaign";
 import MyCampaigns from "./Pages/MyCampaigns";
 import Subscription from "./Pages/Subscription";
+import AllSubscriptions from "./Components/Subscription/AllSubscriptions";
+import SubscriptionDetails from "./Components/Subscription/SubscriptionDetails";
 
 function App() {
   const { authLoading } = useStore();
@@ -69,7 +71,26 @@ function App() {
                 <Subscription />
               </PrivateRoute>
             }
-          />
+          >
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <AllSubscriptions />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path=":name"
+              element={
+                <PrivateRoute>
+                  <SubscriptionDetails />
+                </PrivateRoute>
+              }
+            />
+            {/* <Route path="" element={<PrivateRoute></PrivateRoute>}/> */}
+          </Route>
+          <Route />
           <Route
             path="/sponsorshipdetails/:id"
             element={

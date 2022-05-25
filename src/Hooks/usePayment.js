@@ -26,12 +26,26 @@ const usePayment = (plan, setPaymentLoading) => {
         subscriptionDays: plan?.subscriptionDays,
       };
       const expiry = plan?.subscriptionDays * 86400;
-      const subscriptionEndingDate =
-        user?.subscriptionEndingDate > moment().unix()
-          ? user?.subscriptionEndingDate + expiry
-          : moment().unix() + expiry;
+
+      let tempUpdated = {};
+
+      if (user?.subscriptionEndingDate >= moment().unix()) {
+        tempUpdated.subscriptionEndingDate =
+          user?.subscriptionEndingDate + expiry;
+        tempUpdated.numberOfApplies = user?.numberOfApplies
+          ? user?.numberOfApplies + plan?.numberOfApplies
+          : plan?.numberOfApplies;
+        tempUpdated.messageCredits = user?.messageCredits
+          ? user?.messageCredits + plan?.messageCredits
+          : plan?.messageCredits;
+      } else {
+        tempUpdated.subscriptionEndingDate = moment().unix() + expiry;
+        tempUpdated.numberOfApplies = plan?.numberOfApplies;
+        tempUpdated.messageCredits = plan?.messageCredits;
+      }
+
       const updated = {
-        subscriptionEndingDate,
+        ...tempUpdated,
         isSubscribed: true,
         subscriptions: arrayUnion(tempData),
       };
@@ -70,7 +84,8 @@ const usePayment = (plan, setPaymentLoading) => {
     razorpay.open();
   };
 
-  const createInstance = async () => {
+  const startToPay = async () => {
+    setPaymentLoading(true);
     try {
       const {
         data: { id },
@@ -85,29 +100,6 @@ const usePayment = (plan, setPaymentLoading) => {
       });
       procced(id);
       setPaymentLoading(false);
-    } catch (err) {
-      setPaymentLoading(false);
-      setNotify({ status: false, message: "Something went wrong" });
-    }
-  };
-
-  const startToPay = async () => {
-    setPaymentLoading(true);
-    try {
-      const addedScript = await new Promise((resolve) => {
-        const src = "https://checkout.razorpay.com/v1/checkout.js";
-        const script = document.createElement("script");
-        script.src = src;
-        document.body.appendChild(script);
-        script.onload = () => resolve(true);
-        script.onerror = () => resolve(false);
-      });
-      if (addedScript) {
-        createInstance();
-      } else {
-        setPaymentLoading(false);
-        setNotify({ status: false, message: "Something went wrong" });
-      }
     } catch (err) {
       setPaymentLoading(false);
       setNotify({ status: false, message: "Something went wrong" });

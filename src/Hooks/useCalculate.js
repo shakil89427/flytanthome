@@ -1,7 +1,10 @@
-const useCalculate = (setPlans, setDataLoading) => {
+import useStore from "../Store/useStore";
+
+const useCalculate = (setDataLoading) => {
+  const { setPlans } = useStore();
   /* USD Calculate */
-  const usd = (allPlans, info) => {
-    const maped = allPlans.map((item) => {
+  const usd = (allData, info) => {
+    const maped = allData.map((item) => {
       return {
         ...item,
         prices: [
@@ -14,7 +17,9 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 30,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 1,
+            messageCredits: item?.messageCredits ? item?.messageCredits : 0,
+            numberOfApplies: item?.numberOfApplies ? item?.numberOfApplies : 0,
           },
           {
             name: item.name,
@@ -27,7 +32,11 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 90,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 2,
+            messageCredits: item?.messageCredits ? item?.messageCredits * 3 : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 3
+              : 0,
           },
           {
             name: item.name,
@@ -40,7 +49,11 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 180,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 3,
+            messageCredits: item?.messageCredits ? item?.messageCredits * 6 : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 6
+              : 0,
           },
           {
             name: item.name,
@@ -53,7 +66,13 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 360,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 4,
+            messageCredits: item?.messageCredits
+              ? item?.messageCredits * 12
+              : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 12
+              : 0,
           },
         ],
       };
@@ -63,8 +82,8 @@ const useCalculate = (setPlans, setDataLoading) => {
   };
 
   /* INR Calculate */
-  const inr = (allPlans, info) => {
-    const maped = allPlans.map((item) => {
+  const inr = (allData, info) => {
+    const maped = allData.map((item) => {
       return {
         ...item,
         prices: [
@@ -77,7 +96,9 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 30,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 1,
+            messageCredits: item?.messageCredits ? item?.messageCredits : 0,
+            numberOfApplies: item?.numberOfApplies ? item?.numberOfApplies : 0,
           },
           {
             name: item.name,
@@ -90,7 +111,11 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 90,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 2,
+            messageCredits: item?.messageCredits ? item?.messageCredits * 3 : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 3
+              : 0,
           },
           {
             name: item.name,
@@ -103,7 +128,11 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 180,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 3,
+            messageCredits: item?.messageCredits ? item?.messageCredits * 6 : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 6
+              : 0,
           },
           {
             name: item.name,
@@ -116,7 +145,13 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 360,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 4,
+            messageCredits: item?.messageCredits
+              ? item?.messageCredits * 12
+              : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 12
+              : 0,
           },
         ],
       };
@@ -126,8 +161,8 @@ const useCalculate = (setPlans, setDataLoading) => {
   };
 
   /* Other Calculate */
-  const other = (allPlans, info) => {
-    const maped = allPlans.map((item) => {
+  const other = (allData, info) => {
+    const maped = allData.map((item) => {
       return {
         ...item,
         prices: [
@@ -140,7 +175,9 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 30,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 1,
+            messageCredits: item?.messageCredits ? item?.messageCredits : 0,
+            numberOfApplies: item?.numberOfApplies ? item?.numberOfApplies : 0,
           },
           {
             name: item.name,
@@ -154,7 +191,11 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 90,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 2,
+            messageCredits: item?.messageCredits ? item?.messageCredits * 3 : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 3
+              : 0,
           },
           {
             name: item.name,
@@ -168,7 +209,11 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 180,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 3,
+            messageCredits: item?.messageCredits ? item?.messageCredits * 6 : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 6
+              : 0,
           },
           {
             name: item.name,
@@ -182,7 +227,13 @@ const useCalculate = (setPlans, setDataLoading) => {
             subscriptionDays: 360,
             currency: info.currency,
             symbol: info.symbol,
-            id: Math.round(Math.random() * Date.now()),
+            id: item.name + 4,
+            messageCredits: item?.messageCredits
+              ? item?.messageCredits * 12
+              : 0,
+            numberOfApplies: item?.numberOfApplies
+              ? item?.numberOfApplies * 12
+              : 0,
           },
         ],
       };

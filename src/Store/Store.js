@@ -16,6 +16,8 @@ const Store = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
   const [notify, setNotify] = useState(false);
+  const [allPlans, setAllPlans] = useState([]);
+  const [plans, setPlans] = useState([]);
   const [featuredInfluencers, setFeaturedInfluencers] = useState({
     data: [],
     lastVisible: false,
@@ -66,6 +68,10 @@ const Store = () => {
     setShowLogout,
     notify,
     setNotify,
+    allPlans,
+    setAllPlans,
+    plans,
+    setPlans,
     featuredInfluencers,
     setFeaturedInfluencers,
     latestSponsorships,
