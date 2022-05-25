@@ -104,6 +104,19 @@ const SmallSide = ({ showSide, setShowSide }) => {
               <p>Create Campaign</p>
             </div>
 
+            {/* Subscription */}
+            <div
+              onClick={() => {
+                navigate("/subscription");
+                setShowSide(false);
+              }}
+              className={styles.item}
+            >
+              <img className="i1 w-6" src={mikeBlack} alt="" />
+              <img className="i2 w-6" src={mikeWhite} alt="" />
+              <p>Subscription</p>
+            </div>
+
             {/* Logout */}
             <div className="absolute bottom-20 md:bottom-10 w-full left-0">
               <div
