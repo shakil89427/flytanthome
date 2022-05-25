@@ -4,6 +4,7 @@ import useStore from "../Store/useStore";
 import Spinner from "../Components/Spinner/Spinner";
 import available from "../Assets/available.png";
 import notAvailable from "../Assets/notAvailable.png";
+import razorCurrencies from "../Raw/SupportedCurrencies";
 import {
   getFirestore,
   collection,
@@ -22,9 +23,9 @@ const Subscription = () => {
   const { remoteConfig, user, setNotify } = useStore();
   const [plans, setPlans] = useState([]);
   const [plan, setPlan] = useState(false);
+  const [selected, setSelected] = useState(false);
   const [dataloading, setDataLoading] = useState(true);
   const [paymentLoading, setPaymentLoading] = useState(false);
-  const [selected, setSelected] = useState(false);
   const { usd, inr, other } = useCalculate(setPlans, setDataLoading);
   const { startToPay } = usePayment(plan, selected, setPaymentLoading);
 
@@ -61,6 +62,15 @@ const Subscription = () => {
       const { currencyCode } = countries.find(
         (item) => item.countryCode === user.countryCode
       );
+      if (!razorCurrencies.includes(currencyCode)) {
+        const { symbol_native } = currencies.find(
+          (item) => item.code === "USD"
+        );
+        return usd(allPlans, {
+          currency: "USD",
+          symbol: symbol_native,
+        });
+      }
       const { symbol_native } = currencies.find(
         (item) => item.code === currencyCode
       );
@@ -174,14 +184,15 @@ const Subscription = () => {
                 {plan?.prices?.map((item) => (
                   <div
                     onClick={() =>
-                      selected === item?.priceNow
+                      selected === item?.subscriptionDays
                         ? setSelected(false)
-                        : setSelected(item.priceNow)
+                        : setSelected(item.subscriptionDays)
                     }
-                    key={item.priceNow}
+                    key={item.subscriptionDays}
                     style={{
-                      backgroundColor: selected === item.priceNow && "black",
-                      color: selected === item.priceNow && "white",
+                      backgroundColor:
+                        selected === item.subscriptionDays && "black",
+                      color: selected === item.subscriptionDays && "white",
                     }}
                     className="flex items-center justify-between gap-5 border-2 border-black mt-8 px-5 py-4 rounded-md cursor-pointer hover:bg-gray-200  duration-150"
                   >

@@ -1,28 +1,58 @@
 import axios from "axios";
+import { arrayUnion, doc, getFirestore, updateDoc } from "firebase/firestore";
+import moment from "moment";
 import useStore from "../Store/useStore";
 
 const usePayment = (plan, time, setPaymentLoading) => {
-  const { setNotify } = useStore();
+  const { user, setNotify } = useStore();
+  const db = getFirestore();
 
-  const procced = (data) => {
+  const updateOnDb = async ({ orderId, price }) => {
+    try {
+      setPaymentLoading(true);
+      const tempData = {
+        couponCode: "",
+        currencyCode: plan.currency,
+        orderDate: moment().unix(),
+        orderId,
+        planName: plan.name,
+        price,
+        subscriptionDays: time,
+      };
+      const expiry = time * 86400;
+      const subscriptionEndingDate =
+        user?.subscriptionEndingDate > moment().unix()
+          ? user?.subscriptionEndingDate + expiry
+          : moment().unix() + expiry;
+      const updated = {
+        subscriptionEndingDate,
+        isSubscribed: true,
+        subscriptions: arrayUnion(tempData),
+      };
+      const userRef = doc(db, "users", user.userId);
+      await updateDoc(userRef, updated);
+      setPaymentLoading(false);
+    } catch (err) {
+      setPaymentLoading(false);
+      setNotify({ status: false, message: "Something went wrong on our end" });
+    }
+  };
+
+  const procced = (id, price) => {
     const options = {
       key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-      amount: data?.amount,
-      currency: data?.currency,
       name: "Flytant",
-      description: "Test Transaction",
-      image:
-        "https://spng.pngfind.com/pngs/s/18-187058_free-png-download-hand-with-dollar-sign-png.png",
-      order_id: data?.id,
-      handler: (response) => {
-        console.log(response);
-      },
+      description: "It will be a short description",
+      image: "https://picsum.photos/seed/picsum/200/300",
+      amount: price * 100,
+      currency: plan.currency,
+      order_id: id,
       prefill: {
-        name: "Shakil Ahmed",
-        email: "shakilahmed89427@gmail.com",
+        name: user?.name,
+        email: user?.email,
       },
-      notes: {
-        address: "Flytant India",
+      handler: ({ razorpay_payment_id }) => {
+        updateOnDb({ orderId: razorpay_payment_id, price });
       },
     };
     const razorpay = new window.Razorpay(options);
@@ -33,11 +63,20 @@ const usePayment = (plan, time, setPaymentLoading) => {
   };
 
   const createInstance = async () => {
+    const { priceNow } = plan.prices.find((i) => time === i.subscriptionDays);
     try {
-      const { data } = await axios.post(
-        "https://flytant.herokuapp.com/createpayment"
-      );
-      procced(data);
+      const {
+        data: { id },
+      } = await axios.post("http://localhost:5000/createpayment", {
+        ammount: priceNow,
+        currency: plan.currency,
+        notes: {
+          userId: user.userId,
+          planName: plan.name,
+          subscriptionDays: time,
+        },
+      });
+      procced(id, priceNow);
       setPaymentLoading(false);
     } catch (err) {
       setPaymentLoading(false);
@@ -52,7 +91,6 @@ const usePayment = (plan, time, setPaymentLoading) => {
         const src = "https://checkout.razorpay.com/v1/checkout.js";
         const script = document.createElement("script");
         script.src = src;
-        script.setAttribute("id", "razorscript");
         document.body.appendChild(script);
         script.onload = () => resolve(true);
         script.onerror = () => resolve(false);
