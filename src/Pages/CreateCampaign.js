@@ -4,6 +4,7 @@ import upArrow from "../Assets/onboard/up.png";
 import downArrow from "../Assets/onboard/down.png";
 import plus from "../Assets/plus.png";
 import arrowDownBlack from "../Assets/arrowDownBlack.png";
+import moment from "moment";
 import { BsSearch } from "react-icons/bs";
 import selected from "../Assets/selected.png";
 import Preview from "../Components/Preview/Preview";
@@ -80,7 +81,7 @@ const CreateCampaign = () => {
       gender,
       categories,
       isApproved: false,
-      creationDate: Date.now() / 1000,
+      creationDate: moment().unix(),
     };
     if (type?.price) {
       data.price = parseInt(type.price);
