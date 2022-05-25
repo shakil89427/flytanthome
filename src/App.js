@@ -22,6 +22,7 @@ import MyCampaigns from "./Pages/MyCampaigns";
 import Subscription from "./Pages/Subscription";
 import AllSubscriptions from "./Components/Subscription/AllSubscriptions";
 import SubscriptionDetails from "./Components/Subscription/SubscriptionDetails";
+import Success from "./Components/Subscription/Success";
 
 function App() {
   const { authLoading } = useStore();
@@ -53,6 +54,14 @@ function App() {
             element={
               <PrivateRoute>
                 <MyCampaigns />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/paymentsuccess"
+            element={
+              <PrivateRoute>
+                <Success />
               </PrivateRoute>
             }
           />

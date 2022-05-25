@@ -7,11 +7,14 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import moment from "moment";
+import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
 
 const usePayment = (plan, setPaymentLoading) => {
   const { user, setUser, setNotify } = useStore();
   const db = getFirestore();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const updateOnDb = async (orderId) => {
     try {
@@ -54,6 +57,7 @@ const usePayment = (plan, setPaymentLoading) => {
       const res = await getDoc(userRef);
       setUser({ ...res.data(), id: res.id });
       setPaymentLoading(false);
+      navigate("/paymentsuccess", { state: { from: location } });
     } catch (err) {
       setPaymentLoading(false);
       setNotify({ status: false, message: "Something went wrong on our end" });
