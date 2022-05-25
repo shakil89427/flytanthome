@@ -2,40 +2,60 @@ const useCalculate = (setPlans, setDataLoading) => {
   /* USD Calculate */
   const usd = (allPlans, info) => {
     const maped = allPlans.map((item) => {
-      const prev = item.usBasePrice;
-      const now = prev - Math.ceil((prev * item.usPercentageOff) / 100);
       return {
         ...item,
         prices: [
           {
+            name: item.name,
             type: "monthly",
-            pricePrev: false,
-            priceNow: prev,
+            pricePrev: Math.floor(item.usStrikePrice),
+            priceNow: Math.floor(item.usBasePrice),
+            percentageOff: item.usPercentageOff,
             subscriptionDays: 30,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "3 months",
-            pricePrev: prev * 3,
-            priceNow: now * 3,
+            pricePrev: Math.floor(item.usBasePrice * 3),
+            priceNow: Math.floor(
+              item.usBasePrice * 3 - (item.usBasePrice * 3 * 5) / 100
+            ),
+            percentageOff: 5,
             subscriptionDays: 90,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "6 months",
-            pricePrev: prev * 6,
-            priceNow: now * 6,
+            pricePrev: Math.floor(item.usBasePrice * 6),
+            priceNow: Math.floor(
+              item.usBasePrice * 6 - (item.usBasePrice * 6 * 10) / 100
+            ),
+            percentageOff: 10,
             subscriptionDays: 180,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "anually",
-            pricePrev: prev * 12,
-            priceNow: now * 12,
+            pricePrev: Math.floor(item.usBasePrice * 12),
+            priceNow: Math.floor(
+              item.usBasePrice * 12 - (item.usBasePrice * 12 * 20) / 100
+            ),
+            percentageOff: 20,
             subscriptionDays: 360,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
         ],
-        strike: item.usStrikePrice,
-        percentageOff: item.usPercentageOff,
-        currency: info.currency,
-        symbol: info.symbol,
       };
     });
     setPlans(maped);
@@ -45,40 +65,60 @@ const useCalculate = (setPlans, setDataLoading) => {
   /* INR Calculate */
   const inr = (allPlans, info) => {
     const maped = allPlans.map((item) => {
-      const prev = item.inBasePrice;
-      const now = prev - Math.ceil((prev * item.inPercentageOff) / 100);
       return {
         ...item,
         prices: [
           {
+            name: item.name,
             type: "monthly",
-            pricePrev: false,
-            priceNow: prev,
+            pricePrev: Math.floor(item.inStrikePrice),
+            priceNow: Math.floor(item.inBasePrice),
+            percentageOff: item.inPercentageOff,
             subscriptionDays: 30,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "3 months",
-            pricePrev: prev * 3,
-            priceNow: now * 3,
+            pricePrev: Math.floor(item.inBasePrice * 3),
+            priceNow: Math.floor(
+              item.inBasePrice * 3 - (item.inBasePrice * 3 * 5) / 100
+            ),
+            percentageOff: 5,
             subscriptionDays: 90,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "6 months",
-            pricePrev: prev * 6,
-            priceNow: now * 6,
+            pricePrev: Math.floor(item.inBasePrice * 6),
+            priceNow: Math.floor(
+              item.inBasePrice * 6 - (item.inBasePrice * 6 * 10) / 100
+            ),
+            percentageOff: 10,
             subscriptionDays: 180,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "anually",
-            pricePrev: prev * 12,
-            priceNow: now * 12,
+            pricePrev: Math.floor(item.inBasePrice * 12),
+            priceNow: Math.floor(
+              item.inBasePrice * 12 - (item.inBasePrice * 12 * 20) / 100
+            ),
+            percentageOff: 20,
             subscriptionDays: 360,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
         ],
-        strike: item.inStrikePrice,
-        percentageOff: item.inPercentageOff,
-        currency: info.currency,
-        symbol: info.symbol,
       };
     });
     setPlans(maped);
@@ -88,40 +128,63 @@ const useCalculate = (setPlans, setDataLoading) => {
   /* Other Calculate */
   const other = (allPlans, info) => {
     const maped = allPlans.map((item) => {
-      const prev = item.usBasePrice * info.value;
-      const now = prev - Math.ceil((prev * item.usPercentageOff) / 100);
       return {
         ...item,
         prices: [
           {
+            name: item.name,
             type: "monthly",
-            pricePrev: false,
-            priceNow: prev,
+            pricePrev: Math.floor(item.usStrikePrice * info.value),
+            priceNow: Math.floor(item.usBasePrice * info.value),
+            percentageOff: item.usPercentageOff,
             subscriptionDays: 30,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "3 months",
-            pricePrev: prev * 3,
-            priceNow: now * 3,
+            pricePrev: Math.floor(item.usBasePrice * 3 * info.value),
+            priceNow: Math.floor(
+              item.usBasePrice * 3 * info.value -
+                (item.usBasePrice * 3 * info.value * 5) / 100
+            ),
+            percentageOff: 5,
             subscriptionDays: 90,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "6 months",
-            pricePrev: prev * 6,
-            priceNow: now * 6,
+            pricePrev: Math.floor(item.usBasePrice * 6 * info.value),
+            priceNow: Math.floor(
+              item.usBasePrice * 6 * info.value -
+                (item.usBasePrice * 6 * info.value * 10) / 100
+            ),
+            percentageOff: 10,
             subscriptionDays: 180,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
           {
+            name: item.name,
             type: "anually",
-            pricePrev: prev * 12,
-            priceNow: now * 12,
+            pricePrev: Math.floor(item.usBasePrice * 12 * info.value),
+            priceNow: Math.floor(
+              item.usBasePrice * 12 * info.value -
+                (item.usBasePrice * 12 * info.value * 20) / 100
+            ),
+            percentageOff: 20,
             subscriptionDays: 360,
+            currency: info.currency,
+            symbol: info.symbol,
+            id: Math.round(Math.random() * Date.now()),
           },
         ],
-        strike: Math.ceil(item.usStrikePrice * info.value),
-        percentageOff: item.usPercentageOff,
-        currency: info.currency,
-        symbol: info.symbol,
       };
     });
     setPlans(maped);

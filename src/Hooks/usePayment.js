@@ -1,25 +1,31 @@
 import axios from "axios";
-import { arrayUnion, doc, getFirestore, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
 import moment from "moment";
 import useStore from "../Store/useStore";
 
-const usePayment = (plan, time, setPaymentLoading) => {
-  const { user, setNotify } = useStore();
+const usePayment = (plan, setPaymentLoading) => {
+  const { user, setUser, setNotify } = useStore();
   const db = getFirestore();
 
-  const updateOnDb = async ({ orderId, price }) => {
+  const updateOnDb = async (orderId) => {
     try {
       setPaymentLoading(true);
       const tempData = {
         couponCode: "",
-        currencyCode: plan.currency,
+        currencyCode: plan?.currency,
         orderDate: moment().unix(),
         orderId,
-        planName: plan.name,
-        price,
-        subscriptionDays: time,
+        planName: plan?.name,
+        price: plan?.priceNow,
+        subscriptionDays: plan?.subscriptionDays,
       };
-      const expiry = time * 86400;
+      const expiry = plan?.subscriptionDays * 86400;
       const subscriptionEndingDate =
         user?.subscriptionEndingDate > moment().unix()
           ? user?.subscriptionEndingDate + expiry
@@ -31,6 +37,8 @@ const usePayment = (plan, time, setPaymentLoading) => {
       };
       const userRef = doc(db, "users", user.userId);
       await updateDoc(userRef, updated);
+      const res = await getDoc(userRef);
+      setUser({ ...res.data(), id: res.id });
       setPaymentLoading(false);
     } catch (err) {
       setPaymentLoading(false);
@@ -38,21 +46,21 @@ const usePayment = (plan, time, setPaymentLoading) => {
     }
   };
 
-  const procced = (id, price) => {
+  const procced = (id) => {
     const options = {
       key: process.env.REACT_APP_RAZORPAY_KEY_ID,
       name: "Flytant",
       description: "It will be a short description",
       image: "https://picsum.photos/seed/picsum/200/300",
-      amount: price * 100,
-      currency: plan.currency,
+      amount: plan?.priceNow * 100,
+      currency: plan?.currency,
       order_id: id,
       prefill: {
         name: user?.name,
         email: user?.email,
       },
       handler: ({ razorpay_payment_id }) => {
-        updateOnDb({ orderId: razorpay_payment_id, price });
+        updateOnDb(razorpay_payment_id);
       },
     };
     const razorpay = new window.Razorpay(options);
@@ -63,20 +71,19 @@ const usePayment = (plan, time, setPaymentLoading) => {
   };
 
   const createInstance = async () => {
-    const { priceNow } = plan.prices.find((i) => time === i.subscriptionDays);
     try {
       const {
         data: { id },
       } = await axios.post("https://flytant.herokuapp.com/createpayment", {
-        ammount: priceNow,
-        currency: plan.currency,
+        ammount: plan?.priceNow,
+        currency: plan?.currency,
         notes: {
-          userId: user.userId,
-          planName: plan.name,
-          subscriptionDays: time,
+          userId: user?.userId,
+          planName: plan?.name,
+          subscriptionDays: plan?.subscriptionDays,
         },
       });
-      procced(id, priceNow);
+      procced(id);
       setPaymentLoading(false);
     } catch (err) {
       setPaymentLoading(false);

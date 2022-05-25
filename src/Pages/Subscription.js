@@ -27,7 +27,7 @@ const Subscription = () => {
   const [dataloading, setDataLoading] = useState(true);
   const [paymentLoading, setPaymentLoading] = useState(false);
   const { usd, inr, other } = useCalculate(setPlans, setDataLoading);
-  const { startToPay } = usePayment(plan, selected, setPaymentLoading);
+  const { startToPay } = usePayment(selected, setPaymentLoading);
 
   /* Fetch subscription data */
   const getData = async () => {
@@ -134,11 +134,11 @@ const Subscription = () => {
                       </p>
                       <div>
                         <del className="mr-5 font-medium text-gray-500">
-                          {plan.symbol} {plan.strike}{" "}
+                          {plan?.prices[0]?.symbol} {plan?.prices[0]?.pricePrev}
                           <span className="text-sm">/month</span>
                         </del>
                         <span className="font-medium">
-                          Get {plan.percentageOff}% Off
+                          Get {plan?.prices[0]?.percentageOff}% Off
                         </span>
                       </div>
                     </div>
@@ -197,28 +197,27 @@ const Subscription = () => {
                 {plan?.prices?.map((item) => (
                   <div
                     onClick={() =>
-                      selected === item?.subscriptionDays
+                      selected?.id === item?.id
                         ? setSelected(false)
-                        : setSelected(item.subscriptionDays)
+                        : setSelected(item)
                     }
-                    key={item.subscriptionDays}
+                    key={item.id}
                     style={{
-                      backgroundColor:
-                        selected === item.subscriptionDays && "black",
-                      color: selected === item.subscriptionDays && "white",
+                      backgroundColor: selected?.id === item?.id && "black",
+                      color: selected?.id === item?.id && "white",
                     }}
                     className="flex items-center justify-between gap-5 border-2 border-black mt-8 px-5 py-4 rounded-md cursor-pointer hover:bg-gray-200  duration-150"
                   >
                     <p className="font-bold text-lg">
-                      Price {plan?.symbol} {item?.priceNow} / {item?.type}
+                      Price {item?.symbol} {item?.priceNow} / {item?.type}
                     </p>
-                    {item?.pricePrev && (
+                    {item?.subscriptionDays !== 30 && (
                       <p>
                         <del className="font-medium">
-                          {plan?.symbol}
+                          {item?.symbol}
                           {item?.pricePrev}
                         </del>{" "}
-                        You will get {plan?.percentageOff}% off
+                        You will get {item?.percentageOff}% off
                       </p>
                     )}
                   </div>
