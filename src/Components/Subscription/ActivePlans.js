@@ -82,11 +82,8 @@ const ActivePlans = () => {
           <div className="border shadow-lg p-14 rounded-lg flex flex-col justify-between gap-8">
             <div className="flex items-center gap-8 flex-wrap">
               {data?.namePriceSymbol?.map((item, index) => (
-                <div className="flex flex-col gap-3">
-                  <p
-                    key={index}
-                    className="text-lg md:text-xl lg:text-2xl font-medium bg-black text-white w-fit px-5 h-10 flex items-center justify-center rounded-md"
-                  >
+                <div key={index} className="flex flex-col gap-3">
+                  <p className="text-lg md:text-xl lg:text-2xl font-medium bg-black text-white w-fit px-5 h-10 flex items-center justify-center rounded-md">
                     {item?.name}
                   </p>
                   <div>

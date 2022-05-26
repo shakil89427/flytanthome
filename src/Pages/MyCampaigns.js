@@ -80,7 +80,7 @@ const MyCampaigns = () => {
   }, [allData, selected]);
 
   return (
-    <div className="r-box my-20">
+    <div className="r-box py-20">
       <div className="px-5">
         <h1 className="text-2xl font-semibold mb-3">My Campaigns</h1>
         <p className="text-gray-600">List of all campaigns created by you</p>

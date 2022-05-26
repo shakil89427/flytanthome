@@ -14,6 +14,7 @@ import { getString } from "firebase/remote-config";
 import { Outlet } from "react-router-dom";
 import useCalculate from "../Hooks/useCalculate";
 import ActivePlans from "../Components/Subscription/ActivePlans";
+import Questions from "../Components/Subscription/Questions";
 
 const Subscription = () => {
   const { allPlans, setAllPlans, remoteConfig, user, setNotify } = useStore();
@@ -110,11 +111,11 @@ const Subscription = () => {
   }, []);
 
   return (
-    <div className="r-box">
+    <div className="r-box py-24">
       {dataloading ? (
         <Spinner />
       ) : (
-        <div className="pt-20 pb-32">
+        <div>
           <ActivePlans />
           <div className="pt-20">
             <div className="mb-20">
@@ -128,6 +129,7 @@ const Subscription = () => {
             </div>
             <Outlet />
           </div>
+          <Questions />
         </div>
       )}
     </div>
