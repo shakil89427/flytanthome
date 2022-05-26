@@ -118,7 +118,7 @@ const Subscription = () => {
           <ActivePlans />
           <div className="pt-20">
             <div className="mb-20">
-              <h1 className="text-center text-xl md:text-2xl lg:text-3xl font-semibold">
+              <h1 className="text-center text-2xl lg:text-3xl font-semibold">
                 Subscription Plans
               </h1>
               <p className="text-center max-w-[350px] mx-auto my-3 text-gray-500 font-medium">

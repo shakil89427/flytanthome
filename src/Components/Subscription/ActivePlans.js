@@ -16,8 +16,7 @@ const ActivePlans = () => {
     );
     if (!valid?.length || valid?.length < 1) return setData({ invalid: true });
 
-    let allNames = [];
-    let allPrices = [];
+    let namePriceSymbol = [];
     let allDates = [];
     let allCampaignCredits = 0;
     let allMessageCredits = 0;
@@ -28,9 +27,10 @@ const ActivePlans = () => {
       const { symbol_native } = currencies.find(
         (item) => item?.code === validPlan?.currencyCode
       );
-      allNames.push(validPlan?.planName);
-      allPrices.push({
+      namePriceSymbol.push({
+        name: validPlan?.planName,
         price: validPlan?.price,
+        days: validPlan?.subscriptionDays,
         symbol: symbol_native,
       });
       allDates.push(validPlan.orderDate);
@@ -50,8 +50,7 @@ const ActivePlans = () => {
     const sortedDate = allDates?.sort((a, b) => a - b);
 
     const final = {
-      names: allNames,
-      prices: allPrices,
+      namePriceSymbol,
       startDate: moment.unix(sortedDate[0]).format("MMM DD YYYY"),
       endDate: moment.unix(user.subscriptionEndingDate).format("MMM DD YYYY"),
       allCampaignCredits,
@@ -66,7 +65,7 @@ const ActivePlans = () => {
     <div>
       {showHistory && <History setShowHistory={setShowHistory} />}
       <div className="relative">
-        <p className="text-center text-xl md:text-2xl lg:text-3xl font-semibold">
+        <p className="text-center text-2xl lg:text-3xl font-semibold">
           Your active plan
         </p>
         <div className="absolute right-0 top-1/2 -translate-y-1/2 text-xl font-medium cursor-pointer flex items-center gap-1">
@@ -79,30 +78,30 @@ const ActivePlans = () => {
       {data?.invalid ? (
         <p className="mt-5 text-center">No active plan found</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mt-5">
-          <div className="border shadow-lg p-14 rounded-lg grid grid-cols-1 gap-7">
-            <div className="flex items-center gap-2 flex-wrap">
-              {data?.names?.map((name, index) => (
-                <p
-                  key={index}
-                  className="text-lg md:text-xl lg:text-2xl font-medium bg-black text-white w-fit px-5 py-1 pt-2 rounded-md"
-                >
-                  {name}
-                </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 mt-5">
+          <div className="border shadow-lg p-14 rounded-lg flex flex-col justify-between gap-8">
+            <div className="flex items-center gap-8 flex-wrap">
+              {data?.namePriceSymbol?.map((item, index) => (
+                <div className="flex flex-col gap-3">
+                  <p
+                    key={index}
+                    className="text-lg md:text-xl lg:text-2xl font-medium bg-black text-white w-fit px-5 h-10 flex items-center justify-center rounded-md"
+                  >
+                    {item?.name}
+                  </p>
+                  <div>
+                    <p className="text-lg md:text-xl font-medium">
+                      Price {item?.symbol}
+                      {item?.price}
+                    </p>
+                    <p className="text-sm md:text-md font-medium">
+                      Duration {item?.days} days
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
-            <div className="flex items-center gap-5 flex-wrap">
-              {data?.prices?.map((p, index) => (
-                <p
-                  key={index}
-                  className="text-xl md:text-2xl lg:text-3xl font-medium"
-                >
-                  {p?.symbol}
-                  {p?.price}
-                </p>
-              ))}
-            </div>
-            <div className="text-lg font-medium flex justify-between">
+            <div className="text-lg font-medium flex justify-between gap-3 flex-wrap">
               <p className="text-gray-500">Started at {data?.startDate}</p>
               <p className="text-gray-500">Expire on {data?.endDate}</p>
             </div>

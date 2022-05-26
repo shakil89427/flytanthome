@@ -9,12 +9,22 @@ const AllSubscriptions = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-7">
-      {plans?.map((plan) => (
+    <div className="flex items-end justify-center gap-x-3 gap-y-7 flex-wrap w-fit mx-auto">
+      {plans?.map((plan, index) => (
         <div
+          style={{
+            height: index === 1 && "680px",
+            paddingTop: index === 1 ? "60px" : "30px",
+            border: index === 1 && "1px solid black",
+          }}
           key={plan?.planId}
-          className="flex flex-col justify-between rounded-lg shadow-md border px-4 py-10 hover:scale-105 duration-150"
+          className="flex flex-col justify-between rounded-lg shadow-md border px-4 pb-5 hover:scale-105 duration-150 w-[310px] h-[650px] relative overflow-hidden"
         >
+          {index === 1 && (
+            <p className="absolute top-0 inset-x-0 text-center bg-black text-white py-2 font-medium">
+              Popular
+            </p>
+          )}
           <div>
             <p className="bg-black text-white w-fit px-3 py-1">{plan?.name}</p>
 
@@ -56,7 +66,7 @@ const AllSubscriptions = () => {
               ))}
             </div>
           </div>
-          <div className="mt-10">
+          <div>
             <button
               onClick={() => navigate(`/subscription/${plan?.name}`)}
               className="bg-black text-white w-full py-3 rounded-lg text-sm"
