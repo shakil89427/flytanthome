@@ -3,6 +3,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import useStore from "../../Store/useStore";
 import History from "./History";
+import { FaHistory } from "react-icons/fa";
 
 const ActivePlans = () => {
   const { user, allPlans, remoteConfig } = useStore();
@@ -64,14 +65,16 @@ const ActivePlans = () => {
   return (
     <div>
       {showHistory && <History setShowHistory={setShowHistory} />}
-      <div className="text-center relative">
-        <p className="text-3xl font-semibold">Your active plan</p>
-        <p
-          onClick={() => setShowHistory(true)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 text-xl font-medium cursor-pointer"
-        >
-          History
+      <div className="relative">
+        <p className="text-center text-xl md:text-2xl lg:text-3xl font-semibold">
+          Your active plan
         </p>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 text-xl font-medium cursor-pointer flex items-center gap-1">
+          <FaHistory onClick={() => setShowHistory(true)} />
+          <p onClick={() => setShowHistory(true)} className="hidden lg:block">
+            History
+          </p>
+        </div>
       </div>
       {data?.invalid ? (
         <p className="mt-5 text-center">No active plan found</p>
@@ -82,7 +85,7 @@ const ActivePlans = () => {
               {data?.names?.map((name, index) => (
                 <p
                   key={index}
-                  className="text-2xl font-medium bg-black text-white w-fit px-5 py-1 pt-2 rounded-md"
+                  className="text-lg md:text-xl lg:text-2xl font-medium bg-black text-white w-fit px-5 py-1 pt-2 rounded-md"
                 >
                   {name}
                 </p>
@@ -90,7 +93,10 @@ const ActivePlans = () => {
             </div>
             <div className="flex items-center gap-5 flex-wrap">
               {data?.prices?.map((p, index) => (
-                <p key={index} className="text-3xl font-medium">
+                <p
+                  key={index}
+                  className="text-xl md:text-2xl lg:text-3xl font-medium"
+                >
                   {p?.symbol}
                   {p?.price}
                 </p>

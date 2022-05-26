@@ -2,10 +2,14 @@ import React, { useEffect } from "react";
 import logoBlack from "../../Assets/logoBlack.png";
 import cross from "../../Assets/cross.svg";
 import defaultUser from "../../Assets/defaultUser.png";
-import mikeBlack from "../../Assets/navBar/mikeBlack.svg";
 import mikeWhite from "../../Assets/navBar/mikeWhite.svg";
-import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
+import {
+  AiOutlineLogout,
+  AiOutlineLogin,
+  AiOutlineDollarCircle,
+} from "react-icons/ai";
 import { SiMinutemailer } from "react-icons/si";
+import { FaBullhorn } from "react-icons/fa";
 import useStore from "../../Store/useStore";
 import { useNavigate } from "react-router-dom";
 
@@ -87,21 +91,8 @@ const SmallSide = ({ showSide, setShowSide }) => {
               }}
               className={styles.item}
             >
-              <img className="i1 w-6" src={mikeBlack} alt="" />
-              <img className="i2 w-6" src={mikeWhite} alt="" />
+              <FaBullhorn className="text-xl mr-1" />
               <p>My Campaigns</p>
-            </div>
-            {/* Create Campaign */}
-            <div
-              onClick={() => {
-                navigate("/createcampaign");
-                setShowSide(false);
-              }}
-              className={styles.item}
-            >
-              <img className="i1 w-6" src={mikeBlack} alt="" />
-              <img className="i2 w-6" src={mikeWhite} alt="" />
-              <p>Create Campaign</p>
             </div>
 
             {/* Subscription */}
@@ -112,9 +103,20 @@ const SmallSide = ({ showSide, setShowSide }) => {
               }}
               className={styles.item}
             >
-              <img className="i1 w-6" src={mikeBlack} alt="" />
-              <img className="i2 w-6" src={mikeWhite} alt="" />
+              <AiOutlineDollarCircle className="text-2xl" />
               <p>Subscription</p>
+            </div>
+
+            {/* Create Campaign */}
+            <div
+              onClick={() => {
+                navigate("/createcampaign");
+                setShowSide(false);
+              }}
+              className="bg-black text-md text-white flex items-center gap-3 px-4 h-12 rounded-full mt-10 hover:scale-105 duration-150 cursor-pointer"
+            >
+              <img className="w-6" src={mikeWhite} alt="" />
+              <p>Create Campaign</p>
             </div>
 
             {/* Logout */}
