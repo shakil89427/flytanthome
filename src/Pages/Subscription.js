@@ -13,6 +13,8 @@ import {
 import { getString } from "firebase/remote-config";
 import { Outlet } from "react-router-dom";
 import useCalculate from "../Hooks/useCalculate";
+import moment from "moment";
+import ActivePlans from "../Components/Subscription/ActivePlans";
 
 const Subscription = () => {
   const { allPlans, setAllPlans, remoteConfig, user, setNotify } = useStore();
@@ -61,14 +63,17 @@ const Subscription = () => {
         (item) => item.code === currencyCode
       );
       const {
-        data: { conversion_rates },
-      } = await axios.get(
-        `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_CURRENCY_ACCESS_KEY}/latest/USD`
-      );
+        data: { rates },
+      } = await axios.get("https://api.exchangerate.host/latest", {
+        params: {
+          base: "USD",
+          symbols: currencyCode,
+        },
+      });
       other(allData, {
         currency: currencyCode,
         symbol: symbol_native,
-        value: conversion_rates[currencyCode],
+        value: rates[currencyCode],
       });
     } catch (err) {
       setNotify({ status: false, message: "Something went wrong" });
@@ -111,16 +116,22 @@ const Subscription = () => {
         <Spinner />
       ) : (
         <div className="pt-20 pb-32">
-          <div className="mb-20">
-            <h1 className="text-center text-3xl font-semibold">
-              Subscription Plans
-            </h1>
-            <p className="text-center max-w-[350px] mx-auto my-3 text-gray-500 font-medium">
-              Choose a plan that's right for you and start availling
-              sponsorships
-            </p>
+          {user?.subscriptionEndingDate &&
+            moment.unix(user?.subscriptionEndingDate) >= moment().unix() && (
+              <ActivePlans />
+            )}
+          <div className="pt-20">
+            <div className="mb-20">
+              <h1 className="text-center text-3xl font-semibold">
+                Subscription Plans
+              </h1>
+              <p className="text-center max-w-[350px] mx-auto my-3 text-gray-500 font-medium">
+                Choose a plan that's right for you and start availling
+                sponsorships
+              </p>
+            </div>
+            <Outlet />
           </div>
-          <Outlet />
         </div>
       )}
     </div>
