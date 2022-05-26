@@ -223,6 +223,7 @@ const SponsorshipDetails = () => {
             <div>
               <div className="relative">
                 <Swiper
+                  loop
                   modules={[Navigation]}
                   navigation={{
                     nextEl: nextRef?.current,
