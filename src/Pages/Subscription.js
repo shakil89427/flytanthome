@@ -116,10 +116,7 @@ const Subscription = () => {
         <Spinner />
       ) : (
         <div className="pt-20 pb-32">
-          {user?.subscriptionEndingDate &&
-            moment.unix(user?.subscriptionEndingDate) >= moment().unix() && (
-              <ActivePlans />
-            )}
+          <ActivePlans />
           <div className="pt-20">
             <div className="mb-20">
               <h1 className="text-center text-3xl font-semibold">
