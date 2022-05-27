@@ -80,18 +80,18 @@ const ActivePlans = () => {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 mt-5">
           <div className="border shadow-lg p-14 rounded-lg flex flex-col justify-between gap-8">
-            <div className="flex items-center gap-8 flex-wrap">
+            <div className="grid grid-cols-2 gap-8">
               {data?.namePriceSymbol?.map((item, index) => (
-                <div key={index} className="flex flex-col gap-3">
+                <div key={index} className="flex flex-col gap-5">
                   <p className="text-lg md:text-xl lg:text-2xl font-medium bg-black text-white w-fit px-5 h-10 flex items-center justify-center rounded-md">
                     {item?.name}
                   </p>
                   <div>
-                    <p className="text-lg md:text-xl font-medium">
+                    <p className="text-lg md:text-2xl font-medium mb-2">
                       Price {item?.symbol}
                       {item?.price}
                     </p>
-                    <p className="text-sm md:text-md font-medium">
+                    <p className="text-sm md:text-xl font-medium">
                       Duration {item?.days} days
                     </p>
                   </div>
