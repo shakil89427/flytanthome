@@ -42,6 +42,8 @@ const Tiktok = ({ details }) => {
   }, [data]);
 
   useEffect(() => {
+    setData({});
+    setLoading(true);
     if (details?.linkedAccounts?.Tiktok?.access_token) {
       const valid = tiktokData.find((item) => item.validId === details.id);
       if (valid?.validId) {
@@ -51,7 +53,6 @@ const Tiktok = ({ details }) => {
         getData(details?.id);
       }
     } else {
-      setData({});
       setLoading(false);
     }
   }, [details]);

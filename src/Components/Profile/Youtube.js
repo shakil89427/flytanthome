@@ -66,6 +66,8 @@ const Youtube = ({ details }) => {
   }, [info]);
 
   useEffect(() => {
+    setInfo({});
+    setLoading(true);
     if (details?.linkedAccounts?.Youtube?.channelId) {
       const valid = youtubeData.find((item) => item?.validId === details.id);
       if (valid?.validId) {
@@ -75,7 +77,6 @@ const Youtube = ({ details }) => {
         getData(details.linkedAccounts.Youtube.channelId);
       }
     } else {
-      setInfo({});
       setLoading(false);
     }
   }, [details]);

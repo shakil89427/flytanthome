@@ -191,6 +191,7 @@ const Profile = () => {
                 <p className={styles.infoItem}>{details.name}</p>
               </div>
             )}
+
             {details?.email && (
               <div>
                 <p className={styles.infoName}>Email</p>

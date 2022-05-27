@@ -36,6 +36,8 @@ const Twitter = ({ details }) => {
 
   /* Check data exist or not */
   useEffect(() => {
+    setData({});
+    setLoading(true);
     if (details?.linkedAccounts?.Twitter?.access_token) {
       const valid = twitterData.find((item) => item.validId === details.id);
       if (valid?.validId) {
@@ -45,7 +47,6 @@ const Twitter = ({ details }) => {
         getData(details?.id);
       }
     } else {
-      setData({});
       setLoading(false);
     }
   }, [details]);

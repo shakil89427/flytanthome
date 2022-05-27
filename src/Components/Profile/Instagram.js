@@ -45,12 +45,15 @@ const Instagram = ({ details }) => {
       }
       setLoading(false);
     } catch (err) {
+      setData({});
       console.log(err.message);
     }
     setLoading(false);
   };
 
   useEffect(() => {
+    setData({});
+    setLoading(true);
     if (details?.linkedAccounts?.Instagram?.username) {
       const valid = instagramData.find((item) => item.validId === details.id);
       if (valid?.validId) {
@@ -60,7 +63,6 @@ const Instagram = ({ details }) => {
         getFullData(details?.linkedAccounts?.Instagram?.username);
       }
     } else {
-      setData({});
       setLoading(false);
     }
   }, [details]);
