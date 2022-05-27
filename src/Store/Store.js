@@ -44,6 +44,7 @@ const Store = () => {
   const [barterIndex, setBarterIndex] = useState(0);
   const [popularIndex, setPopularIndex] = useState(0);
   const [sponsorships, setSponsorships] = useState([]);
+  const [instagramData, setInstagramData] = useState([]);
   const [youtubeData, setYoutubeData] = useState([]);
   const [twitterData, setTwitterData] = useState([]);
   const [tiktokData, setTiktokData] = useState([]);
@@ -94,6 +95,8 @@ const Store = () => {
     setBarterIndex,
     popularIndex,
     setPopularIndex,
+    instagramData,
+    setInstagramData,
     youtubeData,
     setYoutubeData,
     twitterData,

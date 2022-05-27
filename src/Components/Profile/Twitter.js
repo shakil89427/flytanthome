@@ -7,6 +7,7 @@ import Spinner from "../Spinner/Spinner";
 import likes from "../../Assets/profileSocials/twitter/likes.png";
 import retweet from "../../Assets/profileSocials/twitter/retweet.png";
 import moment from "moment";
+import millify from "millify";
 
 const Twitter = ({ details }) => {
   const { twitterData, setTwitterData } = useStore();
@@ -44,6 +45,7 @@ const Twitter = ({ details }) => {
         getData(details?.id);
       }
     } else {
+      setData({});
       setLoading(false);
     }
   }, [details]);
@@ -94,25 +96,25 @@ const Twitter = ({ details }) => {
         <div>
           <div className="flex justify-between border-b-2 py-8">
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
-                {data?.public_metrics?.followers_count}
+              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+                {millify(data?.public_metrics?.followers_count)}
               </p>
               <p className="text-sm font-medium">Followers</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
-                {data?.public_metrics?.following_count}
+              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+                {millify(data?.public_metrics?.following_count)}
               </p>
               <p className="text-sm font-medium">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
-                {avg.likes}
+              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+                {millify(avg.likes)}
               </p>
               <p className="text-sm font-medium">Likes/Tweet</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
+              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 {avg.rating}%
               </p>
               <p className="text-sm font-medium">Avg RT</p>
@@ -168,7 +170,7 @@ const Twitter = ({ details }) => {
                   <div>
                     <img className="w-6 h-6 mb-1 mx-auto" src={likes} alt="" />
                     <p className="text-xs">
-                      {tweet?.public_metrics?.like_count} likes
+                      {millify(tweet?.public_metrics?.like_count)} likes
                     </p>
                   </div>
 
@@ -179,7 +181,7 @@ const Twitter = ({ details }) => {
                       alt=""
                     />
                     <p className="text-xs">
-                      {tweet?.public_metrics?.retweet_count} retweets
+                      {millify(tweet?.public_metrics?.retweet_count)} retweets
                     </p>
                   </div>
                 </div>

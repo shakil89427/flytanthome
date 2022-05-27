@@ -7,6 +7,7 @@ import comments from "../../Assets/profileSocials/youtube/comments.png";
 import useConnect from "../../Hooks/Youtube/useConnect";
 import axios from "axios";
 import useStore from "../../Store/useStore";
+import millify from "millify";
 
 const styles = {
   connect:
@@ -15,7 +16,7 @@ const styles = {
   topicsMain: "flex justify-between border-b-2 py-8",
   topicWrapper: "flex flex-col items-center gap-3",
   topic:
-    "w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium",
+    "w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium",
   topicName: "text-sm font-medium",
   channelContainer: "py-8 border-b-2 flex gap-2",
   channelBg: "w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat",
@@ -74,6 +75,7 @@ const Youtube = ({ details }) => {
         getData(details.linkedAccounts.Youtube.channelId);
       }
     } else {
+      setInfo({});
       setLoading(false);
     }
   }, [details]);
@@ -109,16 +111,18 @@ const Youtube = ({ details }) => {
           <div className={styles.topicsMain}>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
-                {info?.statistics?.subscriberCount}
+                {millify(info?.statistics?.subscriberCount)}
               </p>
               <p className={styles.topicName}>Subscriber</p>
             </div>
             <div className={styles.topicWrapper}>
-              <p className={styles.topic}>{viewsPerVideo}</p>
+              <p className={styles.topic}>{millify(viewsPerVideo)}</p>
               <p className={styles.topicName}>Views/Video</p>
             </div>
             <div className={styles.topicWrapper}>
-              <p className={styles.topic}>{info?.statistics?.viewCount}</p>
+              <p className={styles.topic}>
+                {millify(info?.statistics?.viewCount)}
+              </p>
               <p className={styles.topicName}>Views</p>
             </div>
             <div className={styles.topicWrapper}>
@@ -162,7 +166,7 @@ const Youtube = ({ details }) => {
               <div
                 key={video.id}
                 style={{
-                  backgroundImage: `url(${video.snippet.thumbnails.high.url})`,
+                  backgroundImage: `url(${video?.snippet?.thumbnails?.high?.url})`,
                 }}
                 className={styles.videoBg}
               >
@@ -171,12 +175,12 @@ const Youtube = ({ details }) => {
                     <img className="w-6" src={views} alt="" />
                     <img className="w-6" src={likes} alt="" />
                     <img className="w-6" src={comments} alt="" />
-                    <p>{video.statistics.viewCount}</p>
-                    <p>{video.statistics.likeCount}</p>
-                    <p>{video.statistics.commentCount}</p>
+                    <p>{millify(video?.statistics?.viewCount)}</p>
+                    <p>{millify(video?.statistics?.likeCount)}</p>
+                    <p>{millify(video?.statistics?.commentCount)}</p>
                   </div>
                 </div>
-                <p className={styles.videoTitle}>{video.snippet.title}</p>
+                <p className={styles.videoTitle}>{video?.snippet?.title}</p>
               </div>
             ))}
           </div>

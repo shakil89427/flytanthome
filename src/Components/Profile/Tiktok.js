@@ -7,6 +7,7 @@ import like from "../../Assets/profileSocials/tiktok/like.png";
 import comment from "../../Assets/profileSocials/tiktok/comment.png";
 import share from "../../Assets/profileSocials/tiktok/share.png";
 import Spinner from "../Spinner/Spinner";
+import millify from "millify";
 const Tiktok = ({ details }) => {
   const { tiktokData, setTiktokData } = useStore();
   const [data, setData] = useState({});
@@ -50,6 +51,7 @@ const Tiktok = ({ details }) => {
         getData(details?.id);
       }
     } else {
+      setData({});
       setLoading(false);
     }
   }, [details]);
@@ -85,25 +87,25 @@ const Tiktok = ({ details }) => {
         <div>
           <div className="flex justify-between border-b-2 py-8">
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
+              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 2
               </p>
               <p className="text-sm font-medium">Followers</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
+              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 3
               </p>
               <p className="text-sm font-medium">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
-                {avg?.likes}
+              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+                {millify(avg?.likes)}
               </p>
               <p className="text-sm font-medium">Likes/Video</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-xl font-medium">
+              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 {avg?.engagement}
               </p>
               <p className="text-sm font-medium">Engagement</p>
@@ -130,7 +132,9 @@ const Tiktok = ({ details }) => {
                   <div className="pl-3 w-fit flex items-center gap-5 my-5">
                     <div>
                       <img className="w-6 h-6 mb-1 mx-auto" src={like} alt="" />
-                      <p className="text-xs">{video?.like_count} likes</p>
+                      <p className="text-xs">
+                        {millify(video?.like_count)} likes
+                      </p>
                     </div>
                     <div>
                       <img
@@ -138,7 +142,9 @@ const Tiktok = ({ details }) => {
                         src={comment}
                         alt=""
                       />
-                      <p className="text-xs">{video?.comment_count} Comments</p>
+                      <p className="text-xs">
+                        {millify(video?.comment_count)} Comments
+                      </p>
                     </div>
                     <div>
                       <img
@@ -146,7 +152,9 @@ const Tiktok = ({ details }) => {
                         src={share}
                         alt=""
                       />
-                      <p className="text-xs">{video?.share_count} Share</p>
+                      <p className="text-xs">
+                        {millify(video?.share_count)} Share
+                      </p>
                     </div>
                   </div>
                 </div>
