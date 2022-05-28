@@ -29,7 +29,7 @@ const styles = {
 };
 
 const MyCampaignDetails = () => {
-  const { user, myCampaigns, setMyCampaigns } = useStore();
+  const { user, myCampaigns } = useStore();
   const { id } = useParams();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -60,7 +60,6 @@ const MyCampaignDetails = () => {
         const allData = { ...valid.data(), id: valid.id };
         if (allData.campaignId) {
           setData(allData);
-          setMyCampaigns([...myCampaigns, allData]);
           setLoading(false);
         } else {
           setLoading(false);
