@@ -29,6 +29,7 @@ const useAddUser = () => {
   const addTempUser = async (data) => {
     const userRef = doc(database, "users", data.uid);
     try {
+      await fetchAndActivate(remoteConfig);
       const userData = await getDoc(userRef);
       const finalData = { ...userData.data(), id: userData.id };
       if (finalData?.userId) {
@@ -78,7 +79,6 @@ const useAddUser = () => {
         newData.countryCode = countryCode;
       }
       const userRef = doc(database, "users", newData.userId);
-      await fetchAndActivate(remoteConfig);
       await setDoc(userRef, newData);
       setUser({ ...newData, id: newData.userId });
       setUserLoading(false);

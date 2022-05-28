@@ -129,7 +129,7 @@ const MyCampaigns = () => {
                 <div
                   key={sponsorship?.id}
                   onClick={() =>
-                    navigate(`/mycampaigndetails/${sponsorship?.id}`)
+                    navigate(`/mycampaigns/details/${sponsorship?.id}`)
                   }
                   className="relative shadow-md rounded-lg overflow-hidden cursor-pointer"
                 >

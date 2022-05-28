@@ -133,7 +133,10 @@ const MyCampaignDetails = () => {
               </p>
             )}
 
-            <p className="border-2 border-black font-semibold cursor-pointer text-center py-2 rounded-md text-lg hover:bg-black hover:text-white duration-150">
+            <p
+              onClick={() => navigate(`/mycampaigns/details/influencers/${id}`)}
+              className="border-2 border-black font-semibold cursor-pointer text-center py-2 rounded-md text-lg hover:bg-black hover:text-white duration-150"
+            >
               View Influencers
             </p>
 

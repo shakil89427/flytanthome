@@ -120,17 +120,15 @@ const SmallSide = ({ showSide, setShowSide }) => {
             </div>
 
             {/* Logout */}
-            <div className="absolute bottom-20 md:bottom-10 w-full left-0">
-              <div
-                onClick={() => {
-                  setShowSide(false);
-                  setShowLogout(true);
-                }}
-                className="flex items-center gap-3 border-0 h-6 justify-center cursor-pointer w-fit  mx-auto"
-              >
-                <AiOutlineLogout className="text-2xl" />
-                <p>Logout</p>
-              </div>
+            <div
+              onClick={() => {
+                setShowSide(false);
+                setShowLogout(true);
+              }}
+              className="flex items-center w-fit px-10 gap-3 justify-center cursor-pointer h-10  mx-auto border-2 border-gray-100 rounded-full font-medium hover:bg-gray-100 mt-5"
+            >
+              <AiOutlineLogout className="text-xl" />
+              <p>Logout</p>
             </div>
           </div>
         ) : (
