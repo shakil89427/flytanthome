@@ -41,6 +41,7 @@ const MyCampaignDetails = () => {
   useEffect(() => {
     if (!user?.userId) return;
     if (!id) return navigate("/mycampaigns", { replace: true });
+    window.scroll(0, 0);
     const founded = myCampaigns?.find(
       (i) => i?.userId === user?.userId && i?.campaignId === id
     );
