@@ -11,7 +11,7 @@ import useStore from "../../Store/useStore";
 import millify from "millify";
 
 const Instagram = ({ details }) => {
-  const { instagramData, setInstagramData } = useStore();
+  const { instagramData, setInstagramData, setNotify } = useStore();
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
   const [data, setData] = useState({});
@@ -46,7 +46,7 @@ const Instagram = ({ details }) => {
       setLoading(false);
     } catch (err) {
       setData({});
-      console.log(err.message);
+      setNotify({ status: false, meessage: "Something went wrong" });
     }
     setLoading(false);
   };

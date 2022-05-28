@@ -85,7 +85,6 @@ const MyCampaigns = () => {
       setFilteredData(allData.filter((item) => !item?.isApproved));
     }
   }, [allData, selected]);
-  console.log(filteredData);
 
   return (
     <div className="r-box py-20">
