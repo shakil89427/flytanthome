@@ -17,6 +17,7 @@ import {
   where,
 } from "firebase/firestore";
 import millify from "millify";
+import { useNavigate } from "react-router-dom";
 
 /* Styles Start */
 const styles = {
@@ -37,15 +38,20 @@ const styles = {
 /* Styles End */
 
 const MyCampaigns = () => {
-  const { user, setNotify } = useStore();
+  const { user, myCampaigns, setMyCampaigns, setNotify } = useStore();
   const db = getFirestore();
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState("All");
   const [allData, setAllData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user?.userId) return;
+    if (myCampaigns?.length > 0) {
+      setAllData(myCampaigns);
+      return setLoading(false);
+    }
     const colRef = collection(db, "sponsorship");
     const q = query(
       colRef,
@@ -59,6 +65,7 @@ const MyCampaigns = () => {
           id: item.id,
         }));
         setAllData(allDocs);
+        setMyCampaigns(allDocs);
         setLoading(false);
       })
       .catch((err) => {
@@ -78,6 +85,7 @@ const MyCampaigns = () => {
       setFilteredData(allData.filter((item) => !item?.isApproved));
     }
   }, [allData, selected]);
+  console.log(filteredData);
 
   return (
     <div className="r-box py-20">
@@ -120,7 +128,10 @@ const MyCampaigns = () => {
               {filteredData.map((sponsorship) => (
                 <div
                   key={sponsorship?.id}
-                  className="relative shadow-md rounded-lg overflow-hidden"
+                  onClick={() =>
+                    navigate(`/mycampaigndetails/${sponsorship?.id}`)
+                  }
+                  className="relative shadow-md rounded-lg overflow-hidden cursor-pointer"
                 >
                   <div className="absolute top-4 right-0">
                     <p className={styles.applied}>

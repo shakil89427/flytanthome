@@ -18,6 +18,7 @@ const Store = () => {
   const [notify, setNotify] = useState(false);
   const [allPlans, setAllPlans] = useState([]);
   const [plans, setPlans] = useState([]);
+  const [myCampaigns, setMyCampaigns] = useState([]);
   const [featuredInfluencers, setFeaturedInfluencers] = useState({
     data: [],
     lastVisible: false,
@@ -73,6 +74,8 @@ const Store = () => {
     setAllPlans,
     plans,
     setPlans,
+    myCampaigns,
+    setMyCampaigns,
     featuredInfluencers,
     setFeaturedInfluencers,
     latestSponsorships,

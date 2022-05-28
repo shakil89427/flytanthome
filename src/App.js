@@ -24,6 +24,7 @@ import AllSubscriptions from "./Components/Subscription/AllSubscriptions";
 import SubscriptionDetails from "./Components/Subscription/SubscriptionDetails";
 import Success from "./Components/Subscription/Success";
 import FAQs from "./Components/FAQs/FAQs";
+import MyCampaignDetails from "./Pages/MyCampaignDetails";
 
 function App() {
   const { authLoading } = useStore();
@@ -56,6 +57,14 @@ function App() {
             element={
               <PrivateRoute>
                 <MyCampaigns />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/mycampaigndetails/:id"
+            element={
+              <PrivateRoute>
+                <MyCampaignDetails />
               </PrivateRoute>
             }
           />

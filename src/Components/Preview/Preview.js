@@ -91,7 +91,7 @@ const Preview = ({
           </p>
         )}
 
-        <p className="bg-black text-white text-center py-2 rounded-md text-lg">
+        <p className="border-2 border-black font-semibold cursor-pointer text-center py-2 rounded-md text-lg hover:bg-black hover:text-white duration-150">
           View Influencers
         </p>
 

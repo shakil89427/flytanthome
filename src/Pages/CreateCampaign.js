@@ -10,13 +10,22 @@ import selected from "../Assets/selected.png";
 import Preview from "../Components/Preview/Preview";
 import useStore from "../Store/useStore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  orderBy,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import Spinner from "../Components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 import { getString } from "firebase/remote-config";
 
 const CreateCampaign = () => {
-  const { remoteConfig, user, app, setNotify } = useStore();
+  const { remoteConfig, user, app, setMyCampaigns, setNotify } = useStore();
   const storage = getStorage(app);
   const db = getFirestore();
   const navigate = useNavigate();
@@ -90,8 +99,19 @@ const CreateCampaign = () => {
       const colRef = collection(db, "sponsorship");
       const docRef = doc(colRef);
       await setDoc(docRef, { ...data, campaignId: docRef.id });
+      const q = query(
+        colRef,
+        where("userId", "==", user?.userId),
+        orderBy("creationDate", "desc")
+      );
+      const result = await getDocs(q);
+      const allDocs = result.docs.map((item) => ({
+        ...item.data(),
+        id: item.id,
+      }));
+      setMyCampaigns(allDocs);
       setLoading(false);
-      navigate("/");
+      navigate("/mycampaigns");
       setNotify({ status: true, message: "Creation successfull" });
     } catch (err) {
       setLoading(false);
