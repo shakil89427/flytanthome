@@ -23,6 +23,7 @@ import Subscription from "./Pages/Subscription";
 import AllSubscriptions from "./Components/Subscription/AllSubscriptions";
 import SubscriptionDetails from "./Components/Subscription/SubscriptionDetails";
 import Success from "./Components/Subscription/Success";
+import FAQs from "./Components/FAQs/FAQs";
 
 function App() {
   const { authLoading } = useStore();
@@ -49,6 +50,7 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faqs" element={<FAQs />} />
           <Route
             path="/mycampaigns"
             element={
