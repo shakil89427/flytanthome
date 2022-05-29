@@ -46,9 +46,9 @@ const Instagram = ({ details }) => {
       setLoading(false);
     } catch (err) {
       setData({});
+      setLoading(false);
       setNotify({ status: false, meessage: "Something went wrong" });
     }
-    setLoading(false);
   };
 
   useEffect(() => {
