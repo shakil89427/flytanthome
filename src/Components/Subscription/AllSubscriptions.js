@@ -31,7 +31,7 @@ const AllSubscriptions = () => {
             <div className="my-8">
               <p className="mb-4 text-sm">
                 <span className="text-4xl font-bold">
-                  {plan?.symbol} {plan?.prices[0]?.priceNow}
+                  {plan?.prices[0]?.symbol} {plan?.prices[0]?.priceNow}
                 </span>{" "}
                 / month
               </p>

@@ -104,12 +104,6 @@ const Subscription = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    document.body.appendChild(script);
-  }, []);
-
   return (
     <div className="r-box py-24">
       {dataloading ? (

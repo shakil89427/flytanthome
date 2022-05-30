@@ -68,15 +68,9 @@ const usePayment = (plan, setPaymentLoading) => {
     const options = {
       key: process.env.REACT_APP_RAZORPAY_KEY_ID,
       name: "Flytant",
-      description: "It will be a short description",
-      image: "https://picsum.photos/seed/picsum/200/300",
-      amount: plan?.priceNow * 100,
+      amount: (plan?.priceNow * 100).toString(),
       currency: plan?.currency,
       order_id: id,
-      prefill: {
-        name: user?.name,
-        email: user?.email,
-      },
       handler: ({ razorpay_payment_id }) => {
         updateOnDb(razorpay_payment_id);
       },
@@ -88,8 +82,32 @@ const usePayment = (plan, setPaymentLoading) => {
     razorpay.open();
   };
 
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
   const startToPay = async () => {
     setPaymentLoading(true);
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+    if (!res) {
+      setPaymentLoading(false);
+      return setNotify({
+        status: false,
+        message: "Razorpay SDK failed to load. Are you online?",
+      });
+    }
     try {
       const {
         data: { id },
