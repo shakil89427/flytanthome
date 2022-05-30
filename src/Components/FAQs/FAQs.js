@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiFillCaretRight, AiOutlineSearch } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import faqbg from "../../Assets/faqbg.png";
 
 const data = [
@@ -27,14 +28,11 @@ const data = [
     title: " How flytant works for influencers point of view?",
     des: "This works in simple way when any influencers visit the flytant first of all we give bonus point and allow them to link social media.",
   },
-  {
-    title: " How flytant works for influencers point of view?",
-    des: "This works in simple way when any influencers visit the flytant first of all we give bonus point and allow them to link social media.",
-  },
 ];
 
 const FAQs = () => {
-  const [selected, setSelected] = useState(3);
+  const [selected, setSelected] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="r-box py-24">
@@ -101,14 +99,12 @@ const FAQs = () => {
             <p className="text-gray-500 mt-3 mb-10">
               You will get all help from our team.
             </p>
-            <a
-              href="mailto:contact@flytant.com"
-              target="_blank"
-              rel="noreferrer"
-              className="bg-black text-white rounded-xl px-10 py-3"
+            <p
+              onClick={() => navigate("/contact")}
+              className="bg-black text-white rounded-xl px-10 py-3 w-fit cursor-pointer"
             >
               Contact us
-            </a>
+            </p>
           </div>
           <div className="col-span-full md:col-span-1">
             <img className="block mx-auto" src={faqbg} alt="" />

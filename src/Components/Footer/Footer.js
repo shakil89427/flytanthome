@@ -16,7 +16,7 @@ const styles = {
   main: "bg-black text-white py-14",
   wrapper:
     "grid grid-cols-1 lg:grid-cols-3 gap-y-20 border-b border-white r-box py-20",
-  info: "flex flex-col items-center justify-between",
+  info: "flex flex-col justify-between",
   logo: "w-64 cursor-pointer",
   infoText: "my-5",
   iconMain: "flex flex-col md:flex-row gap-y-5 gap-x-2",
@@ -26,7 +26,7 @@ const styles = {
   sublink: "flex flex-col justify-between gap-5",
   link: "text-xl cursor-pointer font-medium text-gray-400 hover:text-white duration-150",
   appMain:
-    "w-fit flex flex-col mx-auto md:ml-auto gap-y-5 items-center lg:items-start",
+    " flex flex-col mx-auto md:ml-auto gap-y-5 items-center lg:items-start",
   appHead: "mt-1 lg:mt-0",
   appBtn:
     "bg-[#303030] w-52 flex items-center pl-5 py-1 border-2 border-white rounded-lg z-10 cursor-pointer overflow-hidden before:duration-300 relative before:absolute before:content-[''] before:w-0 before:h-full before:top-0 before:left-0 before:bg-black hover:before:w-full before:-z-10",
@@ -58,8 +58,9 @@ const Footer = () => {
   ];
 
   const links = [
-    ["Home", "About", "Blogs", "Career"],
-    ["Contact", "Terms", "Ads", "Privacy"],
+    ["Home", "About", "Blogs"],
+    ["Contact", "Career", "Ads"],
+    ["Terms", "Privacy", "FAQs"],
   ];
 
   return (
