@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { AiFillCaretRight, AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import faqbg from "../../Assets/faqbg.png";
@@ -32,13 +32,18 @@ const data = [
 
 const FAQs = () => {
   const [selected, setSelected] = useState(false);
+  const [category, setCategory] = useState("INFLUENCERS");
   const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    window.scroll(0, 0);
+  }, [category]);
 
   return (
     <div className="r-box py-24">
       <div className="w-[95%] max-w-[600px] mx-auto text-center">
         <p className="text-2xl lg:text-3xl font-semibold">
-          POPULAR FAQs FOR INFLUENCERS
+          POPULAR FAQs FOR {category}
         </p>
         <p className="text-gray-500 mt-3">
           Hello Visitor! These are the most asked questions from inflluencers.
@@ -55,6 +60,7 @@ const FAQs = () => {
           />
         </form>
       </div>
+
       <div className="py-24 grid grid-cols-1 lg:grid-cols-2  gap-8">
         {data.map((item, index) => (
           <div
@@ -90,6 +96,14 @@ const FAQs = () => {
           </div>
         ))}
       </div>
+      <button
+        onClick={() =>
+          setCategory(category === "INFLUENCERS" ? "BRANDS" : "INFLUENCERS")
+        }
+        className="w-fit block mx-auto border-2 border-black px-5 py-2 rounded-md hover:bg-black hover:text-white duration-150 font-medium"
+      >
+        {category === "INFLUENCERS" ? "Brands FAQs" : "Influencers FAQs"}
+      </button>
       <div className="py-14">
         <div className="p-10 bg-gray-100 grid grid-cols-3 gap-14 rounded-lg ">
           <div className="col-span-full md:col-span-2">

@@ -91,7 +91,7 @@ const ActivePlans = () => {
                       Price {item?.symbol}
                       {item?.price}
                     </p>
-                    <p className="text-sm md:text-xl font-medium">
+                    <p className="text-sm md:text-lg font-medium">
                       Duration {item?.days} days
                     </p>
                   </div>
