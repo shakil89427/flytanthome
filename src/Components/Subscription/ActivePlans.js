@@ -11,6 +11,7 @@ const ActivePlans = () => {
   const [showHistory, setShowHistory] = useState(false);
 
   useEffect(() => {
+    if (allPlans?.length < 1) return;
     const valid = user?.subscriptions?.filter(
       (sub) => sub.orderDate + sub.subscriptionDays * 86400 >= moment().unix()
     );
@@ -59,7 +60,7 @@ const ActivePlans = () => {
       availableMessageCredits: user?.messageCredits,
     };
     setData(final);
-  }, []);
+  }, [allPlans]);
 
   return (
     <div>
