@@ -18,22 +18,22 @@ const Blogs = () => {
   const getConfigs = async () => {
     try {
       if (blogsData?.all?.length > 0 && blogsData.carousel.length > 0) {
-        return setLoading(false);
+        setLoading(false);
+        return window.scroll(0, 0);
       }
       await fetchAndActivate(remoteConfig);
       const temp = JSON.parse(getString(remoteConfig, "blogs"));
-      const sorted = temp?.sort((a, b) => a?.blogNumber - b?.blogNumber);
-      const carouselTrue = sorted.filter((item) => item?.slider);
-      const maped = carouselTrue?.map((item) => {
-        const img = item?.content?.find((i) => i?.type === "image");
-        return { ...item, imgUrl: img?.imgUrl, t: Math.random() };
+      const maped = temp?.map((item) => {
+        const imgUrl = item?.content?.find((i) => i?.type === "image");
+        const text = item?.content?.find((i) => i?.type === "text");
+        return { ...item, imgUrl: imgUrl?.imgUrl, text: text.title };
       });
-      setBlogsData({
-        all: [...sorted, ...sorted, ...sorted],
-        carousel: [...maped, ...maped, ...maped],
-      });
-      console.log(maped);
+      const sorted = maped?.sort((a, b) => a?.blogNumber - b?.blogNumber);
+      console.log(sorted);
+      const carousel = sorted?.filter((item) => item.slider);
+      setBlogsData({ all: [...sorted, ...sorted, ...sorted], carousel });
       setLoading(false);
+      window.scroll(0, 0);
     } catch (err) {
       setNotify({ status: false, message: "Something went wrong" });
       navigate("/");
@@ -61,19 +61,19 @@ const Blogs = () => {
             className="rounded-lg"
           >
             {blogsData?.carousel?.map((item) => (
-              <SwiperSlide key={item?.blogNumber}>
+              <SwiperSlide className="cursor-pointer" key={item?.blogNumber}>
                 <div
                   style={{
-                    backgroundImage: `url(https://www.allaboutbirds.org/news/wp-content/uploads/2020/07/STanager-Shapiro-ML.jpg?page=Search)`,
+                    backgroundImage: `url(https://picsum.photos/200/300?random=${item?.blogNumber})`,
                   }}
-                  className="w-full aspect-[11/4] bg-cover bg-no-repeat bg-center"
+                  className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center"
                 />
                 <div className="my-10 flex items-start">
-                  <p className="text-lg lg:text-xl font-medium w-8/12 md:w-9/12 lg:w-10/12 pr-10">
+                  <p className="text-lg md:text-xl lg:text-2xl font-semibold w-9/12 md:w-10/12 xl:w-11/12 pr-10">
                     {item?.Title}
                   </p>
                   <div>
-                    <p className="text-sm font-medium">
+                    <p className="text-sm font-medium mb-2">
                       {Math.floor(item?.readTime / 60)} min read
                     </p>
                     <p className="text-xs text-gray-500">
@@ -83,7 +83,7 @@ const Blogs = () => {
                 </div>
               </SwiperSlide>
             ))}
-            <div className="absolute w-full aspect-[11/4] top-0 left-0">
+            <div className="absolute w-full aspect-[11/5] top-0 left-0">
               <div className="w-full h-[6px] md:h-[8px] lg:h-[10px] bg-gray-200 absolute top-full rounded-bl-lg rounded-br-lg z-20 overflow-hidden">
                 <div
                   style={{
@@ -94,6 +94,46 @@ const Blogs = () => {
               </div>
             </div>
           </Swiper>
+
+          <div className="grid grid-cols-12 gap-x-5 gap-y-24 py-24">
+            {blogsData?.all?.map((item, index) => (
+              <div
+                key={item?.index}
+                className={
+                  index < 2
+                    ? "col-span-12 md:col-span-6 lg:col-span-6 cursor-pointer"
+                    : "col-span-12 md:col-span-6 lg:col-span-4 cursor-pointer"
+                }
+              >
+                <div
+                  style={{
+                    backgroundImage: `url(https://picsum.photos/200/300?random=${index})`,
+                  }}
+                  className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-2xl mb-5"
+                />
+                <div className="pr-5">
+                  <p
+                    className={`text-lg md:text-xl ${
+                      index < 2
+                        ? "lg:text-2xl font-medium lg:font-semibold"
+                        : "font-medium"
+                    }`}
+                  >
+                    {item?.Title}
+                  </p>
+                  <p className="my-5 text-gray-500">
+                    {item.text.slice(0, 150)}
+                  </p>
+                  <div className="flex items-center justify-between text-sm font-medium mt-10">
+                    <p className="text-gray-500">
+                      {moment.unix(item?.creationDate).format("MMM DD YYYY")}
+                    </p>
+                    <p>{Math.floor(item?.readTime / 60)} min read</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
