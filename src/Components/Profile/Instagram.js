@@ -17,12 +17,12 @@ const Instagram = ({ details }) => {
   const [data, setData] = useState({});
   const [avg, setAvg] = useState({ likes: 0, engagement: 0 });
 
-  const getFullData = async (username) => {
+  const getFullData = async (userId) => {
     try {
       const response = await axios.post(
         "https://flytant.herokuapp.com/instadata",
         {
-          username,
+          userId,
         }
       );
       if (response?.data?.details?.graphql?.user) {
@@ -45,7 +45,6 @@ const Instagram = ({ details }) => {
       }
       setLoading(false);
     } catch (err) {
-      setData({});
       setLoading(false);
       setNotify({ status: false, meessage: "Something went wrong" });
     }
@@ -60,7 +59,7 @@ const Instagram = ({ details }) => {
         setData(valid);
         setLoading(false);
       } else {
-        getFullData(details?.linkedAccounts?.Instagram?.username);
+        getFullData(details?.userId);
       }
     } else {
       setLoading(false);
