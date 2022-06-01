@@ -39,6 +39,7 @@ const Store = () => {
     data: [],
     lastVisible: false,
   });
+  const [blogsData, setBlogsData] = useState({ all: [], carousel: [] });
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [latestIndex, setLatestIndex] = useState(0);
   const [paidIndex, setPaidIndex] = useState(0);
@@ -106,6 +107,8 @@ const Store = () => {
     setTwitterData,
     tiktokData,
     setTiktokData,
+    blogsData,
+    setBlogsData,
   };
 };
 

@@ -81,3 +81,6 @@ input[type="number"] {
   }
 }
 /* Responsive Container End */
+.swiper-pagination-bullet {
+  background-color: black !important;
+}
