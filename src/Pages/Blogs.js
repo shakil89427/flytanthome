@@ -29,9 +29,8 @@ const Blogs = () => {
         return { ...item, imgUrl: imgUrl?.imgUrl, text: text.title };
       });
       const sorted = maped?.sort((a, b) => a?.blogNumber - b?.blogNumber);
-      console.log(sorted);
       const carousel = sorted?.filter((item) => item.slider);
-      setBlogsData({ all: [...sorted, ...sorted, ...sorted], carousel });
+      setBlogsData({ all: sorted, carousel });
       setLoading(false);
       window.scroll(0, 0);
     } catch (err) {
@@ -61,7 +60,11 @@ const Blogs = () => {
             className="rounded-lg"
           >
             {blogsData?.carousel?.map((item) => (
-              <SwiperSlide className="cursor-pointer" key={item?.blogNumber}>
+              <SwiperSlide
+                onClick={() => navigate("/blogdetails/0")}
+                className="cursor-pointer"
+                key={item?.blogNumber}
+              >
                 <div
                   style={{
                     backgroundImage: `url(https://picsum.photos/200/300?random=${item?.blogNumber})`,
@@ -98,6 +101,7 @@ const Blogs = () => {
           <div className="grid grid-cols-12 gap-x-5 gap-y-24 py-24">
             {blogsData?.all?.map((item, index) => (
               <div
+                onClick={() => navigate("/blogdetails/0")}
                 key={item?.index}
                 className={
                   index < 2

@@ -26,6 +26,7 @@ import Success from "./Components/Subscription/Success";
 import FAQs from "./Components/FAQs/FAQs";
 import MyCampaignDetails from "./Pages/MyCampaignDetails";
 import CampaignInfluencers from "./Pages/CampaignInfluencers";
+import BlogDetails from "./Pages/BlogDetails";
 
 function App() {
   const { authLoading } = useStore();
@@ -50,6 +51,7 @@ function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/ads" element={<Ads />} />
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogdetails/:id" element={<BlogDetails />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
