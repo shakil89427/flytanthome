@@ -27,17 +27,20 @@ const data = [
 const Questions = () => {
   const [selected, setSelected] = useState(0);
   return (
-    <div className="mt-28">
-      <p className="text-2xl lg:text-3xl font-semibold mb-10">
+    <div className="mt-28 ">
+      <p className="text-2xl lg:text-3xl font-semibold mb-10 text-center">
         Common questions
       </p>
       {data.map((item, index) => (
-        <div key={index} className="mb-8 bg-gray-100 rounded-lg">
+        <div
+          key={index}
+          className="mb-8 bg-gray-100 rounded-lg w-[95%] max-w-[1000px] mx-auto"
+        >
           <div
-            className="flex justify-between gap-5 items-start p-5 cursor-pointer select-none"
+            className="flex justify-between gap-5 items-start p-3 cursor-pointer select-none"
             onClick={() => setSelected(selected === index ? false : index)}
           >
-            <p className="text-lg lg:text-xl font-medium">{item.title}</p>
+            <p className="lg:text-lg">{item.title}</p>
             <img
               style={{
                 transform: selected === index && "rotate(90deg)",
@@ -52,7 +55,7 @@ const Questions = () => {
               selected === index ? "h-auto" : "h-0"
             }`}
           >
-            <p className="mx-5 mb-5 p-2 bg-white rounded-md lg:text-lg">
+            <p className="mx-5 mb-5 p-2 bg-white rounded-md text-gray-600">
               {item.des}
             </p>
           </div>

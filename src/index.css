@@ -37,7 +37,7 @@ input[type="number"] {
   padding: 5px 10px;
   margin-right: 10px;
 }
-::-webkit-scrollbar {
+body ::-webkit-scrollbar {
   width: 0; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */
 }
@@ -66,8 +66,6 @@ input[type="number"] {
 @media only screen and (min-width: 1024px) {
   .r-box {
     width: 970px;
-    padding-left: 30px;
-    padding-right: 30px;
   }
 }
 @media only screen and (min-width: 1280px) {

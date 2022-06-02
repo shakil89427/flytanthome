@@ -12,7 +12,6 @@ import moment from "moment";
 const Blogs = () => {
   const { blogsData, setBlogsData, remoteConfig, setNotify } = useStore();
   const [loading, setLoading] = useState(true);
-  const [active, setActive] = useState(1);
   const navigate = useNavigate();
 
   const getConfigs = async () => {
@@ -53,15 +52,14 @@ const Blogs = () => {
       {!loading && (
         <div className="w-[95%] max-w-[1000px] mx-auto">
           <Swiper
+            spaceBetween={5}
             initialSlide={0}
-            onSlideChange={(e) => setActive(e?.realIndex + 1)}
             pagination={true}
             modules={[Pagination]}
-            className="rounded-lg"
           >
             {blogsData?.carousel?.map((item) => (
               <SwiperSlide
-                onClick={() => navigate("/blogdetails/0")}
+                onClick={() => navigate(`/blogdetails/${item?.blogNumber}`)}
                 className="cursor-pointer"
                 key={item?.blogNumber}
               >
@@ -69,9 +67,9 @@ const Blogs = () => {
                   style={{
                     backgroundImage: `url(https://picsum.photos/200/300?random=${item?.blogNumber})`,
                   }}
-                  className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center"
+                  className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
                 />
-                <div className="my-10 flex items-start">
+                <div className="mt-8 mb-12 flex items-start">
                   <p className="text-lg md:text-xl lg:text-2xl font-semibold w-9/12 md:w-10/12 xl:w-11/12 pr-10">
                     {item?.Title}
                   </p>
@@ -86,23 +84,13 @@ const Blogs = () => {
                 </div>
               </SwiperSlide>
             ))}
-            <div className="absolute w-full aspect-[11/5] top-0 left-0">
-              <div className="w-full h-[6px] md:h-[8px] lg:h-[10px] bg-gray-200 absolute top-full rounded-bl-lg rounded-br-lg z-20 overflow-hidden">
-                <div
-                  style={{
-                    width: `${(active * 100) / blogsData?.carousel?.length}%`,
-                  }}
-                  className="absolute h-full bg-black duration-150"
-                />
-              </div>
-            </div>
           </Swiper>
 
           <div className="grid grid-cols-12 gap-x-5 gap-y-24 py-24">
             {blogsData?.all?.map((item, index) => (
               <div
-                onClick={() => navigate("/blogdetails/0")}
-                key={item?.index}
+                onClick={() => navigate(`/blogdetails/${item?.blogNumber}`)}
+                key={item?.blogNumber}
                 className={
                   index < 2
                     ? "col-span-12 md:col-span-6 lg:col-span-6 cursor-pointer"
@@ -125,7 +113,7 @@ const Blogs = () => {
                   >
                     {item?.Title}
                   </p>
-                  <p className="my-5 text-gray-500">
+                  <p className="my-5 text-gray-500 text-lg">
                     {item.text.slice(0, 150)}
                   </p>
                   <div className="flex items-center justify-between text-sm font-medium mt-10">

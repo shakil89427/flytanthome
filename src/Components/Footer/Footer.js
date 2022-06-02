@@ -21,8 +21,8 @@ const styles = {
   infoText: "my-5 text-center",
   iconMain: "grid grid-cols-3 xl:grid-cols-6 gap-x-2 gap-y-5",
   icon: "w-[60px] h-[60px] xl:w-12 xl:h-12 border-[3px] xl:border-[2px] rounded-full flex items-center justify-center text-3xl xl:text-2xl hover:scale-110 duration-150",
-  linksMain: "grid grid-cols-3 gap-x-10 gap-y-5 w-fit pl-8",
-  link: "text-lg xl:text-xl cursor-pointer font-medium text-gray-400 hover:text-white duration-150",
+  linksMain: "grid grid-cols-3 gap-x-14 gap-y-5 w-fit pl-8",
+  link: "text-lg xl:text-xl cursor-pointer text-gray-400 hover:text-white duration-150",
   appMain: "flex w-full justify-center items-center",
   appHead: "mt-1 lg:mt-0",
   appBtn:

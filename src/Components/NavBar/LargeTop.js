@@ -9,9 +9,9 @@ const styles = {
   profile: "flex items-center text-white gap-10",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   contactBtn:
-    "w-36 h-11 border-2 text-xl font-medium border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:border-white hover:border-2",
+    "w-36 h-12 border-2 text-xl font-medium border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:border-white hover:border-2",
   loginBtn:
-    "bg-white w-48 h-11 text-xl  flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium",
+    "bg-white w-48 h-12 text-xl  flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium",
 };
 /* Styles End */
 
@@ -81,7 +81,7 @@ const LargeTop = () => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-8">
           <a
             href="mailto:contact@flytant.com"
             target="_blank"

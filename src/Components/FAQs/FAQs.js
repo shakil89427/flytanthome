@@ -61,7 +61,7 @@ const FAQs = () => {
         </form>
       </div>
 
-      <div className="py-24 grid grid-cols-1 lg:grid-cols-2  gap-8">
+      <div className="py-24 grid grid-cols-1 lg:grid-cols-2  gap-8 w-[95%] max-w-[1100px] mx-auto">
         {data.map((item, index) => (
           <div
             key={index}
@@ -76,7 +76,7 @@ const FAQs = () => {
               className="flex justify-between gap-5 items-start p-5 cursor-pointer select-none"
               onClick={() => setSelected(selected === index ? false : index)}
             >
-              <p className="text-lg lg:text-xl font-medium">{item.title}</p>
+              <p className="text-lg">{item.title}</p>
               <AiFillCaretRight
                 style={{
                   transform: selected === index && "rotate(90deg)",
@@ -89,7 +89,7 @@ const FAQs = () => {
                 selected === index ? "h-auto" : "h-0"
               }`}
             >
-              <p className="mx-5 mb-5 p-2 bg-white rounded-md lg:text-lg">
+              <p className="mx-5 mb-5 p-2 bg-white rounded-md text-gray-600">
                 {item.des}
               </p>
             </div>
@@ -102,9 +102,11 @@ const FAQs = () => {
         }
         className="w-fit block mx-auto border-2 border-black px-5 py-2 rounded-md hover:bg-black hover:text-white duration-150 font-medium"
       >
-        {category === "INFLUENCERS" ? "Brands FAQs" : "Influencers FAQs"}
+        {category === "INFLUENCERS"
+          ? "FAQs for Brands"
+          : "FAQs for Influencers"}
       </button>
-      <div className="py-14">
+      <div className="py-14 w-[95%] max-w-[1100px] mx-auto">
         <div className="p-10 bg-gray-100 grid grid-cols-3 gap-14 rounded-lg ">
           <div className="col-span-full md:col-span-2">
             <p className="text-xl md:text-2xl font-semibold">
