@@ -7,7 +7,8 @@ import moment from "moment";
 import Newsletter from "../Components/Newsletter/Newsletter";
 
 const BlogDetails = () => {
-  const { blogsData, setBlogsData, remoteConfig, setNotify } = useStore();
+  const { blogsData, setBlogsData, remoteConfig, setNotify, setLoaded } =
+    useStore();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const { id } = useParams();
@@ -17,14 +18,13 @@ const BlogDetails = () => {
 
   useEffect(() => {
     if (blogsData?.length > 0) {
-      setData(
-        blogsData?.find(
-          (item) => item?.blogNumber?.toString() === id.toString()
-        )
+      const temp = blogsData?.find(
+        (item) => item?.blogNumber?.toString() === id.toString()
       );
+      setData(temp);
       window.scroll(0, 0);
+      setLoading((prev) => prev && !prev);
     }
-    setLoading((prev) => prev && !prev);
   }, [blogsData, id]);
 
   const getConfigs = async () => {
@@ -38,6 +38,7 @@ const BlogDetails = () => {
       });
       const sorted = maped?.sort((a, b) => b?.creationDate - a?.creationDate);
       setBlogsData(sorted);
+      setLoaded(sorted.slice(0, 5));
     } catch (err) {
       setNotify({ status: false, message: "Something went wrong" });
       navigate("/");

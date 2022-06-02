@@ -41,6 +41,7 @@ const Store = () => {
     lastVisible: false,
   });
   const [blogsData, setBlogsData] = useState([]);
+  const [loaded, setLoaded] = useState([]);
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [latestIndex, setLatestIndex] = useState(0);
   const [paidIndex, setPaidIndex] = useState(0);
@@ -110,6 +111,8 @@ const Store = () => {
     setTiktokData,
     blogsData,
     setBlogsData,
+    loaded,
+    setLoaded,
   };
 };
 

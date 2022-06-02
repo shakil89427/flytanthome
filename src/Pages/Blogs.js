@@ -10,7 +10,14 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const Blogs = () => {
-  const { blogsData, setBlogsData, remoteConfig, setNotify } = useStore();
+  const {
+    blogsData,
+    setBlogsData,
+    remoteConfig,
+    setNotify,
+    loaded,
+    setLoaded,
+  } = useStore();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -25,6 +32,7 @@ const Blogs = () => {
       });
       const sorted = maped?.sort((a, b) => b?.creationDate - a?.creationDate);
       setBlogsData(sorted);
+      setLoaded(sorted.slice(0, 5));
       setLoading(false);
       window.scroll(0, 0);
     } catch (err) {
@@ -35,14 +43,15 @@ const Blogs = () => {
 
   useEffect(() => {
     if (blogsData?.length < 1) {
-      return getConfigs();
+      getConfigs();
+    } else {
+      setLoading(false);
+      window.scroll(0, 0);
     }
-    setLoading(false);
-    window.scroll(0, 0);
   }, []);
 
   return (
-    <div className="r-box py-20">
+    <div className="r-box pt-20 pb-32">
       {loading && (
         <div className="fixed top-0 left-0 inset-0 flex items-center justify center bg-[#c0bebe50] z-50">
           <Spinner />
@@ -51,9 +60,8 @@ const Blogs = () => {
       {!loading && (
         <div className="w-[95%] max-w-[1000px] mx-auto">
           <Swiper
-            speed={1000}
-            autoplay={{ delay: 5000 }}
-            spaceBetween={5}
+            speed={600}
+            autoplay={{ delay: 6000 }}
             pagination={true}
             modules={[Pagination, Autoplay]}
           >
@@ -96,7 +104,7 @@ const Blogs = () => {
           </Swiper>
 
           <div className="grid grid-cols-12 gap-x-8 gap-y-24 py-24">
-            {blogsData?.map((item, index) => (
+            {loaded?.map((item, index) => (
               <div
                 onClick={() =>
                   navigate(`/blogdetails/${item?.blogNumber}?q=${item?.title}`)
@@ -116,7 +124,10 @@ const Blogs = () => {
                   <p className="text-lg md:text-xl lg:text-2xl font-medium lg:font-semibold">
                     {item?.Title}
                   </p>
-                  <p className="my-5 text-gray-500 text-xl">
+                  <p
+                    style={{ lineHeight: "200%" }}
+                    className="my-5 text-gray-500 text-xl"
+                  >
                     {item.text.slice(0, 150)}
                   </p>
                   <div className="flex items-center justify-between text-sm font-medium mt-10">
@@ -129,6 +140,16 @@ const Blogs = () => {
               </div>
             ))}
           </div>
+          {blogsData?.length > loaded?.length && (
+            <button
+              onClick={() =>
+                setLoaded((prev) => blogsData.slice(0, prev?.length + 3))
+              }
+              className="bg-black text-white px-8 py-3 rounded-full block mx-auto hover:scale-105 duration-150"
+            >
+              Load more
+            </button>
+          )}
         </div>
       )}
     </div>
