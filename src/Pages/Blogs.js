@@ -65,13 +65,13 @@ const Blogs = () => {
               >
                 <div
                   style={{
-                    backgroundImage: `url(https://picsum.photos/200/300?random=${item?.blogNumber})`,
+                    backgroundImage: `url(${item?.imgUrl})`,
                   }}
                   className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
                 />
                 <div className="mt-8 mb-12 flex items-start">
                   <p className="text-lg md:text-xl lg:text-2xl font-semibold w-9/12 md:w-10/12 xl:w-11/12 pr-10">
-                    {item?.Title}
+                    {item?.title}
                   </p>
                   <div>
                     <p className="text-sm font-medium mb-2">
@@ -99,7 +99,7 @@ const Blogs = () => {
               >
                 <div
                   style={{
-                    backgroundImage: `url(https://picsum.photos/200/300?random=${index})`,
+                    backgroundImage: `url(${item?.imgUrl})`,
                   }}
                   className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-xl mb-5"
                 />

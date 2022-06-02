@@ -51,12 +51,13 @@ const BlogDetails = () => {
       getConfigs();
     }
   }, []);
+  console.log(data);
 
   return (
     <div className="r-box py-14">
       {showNewsletter && <Newsletter setShowNewsleter={setShowNewsleter} />}
       {loading && <Spinner />}
-      {!loading && data?.Title && (
+      {!loading && data?.title && (
         <div className="w-[95%] max-w-[900px] mx-auto">
           <div
             style={{ lineHeight: "200%" }}
@@ -72,14 +73,14 @@ const BlogDetails = () => {
               style={{ lineHeight: "150%" }}
               className="text-xl lg:text-2xl xl:text-4xl font-bold text-black"
             >
-              {data?.Title}
+              {data?.title}
             </h1>
             {data?.content?.map((item, index) => (
               <div key={index}>
                 {item?.type === "image" && (
                   <div
                     style={{
-                      backgroundImage: `url(https://picsum.photos/200/300?random=${data?.blogNumber})`,
+                      backgroundImage: `url(${item?.imgUrl})`,
                     }}
                     className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
                   />
@@ -108,22 +109,22 @@ const BlogDetails = () => {
               {blogsData?.all?.map((item) => (
                 <div
                   onClick={() =>
-                    navigate(`/blogdetails/${item.blogNumber}`, {
+                    navigate(`/blogdetails/${item?.blogNumber}`, {
                       replace: true,
                     })
                   }
-                  key={item.blogNumber}
+                  key={item?.blogNumber}
                   className="cursor-pointer"
                 >
                   <div
                     style={{
-                      backgroundImage: `url(https://picsum.photos/200/300?random=${item.blogNumber})`,
+                      backgroundImage: `url(${item?.imgUrl})`,
                     }}
                     className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-2xl mb-5"
                   />
                   <div className="pr-5">
                     <p className="text-lg md:text-xl font-medium">
-                      {item?.Title}
+                      {item?.title}
                     </p>
                     <p className="my-5 text-gray-500">
                       {item.text.slice(0, 150)}
