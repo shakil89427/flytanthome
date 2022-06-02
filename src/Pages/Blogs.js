@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import useStore from "../Store/useStore";
@@ -16,10 +16,6 @@ const Blogs = () => {
 
   const getConfigs = async () => {
     try {
-      if (blogsData?.all?.length > 0 && blogsData.carousel.length > 0) {
-        setLoading(false);
-        return window.scroll(0, 0);
-      }
       await fetchAndActivate(remoteConfig);
       const temp = JSON.parse(getString(remoteConfig, "blogs"));
       const maped = temp?.map((item) => {
@@ -27,9 +23,8 @@ const Blogs = () => {
         const text = item?.content?.find((i) => i?.type === "text");
         return { ...item, imgUrl: imgUrl?.imgUrl, text: text.title };
       });
-      const sorted = maped?.sort((a, b) => a?.blogNumber - b?.blogNumber);
-      const carousel = sorted?.filter((item) => item.slider);
-      setBlogsData({ all: sorted, carousel });
+      const sorted = maped?.sort((a, b) => b?.creationDate - a?.creationDate);
+      setBlogsData(sorted);
       setLoading(false);
       window.scroll(0, 0);
     } catch (err) {
@@ -39,7 +34,11 @@ const Blogs = () => {
   };
 
   useEffect(() => {
-    getConfigs();
+    if (blogsData?.length < 1) {
+      return getConfigs();
+    }
+    setLoading(false);
+    window.scroll(0, 0);
   }, []);
 
   return (
@@ -52,56 +51,74 @@ const Blogs = () => {
       {!loading && (
         <div className="w-[95%] max-w-[1000px] mx-auto">
           <Swiper
+            speed={1000}
+            autoplay={{ delay: 5000 }}
             spaceBetween={5}
-            initialSlide={0}
             pagination={true}
-            modules={[Pagination]}
+            modules={[Pagination, Autoplay]}
           >
-            {blogsData?.carousel?.map((item) => (
-              <SwiperSlide
-                onClick={() => navigate(`/blogdetails/${item?.blogNumber}`)}
-                className="cursor-pointer"
-                key={item?.blogNumber}
-              >
-                <div
-                  style={{
-                    backgroundImage: `url(${item?.imgUrl})`,
-                  }}
-                  className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
-                />
-                <div className="mt-8 mb-12 flex items-start">
-                  <p className="text-lg md:text-xl lg:text-2xl font-semibold w-9/12 md:w-10/12 xl:w-11/12 pr-10">
-                    {item?.title}
-                  </p>
-                  <div>
-                    <p className="text-sm font-medium mb-2">
-                      {Math.floor(item?.readTime / 60)} min read
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {moment.unix(item?.creationDate).format("MMM DD YYYY")}
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
+            {blogsData?.map(
+              (item) =>
+                item?.slider && (
+                  <SwiperSlide
+                    onClick={() =>
+                      navigate(
+                        `/blogdetails/${item?.blogNumber}/${item?.title.replace(
+                          /\W/g,
+                          "%"
+                        )}`
+                      )
+                    }
+                    className="cursor-pointer"
+                    key={item?.blogNumber}
+                  >
+                    <div
+                      style={{
+                        backgroundImage: `url(${item?.imgUrl})`,
+                      }}
+                      className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
+                    />
+                    <div className="mt-8 mb-12 flex items-start">
+                      <p className="text-lg md:text-xl lg:text-2xl font-semibold w-9/12 md:w-10/12 xl:w-11/12 pr-10">
+                        {item?.title}
+                      </p>
+                      <div>
+                        <p className="text-sm font-medium mb-2">
+                          {Math.floor(item?.readTime / 60)} min read
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {moment
+                            .unix(item?.creationDate)
+                            .format("MMM DD YYYY")}
+                        </p>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                )
+            )}
           </Swiper>
 
-          <div className="grid grid-cols-12 gap-x-5 gap-y-24 py-24">
-            {blogsData?.all?.map((item, index) => (
+          <div className="grid grid-cols-12 gap-x-8 gap-y-24 py-24">
+            {blogsData?.map((item, index) => (
               <div
-                onClick={() => navigate(`/blogdetails/${item?.blogNumber}`)}
-                key={item?.blogNumber}
-                className={
-                  index < 2
-                    ? "col-span-12 md:col-span-6 lg:col-span-6 cursor-pointer"
-                    : "col-span-12 md:col-span-6 lg:col-span-4 cursor-pointer"
+                onClick={() =>
+                  navigate(
+                    `/blogdetails/${item?.blogNumber}/${item?.title.replace(
+                      /\W/g,
+                      "%"
+                    )}`
+                  )
                 }
+                key={item?.blogNumber}
+                className={`col-span-12 md:col-span-6 cursor-pointer ${
+                  index < 2 ? "lg:col-span-6" : "lg:col-span-4"
+                }`}
               >
                 <div
                   style={{
                     backgroundImage: `url(${item?.imgUrl})`,
                   }}
-                  className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-xl mb-5"
+                  className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-lg mb-5"
                 />
                 <div className="pr-5">
                   <p className="text-lg md:text-xl lg:text-2xl font-medium lg:font-semibold">

@@ -5,6 +5,7 @@ import { getRemoteConfig } from "firebase/remote-config";
 /* Initialize Firebase */
 const app = initializeApp(firebaseConfig);
 const remoteConfig = getRemoteConfig(app);
+remoteConfig.settings.minimumFetchIntervalMillis = 300000;
 
 /* Main Store */
 const Store = () => {
@@ -39,7 +40,7 @@ const Store = () => {
     data: [],
     lastVisible: false,
   });
-  const [blogsData, setBlogsData] = useState({ all: [], carousel: [] });
+  const [blogsData, setBlogsData] = useState([]);
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [latestIndex, setLatestIndex] = useState(0);
   const [paidIndex, setPaidIndex] = useState(0);

@@ -15,17 +15,15 @@ const BlogDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (blogsData?.all?.length > 0) {
-      const temp = blogsData?.all?.find(
-        (item) => item?.blogNumber?.toString() === id.toString()
+    if (blogsData?.length > 0) {
+      setData(
+        blogsData?.find(
+          (item) => item?.blogNumber?.toString() === id.toString()
+        )
       );
-      setData(temp);
-
-      if (loading) {
-        setLoading(false);
-      }
       window.scroll(0, 0);
     }
+    setLoading((prev) => prev && !prev);
   }, [blogsData, id]);
 
   const getConfigs = async () => {
@@ -37,9 +35,8 @@ const BlogDetails = () => {
         const text = item?.content?.find((i) => i?.type === "text");
         return { ...item, imgUrl: imgUrl?.imgUrl, text: text.title };
       });
-      const sorted = maped?.sort((a, b) => a?.blogNumber - b?.blogNumber);
-      const carousel = sorted?.filter((item) => item.slider);
-      setBlogsData({ all: sorted, carousel });
+      const sorted = maped?.sort((a, b) => b?.creationDate - a?.creationDate);
+      setBlogsData(sorted);
     } catch (err) {
       setNotify({ status: false, message: "Something went wrong" });
       navigate("/");
@@ -47,11 +44,10 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
-    if (blogsData?.all?.length < 1) {
+    if (blogsData?.length < 1) {
       getConfigs();
     }
   }, []);
-  console.log(data);
 
   return (
     <div className="r-box py-14">
@@ -105,13 +101,19 @@ const BlogDetails = () => {
               Subscribe newsletter
             </button>
             <p className="font-semibold text-black text-lg">More topics</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-24 mb-24">
-              {blogsData?.all?.map((item) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 mb-24">
+              {blogsData?.map((item) => (
                 <div
                   onClick={() =>
-                    navigate(`/blogdetails/${item?.blogNumber}`, {
-                      replace: true,
-                    })
+                    navigate(
+                      `/blogdetails/${item?.blogNumber}/${item?.title.replace(
+                        /\W/g,
+                        "%"
+                      )}`,
+                      {
+                        replace: true,
+                      }
+                    )
                   }
                   key={item?.blogNumber}
                   className="cursor-pointer"

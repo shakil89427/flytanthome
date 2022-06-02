@@ -1,17 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import cross from "../../Assets/cross.svg";
+import useStore from "../../Store/useStore";
+import Spinner from "../Spinner/Spinner";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import axios from "axios";
 
 const Newsletter = ({ setShowNewsleter }) => {
-  const submitEmail = (e) => {
+  const { user, setNotify } = useStore();
+  const [loading, setLoading] = useState(false);
+  const db = getFirestore();
+
+  const submitEmail = async (e) => {
     e.preventDefault();
+    try {
+      const email = e.target[0].value;
+      setLoading(true);
+      if (user?.userId) {
+        const docRef = doc(db, "marketingEmails", user?.userId);
+        await setDoc(docRef, { email, userId: user?.userId });
+        setLoading(false);
+        setNotify({ status: true, message: "Subscribed successfully" });
+        setShowNewsleter(false);
+      } else {
+        await axios.post("https://flytant.herokuapp.com/subscribe", { email });
+        setLoading(false);
+        setNotify({ status: true, message: "Subscribed successfully" });
+        setShowNewsleter(false);
+      }
+    } catch (err) {
+      setLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+    }
   };
+
   useEffect(() => {
     document.body.style.overflowY = "hidden";
     return () => {
       document.body.style.overflowY = "auto";
     };
   }, []);
+
   return (
     <>
       <div
@@ -19,6 +48,11 @@ const Newsletter = ({ setShowNewsleter }) => {
         className="fixed top-0 left-0 inset-0 bg-[#8f8e8e41] z-10"
       />
       <div className="bg-white rounded-md p-10 flex flex-col items-center gap-5 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[95%] max-w-[600px]">
+        {loading && (
+          <div className="absolute inset-0 top-0 left-0 flex items-center justify-center bg-[#b4b2b25b]">
+            <Spinner />
+          </div>
+        )}
         <img
           onClick={() => setShowNewsleter(false)}
           src={cross}
