@@ -34,7 +34,6 @@ const Blogs = () => {
       setBlogsData(sorted);
       setLoaded(sorted.slice(0, 5));
       setLoading(false);
-      window.scroll(0, 0);
     } catch (err) {
       setNotify({ status: false, message: "Something went wrong" });
       navigate("/");
@@ -42,11 +41,11 @@ const Blogs = () => {
   };
 
   useEffect(() => {
+    window.scroll(0, 0);
     if (blogsData?.length < 1) {
       getConfigs();
     } else {
       setLoading(false);
-      window.scroll(0, 0);
     }
   }, []);
 
