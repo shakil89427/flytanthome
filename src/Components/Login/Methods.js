@@ -16,7 +16,7 @@ const styles = {
   downButtons:
     "my-4 md:my-7 flex items-center flex-wrap gap-3 md:gap-5 justify-center",
   downButton:
-    "flex items-center pl-3 h-12 gap-2 bg-black text-white w-44 rounded-lg cursor-pointer",
+    "flex items-center pl-3 h-12 gap-2 bg-black text-white w-40 rounded-md cursor-pointer",
 };
 /* Styles End */
 
@@ -31,7 +31,7 @@ const Methods = ({ setShow }) => {
         {/* Google */}
         <div
           onClick={googleSignIn}
-          className={`${styles.loginButton} text-black border`}
+          className={`${styles.loginButton} text-black border-2`}
         >
           <FcGoogle className="text-2xl" />
           <p>Continue with Google</p>
@@ -66,9 +66,9 @@ const Methods = ({ setShow }) => {
         {/* Phone */}
         <div
           onClick={() => setShow("sendOTP")}
-          className={`${styles.loginButton} bg-black`}
+          className={`${styles.loginButton} bg-white text-black border-2 border-black`}
         >
-          <IoKeypadSharp className="text-xl" />
+          <IoKeypadSharp className="text-xl " />
           <p>Continue with Phone</p>
         </div>
       </div>
@@ -83,8 +83,8 @@ const Methods = ({ setShow }) => {
         >
           <img className="w-6 ml-1" src={playstoreWhite} alt="" />
           <span>
-            <p className="text-sm">GET IT ON</p>
-            <p className="text-lg leading-none mb-1">Play Store</p>
+            <p className="text-xs">GET IT ON</p>
+            <p className="text-md leading-none mb-1">Play Store</p>
           </span>
         </a>
         <a
@@ -95,8 +95,8 @@ const Methods = ({ setShow }) => {
         >
           <AiFillApple className="text-3xl" />
           <span>
-            <p className="text-[11px]">DOWNLOAD ON THE</p>
-            <p className="text-lg leading-none mb-1">App Store</p>
+            <p className="text-[10px]">DOWNLOAD ON THE</p>
+            <p className="text-md leading-none mb-1">App Store</p>
           </span>
         </a>
       </div>

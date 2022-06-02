@@ -101,19 +101,13 @@ const Blogs = () => {
                   style={{
                     backgroundImage: `url(https://picsum.photos/200/300?random=${index})`,
                   }}
-                  className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-2xl mb-5"
+                  className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-xl mb-5"
                 />
                 <div className="pr-5">
-                  <p
-                    className={`text-lg md:text-xl ${
-                      index < 2
-                        ? "lg:text-2xl font-medium lg:font-semibold"
-                        : "font-medium"
-                    }`}
-                  >
+                  <p className="text-lg md:text-xl lg:text-2xl font-medium lg:font-semibold">
                     {item?.Title}
                   </p>
-                  <p className="my-5 text-gray-500 text-lg">
+                  <p className="my-5 text-gray-500 text-xl">
                     {item.text.slice(0, 150)}
                   </p>
                   <div className="flex items-center justify-between text-sm font-medium mt-10">

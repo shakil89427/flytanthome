@@ -57,7 +57,7 @@ const BlogDetails = () => {
       {showNewsletter && <Newsletter setShowNewsleter={setShowNewsleter} />}
       {loading && <Spinner />}
       {!loading && data?.Title && (
-        <div className="w-[95%] max-w-[1000px] mx-auto">
+        <div className="w-[95%] max-w-[900px] mx-auto">
           <div
             style={{ lineHeight: "200%" }}
             className="flex flex-col gap-14 text-lg text-gray-600"
@@ -70,7 +70,7 @@ const BlogDetails = () => {
             </div>
             <h1
               style={{ lineHeight: "150%" }}
-              className="text-xl lg:text-2xl xl:text-4xl font-semibold text-black"
+              className="text-xl lg:text-2xl xl:text-4xl font-bold text-black"
             >
               {data?.Title}
             </h1>
@@ -89,17 +89,14 @@ const BlogDetails = () => {
                     {item?.title}
                   </p>
                 )}
-                {item?.type === "text" && <p>{item?.title}</p>}
+                {item?.type === "text" && (
+                  <p style={{ lineHeight: "200%" }} className="text-xl">
+                    {item?.title}
+                  </p>
+                )}
               </div>
             ))}
-            <iframe
-              className="w-full aspect-[11/5] rounded-lg"
-              src="https://www.youtube.com/embed/i0Nxig4oTz8?autoplay=1"
-              title="Flytant"
-              frameBorder="0"
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;fullscreen"
-              allowFullScreen
-            ></iframe>
+
             <button
               onClick={() => setShowNewsleter(true)}
               className="block mx-auto bg-black text-white px-8 py-3 rounded-full text-lg hover:scale-105 duration-150"
@@ -107,7 +104,7 @@ const BlogDetails = () => {
               Subscribe newsletter
             </button>
             <p className="font-semibold text-black text-lg">More topics</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-24 mb-24">
               {blogsData?.all?.map((item) => (
                 <div
                   onClick={() =>
