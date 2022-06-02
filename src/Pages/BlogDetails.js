@@ -11,6 +11,7 @@ const BlogDetails = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const { id } = useParams();
+  console.log(id);
   const [showNewsletter, setShowNewsleter] = useState(false);
   const navigate = useNavigate();
 
@@ -106,13 +107,8 @@ const BlogDetails = () => {
                 <div
                   onClick={() =>
                     navigate(
-                      `/blogdetails/${item?.blogNumber}/${item?.title.replace(
-                        /\W/g,
-                        "%"
-                      )}`,
-                      {
-                        replace: true,
-                      }
+                      `/blogdetails/${item?.blogNumber}?q=${item?.title}`,
+                      { replace: true }
                     )
                   }
                   key={item?.blogNumber}

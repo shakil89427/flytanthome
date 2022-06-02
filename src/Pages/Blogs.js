@@ -63,10 +63,7 @@ const Blogs = () => {
                   <SwiperSlide
                     onClick={() =>
                       navigate(
-                        `/blogdetails/${item?.blogNumber}/${item?.title.replace(
-                          /\W/g,
-                          "%"
-                        )}`
+                        `/blogdetails/${item?.blogNumber}?q=${item?.title}`
                       )
                     }
                     className="cursor-pointer"
@@ -102,12 +99,7 @@ const Blogs = () => {
             {blogsData?.map((item, index) => (
               <div
                 onClick={() =>
-                  navigate(
-                    `/blogdetails/${item?.blogNumber}/${item?.title.replace(
-                      /\W/g,
-                      "%"
-                    )}`
-                  )
+                  navigate(`/blogdetails/${item?.blogNumber}?q=${item?.title}`)
                 }
                 key={item?.blogNumber}
                 className={`col-span-12 md:col-span-6 cursor-pointer ${
