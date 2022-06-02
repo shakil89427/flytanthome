@@ -105,7 +105,7 @@ const Subscription = () => {
   }, []);
 
   return (
-    <div className="r-box py-24">
+    <div className="r-box">
       {dataloading ? (
         <Spinner />
       ) : (

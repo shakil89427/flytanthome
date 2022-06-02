@@ -63,7 +63,7 @@ const ActivePlans = () => {
   }, [allPlans]);
 
   return (
-    <div>
+    <div className="pt-20">
       {showHistory && <History setShowHistory={setShowHistory} />}
       <div className="relative">
         <p className="text-center text-2xl lg:text-3xl font-semibold">

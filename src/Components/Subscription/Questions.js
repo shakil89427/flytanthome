@@ -27,7 +27,7 @@ const data = [
 const Questions = () => {
   const [selected, setSelected] = useState(0);
   return (
-    <div className="mt-28 ">
+    <div className="my-28">
       <p className="text-2xl lg:text-3xl font-semibold mb-10 text-center">
         Common questions
       </p>
@@ -37,10 +37,10 @@ const Questions = () => {
           className="mb-8 bg-gray-100 rounded-lg w-[95%] max-w-[1000px] mx-auto"
         >
           <div
-            className="flex justify-between gap-5 items-start p-3 cursor-pointer select-none"
+            className="flex justify-between gap-5 items-start p-5 cursor-pointer select-none"
             onClick={() => setSelected(selected === index ? false : index)}
           >
-            <p className="lg:text-lg">{item.title}</p>
+            <p className="text-lg">{item.title}</p>
             <img
               style={{
                 transform: selected === index && "rotate(90deg)",
