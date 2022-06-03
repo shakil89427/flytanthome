@@ -14,7 +14,6 @@ const UserContent = () => {
       <Scroll />
       <Banner />
       <FeaturedInfluencers />
-      <AdBanner />
       <Latest />
       <Paid />
       <AdBanner />
