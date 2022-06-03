@@ -58,7 +58,7 @@ const Banner = () => {
                 className="w-full h-full"
                 src="https://www.youtube.com/embed/i0Nxig4oTz8?autoplay=1"
                 title="Flytant"
-                frameborder="0"
+                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;fullscreen"
                 allowFullScreen
               ></iframe>
