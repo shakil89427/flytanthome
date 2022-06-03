@@ -21,7 +21,6 @@ const ActivePlans = () => {
     let allDates = [];
     let allCampaignCredits = 0;
     let allMessageCredits = 0;
-
     const currencies = JSON.parse(getString(remoteConfig, "currency_list"));
 
     valid?.forEach((validPlan) => {
@@ -59,6 +58,12 @@ const ActivePlans = () => {
       allMessageCredits,
       availableMessageCredits: user?.messageCredits,
     };
+    const premium = final?.namePriceSymbol?.find(
+      (item) => item?.name?.toLowerCase() === "premium"
+    );
+    if (premium?.name) {
+      final.unlimited = true;
+    }
     setData(final);
   }, [allPlans]);
 
@@ -112,15 +117,20 @@ const ActivePlans = () => {
                   <div
                     style={{
                       width: `${
-                        (data?.availableCampaignCredits * 100) /
-                        data?.allCampaignCredits
+                        data?.unlimited
+                          ? "100"
+                          : (data?.availableCampaignCredits * 100) /
+                            data?.allCampaignCredits
                       }%`,
                     }}
                     className="absolute bg-black inset-y-0 left-0"
                   />
                 </div>
                 <p className="absolute right-0 -bottom-6 text-sm font-medium">
-                  {data?.availableCampaignCredits}/{data?.allCampaignCredits}
+                  {data?.unlimited
+                    ? "Unlimited"
+                    : data?.availableCampaignCredits}
+                  {!data?.unlimited && <span>/{data?.allCampaignCredits}</span>}
                 </p>
               </div>
             </div>
@@ -131,15 +141,20 @@ const ActivePlans = () => {
                   <div
                     style={{
                       width: `${
-                        (data?.availableMessageCredits * 100) /
-                        data?.allMessageCredits
+                        data?.unlimited
+                          ? "100"
+                          : (data?.availableMessageCredits * 100) /
+                            data?.allMessageCredits
                       }%`,
                     }}
                     className="absolute bg-black inset-y-0 left-0"
                   />
                 </div>
                 <p className="absolute right-0 -bottom-6 text-sm font-medium">
-                  {data?.availableMessageCredits}/{data?.allMessageCredits}
+                  {data?.unlimited
+                    ? "Unlimited"
+                    : data?.availableMessageCredits}
+                  {!data?.unlimited && <span>/{data?.allMessageCredits}</span>}
                 </p>
               </div>
             </div>
