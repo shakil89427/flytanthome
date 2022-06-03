@@ -40,7 +40,11 @@ const Store = () => {
     data: [],
     lastVisible: false,
   });
-  const [blogsData, setBlogsData] = useState([]);
+  const [blogsData, setBlogsData] = useState({
+    all: [],
+    carousel: [],
+    notCarousel: [],
+  });
   const [loaded, setLoaded] = useState([]);
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [latestIndex, setLatestIndex] = useState(0);

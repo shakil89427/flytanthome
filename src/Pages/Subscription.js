@@ -111,7 +111,7 @@ const Subscription = () => {
       ) : (
         <div>
           {user?.subscriptions?.length > 0 && <ActivePlans />}
-          <div className="pt-20">
+          <div className="pt-20 pb-32">
             <div className="mb-20">
               <h1 className="text-center text-2xl lg:text-3xl font-semibold">
                 Subscription Plans
@@ -123,7 +123,7 @@ const Subscription = () => {
             </div>
             <Outlet />
           </div>
-          <Questions />
+          {/* <Questions /> */}
         </div>
       )}
     </div>

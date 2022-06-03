@@ -12,13 +12,12 @@ const BlogDetails = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const { id } = useParams();
-  console.log(id);
   const [showNewsletter, setShowNewsleter] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (blogsData?.length > 0) {
-      const temp = blogsData?.find(
+    if (blogsData?.all?.length > 0) {
+      const temp = blogsData?.all?.find(
         (item) => item?.blogNumber?.toString() === id.toString()
       );
       setData(temp);
@@ -36,9 +35,11 @@ const BlogDetails = () => {
         const text = item?.content?.find((i) => i?.type === "text");
         return { ...item, imgUrl: imgUrl?.imgUrl, text: text.title };
       });
-      const sorted = maped?.sort((a, b) => b?.creationDate - a?.creationDate);
-      setBlogsData(sorted);
-      setLoaded(sorted.slice(0, 5));
+      const all = maped?.sort((a, b) => b?.creationDate - a?.creationDate);
+      const carousel = all.filter((item) => item.slider);
+      const notCarousel = all.filter((item) => !item.slider);
+      setBlogsData({ all, carousel, notCarousel });
+      setLoaded(notCarousel.slice(0, 5));
     } catch (err) {
       setNotify({ status: false, message: "Something went wrong" });
       navigate("/");
@@ -46,7 +47,7 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
-    if (blogsData?.length < 1) {
+    if (blogsData?.all?.length < 1) {
       getConfigs();
     }
   }, []);
@@ -104,7 +105,7 @@ const BlogDetails = () => {
             </button>
             <p className="font-semibold text-black text-lg">More topics</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 mb-24">
-              {blogsData?.map((item) => (
+              {blogsData?.all?.map((item) => (
                 <div
                   onClick={() =>
                     navigate(

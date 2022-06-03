@@ -15,7 +15,18 @@ const Instagram = ({ details }) => {
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
   const [data, setData] = useState({});
+  const [images, setImages] = useState([]);
   const [avg, setAvg] = useState({ likes: 0, engagement: 0 });
+
+  // const getImage = async(url)=>{
+  //   const response = axios.post('https://flytant.herokuapp.com/getimage',{url})
+  // }
+
+  // useEffect(() => {
+  //   if(data?.biography){
+  //     const {edge_owner_to_timeline_media:{edges}} = data
+  //   }
+  // }, [data]);
 
   const getFullData = async (userId) => {
     try {
