@@ -14,7 +14,7 @@ const AdBanner = () => {
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
             30% off
           </h1>
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-3">
+          <h3 className="text-lg md:text-xl lg:text-2xl font-medium mt-2 mb-5">
             Buy Flytant Subscription Today
           </h3>
           <button
