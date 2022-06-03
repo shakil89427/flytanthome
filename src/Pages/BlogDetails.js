@@ -22,6 +22,7 @@ const BlogDetails = () => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
   const prevRef = useRef();
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     if (blogsData?.all?.length > 0) {
@@ -139,13 +140,14 @@ const BlogDetails = () => {
                   prevEl: prevRef?.current,
                 }}
                 onSwiper={setSwiper}
-                slidesPerView={1}
+                slidesPerView={1.2}
+                onSlideChange={(e) => setActiveSlide(e.realIndex)}
                 spaceBetween={20}
                 breakpoints={{
                   640: {
-                    slidesPerView: 2,
+                    slidesPerView: 2.2,
                   },
-                  768: {
+                  1024: {
                     slidesPerView: 3,
                   },
                 }}
@@ -169,7 +171,7 @@ const BlogDetails = () => {
                           }}
                           className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-2xl mb-5"
                         />
-                        <p className="text-lg font-medium lg:font-semibold pr-10">
+                        <p className="text-lg text-black font-semibold pr-10">
                           {item?.title}
                         </p>
                         <p
@@ -179,7 +181,7 @@ const BlogDetails = () => {
                           {item.text.slice(0, 80)} ...
                         </p>
                       </div>
-                      <div className="flex items-center justify-between text-sm font-medium mt-5 pr-5">
+                      <div className="flex items-center justify-between text-sm font-medium pr-5">
                         <p className="text-gray-500">
                           {moment
                             .unix(item?.creationDate)
@@ -193,16 +195,22 @@ const BlogDetails = () => {
               </Swiper>
 
               <div
-                className="absolute top-[30%] md:top-[15%] lg:top-[20%] left-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white -translate-x-1/2 select-none"
+                className={`hidden lg:block absolute top-[20%] left-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white border-4  -translate-x-1/2 select-none border-white ${
+                  activeSlide > 0 ? "visible" : "invisible"
+                }`}
                 ref={prevRef}
               >
-                <BsArrowLeftCircle className="text-3xl " />
+                <BsArrowLeftCircle className="text-5xl " />
               </div>
               <div
-                className="absolute top-[30%] md:top-[15%] lg:top-[20%] right-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white translate-x-1/2 select-none"
+                className={`hidden lg:block absolute top-[20%] right-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white border-4 translate-x-1/2 select-none border-white ${
+                  activeSlide + 3 < blogsData?.all?.length
+                    ? "visible"
+                    : "invisible"
+                }`}
                 ref={nextRef}
               >
-                <BsArrowRightCircle className="text-3xl" />
+                <BsArrowRightCircle className="text-5xl" />
               </div>
             </div>
           </div>

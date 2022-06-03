@@ -77,7 +77,7 @@ const usePayment = (plan, setPaymentLoading) => {
     };
     const razorpay = new window.Razorpay(options);
     razorpay.on("payment.failed", (response) => {
-      console.log(response);
+      console.log("err");
     });
     razorpay.open();
   };
