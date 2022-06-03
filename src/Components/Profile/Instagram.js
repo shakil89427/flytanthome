@@ -15,18 +15,34 @@ const Instagram = ({ details }) => {
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
   const [data, setData] = useState({});
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState({});
   const [avg, setAvg] = useState({ likes: 0, engagement: 0 });
 
-  // const getImage = async(url)=>{
-  //   const response = axios.post('https://flytant.herokuapp.com/getimage',{url})
-  // }
+  const getImage = async (url, id) => {
+    try {
+      const {
+        data: { image },
+      } = await axios.post("https://flytant.herokuapp.com/getimage", {
+        url,
+      });
+      setImages((prev) => {
+        const newData = { ...prev };
+        newData[id] = image;
+        return newData;
+      });
+    } catch (err) {}
+  };
 
-  // useEffect(() => {
-  //   if(data?.biography){
-  //     const {edge_owner_to_timeline_media:{edges}} = data
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data?.profile_pic_url) {
+      getImage(data?.profile_pic_url, "profileImg");
+      data?.edge_owner_to_timeline_media?.edges?.forEach((item) => {
+        if (item?.node?.thumbnail_src) {
+          getImage(item?.node?.thumbnail_src, item?.node?.id);
+        }
+      });
+    }
+  }, [data]);
 
   const getFullData = async (userId) => {
     try {
@@ -63,6 +79,7 @@ const Instagram = ({ details }) => {
 
   useEffect(() => {
     setData({});
+    setImages({});
     setLoading(true);
     if (details?.linkedAccounts?.Instagram?.username) {
       const valid = instagramData.find((item) => item.validId === details.id);
@@ -155,9 +172,9 @@ const Instagram = ({ details }) => {
             <div className="w-fit">
               <div
                 style={{
-                  backgroundImage: `url(${
-                    details?.profileImageUrl || defaultUser
-                  })`,
+                  backgroundImage: images?.profileImg
+                    ? `url(data:image/png;base64,${images?.profileImg})`
+                    : `url(${defaultUser})`,
                 }}
                 className="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat"
               />
@@ -174,9 +191,9 @@ const Instagram = ({ details }) => {
                 <div className="px-3 flex items-center gap-3">
                   <div
                     style={{
-                      backgroundImage: `url(${
-                        details?.profileImageUrl || defaultUser
-                      })`,
+                      backgroundImage: images?.profileImg
+                        ? `url(data:image/png;base64,${images?.profileImg})`
+                        : `url(${defaultUser})`,
                     }}
                     className="w-12 h-12 rounded-full bg-cover bg-center bg-no-repeat"
                   />
@@ -193,7 +210,13 @@ const Instagram = ({ details }) => {
                     {item?.node?.text}
                   </p>
                 ))}
-                <img src={node?.thumbnail_src} className="w-full mb-5" alt="" />
+                {images[node?.id] && (
+                  <img
+                    src={`data:image/png;base64,${images[node?.id]}`}
+                    className="w-full mb-5"
+                    alt=""
+                  />
+                )}
 
                 <div className="pl-3 w-fit flex items-center gap-5">
                   <div>
