@@ -193,13 +193,13 @@ const BlogDetails = () => {
               </Swiper>
 
               <div
-                className="absolute top-[30%] md:top-[15%] lg:top-[20%] left-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white -translate-x-1/2"
+                className="absolute top-[30%] md:top-[15%] lg:top-[20%] left-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white -translate-x-1/2 select-none"
                 ref={prevRef}
               >
                 <BsArrowLeftCircle className="text-3xl " />
               </div>
               <div
-                className="absolute top-[30%] md:top-[15%] lg:top-[20%] right-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white translate-x-1/2"
+                className="absolute top-[30%] md:top-[15%] lg:top-[20%] right-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white translate-x-1/2 select-none"
                 ref={nextRef}
               >
                 <BsArrowRightCircle className="text-3xl" />
