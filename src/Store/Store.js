@@ -5,7 +5,7 @@ import { getRemoteConfig } from "firebase/remote-config";
 /* Initialize Firebase */
 const app = initializeApp(firebaseConfig);
 const remoteConfig = getRemoteConfig(app);
-remoteConfig.settings.minimumFetchIntervalMillis = 2400000;
+remoteConfig.settings.minimumFetchIntervalMillis = 1800000;
 
 /* Main Store */
 const Store = () => {
