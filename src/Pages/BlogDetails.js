@@ -1,10 +1,15 @@
 import { fetchAndActivate, getString } from "firebase/remote-config";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useStore from "../Store/useStore";
 import Spinner from "../Components/Spinner/Spinner";
 import moment from "moment";
 import Newsletter from "../Components/Newsletter/Newsletter";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css";
+import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 
 const BlogDetails = () => {
   const { blogsData, setBlogsData, remoteConfig, setNotify, setLoaded } =
@@ -14,6 +19,9 @@ const BlogDetails = () => {
   const { id } = useParams();
   const [showNewsletter, setShowNewsleter] = useState(false);
   const navigate = useNavigate();
+  const [swiper, setSwiper] = useState();
+  const nextRef = useRef();
+  const prevRef = useRef();
 
   useEffect(() => {
     if (blogsData?.all?.length > 0) {
@@ -51,6 +59,15 @@ const BlogDetails = () => {
       getConfigs();
     }
   }, []);
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.params.navigation.nextEl = nextRef.current;
+      swiper.params.navigation.prevEl = prevRef.current;
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  }, [swiper]);
 
   return (
     <div className="r-box py-14">
@@ -114,40 +131,79 @@ const BlogDetails = () => {
               Subscribe newsletter
             </button>
             <p className="font-semibold text-black text-lg">More topics</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 mb-24">
-              {blogsData?.all?.map((item) => (
-                <div
-                  onClick={() =>
-                    navigate(
-                      `/blogdetails/${item?.blogNumber}?q=${item?.title}`,
-                      { replace: true }
-                    )
-                  }
-                  key={item?.blogNumber}
-                  className="cursor-pointer"
-                >
-                  <div
-                    style={{
-                      backgroundImage: `url(${item?.imgUrl})`,
-                    }}
-                    className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-2xl mb-5"
-                  />
-                  <div className="pr-5">
-                    <p className="text-lg md:text-xl font-medium">
-                      {item?.title}
-                    </p>
-                    <p className="my-5 text-gray-500">
-                      {item.text.slice(0, 150)}
-                    </p>
-                    <div className="flex items-center justify-between text-sm font-medium mt-10">
-                      <p className="text-gray-500">
-                        {moment.unix(item?.creationDate).format("MMM DD YYYY")}
-                      </p>
-                      <p>{Math.floor(item?.readTime / 60)} min read</p>
+            <div className="mb-24 relative">
+              <Swiper
+                modules={[Navigation]}
+                navigation={{
+                  nextEl: nextRef?.current,
+                  prevEl: prevRef?.current,
+                }}
+                onSwiper={setSwiper}
+                slidesPerView={1}
+                spaceBetween={20}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 2,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                  },
+                }}
+              >
+                {blogsData?.all?.map((item) => (
+                  <SwiperSlide
+                    onClick={() =>
+                      navigate(
+                        `/blogdetails/${item?.blogNumber}?q=${item?.title}`,
+                        { replace: true }
+                      )
+                    }
+                    key={item?.blogNumber}
+                    className="cursor-pointer"
+                  >
+                    <div className="w-full min-h-[530px] flex flex-col justify-between">
+                      <div>
+                        <div
+                          style={{
+                            backgroundImage: `url(${item?.imgUrl})`,
+                          }}
+                          className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-2xl mb-5"
+                        />
+                        <p className="text-lg font-medium lg:font-semibold pr-10">
+                          {item?.title}
+                        </p>
+                        <p
+                          style={{ lineHeight: "170%" }}
+                          className="my-5 text-gray-500 text-md pr-5"
+                        >
+                          {item.text.slice(0, 80)} ...
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between text-sm font-medium mt-5 pr-5">
+                        <p className="text-gray-500">
+                          {moment
+                            .unix(item?.creationDate)
+                            .format("MMM DD YYYY")}
+                        </p>
+                        <p>{Math.floor(item?.readTime / 60)} min read</p>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+              <div
+                className="absolute top-[30%] md:top-[15%] lg:top-[20%] left-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white -translate-x-1/2"
+                ref={prevRef}
+              >
+                <BsArrowLeftCircle className="text-3xl " />
+              </div>
+              <div
+                className="absolute top-[30%] md:top-[15%] lg:top-[20%] right-0 cursor-pointer rounded-full shadow-2xl z-20 bg-white translate-x-1/2"
+                ref={nextRef}
+              >
+                <BsArrowRightCircle className="text-3xl" />
+              </div>
             </div>
           </div>
         </div>
