@@ -156,12 +156,16 @@ const CampaignInfluencers = () => {
                 className="border py-3 shadow-lg rounded-md grid grid-cols-3 mb-5 gap-5"
               >
                 <div
+                  onClick={() => navigate(`/profile/${influencer?.userId}`)}
                   style={{
                     backgroundImage: `url(${influencer?.profileImageUrl})`,
                   }}
                   className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center cursor-pointer ml-5"
                 />
-                <div className="flex flex-col justify-center">
+                <div
+                  onClick={() => navigate(`/profile/${influencer?.userId}`)}
+                  className="flex flex-col justify-center cursor-pointer"
+                >
                   <p className="font-semibold">{influencer?.name}</p>
                   <p className="text-sm">@{influencer?.username}</p>
                 </div>
