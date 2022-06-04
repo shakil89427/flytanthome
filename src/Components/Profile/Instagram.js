@@ -33,7 +33,8 @@ const Instagram = ({ details }) => {
   };
 
   useEffect(() => {
-    if (data?.profile_pic_url) {
+    if (data?.profile_pic_url && !data?.fetched) {
+      setData((prev) => ({ ...prev, fetched: true }));
       const promises = [];
       promises.push(getImage(data?.profile_pic_url, "profileImg"));
       data?.edge_owner_to_timeline_media?.edges?.forEach((item) => {
