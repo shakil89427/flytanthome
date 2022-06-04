@@ -56,7 +56,7 @@ const Profile = () => {
   const [country, setCountry] = useState(false);
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
-  const socials = ["Youtube", "Twitter", "Instagram"];
+  const socials = ["Instagram", "Youtube", "Twitter"];
   const [selected, setSelected] = useState(socials[0]);
   const [edit, setEdit] = useState(false);
 
@@ -220,35 +220,19 @@ const Profile = () => {
           <div>
             <p className={styles.title}>Social Accounts</p>
             <div className={styles.socials}>
-              {socials.map((social) =>
-                social === "Instagram" ? (
-                  details?.linkedAccounts?.Instagram && (
-                    <p
-                      onClick={() => social !== selected && setSelected(social)}
-                      className={
-                        selected === social
-                          ? styles.selectedSocial
-                          : "cursor-pointer"
-                      }
-                      key={social}
-                    >
-                      {social}
-                    </p>
-                  )
-                ) : (
-                  <p
-                    onClick={() => social !== selected && setSelected(social)}
-                    className={
-                      selected === social
-                        ? styles.selectedSocial
-                        : "cursor-pointer"
-                    }
-                    key={social}
-                  >
-                    {social}
-                  </p>
-                )
-              )}
+              {socials.map((social) => (
+                <p
+                  onClick={() => social !== selected && setSelected(social)}
+                  className={
+                    selected === social
+                      ? styles.selectedSocial
+                      : "cursor-pointer"
+                  }
+                  key={social}
+                >
+                  {social}
+                </p>
+              ))}
             </div>
             {selected === "Instagram" && <Instagram details={details} />}
             {selected === "Youtube" && <Youtube details={details} />}

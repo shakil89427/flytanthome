@@ -21,7 +21,6 @@ const Subscription = () => {
   const [dataloading, setDataLoading] = useState(true);
   const { usd, inr, other } = useCalculate(setDataLoading);
   const db = getFirestore();
-  console.log(allPlans);
 
   const checkCurrency = async (allData) => {
     try {
