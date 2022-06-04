@@ -15,7 +15,6 @@ const Instagram = ({ details }) => {
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
   const [data, setData] = useState({});
-  const [images, setImages] = useState({});
   const [avg, setAvg] = useState({ likes: 0, engagement: 0 });
 
   const getImage = async (url, id) => {
@@ -25,7 +24,7 @@ const Instagram = ({ details }) => {
       } = await axios.post("https://flytant.herokuapp.com/getimage", {
         url,
       });
-      setImages((prev) => {
+      setData((prev) => {
         const newData = { ...prev };
         newData[id] = image;
         return newData;
@@ -35,12 +34,23 @@ const Instagram = ({ details }) => {
 
   useEffect(() => {
     if (data?.profile_pic_url) {
-      getImage(data?.profile_pic_url, "profileImg");
+      const promises = [];
+      promises.push(getImage(data?.profile_pic_url, "profileImg"));
       data?.edge_owner_to_timeline_media?.edges?.forEach((item) => {
         if (item?.node?.thumbnail_src) {
-          getImage(item?.node?.thumbnail_src, item?.node?.id);
+          promises.push(getImage(item?.node?.thumbnail_src, item?.node?.id));
         }
       });
+      Promise.allSettled(promises)
+        .then(() => {
+          setInstagramData([
+            ...instagramData,
+            { ...data, validId: details?.id },
+          ]);
+        })
+        .catch(() => {
+          setNotify({ status: false, meessage: "Something went wrong" });
+        });
     }
   }, [data]);
 
@@ -53,21 +63,11 @@ const Instagram = ({ details }) => {
         }
       );
       if (response?.data?.details?.graphql?.user) {
-        const responseData = {
-          ...response?.data?.details?.graphql?.user,
-          validId: details.id,
-        };
-        setData(responseData);
-        setInstagramData([...instagramData, responseData]);
+        setData(response?.data?.details?.graphql?.user);
         return setLoading(false);
       }
       if (details?.linkedAccounts?.Instagram?.details?.graphql?.user) {
-        const responseData = {
-          ...details?.linkedAccounts?.Instagram?.details?.graphql?.user,
-          validId: details.id,
-        };
-        setData(responseData);
-        setInstagramData([...instagramData, responseData]);
+        setData(details?.linkedAccounts?.Instagram?.details?.graphql?.user);
         return setLoading(false);
       }
       setLoading(false);
@@ -79,7 +79,6 @@ const Instagram = ({ details }) => {
 
   useEffect(() => {
     setData({});
-    setImages({});
     setLoading(true);
     if (details?.linkedAccounts?.Instagram?.username) {
       const valid = instagramData.find((item) => item.validId === details.id);
@@ -172,8 +171,8 @@ const Instagram = ({ details }) => {
             <div className="w-fit">
               <div
                 style={{
-                  backgroundImage: images?.profileImg
-                    ? `url(data:image/png;base64,${images?.profileImg})`
+                  backgroundImage: data?.profileImg
+                    ? `url(data:image/png;base64,${data?.profileImg})`
                     : `url(${defaultUser})`,
                 }}
                 className="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat"
@@ -191,8 +190,8 @@ const Instagram = ({ details }) => {
                 <div className="px-3 flex items-center gap-3">
                   <div
                     style={{
-                      backgroundImage: images?.profileImg
-                        ? `url(data:image/png;base64,${images?.profileImg})`
+                      backgroundImage: data?.profileImg
+                        ? `url(data:image/png;base64,${data?.profileImg})`
                         : `url(${defaultUser})`,
                     }}
                     className="w-12 h-12 rounded-full bg-cover bg-center bg-no-repeat"
@@ -210,9 +209,9 @@ const Instagram = ({ details }) => {
                     {item?.node?.text}
                   </p>
                 ))}
-                {images[node?.id] && (
+                {data[node?.id] && (
                   <img
-                    src={`data:image/png;base64,${images[node?.id]}`}
+                    src={`data:image/png;base64,${data[node?.id]}`}
                     className="w-full mb-5"
                     alt=""
                   />
