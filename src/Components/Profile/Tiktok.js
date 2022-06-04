@@ -88,28 +88,28 @@ const Tiktok = ({ details }) => {
         <div>
           <div className="flex justify-between border-b-2 py-8">
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 2
               </p>
-              <p className="text-sm font-medium">Followers</p>
+              <p className="text-sm font-medium text-gray-500">Followers</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 3
               </p>
-              <p className="text-sm font-medium">Following</p>
+              <p className="text-sm font-medium text-gray-500">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 {millify(avg?.likes)}
               </p>
-              <p className="text-sm font-medium">Likes/Video</p>
+              <p className="text-sm font-medium text-gray-500">Likes/Video</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 {avg?.engagement}
               </p>
-              <p className="text-sm font-medium">Engagement</p>
+              <p className="text-sm font-medium text-gray-500">Engagement</p>
             </div>
           </div>
           <div className="py-8 border-b-2 items-center flex gap-2">

@@ -17,11 +17,11 @@ const styles = {
   topicWrapper: "flex flex-col items-center gap-3",
   topic:
     "w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium",
-  topicName: "text-xs md:text-sm font-medium",
+  topicName: "text-xs md:text-sm font-medium text-gray-500",
   channelContainer: "py-8 border-b-2 flex gap-2",
   channelBg: "w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat",
   channelTitle: "text-xl font-medium mt-3 mb-2",
-  channelDescription: "text-sm pr-5 text",
+  channelDescription: "text-sm pr-5 text text-gray-500",
   latest: "text-xl font-medium",
   videoBg:
     "h-48 bg-cover bg-center bg-no-repeat relative rounded-md overflow-hidden",

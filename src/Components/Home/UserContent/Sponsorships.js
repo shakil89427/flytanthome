@@ -78,7 +78,7 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                 <p className={styles.applied}>
                   {sponsorship?.applied ? sponsorship.applied : "0"} applied
                 </p>
-                <div className="w-full aspect-[9/8]">
+                <div className="w-full aspect-[9/8] border rounded-md">
                   <div
                     className={styles.image}
                     style={{

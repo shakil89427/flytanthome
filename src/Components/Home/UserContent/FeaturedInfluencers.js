@@ -146,7 +146,7 @@ const FeaturedInfluencers = () => {
               key={index}
               className="cursor-pointer"
             >
-              <div className="w-full aspect-[9/8]">
+              <div className="w-full aspect-[9/8] border rounded-md">
                 <div
                   className={styles.image}
                   style={{ backgroundImage: `url(${item?.profileImageUrl})` }}
