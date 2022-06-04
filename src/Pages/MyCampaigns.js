@@ -88,10 +88,10 @@ const MyCampaigns = () => {
 
   return (
     <div className="r-box py-20">
-      <div className="px-5">
+      <div className="md:px-5">
         <h1 className="text-2xl font-semibold mb-3">My Campaigns</h1>
         <p className="text-gray-600">List of all campaigns created by you</p>
-        <div className="w-[80%] mx-auto my-12">
+        <div className="w-[90%] md:w-[80%] mx-auto my-12">
           <div className="flex flex-wrap items-center gap-6 md:gap-12">
             <p
               onClick={() => selected !== "All" && setSelected("All")}

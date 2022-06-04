@@ -228,6 +228,7 @@ const SponsorshipDetails = () => {
                   navigation={{
                     nextEl: nextRef?.current,
                   }}
+                  spaceBetween={5}
                   initialSlide={0}
                   onSwiper={setSwiper}
                   slidesPerView={1}
@@ -235,7 +236,7 @@ const SponsorshipDetails = () => {
                   {details?.blob &&
                     details?.blob?.map((item) => (
                       <SwiperSlide key={item?.path}>
-                        <div className="w-full aspect-[12/7]">
+                        <div className="w-full aspect-[12/7] border rounded-md">
                           <div
                             className={styles.image}
                             style={{
@@ -364,7 +365,7 @@ const SponsorshipDetails = () => {
 
         {/* Right Side */}
         <div className="w-full md:w-5/12 relative">
-          <p className="text-xl font-semibold text-center mb-5">
+          <p className="text-xl font-semibold mb-10  border-t md:border-0 border-gray-300 pt-14 md:pt-0">
             More related campaigns
           </p>
           {similarLoading && <Spinner position={true} />}
@@ -381,7 +382,7 @@ const SponsorshipDetails = () => {
                   <div className="bg-[#F5B63A] text-white text-sm absolute top-10 shadow-xl right-0 px-3 py-1 rounded-tl-full rounded-bl-full">
                     {item?.applied} applied
                   </div>
-                  <div className="w-full aspect-[12/7]">
+                  <div className="w-full aspect-[12/7] border rounded-md">
                     <div
                       style={{ backgroundImage: `url(${item.blob[0]?.path})` }}
                       className="w-full h-full bg-cover bg-center bg-no-repeat rounded-md"

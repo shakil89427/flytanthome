@@ -85,7 +85,7 @@ const MyCampaignDetails = () => {
     <>
       {loading && <Spinner />}
       {data?.name && !loading && (
-        <div className="w-[95%] max-w-[550px] mx-auto my-24">
+        <div className="w-[95%] max-w-[550px] mx-auto my-24 px-5">
           <div className="relative">
             <Swiper
               modules={[Navigation]}

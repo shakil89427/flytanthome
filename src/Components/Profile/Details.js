@@ -27,7 +27,8 @@ const styles = {
   topRight: "flex flex-col justify-between items-center",
   score:
     "border w-[65px] h-[65px] mx-auto rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400",
-  progress: "w-[60px] h-[60px] rounded-full flex items-center justify-center",
+  progress:
+    "w-[55px] h-[55px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center",
   progressInner:
     "font-semibold bg-white w-[92%] h-[92%] rounded-full flex items-center justify-center",
   infoName: "font-medium mb-2 mt-8 text-gray-400 ",
@@ -36,9 +37,9 @@ const styles = {
   catagory: "py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium",
   /* Right */
   title: "text-2xl font-semibold mt-3",
-  socials: "flex items-center gap-10 mt-5 font-medium",
+  socials: "flex items-center gap-10 mt-5 font-medium text-gray-500",
   selectedSocial:
-    "relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[2px] before:rounded-full",
+    "relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[2px] before:rounded-full text-black",
 };
 
 const Profile = () => {
@@ -168,7 +169,9 @@ const Profile = () => {
                   <p className={styles.score}>
                     {details?.socialScore ? details?.socialScore : "0"}
                   </p>
-                  <p className="font-semibold text-center">Social Score</p>
+                  <p className="text-xs md:text-md font-semibold text-center">
+                    Social Score
+                  </p>
                 </span>
                 {details?.access && (
                   <div

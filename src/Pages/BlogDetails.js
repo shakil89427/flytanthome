@@ -99,7 +99,7 @@ const BlogDetails = () => {
                     style={{
                       backgroundImage: `url(${item?.imgUrl})`,
                     }}
-                    className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
+                    className="w-full aspect-[11/7] md:aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
                   />
                 )}
                 {item?.type === "heading" && (
@@ -114,7 +114,7 @@ const BlogDetails = () => {
                 )}
                 {item?.type === "video" && (
                   <iframe
-                    className="w-full aspect-[11/5] rounded-lg"
+                    className="w-full aspect-[11/7] md:aspect-[11/5] rounded-lg"
                     src={item?.url}
                     title="Flytant"
                     frameBorder="0"

@@ -17,11 +17,11 @@ const Banner = () => {
         <div className="text-white md:w-1/2">
           <h1
             style={{ lineHeight: "120%" }}
-            className="text-5xl lg:text-[52px] font-bold mb-3"
+            className="text-4xl lg:text-[52px] font-bold mb-3"
           >
             Connecting <br /> Brands & Influencers
           </h1>
-          <p className="text-lg lg:text-2xl  my-5">
+          <p className="text-md lg:text-2xl  my-5 w-[230px] lg:w-full">
             Find influencers and Brands of your niche
           </p>
           <div className="flex gap-4 text-black mt-14 flex-wrap">

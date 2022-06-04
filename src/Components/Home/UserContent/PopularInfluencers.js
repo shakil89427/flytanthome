@@ -116,7 +116,7 @@ const PopularInfluencers = () => {
   }, [swiper]);
 
   return (
-    <div className="r-box mt-28 mb-36">
+    <div className="r-box mt-24 mb-36">
       <h1 className={styles.heading}>Popular Influencers</h1>
       <div className="my-5 relative">
         <Swiper

@@ -115,7 +115,7 @@ const FeaturedInfluencers = () => {
     }
   }, [swiper]);
   return (
-    <div className="r-box my-28">
+    <div className="r-box my-24">
       <h1 className={styles.heading}>Featured Influencers</h1>
       <div className="my-5 relative">
         <Swiper

@@ -78,7 +78,7 @@ const Blogs = () => {
                   style={{
                     backgroundImage: `url(${item?.imgUrl})`,
                   }}
-                  className="w-full aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
+                  className="w-full aspect-[11/7] md:aspect-[11/5] bg-cover bg-no-repeat bg-center rounded-lg"
                 />
                 <div className="mt-8 mb-12 flex items-start">
                   <p className="text-lg md:text-xl lg:text-2xl font-semibold w-9/12 md:w-10/12 xl:w-11/12 pr-10">
@@ -97,7 +97,7 @@ const Blogs = () => {
             ))}
           </Swiper>
 
-          <div className="grid grid-cols-12 gap-x-8 gap-y-24 py-24">
+          <div className="grid grid-cols-12 md:gap-x-8 gap-y-24 py-24">
             {loaded?.map((item, index) => (
               <div
                 onClick={() =>
@@ -116,7 +116,7 @@ const Blogs = () => {
                       }}
                       className="w-full aspect-[10/8] bg-cover bg-no-repeat bg-center rounded-lg mb-5"
                     />
-                    <p className="text-lg font-medium lg:font-semibold pr-10">
+                    <p className="text-lg font-semibold lg:font-semibold pr-10">
                       {item?.title}
                     </p>
                     <p
