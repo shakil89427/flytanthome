@@ -21,6 +21,7 @@ const Subscription = () => {
   const [dataloading, setDataLoading] = useState(true);
   const { usd, inr, other } = useCalculate(setDataLoading);
   const db = getFirestore();
+  console.log(allPlans);
 
   const checkCurrency = async (allData) => {
     try {
@@ -87,7 +88,7 @@ const Subscription = () => {
       const colRef = collection(db, "subscription");
       const q = query(colRef, orderBy("inBasePrice", "asc"));
       const response = await getDocs(q);
-      const allData = response.docs.map((doc) => ({ ...doc.data() }));
+      const allData = response?.docs?.map((doc) => ({ ...doc.data() }));
       setAllPlans(allData);
       checkCurrency(allData);
     } catch (err) {

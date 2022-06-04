@@ -11,60 +11,60 @@ const ActivePlans = () => {
   const [showHistory, setShowHistory] = useState(false);
 
   useEffect(() => {
-    if (allPlans?.length < 1) return;
-    const valid = user?.subscriptions?.filter(
-      (sub) => sub.orderDate + sub.subscriptionDays * 86400 >= moment().unix()
-    );
-    if (!valid?.length || valid?.length < 1) return setData({ invalid: true });
-
-    let namePriceSymbol = [];
-    let allDates = [];
-    let allCampaignCredits = 0;
-    let allMessageCredits = 0;
-    const currencies = JSON.parse(getString(remoteConfig, "currency_list"));
-
-    valid?.forEach((validPlan) => {
-      const { symbol_native } = currencies.find(
-        (item) => item?.code === validPlan?.currencyCode
+    if (allPlans?.length > 0) {
+      const valid = user?.subscriptions?.filter(
+        (sub) => sub.orderDate + sub.subscriptionDays * 86400 >= moment().unix()
       );
-      namePriceSymbol.push({
-        name: validPlan?.planName,
-        price: validPlan?.price,
-        days: validPlan?.subscriptionDays,
-        symbol: symbol_native,
+      if (valid?.length < 1) return setData({ invalid: true });
+
+      let namePriceSymbol = [];
+      let allDates = [];
+      let allCampaignCredits = 0;
+      let allMessageCredits = 0;
+      const currencies = JSON.parse(getString(remoteConfig, "currency_list"));
+      valid?.forEach((validPlan) => {
+        const { symbol_native } = currencies.find(
+          (item) => item?.code === validPlan?.currencyCode
+        );
+        namePriceSymbol.push({
+          name: validPlan?.planName,
+          price: validPlan?.price,
+          days: validPlan?.subscriptionDays,
+          symbol: symbol_native,
+        });
+        allDates.push(validPlan?.orderDate);
+
+        const time = validPlan?.subscriptionDays / 30;
+        allPlans.forEach((plan) => {
+          if (validPlan?.planName === plan?.name && plan?.numberOfApplies > 0) {
+            allCampaignCredits =
+              allCampaignCredits + plan?.numberOfApplies * time;
+          }
+          if (validPlan?.planName === plan?.name && plan?.messageCredits > 0) {
+            allMessageCredits = allMessageCredits + plan?.messageCredits * time;
+          }
+        });
       });
-      allDates.push(validPlan.orderDate);
 
-      const time = validPlan?.subscriptionDays / 30;
-      allPlans.forEach((plan) => {
-        if (validPlan?.planName === plan?.name && plan?.numberOfApplies) {
-          allCampaignCredits =
-            allCampaignCredits + plan?.numberOfApplies * time;
-        }
-        if (validPlan?.planName === plan?.name && plan?.messageCredits) {
-          allMessageCredits = allMessageCredits + plan?.messageCredits * time;
-        }
-      });
-    });
+      const sortedDate = allDates?.sort((a, b) => a - b);
 
-    const sortedDate = allDates?.sort((a, b) => a - b);
-
-    const final = {
-      namePriceSymbol,
-      startDate: moment.unix(sortedDate[0]).format("MMM DD YYYY"),
-      endDate: moment.unix(user.subscriptionEndingDate).format("MMM DD YYYY"),
-      allCampaignCredits,
-      availableCampaignCredits: user?.numberOfApplies,
-      allMessageCredits,
-      availableMessageCredits: user?.messageCredits,
-    };
-    const premium = final?.namePriceSymbol?.find(
-      (item) => item?.name?.toLowerCase() === "premium"
-    );
-    if (premium?.name) {
-      final.unlimited = true;
+      const final = {
+        namePriceSymbol,
+        startDate: moment.unix(sortedDate[0]).format("MMM DD YYYY"),
+        endDate: moment.unix(user.subscriptionEndingDate).format("MMM DD YYYY"),
+        allCampaignCredits,
+        availableCampaignCredits: user?.numberOfApplies,
+        allMessageCredits,
+        availableMessageCredits: user?.messageCredits,
+      };
+      const premium = final?.namePriceSymbol?.find(
+        (item) => item?.name?.toLowerCase() === "premium"
+      );
+      if (premium?.name) {
+        final.unlimited = true;
+      }
+      setData(final);
     }
-    setData(final);
   }, [allPlans]);
 
   return (

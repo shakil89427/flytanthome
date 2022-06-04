@@ -36,7 +36,7 @@ const styles = {
   catagory: "py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium",
   /* Right */
   title: "text-2xl font-semibold mt-3",
-  socials: "flex items-center justify-between mt-5 font-medium",
+  socials: "flex items-center gap-10 mt-5 font-medium",
   selectedSocial:
     "relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[2px] before:rounded-full",
 };
@@ -56,7 +56,7 @@ const Profile = () => {
   const [country, setCountry] = useState(false);
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
-  const socials = ["Instagram", "Youtube", "Twitter", "Tiktok"];
+  const socials = ["Youtube", "Twitter", "Instagram"];
   const [selected, setSelected] = useState(socials[0]);
   const [edit, setEdit] = useState(false);
 
@@ -220,19 +220,35 @@ const Profile = () => {
           <div>
             <p className={styles.title}>Social Accounts</p>
             <div className={styles.socials}>
-              {socials.map((social) => (
-                <p
-                  onClick={() => social !== selected && setSelected(social)}
-                  className={
-                    selected === social
-                      ? styles.selectedSocial
-                      : "cursor-pointer"
-                  }
-                  key={social}
-                >
-                  {social}
-                </p>
-              ))}
+              {socials.map((social) =>
+                social === "Instagram" ? (
+                  details?.linkedAccounts?.Instagram && (
+                    <p
+                      onClick={() => social !== selected && setSelected(social)}
+                      className={
+                        selected === social
+                          ? styles.selectedSocial
+                          : "cursor-pointer"
+                      }
+                      key={social}
+                    >
+                      {social}
+                    </p>
+                  )
+                ) : (
+                  <p
+                    onClick={() => social !== selected && setSelected(social)}
+                    className={
+                      selected === social
+                        ? styles.selectedSocial
+                        : "cursor-pointer"
+                    }
+                    key={social}
+                  >
+                    {social}
+                  </p>
+                )
+              )}
             </div>
             {selected === "Instagram" && <Instagram details={details} />}
             {selected === "Youtube" && <Youtube details={details} />}
