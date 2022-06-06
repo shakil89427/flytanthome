@@ -121,7 +121,7 @@ const Blogs = () => {
                     </p>
                     <p
                       style={{ lineHeight: "200%" }}
-                      className="my-5 text-gray-500 text-lg"
+                      className="my-5 text-gray-500 text-md md:text-lg"
                     >
                       {item.text.slice(0, 90)} ...
                     </p>

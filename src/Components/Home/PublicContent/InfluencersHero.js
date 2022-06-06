@@ -34,7 +34,7 @@ const InfluencersHero = () => {
             </p>
             <p
               onClick={() => navigate("/influencers")}
-              className="w-fit border py-3 px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
+              className="w-fit border py-3 px-10 md:px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
             >
               Join Now
             </p>

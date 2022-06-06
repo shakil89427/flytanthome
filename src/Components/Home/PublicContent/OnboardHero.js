@@ -37,7 +37,7 @@ const OnboardHero = () => {
           </p>
           <p
             onClick={() => navigate("/onboard")}
-            className="w-fit border py-3 px-12 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
+            className="w-fit border py-3 px-8 md:px-12 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
           >
             Get Onboard
           </p>

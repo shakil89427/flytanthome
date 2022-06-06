@@ -15,8 +15,9 @@ import axios from "axios";
 const styles = {
   main: "w-fit max-w-[850px] mx-auto px-5 py-20",
   bg: "w-full",
-  title: "text-5xl lg:text-7xl font-bold text-center my-20",
-  info: "text-2xl font-medium text-center mb-20 px-5",
+  title:
+    "text-3xl lg:text-5xl xl:text-7xl font-bold text-center mt-20 mb-10 md:mb-14 lg:mb-20",
+  info: "text-xl md:text-2xl font-medium text-center mb-20 px-5",
   form: "my-20 grid grid-cols-2 gap-12 md:gap-y-20 md:gap-x-10 relative",
   input:
     "outline-0 border-b-2 py-2 border-black placeholder:text-lg placeholder:font-medium placeholder:text-gray-500 text-lg font-medium",

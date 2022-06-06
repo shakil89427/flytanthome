@@ -7,8 +7,8 @@ import ContactBar from "../Components/ContactBar/ContactBar";
 
 const styles = {
   main: "mx-auto max-w-[900px] py-14 md:py-24 px-5",
-  title: "text-5xl lg:text-7xl font-bold text-center",
-  info: "text-2xl font-medium text-center mt-10 px-5",
+  title: "text-3xl lg:text-5xl xl:text-7xl font-bold text-center",
+  info: "text-xl md:text-2xl font-medium text-center mt-10 px-5",
   form: "my-20 grid grid-cols-2 gap-12 md:gap-y-20 md:gap-x-10",
   input:
     "outline-0 border-b-2 py-2 border-black placeholder:text-lg placeholder:font-medium placeholder:text-gray-500 text-lg font-medium",

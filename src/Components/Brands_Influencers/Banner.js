@@ -38,7 +38,7 @@ const Banner = ({ data }) => {
                 <img className="w-7 " src={playstore} alt="" />
                 <span>
                   <p className="text-sm font-medium leading-none">GET IT ON</p>
-                  <p className="font-bold text-xl leading-none mt-1">
+                  <p className="font-semibold text-xl leading-none mt-1">
                     Play Store
                   </p>
                 </span>
@@ -54,7 +54,7 @@ const Banner = ({ data }) => {
                   <p className="text-[11px] font-medium leading-none">
                     DOWNLOAD ON THE
                   </p>
-                  <p className="font-bold text-xl leading-none mt-1">
+                  <p className="font-semibold text-xl leading-none mt-1">
                     App Store
                   </p>
                 </span>

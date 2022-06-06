@@ -108,7 +108,10 @@ const BlogDetails = () => {
                   </p>
                 )}
                 {item?.type === "text" && (
-                  <p style={{ lineHeight: "200%" }} className="text-xl">
+                  <p
+                    style={{ lineHeight: "200%" }}
+                    className="text-lg md:text-xl"
+                  >
                     {item?.title}
                   </p>
                 )}

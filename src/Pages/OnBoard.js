@@ -98,11 +98,14 @@ const OnBoard = () => {
             <img src={onboardBg} alt="" />
             <div className={styles.topicsMain}>
               <div className="flex flex-col gap-2">
-                <h1 className="text-2xl font-medium">
+                <h1 className="text-md md:text-xl lg:text-2xl font-medium">
                   Hire Quality Influencers with
                 </h1>
                 {topics.map((topic, i) => (
-                  <div key={i} className="flex items-end gap-3  text-lg">
+                  <div
+                    key={i}
+                    className="flex items-end gap-3 text-sm md:text-md lg:text-lg"
+                  >
                     <img src={checked} alt="" />
                     <p>{topic}</p>
                   </div>
