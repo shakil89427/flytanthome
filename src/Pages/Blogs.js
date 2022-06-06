@@ -68,11 +68,9 @@ const Blogs = () => {
           >
             {blogsData?.carousel?.map((item) => (
               <SwiperSlide
-                onClick={() =>
-                  navigate(`/blogdetails/${item?.blogNumber}?q=${item?.title}`)
-                }
+                onClick={() => navigate(`/blogdetails/${item?.blogId}`)}
                 className="cursor-pointer"
-                key={item?.blogNumber}
+                key={item?.blogId}
               >
                 <div
                   style={{
@@ -100,10 +98,8 @@ const Blogs = () => {
           <div className="grid grid-cols-12 md:gap-x-8 gap-y-24 py-24">
             {loaded?.map((item, index) => (
               <div
-                onClick={() =>
-                  navigate(`/blogdetails/${item?.blogNumber}?q=${item?.title}`)
-                }
-                key={item?.blogNumber}
+                onClick={() => navigate(`/blogdetails/${item?.blogId}`)}
+                key={item?.blogId}
                 className={`col-span-12 md:col-span-6 cursor-pointer ${
                   index < 2 ? "lg:col-span-6" : "lg:col-span-4"
                 }`}

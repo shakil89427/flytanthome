@@ -26,9 +26,7 @@ const BlogDetails = () => {
 
   useEffect(() => {
     if (blogsData?.all?.length > 0) {
-      const temp = blogsData?.all?.find(
-        (item) => item?.blogNumber?.toString() === id.toString()
-      );
+      const temp = blogsData?.all?.find((item) => item?.blogId === id);
       setData(temp);
       window.scroll(0, 0);
       setLoading((prev) => prev && !prev);
@@ -158,12 +156,11 @@ const BlogDetails = () => {
                 {blogsData?.all?.map((item) => (
                   <SwiperSlide
                     onClick={() =>
-                      navigate(
-                        `/blogdetails/${item?.blogNumber}?q=${item?.title}`,
-                        { replace: true }
-                      )
+                      navigate(`/blogdetails/${item?.blogId}`, {
+                        replace: true,
+                      })
                     }
-                    key={item?.blogNumber}
+                    key={item?.blogId}
                     className="cursor-pointer"
                   >
                     <div className="w-full min-h-[530px] flex flex-col justify-between">
