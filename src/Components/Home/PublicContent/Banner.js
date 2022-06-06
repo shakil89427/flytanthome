@@ -29,7 +29,7 @@ const Banner = () => {
               href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center pl-2 bg-white w-44 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
+              className="flex items-center pl-2 bg-white w-44 rounded-lg gap-1 py-1 hover:scale-105 duration-150"
             >
               <img className="w-9 mx-1" src={playstore} alt="" />
               <span>
@@ -41,7 +41,7 @@ const Banner = () => {
               href="https://apps.apple.com/in/app/flytant/id1530158515"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center pl-1  bg-white w-44 rounded-lg gap-1 py-2 hover:scale-105 duration-150"
+              className="flex items-center pl-1  bg-white w-44 rounded-lg gap-1 py-1 hover:scale-105 duration-150"
             >
               <AiFillApple className="text-5xl" />
               <span>
