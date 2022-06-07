@@ -58,8 +58,8 @@ const Profile = () => {
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const socials = user?.linkedAccounts?.Instagram
-    ? ["Instagram", "Youtube", "Twitter"]
-    : ["Youtube", "Twitter"];
+    ? ["Instagram", "Youtube", "Twitter", "Tiktok"]
+    : ["Youtube", "Twitter", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
   const [edit, setEdit] = useState(false);
 
