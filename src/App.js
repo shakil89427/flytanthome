@@ -27,11 +27,12 @@ import FAQs from "./Components/FAQs/FAQs";
 import MyCampaignDetails from "./Pages/MyCampaignDetails";
 import CampaignInfluencers from "./Pages/CampaignInfluencers";
 import BlogDetails from "./Pages/BlogDetails";
+import AppAds from "./Pages/AppAds";
 
 function App() {
   const { authLoading } = useStore();
   const { pathname } = useLocation();
-  const paths = ["/", "/brands", "/influencers"];
+  const paths = ["/", "/brands", "/influencers", "/app-ads.txt"];
 
   return (
     <>
@@ -55,6 +56,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
+          <Route path="/app-ads.txt" element={<AppAds />} />
           <Route
             path="/mycampaigns"
             element={
@@ -143,7 +145,7 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        <Footer />
+        {!pathname.includes("app-ads.txt") && <Footer />}
       </div>
     </>
   );
