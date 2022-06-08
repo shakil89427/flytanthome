@@ -30,10 +30,9 @@ import BlogDetails from "./Pages/BlogDetails";
 import AppAds from "./Pages/AppAds";
 
 function App() {
-  const { authLoading } = useStore();
+  const { authLoading, user } = useStore();
   const { pathname } = useLocation();
   const paths = ["/", "/brands", "/influencers", "/app-ads.txt"];
-
   return (
     <>
       <ActivityCheck />
@@ -145,7 +144,10 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        {!pathname.includes("app-ads.txt") && <Footer />}
+        {pathname.includes("app-ads.txt") ? null : pathname === "/" &&
+          user?.userId ? null : (
+          <Footer />
+        )}
       </div>
     </>
   );
