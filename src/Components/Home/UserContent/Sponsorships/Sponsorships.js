@@ -8,7 +8,7 @@ import {
   AiFillTwitterSquare,
 } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
-import { MdNavigateNext } from "react-icons/md";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import millify from "millify";
@@ -21,11 +21,12 @@ const styles = {
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
   typeWrapper: "flex items-center justify-between",
   type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
-  title: "font-semibold my-1 text-lg md:text-xl break-words",
+  title: "font-semibold my-1 text-lg break-words",
   bottomWrapper: "flex flex-col gap-2",
   followers: "text-xs font-medium",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
-  next: "absolute bg-white top-[25%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  prev: "hidden md:block absolute bg-white top-[15%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
+  next: "hidden md:block absolute bg-white top-[15%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 /* Styles End */
 
@@ -33,10 +34,12 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
   const navigate = useNavigate();
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
+  const prevRef = useRef();
 
   useEffect(() => {
     if (swiper) {
       swiper.params.navigation.nextEl = nextRef.current;
+      swiper.params.navigation.prevEl = prevRef.current;
       swiper.navigation.init();
       swiper.navigation.update();
     }
@@ -44,7 +47,10 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
 
   return (
     <div>
-      <h1 className={styles.heading}>{type} Sponsorships</h1>
+      <div className="flex items-center justify-between">
+        <h1 className={styles.heading}>{type} Sponsorships</h1>
+        <span className="cursor-pointer font-medium">View all</span>
+      </div>
       <div className="my-5 relative">
         <Swiper
           modules={[Navigation]}
@@ -60,10 +66,10 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
             640: {
               slidesPerView: 2.3,
             },
-            768: {
+            1024: {
               slidesPerView: 3.3,
             },
-            1086: {
+            1366: {
               slidesPerView: 4,
             },
           }}
@@ -75,9 +81,11 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
               className="cursor-pointer"
             >
               <div>
-                <p className={styles.applied}>
-                  {sponsorship?.applied ? sponsorship.applied : "0"} applied
-                </p>
+                {sponsorship?.applied >= 20 && (
+                  <p className={styles.applied}>
+                    {sponsorship?.applied} applied
+                  </p>
+                )}
                 <div className="w-full aspect-[9/8] border rounded-md">
                   <div
                     className={styles.image}
@@ -99,9 +107,7 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                         }}
                         className={styles.type}
                       >
-                        {sponsorship?.barter
-                          ? "Paid Campaign"
-                          : "Barter Campaign"}
+                        {sponsorship?.barter ? "Paid" : "Barter"}
                       </p>
                     )}
                     {type === "Latest" && (
@@ -111,7 +117,11 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                     )}
                   </div>
 
-                  <p className={styles.title}>{sponsorship?.name}</p>
+                  <p className={styles.title}>
+                    {sponsorship?.name.length > 15
+                      ? sponsorship?.name.slice(0, 15) + "..."
+                      : sponsorship?.name}
+                  </p>
 
                   <div className={styles.bottomWrapper}>
                     <p className={styles.followers}>
@@ -146,6 +156,14 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
             </SwiperSlide>
           ))}
         </Swiper>
+        <div
+          className={`${styles.prev} ${
+            activeIndex > 0 ? "visible" : "invisible"
+          }`}
+          ref={prevRef}
+        >
+          <MdNavigateBefore />
+        </div>
         <div className={styles.next} ref={nextRef}>
           <MdNavigateNext />
         </div>

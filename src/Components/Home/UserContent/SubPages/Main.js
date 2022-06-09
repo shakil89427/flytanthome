@@ -1,15 +1,15 @@
 import React from "react";
 import TopCarousel from "../Carousel/TopCarousel";
-import TrendingCreator from "../Creators/TrendingCreator";
+import FeaturedInfluencers from "../Creators/FeaturedInfluencers";
 import Latest from "../Sponsorships/Latest";
 import AdBanner from "../AdBanner/AdBanner";
-import PopularInfluencers from "../Sponsorships/PopularInfluencers";
+import PopularInfluencers from "../Creators/PopularInfluencers";
 
 const Main = () => {
   return (
     <div className="flex flex-col gap-14">
       <TopCarousel />
-      <TrendingCreator />
+      <FeaturedInfluencers />
       <Latest />
       <AdBanner />
       <PopularInfluencers />
