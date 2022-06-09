@@ -12,7 +12,7 @@ const Banner = () => {
   return (
     <div className="relative lg:min-h-screen">
       <div className="polygon" />
-      <NavBar color={"transparent"} />
+      <NavBar color={true} />
       <div className="flex flex-col md:flex-row gap-20 md:gap-10 r-box py-20 md:py-28 lg:py-0 lg:translate-y-[15vh] lg:px-14">
         <div className="text-white md:w-1/2">
           <h1

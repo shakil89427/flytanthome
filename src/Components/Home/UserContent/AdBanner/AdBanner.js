@@ -7,7 +7,7 @@ const AddBanner = () => {
         style={{
           backgroundImage: `url(https://picsum.photos/200/300?random=1)`,
         }}
-        className="bg-cover bg-center bg-no-repeat aspect-[7/3] rounded-md"
+        className="bg-cover bg-center bg-no-repeat aspect-[6/2] rounded-md"
       />
     </div>
   );

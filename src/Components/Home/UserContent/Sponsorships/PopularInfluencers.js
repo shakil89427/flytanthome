@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css";
-import useStore from "../../../Store/useStore";
+import useStore from "../../../../Store/useStore";
 import {
   AiFillInstagram,
   AiOutlineTwitter,
@@ -25,24 +25,24 @@ import { useNavigate } from "react-router-dom";
 
 /* Styles Start */
 const styles = {
-  heading: "font-semibold text-xl md:text-3xl",
+  heading: "font-semibold text-xl md:text-2xl",
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
   nameWrapper: "flex items-center justify-between",
   name: "text-lg md:text-xl text-black font-semibold",
   icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
   options: "flex gap-2 flex-wrap mt-3",
   option: "bg-[#DDDDDD] text-xs px-3 py-1 rounded-xl",
-  next: "absolute bg-white top-[35%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  next: "absolute bg-white top-[25%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 /* Styles End */
 
-const FeaturedInfluencers = () => {
+const PopularInfluencers = () => {
   const navigate = useNavigate();
   const {
-    featuredInfluencers,
-    setFeaturedInfluencers,
-    featuredIndex,
-    setFeaturedIndex,
+    popularInfluencers,
+    setPopularInfluencers,
+    popularIndex,
+    setPopularIndex,
   } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
@@ -51,7 +51,7 @@ const FeaturedInfluencers = () => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
 
-  const getFeatured = async (q) => {
+  const getPopular = async (q) => {
     if (loading) return;
     setLoading(true);
     try {
@@ -68,7 +68,7 @@ const FeaturedInfluencers = () => {
         }
       });
       if (!data?.length) return setLoading(false);
-      setFeaturedInfluencers((prev) => {
+      setPopularInfluencers((prev) => {
         return {
           data: [...prev.data, ...data],
           lastVisible: response?.docs[response?.docs?.length - 1],
@@ -81,29 +81,29 @@ const FeaturedInfluencers = () => {
   };
 
   useEffect(() => {
-    if (featuredInfluencers?.data?.length) {
+    if (popularInfluencers?.data?.length) {
       const q = query(
         colRef,
-        where("shouldShowTrending", "==", true),
+        where("shouldShowInfluencer", "==", true),
         orderBy("socialScore", "desc"),
-        startAfter(featuredInfluencers?.lastVisible),
+        startAfter(popularInfluencers?.lastVisible),
         limit(20)
       );
-      if (featuredIndex + 6 >= featuredInfluencers?.data?.length) {
-        getFeatured(q);
+      if (popularIndex + 6 >= popularInfluencers?.data?.length) {
+        getPopular(q);
       }
     }
-  }, [featuredIndex]);
+  }, [popularIndex]);
 
   useEffect(() => {
-    if (!featuredInfluencers?.data?.length) {
+    if (!popularInfluencers?.data?.length) {
       const q = query(
         colRef,
-        where("shouldShowTrending", "==", true),
+        where("shouldShowInfluencer", "==", true),
         orderBy("socialScore", "desc"),
         limit(20)
       );
-      getFeatured(q);
+      getPopular(q);
     }
   }, []);
 
@@ -114,17 +114,18 @@ const FeaturedInfluencers = () => {
       swiper.navigation.update();
     }
   }, [swiper]);
+
   return (
-    <div className="r-box my-24">
-      <h1 className={styles.heading}>Featured Influencers</h1>
+    <div>
+      <h1 className={styles.heading}>Popular Influencers</h1>
       <div className="my-5 relative">
         <Swiper
           modules={[Navigation]}
           navigation={{
             nextEl: nextRef?.current,
           }}
-          onSlideChange={(val) => setFeaturedIndex(val?.realIndex)}
-          initialSlide={featuredIndex}
+          onSlideChange={(val) => setPopularIndex(val?.realIndex)}
+          initialSlide={popularIndex}
           onSwiper={setSwiper}
           slidesPerView={1.3}
           spaceBetween={20}
@@ -140,7 +141,7 @@ const FeaturedInfluencers = () => {
             },
           }}
         >
-          {featuredInfluencers?.data?.map((item, index) => (
+          {popularInfluencers?.data?.map((item, index) => (
             <SwiperSlide
               onClick={() => navigate(`/profile/${item?.id}`)}
               key={index}
@@ -192,4 +193,4 @@ const FeaturedInfluencers = () => {
   );
 };
 
-export default FeaturedInfluencers;
+export default PopularInfluencers;

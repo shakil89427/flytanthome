@@ -5,11 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 const TopCarousel = () => {
-  const images = [
-    `https://picsum.photos/200/300?random=${Math.random()}`,
-    `https://picsum.photos/200/300?random=${Math.random()}`,
-    `https://picsum.photos/200/300?random=${Math.random()}`,
-  ];
+  const images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <div>
       <Swiper
@@ -22,8 +18,10 @@ const TopCarousel = () => {
         {images.map((image) => (
           <SwiperSlide key={image}>
             <div
-              style={{ backgroundImage: `url(${image})` }}
-              className="bg-cover bg-no-repeat bg-center aspect-[4/2] mb-10 rounded-md"
+              style={{
+                backgroundImage: `url(https://picsum.photos/200/300?random=${image})`,
+              }}
+              className="bg-cover bg-no-repeat bg-center aspect-[6/2] mb-10 rounded-md"
             />
           </SwiperSlide>
         ))}

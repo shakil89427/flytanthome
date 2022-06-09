@@ -16,19 +16,19 @@ const Drawer = () => {
           )}
           <img
             className="w-6"
-            src={require(`../../../Assets/userHome/drawerItems/${option}.png`)}
+            src={require(`../../../../Assets/userHome/drawerItems/${option}.png`)}
             alt=""
           />
           <span
             className={`hidden lg:block text-lg ${
-              selected === option ? "font-bold" : "font-semibold"
+              selected === option ? "font-semibold" : "font-normal"
             }`}
           >
             {option}
           </span>
         </p>
       ))}
-      <button className="bg-black text-xl text-white py-4 rounded-full w-full font-medium hidden lg:block mr-5">
+      <button className="bg-black text-md text-white py-3 rounded-full font-medium hidden lg:block w-[90%]">
         Create Campaign
       </button>
     </div>
