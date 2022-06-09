@@ -28,11 +28,22 @@ import MyCampaignDetails from "./Pages/MyCampaignDetails";
 import CampaignInfluencers from "./Pages/CampaignInfluencers";
 import BlogDetails from "./Pages/BlogDetails";
 import AppAds from "./Pages/AppAds";
+import RootPage from "./Components/Home/UserContent/RootPage";
+import AllSponsorships from "./Components/Home/UserContent/AllSponsorships";
 
 function App() {
   const { authLoading, user } = useStore();
   const { pathname } = useLocation();
-  const paths = ["/", "/brands", "/influencers", "/app-ads.txt"];
+  const navPaths = [
+    "/",
+    "/brands",
+    "/influencers",
+    "/app-ads.txt",
+    "/sponsorships",
+  ];
+  const footerPaths = user?.userId
+    ? ["/", "/app-ads.txt", "/sponsorships"]
+    : ["/app-ads.txt", "/sponsorships"];
   return (
     <>
       <ActivityCheck />
@@ -40,9 +51,12 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="min-h-screen duration-300"
       >
-        {!paths.includes(pathname) && <NavBar />}
+        {!navPaths.includes(pathname) && <NavBar />}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />}>
+            <Route index element={<RootPage />} />
+            <Route path="sponsorships" element={<AllSponsorships />} />
+          </Route>
           <Route path="/influencers" element={<Influencers />} />
           <Route path="/brands" element={<Brands />} />
           <Route path="/onboard" element={<OnBoard />} />
@@ -144,10 +158,7 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        {pathname.includes("app-ads.txt") ? null : pathname === "/" &&
-          user?.userId ? null : (
-          <Footer />
-        )}
+        {!footerPaths.includes(pathname) && <Footer />}
       </div>
     </>
   );

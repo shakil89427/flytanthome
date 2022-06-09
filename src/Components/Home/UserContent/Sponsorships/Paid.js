@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sponsorships from "./Sponsorships";
-import useStore from "../../../Store/useStore";
+import useStore from "../../../../Store/useStore";
 import {
   getFirestore,
   collection,

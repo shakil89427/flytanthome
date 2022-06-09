@@ -101,13 +101,13 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                     {type === "Latest" && (
                       <p
                         style={{
-                          backgroundColor: sponsorship?.barter
+                          backgroundColor: !sponsorship?.barter
                             ? "#FFDE2F"
                             : "#3FD5F5",
                         }}
                         className={styles.type}
                       >
-                        {sponsorship?.barter ? "Paid" : "Barter"}
+                        {!sponsorship?.barter ? "Paid" : "Barter"}
                       </p>
                     )}
                     {type === "Latest" && (
