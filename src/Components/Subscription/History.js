@@ -35,7 +35,7 @@ const History = ({ setShowHistory }) => {
         onClick={() => setShowHistory(false)}
         className="fixed inset-0 top-0 left-0 bg-[#adacac67] z-10"
       />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[800px] bg-white px-5 py-20 rounded-lg max-h-[80vh] overflow-y-scroll z-20">
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[800px] bg-white px-5 py-20 rounded-lg max-h-[80vh] overflow-y-scroll scrollbar z-20">
         <img
           onClick={() => setShowHistory(false)}
           className="absolute top-5 right-5 w-6 cursor-pointer"

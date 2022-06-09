@@ -478,7 +478,7 @@ const CreateCampaign = () => {
                           type="text"
                         />
                       </div>
-                      <div className="h-[60vh] overflow-y-scroll my-3">
+                      <div className="h-[60vh] overflow-y-scroll scrollbar my-3">
                         {filtered?.length < 1 && (
                           <p className="text-center text-gray-500">
                             No category found

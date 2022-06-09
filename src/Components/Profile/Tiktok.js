@@ -122,7 +122,7 @@ const Tiktok = ({ details }) => {
             <p className="text-xl font-medium">{data?.display_name}</p>
           </div>
           <p className="text-xl font-medium my-5">Latest Post</p>
-          <div className="max-h-[600px] overflow-y-scroll">
+          <div className="max-h-[600px] overflow-y-scroll scrollbar">
             {data?.videos?.map((video) => (
               <div key={video?.id} className="flex flex-col w-full gap-4">
                 <div className="border rounded-md overflow-hidden">

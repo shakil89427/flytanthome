@@ -162,7 +162,7 @@ const Youtube = ({ details }) => {
       {!loading && info?.videos?.length > 0 && (
         <div className="py-8">
           <p className={styles.latest}>Latest videos</p>
-          <div className="mt-3 grid grid-cols-2 gap-3 max-h-[600px] overflow-y-scroll">
+          <div className="mt-3 grid grid-cols-2 gap-3 max-h-[600px] overflow-y-scroll scrollbar">
             {info?.videos?.map((video) => (
               <div
                 key={video.id}

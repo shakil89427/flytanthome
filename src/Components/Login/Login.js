@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <>
       <div onClick={() => setShowLogin(false)} className={styles.main} />
-      <div className="fixed z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[450px] overflow-y-scroll max-h-[95vh]">
+      <div className="fixed z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[450px] overflow-y-scroll scrollbar max-h-[95vh]">
         <div className={styles.wrapper}>
           {/* Exit Button */}
           <img onClick={exit} className={styles.exit} src={cross} alt="" />

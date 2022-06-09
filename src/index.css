@@ -37,10 +37,15 @@ input[type="number"] {
   padding: 5px 10px;
   margin-right: 10px;
 }
-body ::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
+.scrollbar::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
+.scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Responsive Container Start */
 .r-box {
   width: 100%;

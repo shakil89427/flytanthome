@@ -28,7 +28,7 @@ import { getString } from "firebase/remote-config";
 const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen bg-[#49494980]",
   inner:
-    "bg-white pt-7 pb-4 w-[95%] max-w-[450px] max-h-[95vh] fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-md overflow-y-scroll z-30",
+    "bg-white pt-7 pb-4 w-[95%] max-w-[450px] max-h-[95vh] fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-md overflow-y-scroll scrollbar z-30",
   top: "flex items-center justify-between w-full px-3 mb-4",
   spinnerDiv:
     "fixed top-0 left-0 inset-0 flex items-center justify-center bg-[#aaa8a871] z-40",
@@ -353,7 +353,7 @@ const Edit = ({ progress, setEdit }) => {
                         type="text"
                       />
                     </div>
-                    <div className="h-[300px] overflow-y-scroll">
+                    <div className="h-[300px] overflow-y-scroll scrollbar">
                       {filtered?.length < 1 && (
                         <p className="text-center text-gray-500 mt-5">
                           No category found

@@ -187,7 +187,7 @@ const Instagram = ({ details }) => {
             </span>
           </div>
           <p className="text-xl font-medium my-5">Latest Posts</p>
-          <div className="max-h-[600px] overflow-y-scroll">
+          <div className="max-h-[600px] overflow-y-scroll scrollbar">
             {data?.edge_owner_to_timeline_media?.edges?.map(({ node }) => (
               <div className="border my-3 py-6 rounded-md" key={node.id}>
                 <div className="px-3 flex items-center gap-3">
