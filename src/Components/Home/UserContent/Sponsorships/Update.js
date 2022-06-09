@@ -20,7 +20,7 @@ const Update = () => {
         </div>
         <form onSubmit={getUpdate}>
           <input
-            className="w-[90%] lg:w-[80%] bg-[#ECECEC] px-3 py-4 my-8"
+            className="w-full md:w-[90%] lg:w-[80%] bg-[#ECECEC] px-3 py-4 my-8"
             type="email"
             placeholder="Enter your email address"
             required
