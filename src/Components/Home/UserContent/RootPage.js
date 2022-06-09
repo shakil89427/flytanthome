@@ -10,7 +10,7 @@ const RootPage = () => {
     window.scroll(0, 0);
   }, []);
   return (
-    <div className="flex flex-col gap-14">
+    <div className="flex flex-col gap-20">
       <TopCarousel />
       <FeaturedInfluencers />
       <Latest />
