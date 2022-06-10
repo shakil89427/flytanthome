@@ -9,9 +9,7 @@ import OnboardHero from "../Components/Home/PublicContent/OnboardHero";
 import { Outlet } from "react-router-dom";
 
 const Home = () => {
-  const { user, userLoading, authLoading } = useStore();
-
-  if (userLoading || authLoading) return null;
+  const { user } = useStore();
 
   if (user?.userId) {
     return (
