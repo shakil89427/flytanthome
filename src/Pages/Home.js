@@ -6,12 +6,15 @@ import Banner from "../Components/Home/PublicContent/Banner";
 import InfluencersHero from "../Components/Home/PublicContent/InfluencersHero";
 import BrandsHero from "../Components/Home/PublicContent/BrandsHero";
 import OnboardHero from "../Components/Home/PublicContent/OnboardHero";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { user } = useStore();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  if (!user?.userId)
+  if (!user?.userId) {
+    if (pathname !== "/") navigate("/");
     return (
       <div>
         <Banner />
@@ -20,11 +23,12 @@ const Home = () => {
         <OnboardHero />
       </div>
     );
+  }
 
   return (
     <div className="h-screen flex flex-col">
       <div>
-        <NavBar bg={true} border={true} />
+        <NavBar />
       </div>
       <div className="w-full overflow-hidden flex r-box">
         <div className="w-[60px] lg:w-[300px] h-full py-5 overflow-y-scroll scrollbar border-r">

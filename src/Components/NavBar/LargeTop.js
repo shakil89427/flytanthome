@@ -15,7 +15,7 @@ const styles = {
 };
 /* Styles End */
 
-const LargeTop = ({ border }) => {
+const LargeTop = () => {
   const navigate = useNavigate();
   const { user, setShowLogin, setShowLogout } = useStore();
   const [show, setShow] = useState(false);
@@ -35,9 +35,7 @@ const LargeTop = ({ border }) => {
             href="mailto:contact@flytant.com"
             target="_blank"
             rel="noreferrer"
-            className={`border-2 border-gray-500 px-7 py-2 rounded-md font-semibold ${
-              border ? "text-black" : "text-white"
-            }`}
+            className="border-2 border-gray-500 px-7 py-2 rounded-md font-semibold text-black"
           >
             Contact
           </a>
@@ -57,7 +55,9 @@ const LargeTop = ({ border }) => {
               }}
               className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center cursor-pointer"
             />
-            <TiArrowSortedDown className="text-2xl cursor-pointer text-black" />
+            <TiArrowSortedDown
+              className={`text-2xl cursor-pointer text-black`}
+            />
             {show && (
               <>
                 <div className="fixed top-0 left-0 w-screen h-screen z-40" />
