@@ -138,7 +138,7 @@ const Twitter = ({ details }) => {
             </span>
           </div>
           <p className="text-xl font-medium my-5">Latest Tweets</p>
-          <div className="max-h-[600px] overflow-y-scroll scrollbar">
+          <div className="">
             {data?.tweets?.map((tweet) => (
               <div className="border my-3 py-6 rounded-md" key={tweet.id}>
                 <div className="px-3 flex items-center gap-3">

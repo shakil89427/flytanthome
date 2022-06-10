@@ -9,11 +9,11 @@ import { FaTiktok } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import millify from "millify";
-import Spinner from "../../../Spinner/Spinner";
+import Spinner2 from "../../../Spinner/Spinner2";
 
 /* Styles Start */
 const styles = {
-  heading: "font-semibold text-xl md:text-2xl mb-10 text-center",
+  heading: "font-semibold text-xl md:text-2xl mb-5",
   applied:
     "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-full rounded-bl-full shadow-xl",
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
@@ -28,7 +28,13 @@ const styles = {
 };
 /* Styles End */
 
-const Sponsorships = ({ sponsorships, type, loadMore, loading }) => {
+const Sponsorships = ({
+  sponsorships,
+  type,
+  loadMore,
+  loading,
+  lastVisible,
+}) => {
   const navigate = useNavigate();
   const divRef = useRef();
 
@@ -37,7 +43,7 @@ const Sponsorships = ({ sponsorships, type, loadMore, loading }) => {
   }, []);
 
   return (
-    <div ref={divRef} className="py-5">
+    <div ref={divRef} className="pt-5 pb-14">
       <h1 className={styles.heading}>{type} Sponsorships</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-14">
         {sponsorships.map((sponsorship, index) => (
@@ -117,14 +123,18 @@ const Sponsorships = ({ sponsorships, type, loadMore, loading }) => {
       </div>
       <div className="mt-10 flex items-center justify-center">
         {loading ? (
-          <Spinner />
+          <div className="py-3">
+            <Spinner2 />
+          </div>
         ) : (
-          <button
-            onClick={loadMore}
-            className="bg-black text-white px-5 py-3 rounded-full"
-          >
-            Load More
-          </button>
+          lastVisible && (
+            <button
+              onClick={loadMore}
+              className="bg-black text-white px-7 font-medium hover:scale-105 duration-150 py-3 rounded-full"
+            >
+              Load More
+            </button>
+          )
         )}
       </div>
     </div>

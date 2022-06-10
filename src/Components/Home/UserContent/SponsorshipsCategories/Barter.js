@@ -26,13 +26,21 @@ const Barter = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (!data?.length) return setLoading(false);
-      setBarterSponsorships((prev) => {
-        return {
-          data: [...prev.data, ...data],
-          lastVisible: response?.docs[response?.docs?.length - 1],
-        };
-      });
+      if (response?.empty) {
+        setBarterSponsorships((prev) => {
+          return {
+            data: [...prev.data],
+            lastVisible: false,
+          };
+        });
+      } else {
+        setBarterSponsorships((prev) => {
+          return {
+            data: [...prev.data, ...data],
+            lastVisible: response?.docs[response?.docs?.length - 1],
+          };
+        });
+      }
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -73,6 +81,7 @@ const Barter = () => {
         type={"Barter"}
         loadMore={loadMore}
         loading={loading}
+        lastVisible={barterSponsorships?.lastVisible}
       />
     </>
   );

@@ -26,13 +26,21 @@ const Paid = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (!data?.length) return setLoading(false);
-      setPaidSponsorships((prev) => {
-        return {
-          data: [...prev.data, ...data],
-          lastVisible: response?.docs[response?.docs?.length - 1],
-        };
-      });
+      if (response?.empty) {
+        setPaidSponsorships((prev) => {
+          return {
+            data: [...prev.data],
+            lastVisible: false,
+          };
+        });
+      } else {
+        setPaidSponsorships((prev) => {
+          return {
+            data: [...prev.data, ...data],
+            lastVisible: response?.docs[response?.docs?.length - 1],
+          };
+        });
+      }
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -73,6 +81,7 @@ const Paid = () => {
         type={"Paid"}
         loadMore={loadMore}
         loading={loading}
+        lastVisible={paidSponsorships?.lastVisible}
       />
     </>
   );

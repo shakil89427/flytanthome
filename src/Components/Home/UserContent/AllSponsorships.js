@@ -13,7 +13,7 @@ const AllSponsorships = () => {
     divRef.current.scrollIntoView();
   }, []);
   return (
-    <div ref={divRef} className="py-5">
+    <div ref={divRef} className="pt-5 pb-14">
       <div className="flex flex-col gap-20">
         <Scroll />
         <TopCarousel />

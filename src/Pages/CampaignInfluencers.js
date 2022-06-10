@@ -164,7 +164,7 @@ const CampaignInfluencers = () => {
                 />
                 <div
                   onClick={() => navigate(`/profile/${influencer?.userId}`)}
-                  className="flex flex-col justify-center cursor-pointer"
+                  className="flex flex-col justify-center cursor-pointer w-fit"
                 >
                   <p className="font-semibold">{influencer?.name}</p>
                   <p className="text-sm">@{influencer?.username}</p>

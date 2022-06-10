@@ -26,13 +26,21 @@ const Latest = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (!data?.length) return setLoading(false);
-      setLatestSponsorships((prev) => {
-        return {
-          data: [...prev.data, ...data],
-          lastVisible: response?.docs[response?.docs?.length - 1],
-        };
-      });
+      if (response?.empty) {
+        setLatestSponsorships((prev) => {
+          return {
+            data: [...prev.data],
+            lastVisible: false,
+          };
+        });
+      } else {
+        setLatestSponsorships((prev) => {
+          return {
+            data: [...prev.data, ...data],
+            lastVisible: response?.docs[response?.docs?.length - 1],
+          };
+        });
+      }
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -70,6 +78,7 @@ const Latest = () => {
         type={"Latest"}
         loadMore={loadMore}
         loading={loading}
+        lastVisible={latestSponsorships?.lastVisible}
       />
     </>
   );

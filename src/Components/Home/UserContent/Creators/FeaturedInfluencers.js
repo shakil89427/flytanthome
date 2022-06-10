@@ -143,10 +143,10 @@ const FeaturedInfluencers = () => {
               key={index}
               className="cursor-pointer rounded-xl border overflow-hidden"
             >
-              <div className="h-[320px]">
+              <div className="aspect-[4/5]">
                 <div
                   style={{
-                    backgroundImage: `url(https://picsum.photos/200/300?random=${index})`,
+                    backgroundImage: `url(https://blog.prepscholar.com/hubfs/feature_rainbow_seven_colors.png)`,
                   }}
                   className="bg-cover bg-center bg-no-repeat aspect-[4/2]"
                 />
@@ -169,8 +169,8 @@ const FeaturedInfluencers = () => {
                   </p>
                   <p className="text-gray-500">@{item?.username}</p>
                   <p className="mt-5 text-sm text-gray-700">
-                    {item?.bio?.length > 60
-                      ? item?.bio?.slice(0, 60) + "..."
+                    {item?.bio?.length > 50
+                      ? item?.bio?.slice(0, 50) + "..."
                       : item?.bio}
                   </p>
                   <p></p>
