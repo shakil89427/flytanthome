@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../Components/NavBar/NavBar";
 import useStore from "../Store/useStore";
 import Drawer from "../Components/Home/UserContent/Drawer/Drawer";
@@ -13,8 +13,13 @@ const Home = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user?.userId && pathname !== "/") {
+      navigate("/");
+    }
+  }, [user, pathname]);
+
   if (!user?.userId) {
-    if (pathname !== "/") navigate("/");
     return (
       <div>
         <Banner />

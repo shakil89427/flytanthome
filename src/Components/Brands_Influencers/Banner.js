@@ -9,7 +9,7 @@ const Banner = ({ data }) => {
   return (
     <div className="relative">
       <div className="bgmain" />
-      <NavBar color={"transparent"} />
+      <NavBar bg={true} />
       <div className="py-32 r-box">
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-14 md:gap-5 lg:gap-20">
           <div

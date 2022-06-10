@@ -35,7 +35,9 @@ const Drawer = () => {
           )}
           <img
             className="w-6"
-            src={require(`../../../../Assets/userHome/drawerItems/${path}.png`)}
+            src={require(`../../../../Assets/userHome/drawerItems/${
+              selected === path.toLowerCase() ? path + "B" : path
+            }.png`)}
             alt=""
           />
           <span
