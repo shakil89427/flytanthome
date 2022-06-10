@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import TopCarousel from "./Carousel/TopCarousel";
 import FeaturedInfluencers from "./Creators/FeaturedInfluencers";
 import Latest from "./Sponsorships/Latest";
 import AdBanner from "./AdBanner/AdBanner";
 import PopularInfluencers from "./Creators/PopularInfluencers";
+import Scroll from "../../Scroll/Scroll";
 
 const RootPage = () => {
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
   return (
     <div className="flex flex-col gap-20">
+      <Scroll />
       <TopCarousel />
       <FeaturedInfluencers />
       <Latest />

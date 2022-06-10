@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "swiper/css";
 import {
   AiFillInstagram,
@@ -30,7 +30,6 @@ const styles = {
 
 const Sponsorships = ({ sponsorships, type, loadMore, loading }) => {
   const navigate = useNavigate();
-
   return (
     <div>
       <h1 className={styles.heading}>{type} Sponsorships</h1>
