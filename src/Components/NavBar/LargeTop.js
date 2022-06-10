@@ -31,13 +31,16 @@ const LargeTop = ({ border }) => {
               placeholder="Search 'Fashion Influencers'"
             />
           </div>
-          <button
+          <a
+            href="mailto:contact@flytant.com"
+            target="_blank"
+            rel="noreferrer"
             className={`border-2 border-gray-500 px-7 py-2 rounded-md font-semibold ${
               border ? "text-black" : "text-white"
             }`}
           >
             Contact
-          </button>
+          </a>
           <div
             onClick={() => setShow(!show)}
             className="flex items-center gap-1 relative"
