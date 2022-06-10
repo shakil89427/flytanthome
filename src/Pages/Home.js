@@ -11,30 +11,30 @@ import { Outlet } from "react-router-dom";
 const Home = () => {
   const { user } = useStore();
 
-  if (user?.userId) {
+  if (!user?.userId) {
     return (
-      <div className="h-screen flex flex-col">
-        <div>
-          <NavBar />
-        </div>
-        <div className="w-full overflow-hidden flex r-box">
-          <div className="w-[60px] lg:w-[300px] h-full py-5 overflow-y-scroll scrollbar border-r">
-            <Drawer />
-          </div>
-          <div className="w-full py-5 pl-5 overflow-y-scroll scrollbar">
-            <Outlet />
-          </div>
-        </div>
+      <div>
+        <Banner />
+        <InfluencersHero />
+        <BrandsHero />
+        <OnboardHero />
       </div>
     );
   }
 
   return (
-    <div>
-      <Banner />
-      <InfluencersHero />
-      <BrandsHero />
-      <OnboardHero />
+    <div className="h-screen flex flex-col">
+      <div>
+        <NavBar />
+      </div>
+      <div className="w-full overflow-hidden flex r-box">
+        <div className="w-[60px] lg:w-[300px] h-full py-5 overflow-y-scroll scrollbar border-r">
+          <Drawer />
+        </div>
+        <div className="w-full pl-5 overflow-y-scroll scrollbar">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 };
