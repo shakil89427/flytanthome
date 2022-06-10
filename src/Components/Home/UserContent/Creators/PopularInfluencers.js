@@ -128,10 +128,10 @@ const PopularInfluencers = () => {
           onSlideChange={(val) => setPopularIndex(val?.realIndex)}
           initialSlide={popularIndex}
           onSwiper={setSwiper}
-          slidesPerView={1.3}
+          slidesPerView={1.2}
           spaceBetween={20}
           breakpoints={{
-            640: {
+            576: {
               slidesPerView: 2.3,
             },
             1024: {
@@ -162,7 +162,7 @@ const PopularInfluencers = () => {
                     }}
                     className="bg-cover bg-center bg-no-repeat w-[25%] aspect-square rounded-full border-2"
                   />
-                  <p className="flex items-center justify-center w-[20%] aspect-square bg-white rounded-full font-medium border">
+                  <p className="flex items-center justify-center w-[20%] aspect-square bg-white rounded-full font-semibold border">
                     {item?.socialScore}
                   </p>
                 </div>
@@ -174,8 +174,8 @@ const PopularInfluencers = () => {
                   </p>
                   <p className="text-gray-500">@{item?.username}</p>
                   <p className="mt-5 text-xs text-gray-700">
-                    {item?.bio?.length > 70
-                      ? item?.bio?.slice(0, 70) + "..."
+                    {item?.bio?.length > 60
+                      ? item?.bio?.slice(0, 60) + "..."
                       : item?.bio}
                   </p>
                   <p></p>

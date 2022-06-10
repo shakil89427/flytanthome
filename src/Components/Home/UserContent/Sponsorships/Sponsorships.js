@@ -23,7 +23,7 @@ const styles = {
   type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
   title: "font-semibold my-1 text-lg break-words",
   bottomWrapper: "flex flex-col gap-2",
-  followers: "text-xs font-medium",
+  followers: "text-xs font-medium text-gray-600",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
   prev: "hidden md:block absolute bg-white top-[15%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
   next: "hidden md:block absolute bg-white top-[15%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
@@ -49,7 +49,12 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
     <div>
       <div className="flex items-center justify-between">
         <h1 className={styles.heading}>{type} Sponsorships</h1>
-        <span className="cursor-pointer font-medium">View all</span>
+        <span
+          onClick={() => navigate(`/${type.toLowerCase()}`)}
+          className="cursor-pointer font-medium"
+        >
+          View all
+        </span>
       </div>
       <div className="my-5 relative">
         <Swiper

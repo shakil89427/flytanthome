@@ -123,10 +123,10 @@ const FeaturedInfluencers = () => {
           onSlideChange={(val) => setFeaturedIndex(val?.realIndex)}
           initialSlide={featuredIndex}
           onSwiper={setSwiper}
-          slidesPerView={1.3}
+          slidesPerView={1.2}
           spaceBetween={20}
           breakpoints={{
-            640: {
+            576: {
               slidesPerView: 2.3,
             },
             1024: {
@@ -141,7 +141,7 @@ const FeaturedInfluencers = () => {
             <SwiperSlide
               onClick={() => navigate(`/profile/${item?.id}`)}
               key={index}
-              className="cursor-pointer rounded-xl border overflow-hidden "
+              className="cursor-pointer rounded-xl border overflow-hidden"
             >
               <div className="h-[320px]">
                 <div
@@ -157,7 +157,7 @@ const FeaturedInfluencers = () => {
                     }}
                     className="bg-cover bg-center bg-no-repeat w-[25%] aspect-square rounded-full border-2"
                   />
-                  <p className="flex items-center justify-center w-[20%] aspect-square bg-white rounded-full font-medium border">
+                  <p className="flex items-center justify-center w-[20%] aspect-square bg-white rounded-full font-semibold border">
                     {item?.socialScore}
                   </p>
                 </div>
@@ -168,9 +168,9 @@ const FeaturedInfluencers = () => {
                       : item?.name}
                   </p>
                   <p className="text-gray-500">@{item?.username}</p>
-                  <p className="mt-5 text-xs text-gray-700">
-                    {item?.bio?.length > 70
-                      ? item?.bio?.slice(0, 70) + "..."
+                  <p className="mt-5 text-sm text-gray-700">
+                    {item?.bio?.length > 60
+                      ? item?.bio?.slice(0, 60) + "..."
                       : item?.bio}
                   </p>
                   <p></p>

@@ -30,6 +30,9 @@ import BlogDetails from "./Pages/BlogDetails";
 import AppAds from "./Pages/AppAds";
 import RootPage from "./Components/Home/UserContent/RootPage";
 import AllSponsorships from "./Components/Home/UserContent/AllSponsorships";
+import Latest from "./Components/Home/UserContent/SponsorshipsCategories/Latest";
+import Paid from "./Components/Home/UserContent/SponsorshipsCategories/Paid";
+import Barter from "./Components/Home/UserContent/SponsorshipsCategories/Barter";
 
 function App() {
   const { authLoading, user } = useStore();
@@ -40,9 +43,12 @@ function App() {
     "/influencers",
     "/app-ads.txt",
     "/sponsorships",
+    "/latest",
+    "/paid",
+    "/barter",
   ];
   const footerPaths = user?.userId
-    ? ["/", "/app-ads.txt", "/sponsorships"]
+    ? ["/", "/app-ads.txt", "/sponsorships", "/latest", "/paid", "/barter"]
     : ["/app-ads.txt", "/sponsorships"];
   return (
     <>
@@ -56,6 +62,9 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route index element={<RootPage />} />
             <Route path="sponsorships" element={<AllSponsorships />} />
+            <Route path="latest" element={<Latest />} />
+            <Route path="paid" element={<Paid />} />
+            <Route path="barter" element={<Barter />} />
           </Route>
           <Route path="/influencers" element={<Influencers />} />
           <Route path="/brands" element={<Brands />} />
