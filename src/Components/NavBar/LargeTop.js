@@ -15,7 +15,7 @@ const styles = {
 };
 /* Styles End */
 
-const LargeTop = () => {
+const LargeTop = ({ border }) => {
   const navigate = useNavigate();
   const { user, setShowLogin, setShowLogout } = useStore();
   const [show, setShow] = useState(false);
@@ -31,7 +31,11 @@ const LargeTop = () => {
               placeholder="Search 'Fashion Influencers'"
             />
           </div>
-          <button className="border-2 border-gray-500 px-7 py-2 rounded-md font-semibold text-black">
+          <button
+            className={`border-2 border-gray-500 px-7 py-2 rounded-md font-semibold ${
+              border ? "text-black" : "text-white"
+            }`}
+          >
             Contact
           </button>
           <div

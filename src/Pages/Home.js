@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <div className="h-screen flex flex-col">
       <div>
-        <NavBar />
+        <NavBar bg={true} border={true} />
       </div>
       <div className="w-full overflow-hidden flex r-box">
         <div className="w-[60px] lg:w-[300px] h-full py-5 overflow-y-scroll scrollbar border-r">
