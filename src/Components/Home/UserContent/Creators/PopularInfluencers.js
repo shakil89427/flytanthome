@@ -154,7 +154,7 @@ const PopularInfluencers = () => {
               key={index}
               className="cursor-pointer border rounded-xl overflow-hidden"
             >
-              <div className="pb-5">
+              <div className="pb-3">
                 <div
                   style={{
                     backgroundImage: `url(https://blog.prepscholar.com/hubfs/feature_rainbow_seven_colors.png)`,
