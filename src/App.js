@@ -178,7 +178,7 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        {!navPaths.includes(
+        {!footerPaths.includes(
           pathname?.length === 1 ? "/" : pathname.split("/")[1]
         ) && <Footer />}
       </div>
