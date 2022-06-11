@@ -34,6 +34,7 @@ import Latest from "./Components/Home/UserContent/SponsorshipsCategories/Latest"
 import Paid from "./Components/Home/UserContent/SponsorshipsCategories/Paid";
 import Barter from "./Components/Home/UserContent/SponsorshipsCategories/Barter";
 import PopularAll from "./Components/Home/UserContent/Creators/PopularAll";
+import Keywords from "./Pages/Keywords";
 
 function App() {
   const { authLoading, user } = useStore();
@@ -43,6 +44,7 @@ function App() {
     "brands",
     "influencers",
     "app-ads.txt",
+    "keywords",
     "sponsorships",
     "latest",
     "paid",
@@ -54,6 +56,7 @@ function App() {
     ? [
         "/",
         "app-ads.txt",
+        "keywords",
         "sponsorships",
         "latest",
         "paid",
@@ -61,7 +64,7 @@ function App() {
         "popularinfluencers",
         "sponsorshipdetails",
       ]
-    : ["app-ads.txt", "sponsorships"];
+    : ["app-ads.txt", "keywords", "sponsorships"];
   return (
     <>
       <ActivityCheck />
@@ -98,6 +101,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/app-ads.txt" element={<AppAds />} />
+          <Route path="/keywords" element={<Keywords />} />
           <Route
             path="/mycampaigns"
             element={
