@@ -117,7 +117,12 @@ const PopularInfluencers = () => {
     <div>
       <div className="flex items-center justify-between">
         <h1 className={styles.heading}>Popular Influencers</h1>
-        <span className="cursor-pointer font-medium">View all</span>
+        <span
+          onClick={() => navigate("/popularinfluencers")}
+          className="cursor-pointer font-medium"
+        >
+          View all
+        </span>
       </div>
       <div className="my-5 relative">
         <Swiper
