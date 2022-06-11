@@ -14,7 +14,7 @@ import { getString } from "firebase/remote-config";
 const styles = {
   spinnerDiv:
     "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
-  main: "grid grid-cols-1 lg:grid-cols-2 pt-14 pb-32 max-w-[1100px] px-5 gap-10 lg:gap-20 mx-auto",
+  main: "grid grid-cols-1 lg:grid-cols-2 pt-14 pb-32 max-w-[1100px] px-5 gap-y-10 gap-x-10  mx-auto",
   profileTop: "flex justify-between gap-5",
   profileLeft: "flex flex-col gap-10",
   profileWrapper: "flex gap-3",
@@ -222,7 +222,7 @@ const Profile = () => {
               </div>
             )}
           </div>
-          <div>
+          <div className="lg:border-l lg:pl-10">
             <p className={styles.title}>Social Accounts</p>
             <div className={styles.socials}>
               {socials.map((social) => (

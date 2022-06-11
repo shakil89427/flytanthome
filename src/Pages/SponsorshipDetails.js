@@ -65,6 +65,11 @@ const SponsorshipDetails = () => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
 
+  const divRef = useRef();
+  useEffect(() => {
+    divRef.current.scrollIntoView();
+  }, []);
+
   useEffect(() => {
     if (swiper) {
       swiper.params.navigation.nextEl = nextRef.current;
@@ -206,7 +211,7 @@ const SponsorshipDetails = () => {
   }, [details]);
 
   return (
-    <div>
+    <div ref={divRef} className="pt-5 pb-14">
       {showDownload && <DownloadApp setShowDownload={setShowDownload} />}
       <Scroll />
       {loading && (
@@ -215,7 +220,7 @@ const SponsorshipDetails = () => {
         </div>
       )}
       {socialError && <SocialError setSocialError={setSocialError} />}
-      <div className="px-5 max-w-[1100px] mx-auto py-20 flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
+      <div className="flex flex-col md:flex-row gap-20 md:gap-10 lg:gap-32">
         {/* Left Side */}
         <div className="w-full md:w-7/12 relative">
           {detailsLoading && <Spinner position={true} />}

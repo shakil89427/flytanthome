@@ -48,7 +48,7 @@ const Barter = () => {
   };
 
   const loadMore = () => {
-    if (barterSponsorships?.data?.length) {
+    if (barterSponsorships?.data?.length && barterSponsorships?.lastVisible) {
       const q = query(
         colRef,
         where("isApproved", "==", true),

@@ -40,26 +40,28 @@ function App() {
   const { pathname } = useLocation();
   const navPaths = [
     "/",
-    "/brands",
-    "/influencers",
-    "/app-ads.txt",
-    "/sponsorships",
-    "/latest",
-    "/paid",
-    "/barter",
-    "/popularinfluencers",
+    "brands",
+    "influencers",
+    "app-ads.txt",
+    "sponsorships",
+    "latest",
+    "paid",
+    "barter",
+    "popularinfluencers",
+    "sponsorshipdetails",
   ];
   const footerPaths = user?.userId
     ? [
         "/",
-        "/app-ads.txt",
-        "/sponsorships",
-        "/latest",
-        "/paid",
-        "/barter",
-        "/popularinfluencers",
+        "app-ads.txt",
+        "sponsorships",
+        "latest",
+        "paid",
+        "barter",
+        "popularinfluencers",
+        "sponsorshipdetails",
       ]
-    : ["/app-ads.txt", "/sponsorships"];
+    : ["app-ads.txt", "sponsorships"];
   return (
     <>
       <ActivityCheck />
@@ -67,7 +69,9 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="min-h-screen duration-300"
       >
-        {!navPaths.includes(pathname) && <NavBar />}
+        {!navPaths.includes(
+          pathname?.length === 1 ? "/" : pathname.split("/")[1]
+        ) && <NavBar />}
         <Routes>
           <Route path="/" element={<Home />}>
             <Route index element={<RootPage />} />
@@ -76,6 +80,10 @@ function App() {
             <Route path="paid" element={<Paid />} />
             <Route path="barter" element={<Barter />} />
             <Route path="popularinfluencers" element={<PopularAll />} />
+            <Route
+              path="sponsorshipdetails/:id"
+              element={<SponsorshipDetails />}
+            />
           </Route>
           <Route path="/influencers" element={<Influencers />} />
           <Route path="/brands" element={<Brands />} />
@@ -157,14 +165,6 @@ function App() {
           </Route>
           <Route />
           <Route
-            path="/sponsorshipdetails/:id"
-            element={
-              <PrivateRoute>
-                <SponsorshipDetails />
-              </PrivateRoute>
-            }
-          />
-          <Route
             path="/profile/:id"
             element={
               <PrivateRoute>
@@ -178,7 +178,9 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        {!footerPaths.includes(pathname) && <Footer />}
+        {!navPaths.includes(
+          pathname?.length === 1 ? "/" : pathname.split("/")[1]
+        ) && <Footer />}
       </div>
     </>
   );

@@ -66,7 +66,7 @@ const PopularAll = () => {
   };
 
   const loadMore = () => {
-    if (popularInfluencers?.data?.length) {
+    if (popularInfluencers?.data?.length && popularInfluencers?.lastVisible) {
       const q = query(
         colRef,
         where("shouldShowInfluencer", "==", true),
