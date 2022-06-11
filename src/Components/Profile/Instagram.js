@@ -142,7 +142,7 @@ const Instagram = ({ details }) => {
         )}
       {!loading && data?.full_name && (
         <div>
-          <div className="flex justify-between border-b-2 py-8">
+          <div className="flex justify-between border-b py-8">
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
                 {millify(data?.edge_followed_by?.count)}
@@ -168,7 +168,7 @@ const Instagram = ({ details }) => {
               <p className="text-sm font-medium text-gray-500">Engagement</p>
             </div>
           </div>
-          <div className="py-8 border-b-2 flex gap-2">
+          <div className="py-8 border-b flex gap-2">
             <div className="w-fit">
               <div
                 style={{

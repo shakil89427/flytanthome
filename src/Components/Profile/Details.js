@@ -14,10 +14,11 @@ import { getString } from "firebase/remote-config";
 const styles = {
   spinnerDiv:
     "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
-  main: "grid grid-cols-1 lg:grid-cols-2 pt-14 pb-32 max-w-[1100px] px-5 gap-y-10 gap-x-10  mx-auto",
+  main: "grid grid-cols-1 lg:grid-cols-2 max-w-[1100px] px-5 gap-y-10 gap-x-10  mx-auto",
   profileTop: "flex justify-between gap-5",
   profileLeft: "flex flex-col gap-10",
   profileWrapper: "flex gap-3",
+  left: "pt-5 lg:pb-14",
   profileImage:
     "w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-center bg-no-repeat bg-cover",
   topName: "text-lg sm:text-xl md:text-2xl font-semibold mt-4 break-words",
@@ -37,7 +38,7 @@ const styles = {
   catagory: "py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium",
   /* Right */
   title: "text-2xl font-semibold mt-3",
-  socials: "flex items-center gap-10 mt-5 font-medium text-gray-500",
+  socials: "flex items-center justify-between mt-5 font-medium text-gray-500",
   selectedSocial:
     "relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[2px] before:rounded-full text-black",
 };
@@ -57,9 +58,7 @@ const Profile = () => {
   const [country, setCountry] = useState(false);
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
-  const socials = user?.linkedAccounts?.Instagram
-    ? ["Instagram", "Youtube", "Twitter"]
-    : ["Youtube", "Twitter"];
+  const socials = ["Instagram", "Youtube", "Twitter", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
   const [edit, setEdit] = useState(false);
 
@@ -222,7 +221,7 @@ const Profile = () => {
               </div>
             )}
           </div>
-          <div className="lg:border-l lg:pl-10">
+          <div className="lg:border-l lg:pl-10 pt-5 pb-14">
             <p className={styles.title}>Social Accounts</p>
             <div className={styles.socials}>
               {socials.map((social) => (
