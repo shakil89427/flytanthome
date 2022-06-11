@@ -396,7 +396,7 @@ const SponsorshipDetails = () => {
                   <div className="mt-3 md:pr-5">
                     <div className="flex items-center justify-between mb-2">
                       <p className="bg-[#FFDE2F] text-xs py-1 px-3 rounded-3xl font-medium">
-                        {item.barter ? "Barter" : "Paid"} campaign
+                        {item.barter ? "Barter" : "Paid"}
                       </p>
                       <p className="text-xs">
                         {moment(item?.creationDate * 1000).fromNow()}
