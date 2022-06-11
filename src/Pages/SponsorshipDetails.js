@@ -211,7 +211,7 @@ const SponsorshipDetails = () => {
   }, [details]);
 
   return (
-    <div ref={divRef} className="w-full h-full overflow-hidden">
+    <div ref={divRef} className="w-full h-full md:overflow-hidden">
       {showDownload && <DownloadApp setShowDownload={setShowDownload} />}
       <Scroll />
       {loading && (
@@ -220,9 +220,9 @@ const SponsorshipDetails = () => {
         </div>
       )}
       {socialError && <SocialError setSocialError={setSocialError} />}
-      <div className="flex flex-col md:flex-row gap-y-14 w-full h-full overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-y-14 w-full h-full md:overflow-hidden">
         {/* Left Side */}
-        <div className="w-full md:w-8/12 relative overflow-y-scroll scrollbar md:pr-5 pt-5 pb-14">
+        <div className="w-full md:w-8/12 relative md:overflow-y-scroll scrollbar md:pr-5 pt-5 md:pb-14">
           {detailsLoading && <Spinner position={true} />}
           {details?.id && (
             <div>
@@ -369,7 +369,7 @@ const SponsorshipDetails = () => {
         </div>
 
         {/* Right Side */}
-        <div className="w-full md:w-4/12 relative overflow-y-scroll scrollbar md:border-l md:pl-5 pt-5 pb-14">
+        <div className="w-full md:w-4/12 relative md:overflow-y-scroll scrollbar md:border-l md:pl-5 pt-5 pb-14">
           <p className="text-xl font-semibold mb-10  border-t md:border-0 border-gray-300 pt-14 md:pt-0">
             More related campaigns
           </p>
