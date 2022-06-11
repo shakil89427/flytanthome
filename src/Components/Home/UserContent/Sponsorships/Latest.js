@@ -45,7 +45,7 @@ const Latest = () => {
   };
 
   useEffect(() => {
-    if (latestSponsorships?.data?.length) {
+    if (latestSponsorships?.data?.length && latestSponsorships?.lastVisible) {
       const q = query(
         colRef,
         where("isApproved", "==", true),

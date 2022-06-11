@@ -41,7 +41,7 @@ const Paid = () => {
   };
 
   useEffect(() => {
-    if (paidSponsorships?.data?.length) {
+    if (paidSponsorships?.data?.length && paidSponsorships?.lastVisible) {
       const q = query(
         colRef,
         where("isApproved", "==", true),
