@@ -146,6 +146,7 @@ const PopularInfluencers = () => {
               slidesPerView: 4,
             },
           }}
+          className="grid grid-cols-1"
         >
           {popularInfluencers?.data?.map((item, index) => (
             <SwiperSlide
@@ -153,7 +154,7 @@ const PopularInfluencers = () => {
               key={index}
               className="cursor-pointer border rounded-xl overflow-hidden"
             >
-              <div className="aspect-[4/5]">
+              <div className="pb-5">
                 <div
                   style={{
                     backgroundImage: `url(https://blog.prepscholar.com/hubfs/feature_rainbow_seven_colors.png)`,
