@@ -58,6 +58,7 @@ const Store = () => {
   const [tiktokData, setTiktokData] = useState([]);
   const [flytantYoutube, setFlytantYoutube] = useState({});
   const [flytantIndex, setFlytantIndex] = useState(0);
+  const [notifications, setNotifications] = useState([]);
 
   /* Returned Items */
   return {
@@ -123,6 +124,8 @@ const Store = () => {
     setFlytantYoutube,
     flytantIndex,
     setFlytantIndex,
+    notifications,
+    setNotifications,
   };
 };
 

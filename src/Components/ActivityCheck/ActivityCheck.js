@@ -8,6 +8,7 @@ import Loading from "../Loading/Loading";
 import Spinner from "../Spinner/Spinner";
 import useCheckCode from "../../Hooks/useCheckCode";
 import useLocationCheck from "../../Hooks/useLocationCheck";
+import useNotifications from "../../Hooks/useNotifications";
 
 const styles = {
   spinnerDiv:
@@ -20,6 +21,7 @@ const ActivityCheck = () => {
   useAuthCheck();
   useCheckCode();
   useLocationCheck();
+  useNotifications();
 
   return (
     <>

@@ -40,7 +40,6 @@ const Youtube = () => {
       swiper.navigation.update();
     }
   }, [swiper]);
-  console.log(flytantYoutube);
 
   useEffect(() => {
     if (!flytantYoutube?.id) {

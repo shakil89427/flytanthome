@@ -35,7 +35,8 @@ import Paid from "./Components/Home/UserContent/SponsorshipsCategories/Paid";
 import Barter from "./Components/Home/UserContent/SponsorshipsCategories/Barter";
 import PopularAll from "./Components/Home/UserContent/Creators/PopularAll";
 import Keywords from "./Pages/Keywords";
-import All from "./Components/Home/UserContent/Youtube/All";
+import All from "./Components/Home/UserContent/All";
+import Notification from "./Components/Home/UserContent/Notification";
 
 function App() {
   const { authLoading, user } = useStore();
@@ -53,6 +54,7 @@ function App() {
     "popularinfluencers",
     "sponsorshipdetails",
     "allvideos",
+    "notification",
   ];
   const footerPaths = user?.userId
     ? [
@@ -66,6 +68,7 @@ function App() {
         "popularinfluencers",
         "sponsorshipdetails",
         "allvideos",
+        "notification",
       ]
     : ["app-ads.txt", "keywords", "sponsorships"];
   return (
@@ -87,6 +90,7 @@ function App() {
             <Route path="barter" element={<Barter />} />
             <Route path="popularinfluencers" element={<PopularAll />} />
             <Route path="allvideos" element={<All />} />
+            <Route path="notification" element={<Notification />} />
             <Route
               path="sponsorshipdetails/:id"
               element={<SponsorshipDetails />}

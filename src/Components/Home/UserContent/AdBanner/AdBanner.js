@@ -8,7 +8,7 @@ const AdBanner = () => {
     <div className="r-box">
       <div
         style={{ backgroundImage: `url(${adBannerBg})` }}
-        className="w-full h-48 md:h-60 lg:h-72 xl:h-80 bg-cover bg-center bg-no-repeat flex items-center justify-center border"
+        className="aspect-[12/3] bg-cover bg-center bg-no-repeat flex items-center justify-center border"
       >
         <div>
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">

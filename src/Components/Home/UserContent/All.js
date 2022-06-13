@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import useStore from "../../../../Store/useStore";
+import useStore from "../../../Store/useStore";
 import { useState } from "react";
 import { useRef } from "react";
 import moment from "moment";
 import { BsFillCheckCircleFill, BsDot } from "react-icons/bs";
 import millify from "millify";
-import Spinner from "../../../Spinner/Spinner";
+import Spinner from "../../Spinner/Spinner";
 
 const All = () => {
   const { flytantYoutube, setFlytantYoutube, setNotify } = useStore();
