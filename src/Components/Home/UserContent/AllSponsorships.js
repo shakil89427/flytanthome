@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import AddBanner from "./AdBanner/AdBanner";
-import TopCarousel from "./Carousel/TopCarousel";
 import Latest from "./Sponsorships/Latest";
 import Paid from "./Sponsorships/Paid";
 import Barter from "./Sponsorships/Barter";
 import Update from "./Sponsorships/Update";
-import Scroll from "../../Scroll/Scroll";
 
 const AllSponsorships = () => {
   const divRef = useRef();
@@ -15,8 +13,7 @@ const AllSponsorships = () => {
   return (
     <div ref={divRef} className="pt-5 pb-14">
       <div className="flex flex-col gap-20">
-        <Scroll />
-        <TopCarousel />
+        <AddBanner />
         <Latest />
         <AddBanner />
         <Paid />

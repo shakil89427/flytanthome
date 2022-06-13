@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Drawer = () => {
-  const paths = ["Home", "Sponsorships", "Notification", "Settings", "More"];
+  const paths = ["Home", "Sponsorships", "Notification", "More"];
   const { pathname } = useLocation();
   const [selected, setSelected] = useState(paths[0].toLowerCase());
   const navigate = useNavigate();

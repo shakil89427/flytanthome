@@ -56,6 +56,8 @@ const Store = () => {
   const [youtubeData, setYoutubeData] = useState([]);
   const [twitterData, setTwitterData] = useState([]);
   const [tiktokData, setTiktokData] = useState([]);
+  const [flytantYoutube, setFlytantYoutube] = useState({});
+  const [flytantIndex, setFlytantIndex] = useState(0);
 
   /* Returned Items */
   return {
@@ -117,6 +119,10 @@ const Store = () => {
     setBlogsData,
     loaded,
     setLoaded,
+    flytantYoutube,
+    setFlytantYoutube,
+    flytantIndex,
+    setFlytantIndex,
   };
 };
 

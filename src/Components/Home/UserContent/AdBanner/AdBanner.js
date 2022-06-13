@@ -1,16 +1,32 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import adBannerBg from "../../../../Assets/userHome/adBannerBg.png";
 
-const AddBanner = () => {
+const AdBanner = () => {
+  const navigate = useNavigate();
   return (
-    <div className="w-full lg:w-[70%] lg:mx-auto">
+    <div className="r-box">
       <div
-        style={{
-          backgroundImage: `url(https://www.birdlife.org/wp-content/uploads/2021/09/Nature_positive_shutterstock_1451653292_1_1-1024x494.jpg)`,
-        }}
-        className="bg-cover bg-center bg-no-repeat aspect-[7/3] rounded-md"
-      />
+        style={{ backgroundImage: `url(${adBannerBg})` }}
+        className="w-full h-48 md:h-60 lg:h-72 xl:h-80 bg-cover bg-center bg-no-repeat flex items-center justify-center border"
+      >
+        <div>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+            30% off
+          </h1>
+          <h3 className="text-lg md:text-xl lg:text-2xl font-medium mt-2 mb-5">
+            Buy Flytant Subscription Today
+          </h3>
+          <button
+            onClick={() => navigate("/subscription")}
+            className="bg-black text-white px-5 py-3 rounded-md text-md md:text-lg hover:scale-105 duration-150 font-medium"
+          >
+            Avail 30% discount now
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default AddBanner;
+export default AdBanner;
