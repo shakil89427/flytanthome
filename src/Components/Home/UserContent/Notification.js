@@ -20,10 +20,16 @@ const Notification = () => {
   };
 
   useEffect(() => {
-    setAllData(sorted.slice(0, allData?.length + 20));
+    if (sorted?.length < 1) return;
+    if (allData?.length < 1) {
+      setAllData(sorted.slice(0, 20));
+    } else {
+      setAllData(sorted.slice(0, allData?.length));
+    }
   }, [sorted]);
 
   useEffect(() => {
+    if (notifications.length < 1 || !user?.userId) return;
     const filtered = notifications?.filter(
       (doc) => doc?.receiverId === user?.userId || doc?.receiverId === ""
     );
@@ -53,7 +59,7 @@ const Notification = () => {
       {allData?.map((item) => (
         <div
           key={item?.id}
-          className="flex items-start justify-between mb-6 border-b pb-6 border-gray-100"
+          className="flex items-start justify-between mb-6 border-b pb-6 border-gray-100 cursor-pointer"
           onClick={() => changeRoute(item?.campId || item?.blogUrl || false)}
         >
           <div className="flex items-start justify-center gap-5">
