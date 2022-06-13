@@ -6,8 +6,10 @@ import { useRef } from "react";
 import useStore from "../../../Store/useStore";
 import blog from "../../../Assets/blog.png";
 import sponsorship from "../../../Assets/sponsorship.png";
+import { useNavigate } from "react-router-dom";
 
 const Notification = () => {
+  const navigate = useNavigate();
   const divRef = useRef();
   const { user, notifications } = useStore();
   const [sorted, setSorted] = useState([]);
@@ -35,6 +37,16 @@ const Notification = () => {
     divRef.current.scrollIntoView();
   }, []);
 
+  const changeRoute = (info) => {
+    if (!info) return;
+    if (info?.includes("https://flytant.com/blogdetails/")) {
+      const last = info.split("https://flytant.com/blogdetails/")[1];
+      navigate(`/blogdetails/${last}`);
+    } else {
+      navigate(`/sponsorshipdetails/${info}`);
+    }
+  };
+
   return (
     <div ref={divRef} className="pt-5 pb-14">
       <p className="font-semibold text-xl md:text-2xl mb-8">Notifications</p>
@@ -42,6 +54,7 @@ const Notification = () => {
         <div
           key={item?.id}
           className="flex items-start justify-between mb-6 border-b pb-6 border-gray-100"
+          onClick={() => changeRoute(item?.campId || item?.blogUrl || false)}
         >
           <div className="flex items-start justify-center gap-5">
             {/* Left */}
@@ -50,7 +63,7 @@ const Notification = () => {
                 style={{
                   backgroundImage: `url(${item?.senderProfileImageUrl})`,
                 }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full "
+                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full hidden lg:block"
               />
             )}
             {item?.blogUrl && (
@@ -58,7 +71,7 @@ const Notification = () => {
                 style={{
                   backgroundImage: `url(${blog})`,
                 }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full"
+                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full hidden lg:block"
               />
             )}
             {item?.campId && (
@@ -66,7 +79,7 @@ const Notification = () => {
                 style={{
                   backgroundImage: `url(${sponsorship})`,
                 }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full"
+                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full hidden lg:block"
               />
             )}
 
@@ -88,7 +101,7 @@ const Notification = () => {
               style={{
                 backgroundImage: `url(${item?.postImageUrl})`,
               }}
-              className="bg-cover bg-center bg-no-repeat w-28 h-14 rounded-md border "
+              className="bg-cover bg-center bg-no-repeat w-28 h-14 rounded-md border hidden lg:block"
             />
           )}
         </div>
