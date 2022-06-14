@@ -2,6 +2,7 @@ import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../Firebase/firebaseConfig";
 import { getRemoteConfig } from "firebase/remote-config";
+import { useEffect } from "react";
 /* Initialize Firebase */
 const app = initializeApp(firebaseConfig);
 const remoteConfig = getRemoteConfig(app);
@@ -76,6 +77,15 @@ const Store = () => {
   const [mostIndex, setMostIndex] = useState(0);
   const [appliedIndex, setAppliedIndex] = useState(0);
   const [routes, setRoutes] = useState(false);
+
+  useEffect(() => {
+    if (!user?.userId) {
+      setMySponsorships({ data: [], lastVisible: false });
+      setAppliedSponsorships({ data: [], lastVisible: false });
+      setMyIndex(0);
+      setAppliedIndex(0);
+    }
+  }, [user]);
 
   /* Returned Items */
   return {

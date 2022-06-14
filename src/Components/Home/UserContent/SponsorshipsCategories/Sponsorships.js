@@ -41,6 +41,7 @@ const Sponsorships = ({
 
   useEffect(() => {
     divRef.current.scrollIntoView();
+    window.scroll(0, 0);
   }, []);
 
   return (

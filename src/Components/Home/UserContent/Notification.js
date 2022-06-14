@@ -41,6 +41,7 @@ const Notification = () => {
 
   useEffect(() => {
     divRef.current.scrollIntoView();
+    window.scroll(0, 0);
   }, []);
 
   const changeRoute = (info) => {

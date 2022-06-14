@@ -1,7 +1,3 @@
-facebook.com, 601602877150235, RESELLER, c3e20eee3f780d68
-facebook.com, 1158238444719786, RESELLER, c3e20eee3f780d68
-
-
 mintegral.com, 9167, DIRECT, 0aeed750c80d6423
 pokkt.com, 7139, RESELLER, c45702d9311e25fd
 appads.in, 107139, RESELLER
@@ -1119,3 +1115,6 @@ algorix.co, 60086, Reseller, 5b394c12fea27a1d
 algorix.co, 60087, Reseller, 5b394c12fea27a1d
 algorix.co, 60093, Reseller, 5b394c12fea27a1d
 
+
+facebook.com, 601602877150235, RESELLER, c3e20eee3f780d68
+facebook.com, 1158238444719786, RESELLER, c3e20eee3f780d68

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Blogs from "../../../../Assets/userHome/drawerItems/Blogs.png";
 import BlogsB from "../../../../Assets/userHome/drawerItems/BlogsB.png";
@@ -17,6 +17,7 @@ import SponsorshipsB from "../../../../Assets/userHome/drawerItems/SponsorshipsB
 import Subscription from "../../../../Assets/userHome/drawerItems/Subscription.png";
 import Subscriptions from "../../../../Assets/userHome/drawerItems/SubscriptionB.png";
 import Back from "../../../../Assets/userHome/drawerItems/back.png";
+import MyCampaigns from "../../../../Assets/userHome/drawerItems/MyCampaigns.png";
 import useStore from "../../../../Store/useStore";
 
 const Drawer = () => {
@@ -48,8 +49,8 @@ const Drawer = () => {
     {
       title: "My Campaigns",
       path: "/mycampaigns",
-      img1: Sponsorships,
-      img2: SponsorshipsB,
+      img1: MyCampaigns,
+      img2: MyCampaigns,
     },
     {
       title: "Subscription",
@@ -64,7 +65,7 @@ const Drawer = () => {
   const [selected, setSelected] = useState(pathname);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (routes) {
       setPaths(paths2);
     } else {
@@ -72,7 +73,7 @@ const Drawer = () => {
     }
   }, [routes]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSelected(pathname);
   }, [pathname]);
 

@@ -41,7 +41,7 @@ import MostApplied from "./Components/Home/UserContent/SponsorshipsCategories/Mo
 import Applied from "./Components/Home/UserContent/SponsorshipsCategories/Applied";
 
 function App() {
-  const { authLoading, user } = useStore();
+  const { authLoading } = useStore();
   const { pathname } = useLocation();
   const navPaths = [
     "/",
@@ -60,7 +60,7 @@ function App() {
     "mostapplied",
     "applied",
   ];
-  const footerPaths = ["app-ads.txt", "keywords"];
+  const footerPaths = ["/app-ads.txt", "/keywords"];
   return (
     <>
       <ActivityCheck />
@@ -182,9 +182,7 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        {!footerPaths.includes(
-          pathname?.length === 1 ? "/" : pathname.split("/")[1]
-        ) && <Footer />}
+        {!footerPaths.includes(pathname) && <Footer />}
       </div>
     </>
   );
