@@ -3,7 +3,8 @@ import axios from "axios";
 import useStore from "../../../Store/useStore";
 import { useState } from "react";
 import { useRef } from "react";
-import { BsFillCheckCircleFill } from "react-icons/bs";
+import { BsPlayCircle } from "react-icons/bs";
+
 import Spinner from "../../Spinner/Spinner";
 
 const All = () => {
@@ -43,38 +44,30 @@ const All = () => {
           <h1 className="font-semibold text-xl md:text-2xl mb-5">Videos</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
             {flytantYoutube?.videos?.map((video, index) => (
-              <div
-                key={index}
-                className="cursor-pointer rounded-lg overflow-hidden"
-              >
+              <div key={index} className="rounded-lg overflow-hidden">
                 <div className="relative">
-                  <img src={video?.snippet?.thumbnails?.high?.url} alt="" />
-                  <p className="absolute text-white bottom-0 right-1 text-sm bg-black">
+                  <BsPlayCircle
+                    onClick={() =>
+                      window.open(
+                        `https://www.youtube.com/watch?v=${video?.id}`,
+                        "_blank"
+                      )
+                    }
+                    className="bg-black rounded-full text-5xl absolute top-1/2 left-1/2 text-white -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150 cursor-pointer"
+                  />
+                  <div
+                    style={{
+                      backgroundImage: `url(${video?.snippet?.thumbnails?.medium?.url})`,
+                    }}
+                    className="bg-cover bg-center bg-no-repeat aspect-[6/4]"
+                  />
+                  <p className="absolute text-white bottom-1 right-1 text-sm bg-black px-2 rounded-md">
                     {video?.contentDetails?.duration
                       .replace("PT", "")
                       .replace("H", ":")
                       .replace("M", ":")
                       .replace("S", "")}
                   </p>
-                </div>
-                <div className="flex gap-3 mt-2">
-                  <div
-                    style={{
-                      backgroundImage: `url(${flytantYoutube?.snippet?.thumbnails?.medium?.url})`,
-                    }}
-                    className="bg-cover bg-center bg-no-repeat aspect-square rounded-full w-[35px] h-[35px]"
-                  />
-                  <div className="">
-                    <p className="text-sm ">
-                      {video?.snippet?.title?.length > 40
-                        ? video?.snippet?.title?.slice(0, 40) + "..."
-                        : video?.snippet?.title}
-                    </p>
-                    <div className="flex items-center gap-1 text-xs mt-2 text-gray-500 font-medium">
-                      <p>{flytantYoutube?.snippet?.title}</p>
-                      <BsFillCheckCircleFill className="" />
-                    </div>
-                  </div>
                 </div>
               </div>
             ))}

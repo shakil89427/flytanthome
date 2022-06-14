@@ -31,7 +31,7 @@ const Home = () => {
         <div className="w-[60px] lg:w-[300px] h-full py-5 overflow-y-scroll scrollbar border-r">
           <Drawer />
         </div>
-        <div className="w-full pl-5 xl:pl-14 overflow-y-scroll scrollbar">
+        <div className="w-full pl-5 xl:pl-14 overflow-y-scroll scrollbar overflow-x-hidden">
           <Outlet />
         </div>
       </div>

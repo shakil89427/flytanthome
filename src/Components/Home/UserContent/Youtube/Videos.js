@@ -6,14 +6,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import { BsFillCheckCircleFill } from "react-icons/bs";
+import { BsPlayCircle } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 /* Styles Start */
 const styles = {
   heading: "font-semibold text-xl md:text-2xl",
-  prev: "hidden md:block absolute bg-white top-[15%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
-  next: "hidden md:block absolute bg-white top-[15%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  prev: "hidden md:block absolute bg-white top-[35%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
+  next: "hidden md:block absolute bg-white top-[35%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 /* Styles End */
 
@@ -90,34 +90,29 @@ const Youtube = () => {
               key={index}
               className="cursor-pointer rounded-lg overflow-hidden"
             >
-              <div className="relative ">
-                <img src={video?.snippet?.thumbnails?.high?.url} alt="" />
-                <p className="absolute text-white bottom-0 right-1 text-sm bg-black">
+              <div className="relative">
+                <BsPlayCircle
+                  onClick={() =>
+                    window.open(
+                      `https://www.youtube.com/watch?v=${video?.id}`,
+                      "_blank"
+                    )
+                  }
+                  className="bg-black rounded-full text-5xl absolute top-1/2 left-1/2 text-white -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150 cursor-pointer"
+                />
+                <div
+                  style={{
+                    backgroundImage: `url(${video?.snippet?.thumbnails?.medium?.url})`,
+                  }}
+                  className="bg-cover bg-center bg-no-repeat aspect-[6/4]"
+                />
+                <p className="absolute text-white bottom-1 right-1 text-sm bg-black px-2 rounded-md">
                   {video?.contentDetails?.duration
                     .replace("PT", "")
                     .replace("H", ":")
                     .replace("M", ":")
                     .replace("S", "")}
                 </p>
-              </div>
-              <div className="flex gap-3 mt-2">
-                <div
-                  style={{
-                    backgroundImage: `url(${flytantYoutube?.snippet?.thumbnails?.medium?.url})`,
-                  }}
-                  className="bg-cover bg-center bg-no-repeat aspect-square rounded-full w-[35px] h-[35px]"
-                />
-                <div className="">
-                  <p className="text-sm ">
-                    {video?.snippet?.title?.length > 40
-                      ? video?.snippet?.title?.slice(0, 40) + "..."
-                      : video?.snippet?.title}
-                  </p>
-                  <div className="flex items-center gap-1 text-xs mt-2 text-gray-500 font-medium">
-                    <p>{flytantYoutube?.snippet?.title}</p>
-                    <BsFillCheckCircleFill className="" />
-                  </div>
-                </div>
               </div>
             </SwiperSlide>
           ))}

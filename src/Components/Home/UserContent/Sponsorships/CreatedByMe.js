@@ -66,6 +66,7 @@ const CreatedByMe = () => {
       getMy(q);
     }
   }, []);
+  if (mySponsorships?.data?.length === 0) return;
 
   return (
     <Sponsorships
