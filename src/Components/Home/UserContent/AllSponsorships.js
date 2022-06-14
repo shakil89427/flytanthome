@@ -4,6 +4,8 @@ import Latest from "./Sponsorships/Latest";
 import Paid from "./Sponsorships/Paid";
 import Barter from "./Sponsorships/Barter";
 import Update from "./Sponsorships/Update";
+import CreatedByMe from "./Sponsorships/CreatedByMe";
+import MostApplied from "./Sponsorships/MostApplied";
 
 const AllSponsorships = () => {
   const divRef = useRef();
@@ -13,11 +15,12 @@ const AllSponsorships = () => {
   return (
     <div ref={divRef} className="pt-5 pb-14">
       <div className="flex flex-col gap-20">
-        <AddBanner />
+        <CreatedByMe />
         <Latest />
         <AddBanner />
         <Paid />
         <Barter />
+        <MostApplied />
         <Update />
       </div>
     </div>

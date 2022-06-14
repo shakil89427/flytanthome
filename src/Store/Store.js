@@ -40,6 +40,18 @@ const Store = () => {
     data: [],
     lastVisible: false,
   });
+  const [mySponsorships, setMySponsorships] = useState({
+    data: [],
+    lastVisible: false,
+  });
+  const [mostAppliedSponsorships, setMostAppliedSponsorships] = useState({
+    data: [],
+    lastVisible: false,
+  });
+  const [appliedSponsorships, setAppliedSponsorships] = useState({
+    data: [],
+    lastVisible: false,
+  });
   const [blogsData, setBlogsData] = useState({
     all: [],
     carousel: [],
@@ -59,6 +71,10 @@ const Store = () => {
   const [flytantYoutube, setFlytantYoutube] = useState({});
   const [flytantIndex, setFlytantIndex] = useState(0);
   const [notifications, setNotifications] = useState([]);
+  const [blogIndex, setBlogIndex] = useState(0);
+  const [myIndex, setMyIndex] = useState(0);
+  const [mostIndex, setMostIndex] = useState(0);
+  const [appliedIndex, setAppliedIndex] = useState(0);
 
   /* Returned Items */
   return {
@@ -126,6 +142,20 @@ const Store = () => {
     setFlytantIndex,
     notifications,
     setNotifications,
+    blogIndex,
+    setBlogIndex,
+    mySponsorships,
+    setMySponsorships,
+    mostAppliedSponsorships,
+    setMostAppliedSponsorships,
+    appliedSponsorships,
+    setAppliedSponsorships,
+    myIndex,
+    setMyIndex,
+    mostIndex,
+    setMostIndex,
+    appliedIndex,
+    setAppliedIndex,
   };
 };
 

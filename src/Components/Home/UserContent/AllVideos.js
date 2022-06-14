@@ -3,9 +3,7 @@ import axios from "axios";
 import useStore from "../../../Store/useStore";
 import { useState } from "react";
 import { useRef } from "react";
-import moment from "moment";
-import { BsFillCheckCircleFill, BsDot } from "react-icons/bs";
-import millify from "millify";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 import Spinner from "../../Spinner/Spinner";
 
 const All = () => {
@@ -45,7 +43,10 @@ const All = () => {
           <h1 className="font-semibold text-xl md:text-2xl mb-5">Videos</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
             {flytantYoutube?.videos?.map((video, index) => (
-              <div key={index} className="cursor-pointer">
+              <div
+                key={index}
+                className="cursor-pointer rounded-lg overflow-hidden"
+              >
                 <div className="relative">
                   <img src={video?.snippet?.thumbnails?.high?.url} alt="" />
                   <p className="absolute text-white bottom-0 right-1 text-sm bg-black">
@@ -72,11 +73,6 @@ const All = () => {
                     <div className="flex items-center gap-1 text-xs mt-2 text-gray-500 font-medium">
                       <p>{flytantYoutube?.snippet?.title}</p>
                       <BsFillCheckCircleFill className="" />
-                    </div>
-                    <div className="text-xs flex items-center text-gray-500 mt-1">
-                      <p>{millify(video?.statistics?.viewCount)} Views</p>
-                      <BsDot />
-                      <p>{moment(video?.snippet?.publishedAt).fromNow()}</p>
                     </div>
                   </div>
                 </div>

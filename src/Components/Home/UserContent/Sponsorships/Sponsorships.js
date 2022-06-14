@@ -20,13 +20,13 @@ const styles = {
     "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-full rounded-bl-full shadow-xl",
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
   typeWrapper: "flex items-center justify-between",
-  type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
+  type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium bg-[#E8E8E8]",
   title: "font-semibold my-1 text-lg break-words",
   bottomWrapper: "flex flex-col gap-2",
   followers: "text-xs font-medium text-gray-600",
   icons: "text-[#B4B4B4] flex items-center gap-1 text-lg",
-  prev: "hidden md:block absolute bg-white top-[15%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
-  next: "hidden md:block absolute bg-white top-[15%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  prev: "hidden md:block absolute bg-white top-[25%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
+  next: "hidden md:block absolute bg-white top-[25%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 /* Styles End */
 
@@ -86,12 +86,7 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
               className="cursor-pointer"
             >
               <div>
-                {sponsorship?.applied >= 20 && (
-                  <p className={styles.applied}>
-                    {sponsorship?.applied} applied
-                  </p>
-                )}
-                <div className="w-full aspect-[9/8] border rounded-md">
+                <div className="w-full aspect-[5/4] border rounded-md">
                   <div
                     className={styles.image}
                     style={{
@@ -103,23 +98,12 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
 
                 <div className="mt-2 mr-3">
                   <div className={styles.typeWrapper}>
-                    {type === "Latest" && (
-                      <p
-                        style={{
-                          backgroundColor: !sponsorship?.barter
-                            ? "#FFDE2F"
-                            : "#3FD5F5",
-                        }}
-                        className={styles.type}
-                      >
-                        {!sponsorship?.barter ? "Paid" : "Barter"}
-                      </p>
-                    )}
-                    {type === "Latest" && (
-                      <p className="text-xs">
-                        {moment(sponsorship?.creationDate * 1000).fromNow()}
-                      </p>
-                    )}
+                    <p className={styles.type}>
+                      {!sponsorship?.barter ? "Paid" : "Barter"}
+                    </p>
+                    <p className="text-xs">
+                      {moment(sponsorship?.creationDate * 1000).fromNow()}
+                    </p>
                   </div>
 
                   <p className={styles.title}>
@@ -149,11 +133,6 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
                           <FaTiktok className="w-3" />
                         )}
                       </div>
-                      {type !== "Latest" && (
-                        <p className="text-xs">
-                          {moment(sponsorship?.creationDate * 1000).fromNow()}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -169,7 +148,12 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
         >
           <MdNavigateBefore />
         </div>
-        <div className={styles.next} ref={nextRef}>
+        <div
+          className={`${styles.next} ${
+            sponsorships?.length < 4 ? "invisible" : "visible"
+          }`}
+          ref={nextRef}
+        >
           <MdNavigateNext />
         </div>
       </div>

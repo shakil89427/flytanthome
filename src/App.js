@@ -35,7 +35,7 @@ import Paid from "./Components/Home/UserContent/SponsorshipsCategories/Paid";
 import Barter from "./Components/Home/UserContent/SponsorshipsCategories/Barter";
 import PopularAll from "./Components/Home/UserContent/Creators/PopularAll";
 import Keywords from "./Pages/Keywords";
-import All from "./Components/Home/UserContent/All";
+import AllVideos from "./Components/Home/UserContent/AllVideos";
 import Notification from "./Components/Home/UserContent/Notification";
 
 function App() {
@@ -89,7 +89,7 @@ function App() {
             <Route path="paid" element={<Paid />} />
             <Route path="barter" element={<Barter />} />
             <Route path="popularinfluencers" element={<PopularAll />} />
-            <Route path="allvideos" element={<All />} />
+            <Route path="allvideos" element={<AllVideos />} />
             <Route path="notification" element={<Notification />} />
             <Route
               path="sponsorshipdetails/:id"

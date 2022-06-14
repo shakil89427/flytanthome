@@ -27,8 +27,8 @@ const styles = {
   icons: "flex gap-2 text-[#B4B4B4] my-1 text-xl",
   options: "flex gap-2 flex-wrap mt-3",
   option: "bg-[#DDDDDD] text-xs px-3 py-1 rounded-xl",
-  prev: "hidden md:block absolute bg-white top-[15%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
-  next: "hidden md:block absolute bg-white top-[15%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
+  prev: "hidden md:block absolute bg-white top-[25%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
+  next: "hidden md:block absolute bg-white top-[25%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
 /* Styles End */
 
@@ -157,34 +157,22 @@ const PopularInfluencers = () => {
               <div className="pb-3">
                 <div
                   style={{
-                    backgroundImage: `url(https://blog.prepscholar.com/hubfs/feature_rainbow_seven_colors.png)`,
+                    backgroundImage: `url(${item?.profileImageUrl})`,
                   }}
-                  className="bg-cover bg-center bg-no-repeat aspect-[4/2]"
+                  className="bg-cover bg-center bg-no-repeat aspect-[5/4]"
                 />
-                <div className="px-5 flex items-center justify-between -translate-y-1/2">
-                  <div
-                    style={{
-                      backgroundImage: `url(${item?.profileImageUrl})`,
-                    }}
-                    className="bg-cover bg-center bg-no-repeat w-[25%] aspect-square rounded-full border-2"
-                  />
+                <div className="pr-5 flex items-center justify-end -translate-y-1/2">
                   <p className="flex items-center justify-center w-[20%] aspect-square bg-white rounded-full font-semibold border">
                     {item?.socialScore}
                   </p>
                 </div>
-                <div className="px-5">
+                <div className="px-5 -translate-y-1/2">
                   <p className="text-lg font-semibold">
                     {item?.name.length > 15
                       ? item?.name.slice(0, 15) + "..."
                       : item?.name}
                   </p>
                   <p className="text-gray-500">@{item?.username}</p>
-                  <p className="mt-5 text-sm text-gray-700">
-                    {item?.bio?.length > 50
-                      ? item?.bio?.slice(0, 50) + "..."
-                      : item?.bio}
-                  </p>
-                  <p></p>
                 </div>
               </div>
             </SwiperSlide>

@@ -4,7 +4,9 @@ import Latest from "./Sponsorships/Latest";
 import AdBanner from "./AdBanner/AdBanner";
 import PopularInfluencers from "./Creators/PopularInfluencers";
 import { useEffect } from "react";
-import Root from "./Youtube/Root";
+import Videos from "./Youtube/Videos";
+import Banner from "./Banner/Banner";
+import Stories from "./Stories/Stories";
 
 const RootPage = () => {
   const divRef = useRef();
@@ -14,13 +16,13 @@ const RootPage = () => {
   return (
     <div ref={divRef} className="pt-5 pb-14">
       <div className="flex flex-col gap-20">
-        <AdBanner />
+        <Banner />
         <FeaturedInfluencers />
-        <Latest />
-        <AdBanner />
         <PopularInfluencers />
-        <Root />
         <AdBanner />
+        <Latest />
+        <Stories />
+        <Videos />
       </div>
     </div>
   );

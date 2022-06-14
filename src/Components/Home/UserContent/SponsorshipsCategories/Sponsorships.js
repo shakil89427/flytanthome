@@ -18,7 +18,7 @@ const styles = {
     "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-full rounded-bl-full shadow-xl",
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
   typeWrapper: "flex items-center justify-between",
-  type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium",
+  type: "px-3 py-1 my-2 rounded-2xl text-xs font-medium bg-[#E8E8E8]",
   title: "font-semibold my-1 text-lg break-words",
   bottomWrapper: "flex flex-col gap-2",
   followers: "text-xs font-medium text-gray-600",
@@ -65,14 +65,7 @@ const Sponsorships = ({
             <div className="mt-2 mr-3">
               <div className={styles.typeWrapper}>
                 {type === "Latest" && (
-                  <p
-                    style={{
-                      backgroundColor: !sponsorship?.barter
-                        ? "#FFDE2F"
-                        : "#3FD5F5",
-                    }}
-                    className={styles.type}
-                  >
+                  <p className={styles.type}>
                     {!sponsorship?.barter ? "Paid" : "Barter"}
                   </p>
                 )}
