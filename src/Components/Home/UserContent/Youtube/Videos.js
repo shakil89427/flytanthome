@@ -86,10 +86,7 @@ const Youtube = () => {
           }}
         >
           {flytantYoutube?.videos?.map((video, index) => (
-            <SwiperSlide
-              key={index}
-              className="cursor-pointer rounded-lg overflow-hidden"
-            >
+            <SwiperSlide key={index} className="rounded-lg overflow-hidden">
               <div className="relative">
                 <BsPlayCircle
                   onClick={() =>

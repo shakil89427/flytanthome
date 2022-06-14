@@ -66,7 +66,15 @@ const Stories = () => {
 
   return (
     <div>
-      <h1 className={styles.heading}>Top Stories</h1>
+      <div className="flex items-center justify-between">
+        <h1 className={styles.heading}>Top Stories</h1>
+        <span
+          onClick={() => navigate(`/blogs`)}
+          className="cursor-pointer font-medium"
+        >
+          View all
+        </span>
+      </div>
       <div className="my-5 relative">
         <Swiper
           modules={[Navigation]}
