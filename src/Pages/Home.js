@@ -23,7 +23,7 @@ const Home = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col mb-20">
       <div>
         <NavBar />
       </div>

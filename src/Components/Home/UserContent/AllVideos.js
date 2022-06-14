@@ -3,7 +3,7 @@ import axios from "axios";
 import useStore from "../../../Store/useStore";
 import { useState } from "react";
 import { useRef } from "react";
-import { BsPlayCircle } from "react-icons/bs";
+import antPlay from "../../../Assets/antPlay.png";
 
 import Spinner from "../../Spinner/Spinner";
 
@@ -44,16 +44,21 @@ const All = () => {
           <h1 className="font-semibold text-xl md:text-2xl mb-5">Videos</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
             {flytantYoutube?.videos?.map((video, index) => (
-              <div key={index} className="rounded-lg overflow-hidden">
+              <div
+                onClick={() =>
+                  window.open(
+                    `https://www.youtube.com/watch?v=${video?.id}`,
+                    "_blank"
+                  )
+                }
+                key={index}
+                className="rounded-lg overflow-hidden cursor-pointer"
+              >
                 <div className="relative">
-                  <BsPlayCircle
-                    onClick={() =>
-                      window.open(
-                        `https://www.youtube.com/watch?v=${video?.id}`,
-                        "_blank"
-                      )
-                    }
-                    className="bg-black rounded-full text-5xl absolute top-1/2 left-1/2 text-white -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150 cursor-pointer"
+                  <img
+                    src={antPlay}
+                    alt=""
+                    className="absolute top-1/2 left-1/2 w-14 h-14 -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150"
                   />
                   <div
                     style={{

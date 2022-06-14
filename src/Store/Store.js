@@ -75,6 +75,7 @@ const Store = () => {
   const [myIndex, setMyIndex] = useState(0);
   const [mostIndex, setMostIndex] = useState(0);
   const [appliedIndex, setAppliedIndex] = useState(0);
+  const [routes, setRoutes] = useState(false);
 
   /* Returned Items */
   return {
@@ -156,6 +157,8 @@ const Store = () => {
     setMostIndex,
     appliedIndex,
     setAppliedIndex,
+    routes,
+    setRoutes,
   };
 };
 

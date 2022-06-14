@@ -21,7 +21,7 @@ const Logout = () => {
         className="fixed bg-[#1a1717dc] w-full h-screen top-0 left-0 z-30"
       />
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 w-fit">
-        <div className="bg-white rounded-lg text-center relative p-10 mx-2">
+        <div className="bg-white rounded-lg text-center relative p-14 mx-2">
           <img
             onClick={() => setShowLogout(false)}
             className="absolute w-6 h-6 top-3 right-4 text-2xl cursor-pointer"
@@ -29,7 +29,7 @@ const Logout = () => {
             alt=""
           />
           <h1 className="text-2xl md:text-3xl font-semibold">
-            LogOut from Flytant ?
+            Logout from Flytant ?
           </h1>
           <p className="text-gray-500 mt-3 text-md">
             You're logged in as {user?.username}

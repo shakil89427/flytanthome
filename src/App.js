@@ -60,23 +60,7 @@ function App() {
     "mostapplied",
     "applied",
   ];
-  const footerPaths = user?.userId
-    ? [
-        "/",
-        "app-ads.txt",
-        "keywords",
-        "sponsorships",
-        "latest",
-        "paid",
-        "barter",
-        "popularinfluencers",
-        "sponsorshipdetails",
-        "allvideos",
-        "notification",
-        "mostapplied",
-        "applied",
-      ]
-    : ["app-ads.txt", "keywords", "sponsorships"];
+  const footerPaths = ["app-ads.txt", "keywords"];
   return (
     <>
       <ActivityCheck />

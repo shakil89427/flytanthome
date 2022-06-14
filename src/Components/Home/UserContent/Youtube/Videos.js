@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import { BsPlayCircle } from "react-icons/bs";
+import antPlay from "../../../../Assets/antPlay.png";
 import { useNavigate } from "react-router-dom";
 
 /* Styles Start */
@@ -87,29 +87,36 @@ const Youtube = () => {
         >
           {flytantYoutube?.videos?.map((video, index) => (
             <SwiperSlide key={index} className="rounded-lg overflow-hidden">
-              <div className="relative">
-                <BsPlayCircle
-                  onClick={() =>
-                    window.open(
-                      `https://www.youtube.com/watch?v=${video?.id}`,
-                      "_blank"
-                    )
-                  }
-                  className="bg-black rounded-full text-5xl absolute top-1/2 left-1/2 text-white -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150 cursor-pointer"
-                />
-                <div
-                  style={{
-                    backgroundImage: `url(${video?.snippet?.thumbnails?.medium?.url})`,
-                  }}
-                  className="bg-cover bg-center bg-no-repeat aspect-[6/4]"
-                />
-                <p className="absolute text-white bottom-1 right-1 text-sm bg-black px-2 rounded-md">
-                  {video?.contentDetails?.duration
-                    .replace("PT", "")
-                    .replace("H", ":")
-                    .replace("M", ":")
-                    .replace("S", "")}
-                </p>
+              <div
+                onClick={() =>
+                  window.open(
+                    `https://www.youtube.com/watch?v=${video?.id}`,
+                    "_blank"
+                  )
+                }
+                key={index}
+                className="rounded-lg overflow-hidden cursor-pointer"
+              >
+                <div className="relative">
+                  <img
+                    src={antPlay}
+                    alt=""
+                    className="absolute top-1/2 left-1/2 w-14 h-14 -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150"
+                  />
+                  <div
+                    style={{
+                      backgroundImage: `url(${video?.snippet?.thumbnails?.medium?.url})`,
+                    }}
+                    className="bg-cover bg-center bg-no-repeat aspect-[6/4]"
+                  />
+                  <p className="absolute text-white bottom-1 right-1 text-sm bg-black px-2 rounded-md">
+                    {video?.contentDetails?.duration
+                      .replace("PT", "")
+                      .replace("H", ":")
+                      .replace("M", ":")
+                      .replace("S", "")}
+                  </p>
+                </div>
               </div>
             </SwiperSlide>
           ))}
