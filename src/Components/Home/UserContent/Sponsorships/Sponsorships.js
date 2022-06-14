@@ -50,7 +50,16 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
       <div className="flex items-center justify-between">
         <h1 className={styles.heading}>{type} Sponsorships</h1>
         <span
-          onClick={() => navigate(`/${type.toLowerCase()}`)}
+          onClick={() => {
+            const lower = type?.toLowerCase();
+            if (lower === "my") {
+              navigate("/mycampaigns");
+            } else if (lower === "most applied") {
+              navigate("/mostapplied");
+            } else {
+              navigate(`/${lower}`);
+            }
+          }}
           className="cursor-pointer font-medium"
         >
           View all
