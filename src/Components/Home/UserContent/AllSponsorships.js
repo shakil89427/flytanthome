@@ -6,6 +6,7 @@ import Barter from "./Sponsorships/Barter";
 import Update from "./Sponsorships/Update";
 import CreatedByMe from "./Sponsorships/CreatedByMe";
 import MostApplied from "./Sponsorships/MostApplied";
+import Applied from "./Sponsorships/Applied";
 
 const AllSponsorships = () => {
   const divRef = useRef();
@@ -21,6 +22,7 @@ const AllSponsorships = () => {
         <Paid />
         <Barter />
         <MostApplied />
+        <Applied />
         <Update />
       </div>
     </div>

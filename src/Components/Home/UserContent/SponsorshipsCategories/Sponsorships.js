@@ -34,6 +34,7 @@ const Sponsorships = ({
   loadMore,
   loading,
   lastVisible,
+  applied,
 }) => {
   const navigate = useNavigate();
   const divRef = useRef();
@@ -44,7 +45,8 @@ const Sponsorships = ({
 
   return (
     <div ref={divRef} className="pt-5 pb-14">
-      <h1 className={styles.heading}>{type} Sponsorships</h1>
+      {type && <h1 className={styles.heading}>{type} Sponsorships</h1>}
+      {applied && <h1 className={styles.heading}>{applied}</h1>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-14">
         {sponsorships.map((sponsorship, index) => (
           <div
@@ -64,16 +66,12 @@ const Sponsorships = ({
 
             <div className="mt-2 mr-3">
               <div className={styles.typeWrapper}>
-                {type === "Latest" && (
-                  <p className={styles.type}>
-                    {!sponsorship?.barter ? "Paid" : "Barter"}
-                  </p>
-                )}
-                {type === "Latest" && (
-                  <p className="text-xs">
-                    {moment(sponsorship?.creationDate * 1000).fromNow()}
-                  </p>
-                )}
+                <p className={styles.type}>
+                  {!sponsorship?.barter ? "Paid" : "Barter"}
+                </p>
+                <p className="text-xs">
+                  {moment(sponsorship?.creationDate * 1000).fromNow()}
+                </p>
               </div>
 
               <p className={styles.title}>
@@ -103,11 +101,6 @@ const Sponsorships = ({
                       <FaTiktok className="w-3" />
                     )}
                   </div>
-                  {type !== "Latest" && (
-                    <p className="text-xs">
-                      {moment(sponsorship?.creationDate * 1000).fromNow()}
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
@@ -120,7 +113,8 @@ const Sponsorships = ({
             <Spinner2 />
           </div>
         ) : (
-          lastVisible && (
+          lastVisible &&
+          sponsorships?.length > 9 && (
             <button
               onClick={loadMore}
               className="bg-black text-white px-7 font-medium hover:scale-105 duration-150 py-3 rounded-full"

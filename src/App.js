@@ -38,6 +38,7 @@ import Keywords from "./Pages/Keywords";
 import AllVideos from "./Components/Home/UserContent/AllVideos";
 import Notification from "./Components/Home/UserContent/Notification";
 import MostApplied from "./Components/Home/UserContent/SponsorshipsCategories/MostApplied";
+import Applied from "./Components/Home/UserContent/SponsorshipsCategories/Applied";
 
 function App() {
   const { authLoading, user } = useStore();
@@ -57,6 +58,7 @@ function App() {
     "allvideos",
     "notification",
     "mostapplied",
+    "applied",
   ];
   const footerPaths = user?.userId
     ? [
@@ -72,6 +74,7 @@ function App() {
         "allvideos",
         "notification",
         "mostapplied",
+        "applied",
       ]
     : ["app-ads.txt", "keywords", "sponsorships"];
   return (
@@ -92,6 +95,7 @@ function App() {
             <Route path="paid" element={<Paid />} />
             <Route path="barter" element={<Barter />} />
             <Route path="mostapplied" element={<MostApplied />} />
+            <Route path="applied" element={<Applied />} />
             <Route path="popularinfluencers" element={<PopularAll />} />
             <Route path="allvideos" element={<AllVideos />} />
             <Route path="notification" element={<Notification />} />

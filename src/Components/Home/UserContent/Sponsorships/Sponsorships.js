@@ -30,7 +30,13 @@ const styles = {
 };
 /* Styles End */
 
-const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
+const Sponsorships = ({
+  sponsorships,
+  type,
+  activeIndex,
+  setActiveIndex,
+  applied,
+}) => {
   const navigate = useNavigate();
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
@@ -48,7 +54,8 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className={styles.heading}>{type} Sponsorships</h1>
+        {type && <h1 className={styles.heading}>{type} Sponsorships</h1>}
+        {applied && <h1 className={styles.heading}>{applied}</h1>}
         <span
           onClick={() => {
             const lower = type?.toLowerCase();
@@ -56,6 +63,8 @@ const Sponsorships = ({ sponsorships, type, activeIndex, setActiveIndex }) => {
               navigate("/mycampaigns");
             } else if (lower === "most applied") {
               navigate("/mostapplied");
+            } else if (applied) {
+              navigate("/applied");
             } else {
               navigate(`/${lower}`);
             }
