@@ -9,7 +9,6 @@ import {
   getDocs,
   orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 
 const CreatedByMe = () => {
@@ -41,21 +40,6 @@ const CreatedByMe = () => {
   };
 
   useEffect(() => {
-    if (mySponsorships?.data?.length && mySponsorships?.lastVisible) {
-      const q = query(
-        colRef,
-        where("userId", "==", user?.userId),
-        orderBy("creationDate", "desc"),
-        startAfter(mySponsorships.lastVisible),
-        limit(10)
-      );
-      if (myIndex + 6 >= mySponsorships?.data?.length) {
-        getMy(q);
-      }
-    }
-  }, [myIndex]);
-
-  useEffect(() => {
     if (!mySponsorships?.data?.length) {
       const q = query(
         colRef,
@@ -66,11 +50,12 @@ const CreatedByMe = () => {
       getMy(q);
     }
   }, []);
-  if (mySponsorships?.data?.length === 0) return;
+
+  if (mySponsorships?.data?.length === 0) return null;
 
   return (
     <Sponsorships
-      sponsorships={mySponsorships?.data}
+      sponsorships={mySponsorships?.data?.slice(0, 10)}
       type={"My"}
       activeIndex={myIndex}
       setActiveIndex={setMyIndex}

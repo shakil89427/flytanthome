@@ -57,7 +57,7 @@ const Youtube = () => {
         <h1 className={styles.heading}>Videos</h1>
         <span
           onClick={() => navigate(`/allvideos`)}
-          className="cursor-pointer font-medium"
+          className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all
         </span>
@@ -85,7 +85,7 @@ const Youtube = () => {
             },
           }}
         >
-          {flytantYoutube?.videos?.map((video, index) => (
+          {flytantYoutube?.videos?.slice(0, 10)?.map((video, index) => (
             <SwiperSlide key={index} className="rounded-lg overflow-hidden">
               <div
                 onClick={() =>

@@ -69,7 +69,7 @@ const Sponsorships = ({
               navigate(`/${lower}`);
             }
           }}
-          className="cursor-pointer font-medium"
+          className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all
         </span>
@@ -80,7 +80,10 @@ const Sponsorships = ({
           navigation={{
             nextEl: nextRef?.current,
           }}
-          onSlideChange={(val) => setActiveIndex(val?.realIndex)}
+          onSlideChange={(val) => {
+            setActiveIndex(val?.realIndex);
+            console.log(val?.realIndex);
+          }}
           initialSlide={activeIndex}
           onSwiper={setSwiper}
           slidesPerView={1.3}

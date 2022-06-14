@@ -93,7 +93,7 @@ const Drawer = () => {
           onClick={() => setRoutes(false)}
           className="flex items-center gap-8 pl-2 mb-10 cursor-pointer h-8 font-semibold"
         >
-          <img className="w-6" src={Back} alt="" />
+          <img className="w-7 md:w-8" src={Back} alt="" />
           <p className="hidden lg:block ">Settings</p>
         </div>
       )}
@@ -108,13 +108,13 @@ const Drawer = () => {
               <span className="absolute w-1 bg-black h-full top-0 left-0" />
             )}
             <img
-              className="w-6"
+              className="w-7 md:w-8"
               src={selected === path.path ? path?.img2 : path.img1}
               alt=""
             />
             <span
               className={`hidden lg:block text-lg ${
-                selected === path.path ? "font-semibold" : "font-normal"
+                selected === path.path ? "font-bold" : "font-medium"
               }`}
             >
               {path.title}

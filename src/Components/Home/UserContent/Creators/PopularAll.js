@@ -100,38 +100,28 @@ const PopularAll = () => {
           <div
             onClick={() => navigate(`/profile/${item?.id}`)}
             key={index}
-            className="cursor-pointer border rounded-xl overflow-hidden pb-5"
+            className="cursor-pointer border rounded-xl overflow-hidden"
           >
-            <div
-              style={{
-                backgroundImage: `url(https://blog.prepscholar.com/hubfs/feature_rainbow_seven_colors.png)`,
-              }}
-              className="bg-cover bg-center bg-no-repeat aspect-[4/2]"
-            />
-            <div className="px-5 flex items-center justify-between -translate-y-1/2">
+            <div>
               <div
                 style={{
                   backgroundImage: `url(${item?.profileImageUrl})`,
                 }}
-                className="bg-cover bg-center bg-no-repeat w-[25%] aspect-square rounded-full border-2"
+                className="bg-cover bg-center bg-no-repeat aspect-[5/4]"
               />
-              <p className="flex items-center justify-center w-[20%] aspect-square bg-white rounded-full font-semibold border">
-                {item?.socialScore}
-              </p>
-            </div>
-            <div className="px-5">
-              <p className="text-lg font-semibold">
-                {item?.name.length > 15
-                  ? item?.name.slice(0, 15) + "..."
-                  : item?.name}
-              </p>
-              <p className="text-gray-500">@{item?.username}</p>
-              <p className="mt-5 text-sm text-gray-700">
-                {item?.bio?.length > 50
-                  ? item?.bio?.slice(0, 50) + "..."
-                  : item?.bio}
-              </p>
-              <p></p>
+              <div className="pr-5 flex items-center justify-end -translate-y-1/2">
+                <p className="flex items-center justify-center w-[20%] aspect-square bg-white rounded-full font-semibold border">
+                  {item?.socialScore}
+                </p>
+              </div>
+              <div className="px-5 -translate-y-1/2">
+                <p className="text-lg font-semibold">
+                  {item?.name.length > 15
+                    ? item?.name.slice(0, 15) + "..."
+                    : item?.name}
+                </p>
+                <p className="text-gray-500">@{item?.username}</p>
+              </div>
             </div>
           </div>
         ))}

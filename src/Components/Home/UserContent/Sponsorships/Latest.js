@@ -9,7 +9,6 @@ import {
   getDocs,
   orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 
 const Latest = () => {
@@ -45,21 +44,6 @@ const Latest = () => {
   };
 
   useEffect(() => {
-    if (latestSponsorships?.data?.length && latestSponsorships?.lastVisible) {
-      const q = query(
-        colRef,
-        where("isApproved", "==", true),
-        orderBy("creationDate", "desc"),
-        startAfter(latestSponsorships.lastVisible),
-        limit(10)
-      );
-      if (latestIndex + 6 >= latestSponsorships?.data?.length) {
-        getLaitest(q);
-      }
-    }
-  }, [latestIndex]);
-
-  useEffect(() => {
     if (!latestSponsorships?.data?.length) {
       const q = query(
         colRef,
@@ -73,7 +57,7 @@ const Latest = () => {
 
   return (
     <Sponsorships
-      sponsorships={latestSponsorships?.data}
+      sponsorships={latestSponsorships?.data?.slice(0, 10)}
       type={"Latest"}
       activeIndex={latestIndex}
       setActiveIndex={setLatestIndex}

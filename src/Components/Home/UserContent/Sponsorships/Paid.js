@@ -9,7 +9,6 @@ import {
   getDocs,
   orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 
 const Paid = () => {
@@ -41,22 +40,6 @@ const Paid = () => {
   };
 
   useEffect(() => {
-    if (paidSponsorships?.data?.length && paidSponsorships?.lastVisible) {
-      const q = query(
-        colRef,
-        where("isApproved", "==", true),
-        where("barter", "==", false),
-        orderBy("creationDate", "desc"),
-        startAfter(paidSponsorships.lastVisible),
-        limit(10)
-      );
-      if (paidIndex + 6 >= paidSponsorships?.data?.length) {
-        getPaid(q);
-      }
-    }
-  }, [paidIndex]);
-
-  useEffect(() => {
     if (!paidSponsorships?.data?.length) {
       const q = query(
         colRef,
@@ -71,7 +54,7 @@ const Paid = () => {
 
   return (
     <Sponsorships
-      sponsorships={paidSponsorships?.data}
+      sponsorships={paidSponsorships?.data?.slice(0, 10)}
       type={"Paid"}
       activeIndex={paidIndex}
       setActiveIndex={setPaidIndex}

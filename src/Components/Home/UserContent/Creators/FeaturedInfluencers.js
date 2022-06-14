@@ -13,7 +13,6 @@ import {
   getDocs,
   orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -77,21 +76,6 @@ const FeaturedInfluencers = () => {
   };
 
   useEffect(() => {
-    if (featuredInfluencers?.data?.length) {
-      const q = query(
-        colRef,
-        where("shouldShowTrending", "==", true),
-        orderBy("socialScore", "desc"),
-        startAfter(featuredInfluencers?.lastVisible),
-        limit(20)
-      );
-      if (featuredIndex + 6 >= featuredInfluencers?.data?.length) {
-        getFeatured(q);
-      }
-    }
-  }, [featuredIndex]);
-
-  useEffect(() => {
     if (!featuredInfluencers?.data?.length) {
       const q = query(
         colRef,
@@ -144,7 +128,7 @@ const FeaturedInfluencers = () => {
               key={index}
               className="cursor-pointer rounded-xl border overflow-hidden"
             >
-              <div className="pb-3">
+              <div>
                 <div
                   style={{
                     backgroundImage: `url(${item?.profileImageUrl})`,

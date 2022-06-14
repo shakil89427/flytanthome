@@ -14,7 +14,6 @@ import {
   getDocs,
   orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -78,21 +77,6 @@ const PopularInfluencers = () => {
   };
 
   useEffect(() => {
-    if (popularInfluencers?.data?.length && popularInfluencers?.lastVisible) {
-      const q = query(
-        colRef,
-        where("shouldShowInfluencer", "==", true),
-        orderBy("socialScore", "desc"),
-        startAfter(popularInfluencers?.lastVisible),
-        limit(20)
-      );
-      if (popularIndex + 6 >= popularInfluencers?.data?.length) {
-        getPopular(q);
-      }
-    }
-  }, [popularIndex]);
-
-  useEffect(() => {
     if (!popularInfluencers?.data?.length) {
       const q = query(
         colRef,
@@ -119,7 +103,7 @@ const PopularInfluencers = () => {
         <h1 className={styles.heading}>Popular Influencers</h1>
         <span
           onClick={() => navigate("/popularinfluencers")}
-          className="cursor-pointer font-medium"
+          className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all
         </span>
@@ -148,13 +132,13 @@ const PopularInfluencers = () => {
           }}
           className="grid grid-cols-1"
         >
-          {popularInfluencers?.data?.map((item, index) => (
+          {popularInfluencers?.data?.slice(0, 10)?.map((item, index) => (
             <SwiperSlide
               onClick={() => navigate(`/profile/${item?.id}`)}
               key={index}
               className="cursor-pointer border rounded-xl overflow-hidden"
             >
-              <div className="pb-3">
+              <div>
                 <div
                   style={{
                     backgroundImage: `url(${item?.profileImageUrl})`,

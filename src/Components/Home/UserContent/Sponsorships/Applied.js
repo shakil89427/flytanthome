@@ -8,7 +8,6 @@ import {
   where,
   getDocs,
   limit,
-  startAfter,
 } from "firebase/firestore";
 
 const Applied = () => {
@@ -45,21 +44,10 @@ const Applied = () => {
   };
 
   useEffect(() => {
-    if (appliedSponsorships?.data?.length && appliedSponsorships?.lastVisible) {
-      const q = query(
-        colRef,
-        where("campaignId", "in", user?.appliedCampaigns),
-        startAfter(appliedSponsorships?.lastVisible),
-        limit(10)
-      );
-      if (appliedIndex + 6 >= appliedSponsorships?.data?.length) {
-        getBarter(q);
-      }
-    }
-  }, [appliedIndex]);
-
-  useEffect(() => {
-    if (!appliedSponsorships?.data?.length) {
+    if (
+      !appliedSponsorships?.data?.length &&
+      user?.appliedCampaigns?.length > 0
+    ) {
       const q = query(
         colRef,
         where("campaignId", "in", user?.appliedCampaigns),
@@ -68,10 +56,11 @@ const Applied = () => {
       getBarter(q);
     }
   }, []);
+  if (appliedSponsorships?.data?.length === 0) return null;
 
   return (
     <Sponsorships
-      sponsorships={appliedSponsorships?.data}
+      sponsorships={appliedSponsorships?.data?.slice(0, 10)}
       applied={"Applied By You"}
       activeIndex={appliedIndex}
       setActiveIndex={setAppliedIndex}

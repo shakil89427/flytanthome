@@ -9,7 +9,6 @@ import {
   getDocs,
   orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 
 const MostApplied = () => {
@@ -45,24 +44,6 @@ const MostApplied = () => {
   };
 
   useEffect(() => {
-    if (
-      mostAppliedSponsorships?.data?.length &&
-      mostAppliedSponsorships?.lastVisible
-    ) {
-      const q = query(
-        colRef,
-        where("isApproved", "==", true),
-        orderBy("applied", "desc"),
-        startAfter(mostAppliedSponsorships.lastVisible),
-        limit(10)
-      );
-      if (mostIndex + 6 >= mostAppliedSponsorships?.data?.length) {
-        getMost(q);
-      }
-    }
-  }, [mostIndex]);
-
-  useEffect(() => {
     if (!mostAppliedSponsorships?.data?.length) {
       const q = query(
         colRef,
@@ -76,7 +57,7 @@ const MostApplied = () => {
 
   return (
     <Sponsorships
-      sponsorships={mostAppliedSponsorships?.data}
+      sponsorships={mostAppliedSponsorships?.data?.slice(0, 10)}
       type={"Most Applied"}
       activeIndex={mostIndex}
       setActiveIndex={setMostIndex}

@@ -70,7 +70,7 @@ const Stories = () => {
         <h1 className={styles.heading}>Top Stories</h1>
         <span
           onClick={() => navigate(`/blogs`)}
-          className="cursor-pointer font-medium"
+          className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all
         </span>
@@ -99,7 +99,7 @@ const Stories = () => {
           }}
           className="grid grid-cols-1"
         >
-          {blogsData?.all?.map((item, index) => (
+          {blogsData?.all?.slice(0, 10)?.map((item, index) => (
             <SwiperSlide
               onClick={() => navigate(`/blogdetails/${item?.blogId}`)}
               key={index}

@@ -9,7 +9,6 @@ import {
   getDocs,
   orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 
 const Barter = () => {
@@ -45,22 +44,6 @@ const Barter = () => {
   };
 
   useEffect(() => {
-    if (barterSponsorships?.data?.length && barterSponsorships?.lastVisible) {
-      const q = query(
-        colRef,
-        where("isApproved", "==", true),
-        where("barter", "==", true),
-        orderBy("creationDate", "desc"),
-        startAfter(barterSponsorships?.lastVisible),
-        limit(10)
-      );
-      if (barterIndex + 6 >= barterSponsorships?.data?.length) {
-        getBarter(q);
-      }
-    }
-  }, [barterIndex]);
-
-  useEffect(() => {
     if (!barterSponsorships?.data?.length) {
       const q = query(
         colRef,
@@ -75,7 +58,7 @@ const Barter = () => {
 
   return (
     <Sponsorships
-      sponsorships={barterSponsorships?.data}
+      sponsorships={barterSponsorships?.data?.slice(0, 10)}
       type={"Barter"}
       activeIndex={barterIndex}
       setActiveIndex={setBarterIndex}
