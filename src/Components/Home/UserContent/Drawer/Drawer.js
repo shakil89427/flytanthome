@@ -31,8 +31,8 @@ const Drawer = () => {
       img2: SponsorshipsB,
     },
     {
-      title: "Notification",
-      path: "/notification",
+      title: "Notifications",
+      path: "/notifications",
       img1: Notification,
       img2: NotificationB,
     },

@@ -39,6 +39,7 @@ import AllVideos from "./Components/Home/UserContent/AllVideos";
 import Notification from "./Components/Home/UserContent/Notification";
 import MostApplied from "./Components/Home/UserContent/SponsorshipsCategories/MostApplied";
 import Applied from "./Components/Home/UserContent/SponsorshipsCategories/Applied";
+import Error from "./Pages/Error";
 
 function App() {
   const { authLoading } = useStore();
@@ -56,7 +57,7 @@ function App() {
     "popularinfluencers",
     "sponsorshipdetails",
     "allvideos",
-    "notification",
+    "notifications",
     "mostapplied",
     "applied",
   ];
@@ -82,7 +83,7 @@ function App() {
             <Route path="applied" element={<Applied />} />
             <Route path="popularinfluencers" element={<PopularAll />} />
             <Route path="allvideos" element={<AllVideos />} />
-            <Route path="notification" element={<Notification />} />
+            <Route path="notifications" element={<Notification />} />
             <Route
               path="sponsorshipdetails/:id"
               element={<SponsorshipDetails />}
@@ -176,6 +177,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<Error />} />
         </Routes>
       </div>
       <div
