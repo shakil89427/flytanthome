@@ -45,6 +45,21 @@ const Index = () => {
                   {moment.unix(course?.creationDate).format("MMM,DD,yyyy")}
                 </p>
               </div>
+              <div className="lg:hidden mb-10">
+                <div
+                  style={{ backgroundImage: `url(${course?.featureGraphic})` }}
+                  className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
+                >
+                  <img
+                    className="w-16 cursor-pointer hover:scale-105 duration-150"
+                    src={antPlay2}
+                    alt=""
+                  />
+                </div>
+                <button className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium">
+                  Get Started
+                </button>
+              </div>
               <p className="text-sm mb-10">{course?.longDescription}</p>
               <div className="text-sm flex items-center gap-5">
                 <div className="flex items-center gap-2">
@@ -61,7 +76,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="hidden lg:block">
               <div
                 style={{ backgroundImage: `url(${course?.featureGraphic})` }}
                 className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
