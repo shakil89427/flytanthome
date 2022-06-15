@@ -67,13 +67,6 @@ const All = () => {
                     }}
                     className="bg-cover bg-center bg-no-repeat aspect-[6/4]"
                   />
-                  <p className="absolute text-white bottom-1 right-1 text-sm bg-black px-2 rounded-md">
-                    {video?.contentDetails?.duration
-                      .replace("PT", "")
-                      .replace("H", ":")
-                      .replace("M", ":")
-                      .replace("S", "")}
-                  </p>
                 </div>
               </div>
             ))}

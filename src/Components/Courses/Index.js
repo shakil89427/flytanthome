@@ -23,7 +23,7 @@ const Index = () => {
         <div key={course?.courseId}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <p className="text-lg xl:text-xl font-semibold">
+              <p className="text-lg lg:text-xl xl:text-2xl font-semibold">
                 {course?.title}
               </p>
               <div className="flex items-end justify-between my-10">

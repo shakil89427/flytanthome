@@ -10,10 +10,10 @@ const Banner = () => {
   return (
     <div className="bg-[#ecebebf8] p-5 lg:p-10 rounded-lg">
       <div className="flex flex-col items-start lg:flex-row lg:items-center justify-center gap-y-10">
-        <div className="w-full lg:w-7/12 text-black">
+        <div className="w-full lg:w-6/12 text-black">
           <h1
             style={{ lineHeight: "120%" }}
-            className="text-3xl lg:text-[44px] font-bold mb-3"
+            className="text-3xl lg:text-[40px] font-bold mb-3"
           >
             Connecting <br /> Brands & Influencers
           </h1>
@@ -47,7 +47,7 @@ const Banner = () => {
             </a>
           </div>
         </div>
-        <div className="w-full lg:w-5/12 ">
+        <div className="w-full lg:w-6/12 ">
           <div className="rounded-3xl relative text-white aspect-[12/8]">
             {play ? (
               <iframe
@@ -71,7 +71,7 @@ const Banner = () => {
             ) : (
               <BsPlayCircle
                 onClick={() => setPlay(true)}
-                className="absolute bottom-8 left-8 text-5xl lg:text-6xl cursor-pointer"
+                className="absolute bottom-8 left-8 text-5xl cursor-pointer"
               />
             )}
           </div>
