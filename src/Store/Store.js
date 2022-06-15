@@ -20,6 +20,7 @@ const Store = () => {
   const [notify, setNotify] = useState(false);
   const [allPlans, setAllPlans] = useState([]);
   const [plans, setPlans] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [myCampaigns, setMyCampaigns] = useState([]);
   const [featuredInfluencers, setFeaturedInfluencers] = useState({
     data: [],
@@ -169,6 +170,8 @@ const Store = () => {
     setAppliedIndex,
     routes,
     setRoutes,
+    courses,
+    setCourses,
   };
 };
 

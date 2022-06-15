@@ -17,6 +17,8 @@ import SponsorshipsB from "../../../../Assets/userHome/drawerItems/SponsorshipsB
 import Subscription from "../../../../Assets/userHome/drawerItems/Subscription.png";
 import Subscriptions from "../../../../Assets/userHome/drawerItems/SubscriptionB.png";
 import Back from "../../../../Assets/userHome/drawerItems/back.png";
+import Courses from "../../../../Assets/userHome/drawerItems/Courses.png";
+import CoursesB from "../../../../Assets/userHome/drawerItems/CoursesB.png";
 import MyCampaigns from "../../../../Assets/userHome/drawerItems/MyCampaigns.png";
 import useStore from "../../../../Store/useStore";
 
@@ -35,6 +37,12 @@ const Drawer = () => {
       path: "/notifications",
       img1: Notification,
       img2: NotificationB,
+    },
+    {
+      title: "Courses",
+      path: "/courses",
+      img1: Courses,
+      img2: CoursesB,
     },
     { title: "Blogs", path: "/blogs", img1: Blogs, img2: BlogsB },
     { title: "Settings", path: "settings", img1: Settings, img2: SettingsB },

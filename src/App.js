@@ -40,9 +40,11 @@ import Notification from "./Components/Home/UserContent/Notification";
 import MostApplied from "./Components/Home/UserContent/SponsorshipsCategories/MostApplied";
 import Applied from "./Components/Home/UserContent/SponsorshipsCategories/Applied";
 import Error from "./Pages/Error";
+import Courses from "./Pages/Courses";
+import Index from "./Components/Courses/Index";
 
 function App() {
-  const { authLoading } = useStore();
+  const { user, authLoading } = useStore();
   const { pathname } = useLocation();
   const navPaths = [
     "/",
@@ -60,8 +62,10 @@ function App() {
     "notifications",
     "mostapplied",
     "applied",
+    user?.userId && "courses",
   ];
   const footerPaths = ["/app-ads.txt", "/keywords"];
+
   return (
     <>
       <ActivityCheck />
@@ -84,12 +88,23 @@ function App() {
             <Route path="popularinfluencers" element={<PopularAll />} />
             <Route path="allvideos" element={<AllVideos />} />
             <Route path="notifications" element={<Notification />} />
+            {user?.userId && (
+              <Route path="courses" element={<Courses />}>
+                <Route index element={<Index />} />
+              </Route>
+            )}
             <Route
               path="sponsorshipdetails/:id"
               element={<SponsorshipDetails />}
             />
           </Route>
           <Route path="/influencers" element={<Influencers />} />
+          {!user?.userId && (
+            <Route path="courses" element={<Courses />}>
+              <Route index element={<Index />} />
+            </Route>
+          )}
+
           <Route path="/brands" element={<Brands />} />
           <Route path="/onboard" element={<OnBoard />} />
           <Route path="/about" element={<About />} />
