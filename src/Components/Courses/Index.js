@@ -5,6 +5,7 @@ import duration from "../../Assets/duration.png";
 import ok from "../../Assets/ok.png";
 import moment from "moment";
 import qArrow from "../../Assets/qArrow.png";
+import antPlay2 from "../../Assets/antPlay2.png";
 
 const Index = () => {
   const { courses } = useStore();
@@ -33,7 +34,7 @@ const Index = () => {
                     }}
                     className="bg-cover bg-center bg-no-repeat rounded-full w-[35px] h-[35px]"
                   />
-                  <div className="">
+                  <div>
                     <p className="text-xs text-gray-500">Created by</p>
                     <p className="font-semibold">
                       {course?.createdBy?.username}
@@ -63,14 +64,20 @@ const Index = () => {
             <div>
               <div
                 style={{ backgroundImage: `url(${course?.featureGraphic})` }}
-                className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg"
-              ></div>
+                className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
+              >
+                <img
+                  className="w-16 cursor-pointer hover:scale-105 duration-150"
+                  src={antPlay2}
+                  alt=""
+                />
+              </div>
               <button className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium">
                 Get Started
               </button>
             </div>
           </div>
-          <div className="mt-10">
+          <div className="mt-20">
             <p className="text-lg lg:text-xl">
               <span className="font-semibold">What</span> You'll learn
             </p>
@@ -83,7 +90,7 @@ const Index = () => {
               ))}
             </div>
           </div>
-          <div className="mt-10">
+          <div className="mt-20">
             <p className="text-lg lg:text-xl">
               <span className="font-semibold">Course</span> FAQs
             </p>
@@ -119,7 +126,7 @@ const Index = () => {
               ))}
             </div>
           </div>
-          <div className="mt-20 p-5 lg:p-14 shadow-xl rounded-lg border grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-10 items-center">
+          <div className="mt-20 p-5 lg:p-14 shadow-xl border rounded-lg grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-10 items-center">
             <div>
               <p className="text-lg lg:text-xl font-semibold mb-2">
                 Still Confuse ?
