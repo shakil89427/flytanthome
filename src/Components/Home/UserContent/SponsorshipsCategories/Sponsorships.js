@@ -13,7 +13,7 @@ import Spinner2 from "../../../Spinner/Spinner2";
 
 /* Styles Start */
 const styles = {
-  heading: "font-semibold text-xl md:text-2xl mb-5",
+  heading: "font-semibold text-lg md:text-xl xl:text-2xl mb-5",
   applied:
     "bg-[#F5B63A] text-white absolute top-4 right-0 px-3 py-1 rounded-tl-full rounded-bl-full shadow-xl",
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",

@@ -36,7 +36,7 @@ const Index = () => {
                   />
                   <div>
                     <p className="text-xs text-gray-500">Created by</p>
-                    <p className="font-semibold">
+                    <p className="font-semibold text-lg">
                       {course?.createdBy?.username}
                     </p>
                   </div>
@@ -60,8 +60,8 @@ const Index = () => {
                   Get Started
                 </button>
               </div>
-              <p className="text-sm mb-10">{course?.longDescription}</p>
-              <div className="text-sm flex items-center gap-5">
+              <p className="mb-10">{course?.longDescription}</p>
+              <div className="flex items-center gap-5">
                 <div className="flex items-center gap-2">
                   <img className="w-5" src={views} alt="" />
                   <p className="text-gray-500 ">{course?.totalViews} Viewers</p>
@@ -93,7 +93,7 @@ const Index = () => {
             </div>
           </div>
           <div className="mt-20">
-            <p className="text-lg lg:text-xl">
+            <p className="text-lg lg:text-xl xl:text-2xl">
               <span className="font-semibold">What</span> You'll learn
             </p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10 text-gray-600">
@@ -106,7 +106,7 @@ const Index = () => {
             </div>
           </div>
           <div className="mt-20">
-            <p className="text-lg lg:text-xl">
+            <p className="text-lg lg:text-xl xl:text-2xl">
               <span className="font-semibold">Course</span> FAQs
             </p>
             <div className="grid grid-cols-1 gap-7 mt-10">
@@ -143,7 +143,7 @@ const Index = () => {
           </div>
           <div className="mt-20 p-5 lg:p-14 shadow-xl border rounded-lg grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-10 items-center">
             <div>
-              <p className="text-lg lg:text-xl font-semibold mb-2">
+              <p className="text-lg lg:text-xl xl:text-2xl font-semibold mb-2">
                 Still Confuse ?
               </p>
               <p className="text-sm">

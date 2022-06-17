@@ -10,7 +10,7 @@ import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import moment from "moment";
 /* Styles Start */
 const styles = {
-  heading: "font-semibold text-xl md:text-2xl",
+  heading: "font-semibold text-lg md:text-xl xl:text-2xl",
   prev: "hidden md:block absolute bg-white top-[25%] -left-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tr-3xl rounded-br-3xl cursor-pointer select-none",
   next: "hidden md:block absolute bg-white top-[25%] -right-3 z-10 w-14 px-1 text-5xl shadow-xl rounded-tl-3xl rounded-bl-3xl cursor-pointer select-none",
 };
