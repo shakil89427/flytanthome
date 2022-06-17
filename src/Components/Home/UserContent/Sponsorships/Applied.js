@@ -9,6 +9,7 @@ import {
   getDocs,
   limit,
 } from "firebase/firestore";
+import Spinner from "../../../Spinner/Spinner";
 
 const Applied = () => {
   const {
@@ -18,13 +19,11 @@ const Applied = () => {
     appliedIndex,
     setAppliedIndex,
   } = useStore();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
 
   const getBarter = async (q) => {
-    if (loading) return;
-    setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
@@ -54,8 +53,14 @@ const Applied = () => {
         limit(10)
       );
       getBarter(q);
+    } else {
+      setLoading(false);
     }
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
   if (appliedSponsorships?.data?.length === 0) return null;
 
   return (

@@ -10,6 +10,7 @@ import {
   orderBy,
   limit,
 } from "firebase/firestore";
+import Spinner from "../../../Spinner/Spinner";
 
 const Barter = () => {
   const {
@@ -18,13 +19,11 @@ const Barter = () => {
     barterIndex,
     setBarterIndex,
   } = useStore();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
 
   const getBarter = async (q) => {
-    if (loading) return;
-    setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
@@ -53,8 +52,15 @@ const Barter = () => {
         limit(10)
       );
       getBarter(q);
+    } else {
+      setLoading(false);
     }
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
+  if (barterSponsorships?.data?.length === 0) return null;
 
   return (
     <Sponsorships

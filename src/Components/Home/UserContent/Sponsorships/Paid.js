@@ -10,17 +10,16 @@ import {
   orderBy,
   limit,
 } from "firebase/firestore";
+import Spinner from "../../../Spinner/Spinner";
 
 const Paid = () => {
   const { paidSponsorships, setPaidSponsorships, paidIndex, setPaidIndex } =
     useStore();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
 
   const getPaid = async (q) => {
-    if (loading) return;
-    setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
@@ -49,8 +48,15 @@ const Paid = () => {
         limit(10)
       );
       getPaid(q);
+    } else {
+      setLoading(false);
     }
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
+  if (paidSponsorships?.data?.length === 0) return null;
 
   return (
     <Sponsorships

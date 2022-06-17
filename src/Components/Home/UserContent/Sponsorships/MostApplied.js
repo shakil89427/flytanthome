@@ -10,6 +10,7 @@ import {
   orderBy,
   limit,
 } from "firebase/firestore";
+import Spinner from "../../../Spinner/Spinner";
 
 const MostApplied = () => {
   const {
@@ -18,13 +19,11 @@ const MostApplied = () => {
     mostIndex,
     setMostIndex,
   } = useStore();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const colRef = collection(db, "sponsorship");
 
   const getMost = async (q) => {
-    if (loading) return;
-    setLoading(true);
     try {
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
@@ -52,8 +51,15 @@ const MostApplied = () => {
         limit(10)
       );
       getMost(q);
+    } else {
+      setLoading(false);
     }
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
+  if (mostAppliedSponsorships?.data?.length === 0) return null;
 
   return (
     <Sponsorships
