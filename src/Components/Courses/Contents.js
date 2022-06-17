@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Buy from "./Buy";
 
 const Contents = () => {
-  const { courses } = useStore();
+  const { user, courses } = useStore();
   const [course, setCourse] = useState({});
   const [selectedSection, setSelectedScetion] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState({});
@@ -22,7 +22,19 @@ const Contents = () => {
   useEffect(() => {
     const matched = courses?.find((item) => item?.courseId === id);
     if (matched?.title) {
-      setCourse(matched);
+      let priceData = {};
+      if (user?.countryCode === "IN") {
+        priceData.priceNow = matched?.inPrice;
+        priceData.pricePrev = matched?.inStrikePrice;
+        priceData.currency = "INR";
+        priceData.symbol = "₹";
+      } else {
+        priceData.priceNow = matched?.usPrice;
+        priceData.pricePrev = matched?.usStrikePrice;
+        priceData.currency = "USD";
+        priceData.symbol = "$";
+      }
+      setCourse({ ...matched, priceData });
       setSelectedVideo(matched?.content[0]);
     } else {
       navigate("/courses");
