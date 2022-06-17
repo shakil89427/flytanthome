@@ -154,9 +154,14 @@ const Index = () => {
               </p>
             </div>
             <div className="flex items-center justify-center">
-              <button className="bg-black text-white px-10 py-3 rounded-md font-medium">
+              <a
+                href="mailto:courses@flytant.com"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-black text-white px-10 py-3 rounded-md font-medium"
+              >
                 Write us
-              </button>
+              </a>
             </div>
           </div>
         </div>
