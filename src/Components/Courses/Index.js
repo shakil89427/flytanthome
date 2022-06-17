@@ -6,10 +6,12 @@ import ok from "../../Assets/ok.png";
 import moment from "moment";
 import qArrow from "../../Assets/qArrow.png";
 import antPlay2 from "../../Assets/antPlay2.png";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const { courses } = useStore();
+  const { user, setShowLogin, courses } = useStore();
   const [selected, setSelected] = useState(false);
+  const navigate = useNavigate();
   const divRef = useRef();
 
   useEffect(() => {
@@ -56,7 +58,14 @@ const Index = () => {
                     alt=""
                   />
                 </div>
-                <button className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium">
+                <button
+                  onClick={() =>
+                    user?.userId
+                      ? navigate(`/courses/contents/${course?.courseId}`)
+                      : setShowLogin(true)
+                  }
+                  className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium"
+                >
                   Get Started
                 </button>
               </div>
@@ -87,7 +96,14 @@ const Index = () => {
                   alt=""
                 />
               </div>
-              <button className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium">
+              <button
+                onClick={() =>
+                  user?.userId
+                    ? navigate(`/courses/contents/${course?.courseId}`)
+                    : setShowLogin(true)
+                }
+                className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium"
+              >
                 Get Started
               </button>
             </div>

@@ -42,6 +42,7 @@ import Applied from "./Components/Home/UserContent/SponsorshipsCategories/Applie
 import Error from "./Pages/Error";
 import Courses from "./Pages/Courses";
 import Index from "./Components/Courses/Index";
+import Contents from "./Components/Courses/Contents";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -91,6 +92,7 @@ function App() {
             {user?.userId && (
               <Route path="courses" element={<Courses />}>
                 <Route index element={<Index />} />
+                <Route path="contents/:id" element={<Contents />} />
               </Route>
             )}
             <Route
@@ -102,6 +104,14 @@ function App() {
           {!user?.userId && (
             <Route path="courses" element={<Courses />}>
               <Route index element={<Index />} />
+              <Route
+                path="contents/:id"
+                element={
+                  <PrivateRoute>
+                    <Contents />
+                  </PrivateRoute>
+                }
+              />
             </Route>
           )}
 
