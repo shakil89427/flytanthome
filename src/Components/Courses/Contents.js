@@ -7,12 +7,14 @@ import moment from "moment";
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
 import { FiChevronRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import Buy from "./Buy";
 
 const Contents = () => {
   const { courses } = useStore();
   const [course, setCourse] = useState({});
   const [selectedSection, setSelectedScetion] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState({});
+  const [showBuy, setShowBuy] = useState(false);
   const { id } = useParams();
   const divRef = useRef();
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ const Contents = () => {
 
   return (
     <div ref={divRef} className="pt-5 pb-14">
+      {showBuy && <Buy course={course} setShowBuy={setShowBuy} />}
       <div className="flex items-start gap-5">
         <div>
           <div
@@ -61,7 +64,10 @@ const Contents = () => {
             <p className="text-white text-center lg:text-lg">
               For Your plan only preview is available
             </p>
-            <button className="block mx-auto bg-white px-7 py-3 mt-2 rounded-md font-medium">
+            <button
+              onClick={() => setShowBuy(true)}
+              className="block mx-auto bg-white px-7 py-3 mt-2 rounded-md font-medium"
+            >
               Unlock Course
             </button>
           </div>
