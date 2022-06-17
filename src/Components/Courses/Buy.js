@@ -52,7 +52,7 @@ const Buy = ({ course, setShowBuy }) => {
             Buy Now
           </button>
           <p className="text-center text-xs my-3">
-            <Link to="/">Terms & Conditions</Link>
+            <Link to="/terms">Terms & Conditions</Link>
           </p>
         </div>
       </div>
