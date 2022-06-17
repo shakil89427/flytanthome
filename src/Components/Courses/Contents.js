@@ -6,6 +6,7 @@ import antPlay2 from "../../Assets/antPlay2.png";
 import moment from "moment";
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
 import { FiChevronRight } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Contents = () => {
   const { courses } = useStore();
@@ -14,22 +15,15 @@ const Contents = () => {
   const [selectedVideo, setSelectedVideo] = useState({});
   const { id } = useParams();
   const divRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const matched = courses?.find((item) => item?.courseId === id);
-    if (!matched?.title) return;
-    const { sectionName, content, ...rest } = matched;
-    const merged = sectionName?.map((section) => {
-      const filtered = content?.filter(
-        (item) =>
-          section?.name?.toLowerCase() === item?.sectionName?.toLowerCase()
-      );
-      return { ...section, videos: filtered };
-    });
-    const sorted = merged?.sort((a, b) => a?.chapter - b?.chapter);
-    if (sorted?.length > 0) {
-      setSelectedVideo(sorted[0].videos[0]);
-      setCourse({ ...rest, sections: sorted });
+    if (matched?.title) {
+      setCourse(matched);
+      setSelectedVideo(matched?.content[0]);
+    } else {
+      navigate("/courses");
     }
   }, [courses, id]);
 
@@ -37,7 +31,6 @@ const Contents = () => {
     divRef.current.scrollIntoView();
     window.scroll(0, 0);
   }, [selectedVideo]);
-  console.log(selectedVideo);
 
   return (
     <div ref={divRef} className="pt-5 pb-14">
@@ -83,7 +76,7 @@ const Contents = () => {
       <p className="text-lg lg:text-xl xl:text-2xl mt-10">
         <span className="font-semibold">Course</span> Details
       </p>
-      {course?.sections?.map((item, index) => (
+      {course?.sectionName?.map((item, index) => (
         <div
           key={index}
           className={`rounded-lg relative ${
@@ -128,29 +121,33 @@ const Contents = () => {
             }`}
           >
             <div className="border-t border-gray-600 mx-4 lg:mx-10 text-sm">
-              {item?.videos?.map((video) => (
-                <div
-                  onClick={() => setSelectedVideo(video)}
-                  key={video?.videoId}
-                  className="flex items-start justify-between gap-2 lg:gap-5 my-5 cursor-pointer"
-                >
-                  <div className="flex items-start gap-2 lg:gap-5">
-                    {selectedVideo?.videoId === video?.videoId ? (
-                      <div className="w-fit">
-                        <AiFillPlayCircle className="text-[25px]" />
+              {course?.content?.map(
+                (video) =>
+                  video?.sectionName?.toLowerCase() ===
+                    item?.name?.toLowerCase() && (
+                    <div
+                      onClick={() => setSelectedVideo(video)}
+                      key={video?.videoId}
+                      className="flex items-start justify-between gap-2 lg:gap-5 my-5 cursor-pointer"
+                    >
+                      <div className="flex items-start gap-2 lg:gap-5">
+                        {selectedVideo?.videoId === video?.videoId ? (
+                          <div className="w-fit">
+                            <AiFillPlayCircle className="text-[25px]" />
+                          </div>
+                        ) : (
+                          <div className="w-fit">
+                            <AiFillPauseCircle className="text-[25px]" />
+                          </div>
+                        )}
+                        <p className="text-sm">{video?.subSectionName}</p>
                       </div>
-                    ) : (
-                      <div className="w-fit">
-                        <AiFillPauseCircle className="text-[25px]" />
-                      </div>
-                    )}
-                    <p className="text-sm">{video?.subSectionName}</p>
-                  </div>
-                  <p className="text-sm">
-                    {moment.utc(video?.duration * 1000).format("mm:ss")}
-                  </p>
-                </div>
-              ))}
+                      <p className="text-sm">
+                        {moment.utc(video?.duration * 1000).format("mm:ss")}
+                      </p>
+                    </div>
+                  )
+              )}
             </div>
           </div>
         </div>
