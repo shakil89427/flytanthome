@@ -66,7 +66,9 @@ const Index = () => {
                   }
                   className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium"
                 >
-                  Get Started
+                  {course?.courseBuyers?.includes(user?.userId)
+                    ? "Continue with Course"
+                    : "Get Started"}
                 </button>
               </div>
               <p className="mb-10">{course?.longDescription}</p>
@@ -104,7 +106,9 @@ const Index = () => {
                 }
                 className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium"
               >
-                Get Started
+                {course?.courseBuyers?.includes(user?.userId)
+                  ? "Continue with Course"
+                  : "Get Started"}
               </button>
             </div>
           </div>

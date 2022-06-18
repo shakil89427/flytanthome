@@ -8,29 +8,44 @@ import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import {
   getFirestore,
-  collection,
   updateDoc,
   arrayUnion,
+  doc,
+  collection,
+  getDocs,
 } from "firebase/firestore";
 import moment from "moment";
 
 const Buy = ({ course, setShowBuy }) => {
-  const { user, setNotify } = useStore();
+  const { user, setNotify, setCourses } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
 
   const updateOnDb = async (paymentId) => {
-    const userRef = collection(db, "users", user?.userId);
-    const courseRef = collection(db, "courses", course?.courseId);
-    await updateDoc(userRef, {
-      purchasedCourses: arrayUnion({
-        purchaseDate: moment.unix(moment()),
-        courseId: course?.courseId,
-        paymentId,
-        currency: course?.priceData?.currency,
-      }),
-    });
-    await updateDoc(courseRef, { courseBuyers: arrayUnion(user?.userId) });
+    setLoading(true);
+    try {
+      const coursesRef = collection(db, "courses");
+      const courseRef = doc(db, "courses", course?.courseId);
+      const userRef = doc(db, "users", user?.userId);
+      await updateDoc(courseRef, { courseBuyers: arrayUnion(user?.userId) });
+      await updateDoc(userRef, {
+        purchasedCourses: arrayUnion({
+          purchaseDate: moment().unix(),
+          courseId: course?.courseId,
+          paymentId,
+          currency: course?.priceData?.currency,
+        }),
+      });
+      const { docs } = await getDocs(coursesRef);
+      const valid = docs.map((doc) => doc.data());
+      setCourses(valid);
+      setLoading(false);
+      setNotify({ status: true, message: "Purchased successfully" });
+      setShowBuy(false);
+    } catch (err) {
+      setLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+    }
   };
 
   const procced = (id) => {

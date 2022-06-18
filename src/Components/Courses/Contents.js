@@ -71,7 +71,8 @@ const Contents = () => {
         }}
         className="aspect-[4/2] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center mt-10 overflow-hidden relative"
       >
-        {selectedVideo?.locked ? (
+        {selectedVideo?.locked &&
+        !course?.courseBuyers?.includes(user?.userId) ? (
           <div className="bg-[#42424275] absolute inset-0 flex flex-col items-center justify-center">
             <p className="text-white text-center lg:text-lg">
               For Your plan only preview is available
