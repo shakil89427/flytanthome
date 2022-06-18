@@ -16,6 +16,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../../Spinner/Spinner";
 
 /* Styles Start */
 const styles = {
@@ -39,7 +40,7 @@ const PopularInfluencers = () => {
     popularIndex,
     setPopularIndex,
   } = useStore();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const colRef = collection(db, "users");
 
@@ -48,8 +49,6 @@ const PopularInfluencers = () => {
   const prevRef = useRef();
 
   const getPopular = async (q) => {
-    if (loading) return;
-    setLoading(true);
     try {
       const response = await getDocs(q);
       const data = [];
@@ -85,6 +84,8 @@ const PopularInfluencers = () => {
         limit(20)
       );
       getPopular(q);
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -96,6 +97,11 @@ const PopularInfluencers = () => {
       swiper.navigation.update();
     }
   }, [swiper]);
+
+  if (loading) {
+    return <Spinner />;
+  }
+  if (popularInfluencers?.data?.length === 0) return null;
 
   return (
     <div>

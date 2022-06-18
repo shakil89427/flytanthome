@@ -8,6 +8,7 @@ import "swiper/css";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import antPlay from "../../../../Assets/antPlay.png";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../../Spinner/Spinner";
 
 /* Styles Start */
 const styles = {
@@ -25,6 +26,7 @@ const Youtube = () => {
     setFlytantIndex,
     setNotify,
   } = useStore();
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
@@ -45,12 +47,24 @@ const Youtube = () => {
         .post("https://flytant.herokuapp.com/youtubedata", {
           channelId: "UC_r46_UgBvaG2k94LDjEIWQ",
         })
-        .then((data) => setFlytantYoutube(data?.data))
-        .catch((err) =>
-          setNotify({ status: false, message: "Cannot get youtube data" })
-        );
+        .then((data) => {
+          setFlytantYoutube(data?.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setNotify({ status: false, message: "Cannot get youtube data" });
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
+  if (flytantYoutube?.videos?.length === 0) return null;
+
   return (
     <div>
       <div className="flex items-center justify-between">

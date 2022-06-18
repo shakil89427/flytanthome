@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import moment from "moment";
+import Spinner from "../../../Spinner/Spinner";
 /* Styles Start */
 const styles = {
   heading: "font-semibold text-lg md:text-xl xl:text-2xl",
@@ -30,6 +31,7 @@ const Stories = () => {
     setBlogIndex,
   } = useStore();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const getConfigs = async () => {
     try {
@@ -45,13 +47,17 @@ const Stories = () => {
       const notCarousel = all.filter((item) => !item.slider);
       setBlogsData({ all, carousel, notCarousel });
       setLoaded(notCarousel.slice(0, 5));
+      setLoading(false);
     } catch (err) {
       setNotify({ status: false, message: "Cannot get stories" });
+      setLoading(false);
     }
   };
   useEffect(() => {
     if (blogsData?.all?.length < 1) {
       getConfigs();
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -63,6 +69,11 @@ const Stories = () => {
       swiper.navigation.update();
     }
   }, [swiper]);
+
+  if (loading) {
+    return <Spinner />;
+  }
+  if (blogsData?.all?.length === 0) return null;
 
   return (
     <div>

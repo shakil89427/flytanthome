@@ -140,16 +140,18 @@ const Contents = () => {
           >
             <div className="border-t border-gray-600 mx-4 lg:mx-10 text-sm">
               {course?.content?.map(
-                (video) =>
+                (video, index) =>
                   video?.sectionName?.toLowerCase() ===
                     item?.name?.toLowerCase() && (
                     <div
-                      onClick={() => setSelectedVideo(video)}
-                      key={video?.videoId}
+                      onClick={() =>
+                        video?.videoId?.length > 5 && setSelectedVideo(video)
+                      }
+                      key={index}
                       className="flex items-start justify-between gap-2 lg:gap-5 my-5 cursor-pointer"
                     >
                       <div className="flex items-start gap-2 lg:gap-5">
-                        {selectedVideo?.videoId === video?.videoId ? (
+                        {selectedVideo?.videoId !== video?.videoId ? (
                           <div className="w-fit">
                             <AiFillPlayCircle className="text-[25px]" />
                           </div>

@@ -6,12 +6,32 @@ import { useState } from "react";
 import useStore from "../../Store/useStore";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
+import {
+  getFirestore,
+  collection,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
+import moment from "moment";
 
 const Buy = ({ course, setShowBuy }) => {
   const { user, setNotify } = useStore();
   const [loading, setLoading] = useState(false);
+  const db = getFirestore();
 
-  const updateOnDb = async () => {};
+  const updateOnDb = async (paymentId) => {
+    const userRef = collection(db, "users", user?.userId);
+    const courseRef = collection(db, "courses", course?.courseId);
+    await updateDoc(userRef, {
+      purchasedCourses: arrayUnion({
+        purchaseDate: moment.unix(moment()),
+        courseId: course?.courseId,
+        paymentId,
+        currency: course?.priceData?.currency,
+      }),
+    });
+    await updateDoc(courseRef, { courseBuyers: arrayUnion(user?.userId) });
+  };
 
   const procced = (id) => {
     const options = {
