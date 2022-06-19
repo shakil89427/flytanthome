@@ -60,8 +60,8 @@ const LargeTop = () => {
             />
             {show && (
               <>
-                <div className="fixed top-0 left-0 w-screen h-screen z-40" />
-                <div className="absolute top-full right-0 bg-gray-800 w-[220px] p-2 rounded-md z-50">
+                <div className="fixed top-0 left-0 w-screen h-screen z-[999999]" />
+                <div className="absolute top-full right-0 bg-gray-800 w-[220px] p-2 rounded-md z-[9999999]">
                   <p
                     onClick={() => navigate(`/profile/${user?.id}`)}
                     className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"

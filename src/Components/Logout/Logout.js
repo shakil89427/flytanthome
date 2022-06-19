@@ -18,9 +18,9 @@ const Logout = () => {
     <>
       <div
         onClick={() => setShowLogout(false)}
-        className="fixed bg-[#1a1717dc] w-full h-screen top-0 left-0 z-30"
+        className="fixed bg-[#1a1717dc] w-full h-screen top-0 left-0 z-[999999]"
       />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 w-fit">
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999999] w-fit">
         <div className="bg-white rounded-lg text-center relative p-14 mx-2">
           <img
             onClick={() => setShowLogout(false)}

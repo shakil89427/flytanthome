@@ -90,7 +90,13 @@ const Contents = () => {
           </div>
         </div>
       ) : (
-        <Player videoId={selectedVideo?.videoId} />
+        <Player
+          videoId={selectedVideo?.videoId}
+          thumbnail={
+            selectedVideo?.thumbnail ||
+            "https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg"
+          }
+        />
       )}
 
       <p className="text-lg lg:text-xl xl:text-2xl mt-10">

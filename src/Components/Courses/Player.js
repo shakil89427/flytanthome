@@ -2,11 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import JoLPlayer from "jol-player";
-import Spinner from "../Spinner/Spinner";
-import useStore from "../../Store/useStore";
+import Spinner2 from "../Spinner/Spinner2";
 
-const Player = ({ videoId }) => {
-  const { setNotify } = useStore();
+const Player = ({ videoId, thumbnail }) => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -34,18 +32,29 @@ const Player = ({ videoId }) => {
       })
       .catch(() => {
         setLoading(false);
-        setNotify({ status: false, message: "Something went wrong" });
       });
   }, [videoId]);
 
   return (
-    <div className="mt-8">
-      {loading && <Spinner />}
+    <div className="mt-10">
+      {loading && (
+        <div
+          style={{
+            backgroundImage: `url(${thumbnail})`,
+          }}
+          className="aspect-[4/2] bg-cover bg-center bg-no-repeat relative"
+        >
+          <div className="absolute inset-0 flex items-center justify-center bg-[#aaaaaa63]">
+            <Spinner2 />
+          </div>
+        </div>
+      )}
       {!loading && videos?.length > 0 && (
         <JoLPlayer
           className="aspect-[4/2]"
           option={{
             videoSrc: videos[0]?.url,
+            poster: thumbnail,
             language: "en",
             pausePlacement: "center",
             isShowScreenshot: false,
