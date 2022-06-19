@@ -2,12 +2,16 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useStore from "../../Store/useStore";
-import antPlay2 from "../../Assets/antPlay2.png";
 import moment from "moment";
-import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
+import {
+  AiFillPlayCircle,
+  AiFillPauseCircle,
+  AiFillLock,
+} from "react-icons/ai";
 import { FiChevronRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import Buy from "./Buy";
+import Player from "./Player";
 
 const Contents = () => {
   const { user, courses } = useStore();
@@ -62,17 +66,17 @@ const Contents = () => {
           {course?.title}
         </p>
       </div>
-      <div
-        style={{
-          backgroundImage: `url(${
-            selectedVideo?.thumbnail ||
-            "https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg"
-          })`,
-        }}
-        className="aspect-[4/2] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center mt-10 overflow-hidden relative"
-      >
-        {selectedVideo?.locked &&
-        !course?.courseBuyers?.includes(user?.userId) ? (
+      {selectedVideo?.locked &&
+      !course?.courseBuyers?.includes(user?.userId) ? (
+        <div
+          style={{
+            backgroundImage: `url(${
+              selectedVideo?.thumbnail ||
+              "https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg"
+            })`,
+          }}
+          className="aspect-[4/2] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center mt-10 overflow-hidden relative"
+        >
           <div className="bg-[#42424275] absolute inset-0 flex flex-col items-center justify-center">
             <p className="text-white text-center lg:text-lg">
               For Your plan only preview is available
@@ -84,14 +88,11 @@ const Contents = () => {
               Unlock Course
             </button>
           </div>
-        ) : (
-          <img
-            className="w-16 cursor-pointer hover:scale-105 duration-150"
-            src={antPlay2}
-            alt=""
-          />
-        )}
-      </div>
+        </div>
+      ) : (
+        <Player videoId={selectedVideo?.videoId} />
+      )}
+
       <p className="text-lg lg:text-xl xl:text-2xl mt-10">
         <span className="font-semibold">Course</span> Details
       </p>
@@ -152,13 +153,18 @@ const Contents = () => {
                       className="flex items-start justify-between gap-2 lg:gap-5 my-5 cursor-pointer"
                     >
                       <div className="flex items-start gap-2 lg:gap-5">
-                        {selectedVideo?.videoId !== video?.videoId ? (
+                        {video?.locked &&
+                        !course?.courseBuyers?.includes(user?.userId) ? (
                           <div className="w-fit">
-                            <AiFillPlayCircle className="text-[25px]" />
+                            <AiFillLock className="text-[25px]" />
                           </div>
                         ) : (
                           <div className="w-fit">
-                            <AiFillPauseCircle className="text-[25px]" />
+                            {selectedVideo?.videoId !== video?.videoId ? (
+                              <AiFillPlayCircle className="text-[25px]" />
+                            ) : (
+                              <AiFillPauseCircle className="text-[25px]" />
+                            )}
                           </div>
                         )}
                         <p className="text-sm">{video?.subSectionName}</p>
