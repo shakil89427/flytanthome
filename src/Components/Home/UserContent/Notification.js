@@ -70,7 +70,7 @@ const Notification = () => {
                 style={{
                   backgroundImage: `url(${item?.senderProfileImageUrl})`,
                 }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full hidden lg:block"
+                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full "
               />
             )}
             {item?.blogUrl && (
@@ -78,7 +78,7 @@ const Notification = () => {
                 style={{
                   backgroundImage: `url(${blog})`,
                 }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full hidden lg:block"
+                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full "
               />
             )}
             {item?.campId && (
@@ -86,7 +86,7 @@ const Notification = () => {
                 style={{
                   backgroundImage: `url(${sponsorship})`,
                 }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full hidden lg:block"
+                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full "
               />
             )}
 
@@ -108,7 +108,7 @@ const Notification = () => {
               style={{
                 backgroundImage: `url(${item?.postImageUrl})`,
               }}
-              className="bg-cover bg-center bg-no-repeat w-28 h-14 rounded-md border hidden lg:block"
+              className="bg-cover bg-center bg-no-repeat w-28 h-14 rounded-md border"
             />
           )}
         </div>

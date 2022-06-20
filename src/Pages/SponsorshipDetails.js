@@ -282,19 +282,34 @@ const SponsorshipDetails = () => {
                     </p>
                   )}
                 </div>
-
-                {user?.appliedCampaigns?.includes(details?.id) ? (
-                  <p className="my-14 py-3 px-5 bg-gray-700 text-white border-2 border-black rounded-3xl text-center font-medium">
-                    Applied
+                {details?.userId === user?.userId ? (
+                  <p
+                    onClick={() =>
+                      navigate(
+                        `/mycampaigns/details/influencers/${details?.campaignId}`
+                      )
+                    }
+                    className="my-14 py-3 px-5  border-2 border-black rounded-3xl text-center font-medium cursor-pointer"
+                  >
+                    View Influencers
                   </p>
                 ) : (
-                  <p
-                    onClick={() => apply()}
-                    className="my-14 py-3 px-5 bg-black text-white border-2 border-black rounded-3xl text-center font-medium cursor-pointer"
-                  >
-                    Apply
-                  </p>
+                  <div>
+                    {user?.appliedCampaigns?.includes(details?.id) ? (
+                      <p className="my-14 py-3 px-5 bg-gray-700 text-white border-2 border-black rounded-3xl text-center font-medium">
+                        Applied
+                      </p>
+                    ) : (
+                      <p
+                        onClick={() => apply()}
+                        className="my-14 py-3 px-5 bg-black text-white border-2 border-black rounded-3xl text-center font-medium cursor-pointer"
+                      >
+                        Apply
+                      </p>
+                    )}
+                  </div>
                 )}
+
                 {!details?.barter && (
                   <h5 className="text-xl font-semibold mb-5">Description</h5>
                 )}
