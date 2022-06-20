@@ -1,12 +1,35 @@
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 import React from "react";
+import { useState } from "react";
 import updateBg from "../../../../Assets/userHome/updateBg.png";
+import useStore from "../../../../Store/useStore";
+import Spinner2 from "../../../Spinner/Spinner2";
 
 const Update = () => {
-  const getUpdate = (e) => {
+  const { user, setNotify } = useStore();
+  const [loading, setLoading] = useState(false);
+  const db = getFirestore();
+
+  const getUpdate = async (e) => {
     e.preventDefault();
-    const email = e.target[0].value;
-    console.log(email);
+    if (loading) return;
+    setLoading(true);
+    try {
+      const userRef = doc(db, "marketingEmails", user?.userId);
+      await setDoc(userRef, {
+        email: e.target[0].value,
+        userId: user?.userId,
+        deviceType: "Website",
+      });
+      setLoading(false);
+      setNotify({ status: true, message: "Subscribed successfully" });
+      e.target.reset();
+    } catch (err) {
+      setLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+    }
   };
+
   return (
     <div className="p-10 border-2 rounded-xl flex items-center gap-10">
       <div className="w-full xl:w-5/6">
@@ -26,12 +49,18 @@ const Update = () => {
             required
           />
           <br />
-          <button
-            type="submit"
-            className="bg-black text-white px-7 py-4 rounded-full"
-          >
-            Get Updates
-          </button>
+          {loading ? (
+            <div className="p-4">
+              <Spinner2 />
+            </div>
+          ) : (
+            <button
+              type="submit"
+              className="bg-black text-white px-7 py-4 rounded-full"
+            >
+              Get Updates
+            </button>
+          )}
         </form>
       </div>
       <div className="hidden xl:block w-1/6">
