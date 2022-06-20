@@ -46,11 +46,15 @@ const Notification = () => {
 
   const changeRoute = (info) => {
     if (!info) return;
-    if (info?.includes("https://flytant.com/blogdetails/")) {
-      const last = info.split("https://flytant.com/blogdetails/")[1];
+    if (info?.campId) {
+      navigate(`/sponsorshipdetails/${info?.campId}`);
+    }
+    if (info?.sender) {
+      navigate(`/profile/${info?.sender}`);
+    }
+    if (info?.blogUrl) {
+      const last = info?.blogUrl.split("https://flytant.com/blogdetails/")[1];
       navigate(`/blogdetails/${last}`);
-    } else {
-      navigate(`/sponsorshipdetails/${info}`);
     }
   };
 
@@ -61,41 +65,57 @@ const Notification = () => {
         <div
           key={item?.id}
           className="flex items-start justify-between mb-6 border-b pb-6 border-gray-100 cursor-pointer"
-          onClick={() => changeRoute(item?.campId || item?.blogUrl || false)}
+          onClick={() =>
+            changeRoute(
+              item?.campId
+                ? { campId: item?.campId }
+                : item?.blogUrl
+                ? { blogUrl: item?.blogUrl }
+                : item?.senderId
+                ? { sender: item?.senderId }
+                : false
+            )
+          }
         >
-          <div className="flex items-start justify-center gap-5">
+          <div className="flex items-start justify-center gap-2 lg:gap-5">
             {/* Left */}
             {item?.senderProfileImageUrl && (
-              <div
-                style={{
-                  backgroundImage: `url(${item?.senderProfileImageUrl})`,
-                }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full "
-              />
+              <div>
+                <div
+                  style={{
+                    backgroundImage: `url(${item?.senderProfileImageUrl})`,
+                  }}
+                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
+                />
+              </div>
             )}
             {item?.blogUrl && (
-              <div
-                style={{
-                  backgroundImage: `url(${blog})`,
-                }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full "
-              />
+              <div>
+                <div
+                  style={{
+                    backgroundImage: `url(${blog})`,
+                  }}
+                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
+                />
+              </div>
             )}
             {item?.campId && (
-              <div
-                style={{
-                  backgroundImage: `url(${sponsorship})`,
-                }}
-                className="bg-cover bg-center bg-no-repeat w-[40px] h-[40px] rounded-full "
-              />
+              <div>
+                <div
+                  style={{
+                    backgroundImage: `url(${sponsorship})`,
+                  }}
+                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
+                />
+              </div>
             )}
 
             {/* Center */}
             <div>
-              <p className="font-semibold">
+              <p className="font-medium text-sm md:text-md lg:text-lg">
                 {item?.senderUsername || item?.title}
               </p>
-              {item?.body && <p className="text-sm">{item?.body}</p>}
+              {item?.body && <p className="text-xs md:text-sm">{item?.body}</p>}
               <p className="text-xs text-gray-500 mt-2">
                 {moment.unix(item?.creationDate).fromNow()}
               </p>
@@ -104,12 +124,14 @@ const Notification = () => {
 
           {/* Right */}
           {item?.postImageUrl && (
-            <div
-              style={{
-                backgroundImage: `url(${item?.postImageUrl})`,
-              }}
-              className="bg-cover bg-center bg-no-repeat w-28 h-14 rounded-md border"
-            />
+            <div>
+              <div
+                style={{
+                  backgroundImage: `url(${item?.postImageUrl})`,
+                }}
+                className="bg-cover bg-center bg-no-repeat aspect-[4/2] w-24 md:w-28 rounded-md border ml-2"
+              />
+            </div>
           )}
         </div>
       ))}
