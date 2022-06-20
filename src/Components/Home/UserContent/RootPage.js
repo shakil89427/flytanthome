@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import Videos from "./Youtube/Videos";
 import Banner from "./Banner/Banner";
 import Stories from "./Stories/Stories";
+import News from "./News/News";
 
 const RootPage = () => {
   const divRef = useRef();
@@ -23,6 +24,7 @@ const RootPage = () => {
         <AdBanner />
         <Latest />
         <Stories />
+        <News />
         <Videos />
       </div>
     </div>

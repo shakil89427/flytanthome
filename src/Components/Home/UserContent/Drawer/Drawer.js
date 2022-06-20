@@ -20,6 +20,8 @@ import Back from "../../../../Assets/userHome/drawerItems/back.png";
 import Courses from "../../../../Assets/userHome/drawerItems/Courses.png";
 import CoursesB from "../../../../Assets/userHome/drawerItems/CoursesB.png";
 import MyCampaigns from "../../../../Assets/userHome/drawerItems/MyCampaigns.png";
+import News from "../../../../Assets/userHome/drawerItems/News.png";
+import NewsB from "../../../../Assets/userHome/drawerItems/NewsB.png";
 import useStore from "../../../../Store/useStore";
 
 const Drawer = () => {
@@ -45,6 +47,7 @@ const Drawer = () => {
       img2: CoursesB,
     },
     { title: "Blogs", path: "/blogs", img1: Blogs, img2: BlogsB },
+    { title: "News", path: "/news", img1: News, img2: NewsB },
     { title: "Settings", path: "settings", img1: Settings, img2: SettingsB },
   ];
   const paths2 = [

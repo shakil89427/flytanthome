@@ -78,6 +78,8 @@ const Store = () => {
   const [mostIndex, setMostIndex] = useState(0);
   const [appliedIndex, setAppliedIndex] = useState(0);
   const [routes, setRoutes] = useState(false);
+  const [allNews, setAllNews] = useState({ data: [], lastVisible: false });
+  const [newsIndex, setNewsIndex] = useState(0);
 
   useEffect(() => {
     if (!user?.userId) {
@@ -172,6 +174,10 @@ const Store = () => {
     setRoutes,
     courses,
     setCourses,
+    allNews,
+    setAllNews,
+    newsIndex,
+    setNewsIndex,
   };
 };
 
