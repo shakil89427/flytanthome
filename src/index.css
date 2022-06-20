@@ -60,8 +60,8 @@ input[type="number"] {
 }
 @media only screen and (max-width: 639px) {
   .r-box {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 @media only screen and (min-width: 640px) {

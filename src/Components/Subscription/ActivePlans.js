@@ -27,7 +27,7 @@ const ActivePlans = () => {
           (item) => item?.code === validPlan?.currencyCode
         );
         namePriceSymbol.push({
-          name: validPlan?.planName,
+          name: validPlan?.plan,
           price: validPlan?.price,
           days: validPlan?.subscriptionDays,
           symbol: symbol_native,

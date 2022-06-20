@@ -24,7 +24,7 @@ const usePayment = (plan, setPaymentLoading) => {
         currencyCode: plan?.currency,
         orderDate: moment().unix(),
         orderId,
-        planName: plan?.name,
+        plan: plan?.name,
         price: plan?.priceNow,
         subscriptionDays: plan?.subscriptionDays,
       };

@@ -71,8 +71,7 @@ const Contents = () => {
         <div
           style={{
             backgroundImage: `url(${
-              selectedVideo?.thumbnail ||
-              "https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg"
+              selectedVideo?.thumbnail || "https://vumbnail.com/718275739.jpg"
             })`,
           }}
           className="aspect-[4/2] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center mt-10 overflow-hidden relative"
@@ -93,8 +92,7 @@ const Contents = () => {
         <Player
           videoId={selectedVideo?.videoId}
           thumbnail={
-            selectedVideo?.thumbnail ||
-            "https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg"
+            selectedVideo?.thumbnail || "https://vumbnail.com/718275739.jpg"
           }
         />
       )}

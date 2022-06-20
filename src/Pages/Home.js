@@ -28,10 +28,10 @@ const Home = () => {
         <NavBar />
       </div>
       <div className="w-full overflow-hidden flex r-box">
-        <div className="w-[60px] lg:w-[300px] h-full py-5 overflow-y-scroll scrollbar border-r">
+        <div className="w-[50px] lg:w-[300px] h-full py-5 overflow-y-scroll scrollbar border-r">
           <Drawer />
         </div>
-        <div className="w-full pl-5 lg:pr-5 xl:pl-14 overflow-y-scroll scrollbar overflow-x-hidden">
+        <div className="w-full pl-3 lg:pr-5 xl:pl-14 overflow-y-scroll scrollbar overflow-x-hidden">
           <Outlet />
         </div>
       </div>

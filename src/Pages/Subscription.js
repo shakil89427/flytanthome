@@ -14,7 +14,6 @@ import { getString } from "firebase/remote-config";
 import { Outlet } from "react-router-dom";
 import useCalculate from "../Hooks/useCalculate";
 import ActivePlans from "../Components/Subscription/ActivePlans";
-import Questions from "../Components/Subscription/Questions";
 
 const Subscription = () => {
   const { allPlans, setAllPlans, remoteConfig, user, setNotify } = useStore();
