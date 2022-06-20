@@ -109,7 +109,7 @@ const Preview = ({
           <div className="flex items-center gap-3 flex-wrap">
             {categories.map((c) => (
               <p
-                className="py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium"
+                className="py-1 px-6 bg-[#E8E8E8] w-fit rounded-3xl text-sm font-medium"
                 key={c}
               >
                 {c}

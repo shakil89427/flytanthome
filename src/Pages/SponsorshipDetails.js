@@ -273,7 +273,7 @@ const SponsorshipDetails = () => {
                     Posted {moment(details?.creationDate * 1000).fromNow()}
                   </p>
                   {details?.barter ? (
-                    <p className="text-sm py-2 px-4 bg-[#3FD5F5] w-fit rounded-3xl font-semibold">
+                    <p className="text-sm py-2 px-4 bg-[#E8E8E8] w-fit rounded-3xl font-semibold">
                       Barter Campaign
                     </p>
                   ) : (
@@ -296,13 +296,13 @@ const SponsorshipDetails = () => {
                 ) : (
                   <div>
                     {user?.appliedCampaigns?.includes(details?.id) ? (
-                      <p className="my-14 py-3 px-5 bg-gray-700 text-white border-2 border-black rounded-3xl text-center font-medium">
+                      <p className="my-14 py-3 px-5 bg-gray-300 text-black rounded-3xl text-center font-medium">
                         Applied
                       </p>
                     ) : (
                       <p
                         onClick={() => apply()}
-                        className="my-14 py-3 px-5 bg-black text-white border-2 border-black rounded-3xl text-center font-medium cursor-pointer"
+                        className="my-14 py-3 px-5 bg-black text-white rounded-3xl text-center font-medium cursor-pointer"
                       >
                         Apply
                       </p>
@@ -337,7 +337,7 @@ const SponsorshipDetails = () => {
                 <div className="flex items-center gap-3 mb-10 flex-wrap">
                   {details?.categories?.map((item) => (
                     <p
-                      className="py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium"
+                      className="py-1 px-6 bg-[#E8E8E8] w-fit rounded-3xl text-sm font-medium"
                       key={item}
                     >
                       {item}
@@ -400,9 +400,11 @@ const SponsorshipDetails = () => {
                   key={item.id}
                   className="relative cursor-pointer"
                 >
-                  <div className="bg-[#F5B63A] text-white text-sm absolute top-10 shadow-xl right-0 px-3 py-1 rounded-tl-full rounded-bl-full">
-                    {item?.applied} applied
-                  </div>
+                  {item?.applied >= 10 && (
+                    <div className="bg-[#F5B63A] text-white text-sm absolute top-10 shadow-xl right-0 px-3 py-1 rounded-tl-full rounded-bl-full">
+                      {item?.applied} applied
+                    </div>
+                  )}
                   <div className="w-full aspect-[12/7] border rounded-md">
                     <div
                       style={{ backgroundImage: `url(${item.blob[0]?.path})` }}
@@ -411,7 +413,7 @@ const SponsorshipDetails = () => {
                   </div>
                   <div className="mt-3 md:pr-5">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="bg-[#FFDE2F] text-xs py-1 px-3 rounded-3xl font-medium">
+                      <p className="bg-[#E8E8E8] text-xs py-1 px-3 rounded-3xl font-medium">
                         {item.barter ? "Barter" : "Paid"}
                       </p>
                       <p className="text-xs">

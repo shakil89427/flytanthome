@@ -16,7 +16,7 @@ const styles = {
   topicsMain: "flex justify-between border-b py-8",
   topicWrapper: "flex flex-col items-center gap-3",
   topic:
-    "w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium",
+    "w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium",
   topicName: "text-xs md:text-sm font-medium text-gray-500",
   channelContainer: "py-8 border-b flex gap-2",
   channelBg: "w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat",

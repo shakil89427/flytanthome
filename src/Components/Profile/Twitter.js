@@ -97,25 +97,25 @@ const Twitter = ({ details }) => {
         <div>
           <div className="flex justify-between border-b py-8">
             <div className="flex flex-col items-center gap-3">
-              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
                 {millify(data?.public_metrics?.followers_count)}
               </p>
               <p className="text-sm font-medium text-gray-500">Followers</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
                 {millify(data?.public_metrics?.following_count)}
               </p>
               <p className="text-sm font-medium text-gray-500">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
                 {millify(avg.likes)}
               </p>
               <p className="text-sm font-medium text-gray-500">Likes/Tweet</p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-gray-200 rounded-full flex items-center justify-center text-lg font-medium">
+              <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
                 {avg.rating}%
               </p>
               <p className="text-sm font-medium text-gray-500">Avg RT</p>

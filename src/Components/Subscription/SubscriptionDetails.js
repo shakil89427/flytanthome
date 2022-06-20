@@ -46,7 +46,7 @@ const SubscriptionDetails = () => {
                 backgroundColor: selected?.id === item?.id && "black",
                 color: selected?.id === item?.id && "white",
               }}
-              className="flex items-center justify-between gap-5 border-2 border-black mt-8 px-5 py-4 rounded-md cursor-pointer hover:bg-gray-200  duration-150"
+              className="flex items-center justify-between gap-5 border-2 border-black mt-8 px-5 py-4 rounded-md cursor-pointer hover:bg-[#E8E8E8]  duration-150"
             >
               <p className="font-bold text-lg">
                 Price {item?.symbol} {item?.priceNow} / {item?.type}

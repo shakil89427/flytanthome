@@ -35,7 +35,7 @@ const styles = {
   infoName: "font-medium mb-2 mt-8 text-gray-400 ",
   infoItem: "text-lg font-medium",
   catagories: "flex items-center gap-3 flex-wrap mt-4",
-  catagory: "py-1 px-6 bg-gray-200 w-fit rounded-3xl text-sm font-medium",
+  catagory: "py-1 px-6 bg-[#E8E8E8] w-fit rounded-3xl text-sm font-medium",
   /* Right */
   title: "text-2xl font-semibold mt-3",
   socials: "flex items-center justify-between mt-5 font-medium text-gray-500",

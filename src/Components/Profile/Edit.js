@@ -320,7 +320,7 @@ const Edit = ({ progress, setEdit }) => {
                 {categories.length > 0 ? (
                   categories.map((ca) => (
                     <p
-                      className="bg-gray-200 text-sm py-[1px] px-2 rounded-md"
+                      className="bg-[#E8E8E8] text-sm py-[1px] px-2 rounded-md"
                       key={ca}
                     >
                       {ca}
@@ -374,7 +374,7 @@ const Edit = ({ progress, setEdit }) => {
                               : "white",
                             color: categories.includes(c) ? "white" : "black",
                           }}
-                          className="cursor-pointer hover:bg-gray-200 px-2 py-1 my-1 mx-2 rounded-md"
+                          className="cursor-pointer hover:bg-[#E8E8E8] px-2 py-1 my-1 mx-2 rounded-md"
                           key={c}
                         >
                           {c}
