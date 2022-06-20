@@ -59,7 +59,7 @@ const History = ({ setShowHistory }) => {
                 key={index}
                 className="mt-5 grid grid-cols-5 text-center font-medium text-xs sm:text-sm md:text-md lg:text-lg gap-x-5"
               >
-                <p>{plan?.planName}</p>
+                <p>{plan?.plan}</p>
                 <p>
                   {plan?.symbol} {plan?.price}
                 </p>
