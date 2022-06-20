@@ -49,6 +49,11 @@ const Index = () => {
               </div>
               <div className="lg:hidden mb-10">
                 <div
+                  onClick={() =>
+                    user?.userId
+                      ? navigate(`/courses/contents/${course?.courseId}`)
+                      : setShowLogin(true)
+                  }
                   style={{ backgroundImage: `url(${course?.featureGraphic})` }}
                   className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
                 >
@@ -89,6 +94,11 @@ const Index = () => {
             </div>
             <div className="hidden lg:block">
               <div
+                onClick={() =>
+                  user?.userId
+                    ? navigate(`/courses/contents/${course?.courseId}`)
+                    : setShowLogin(true)
+                }
                 style={{ backgroundImage: `url(${course?.featureGraphic})` }}
                 className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
               >
