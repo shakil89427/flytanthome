@@ -5,6 +5,7 @@ import {
   query,
   getDocs,
   limit,
+  orderBy,
 } from "firebase/firestore";
 import useStore from "../../../../Store/useStore";
 import { useState } from "react";
@@ -35,7 +36,7 @@ const News = () => {
   const getData = async () => {
     try {
       const colRef = collection(db, "news");
-      const q = query(colRef, limit(10));
+      const q = query(colRef, orderBy("creationDate", "desc"), limit(10));
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
@@ -78,7 +79,7 @@ const News = () => {
       <div className="flex items-center justify-between">
         <h1 className={styles.heading}>News</h1>
         <span
-          //   onClick={() => navigate(`/news`)}
+          onClick={() => navigate(`/news`)}
           className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all

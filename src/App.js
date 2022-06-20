@@ -43,6 +43,7 @@ import Error from "./Pages/Error";
 import Courses from "./Pages/Courses";
 import Index from "./Components/Courses/Index";
 import Contents from "./Components/Courses/Contents";
+import AllNews from "./Components/Home/UserContent/AllNews";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -63,6 +64,7 @@ function App() {
     "notifications",
     "mostapplied",
     "applied",
+    "news",
     user?.userId && "courses",
   ];
   const footerPaths = ["/app-ads.txt", "/keywords"];
@@ -89,6 +91,7 @@ function App() {
             <Route path="popularinfluencers" element={<PopularAll />} />
             <Route path="allvideos" element={<AllVideos />} />
             <Route path="notifications" element={<Notification />} />
+            <Route path="news" element={<AllNews />} />
             {user?.userId && (
               <Route path="courses" element={<Courses />}>
                 <Route index element={<Index />} />
