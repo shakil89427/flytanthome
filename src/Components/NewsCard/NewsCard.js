@@ -15,7 +15,7 @@ import {
   arrayUnion,
   getDoc,
 } from "firebase/firestore";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import Comment from "./Comment";
 
 const NewsCard = () => {
   const { showNewsCard, setShowNewsCard, allNews, setAllNews, user, setUser } =
@@ -64,9 +64,6 @@ const NewsCard = () => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    console.log(allNews.data);
-  }, [allNews]);
 
   useEffect(() => {
     if (swiper) {
@@ -135,9 +132,9 @@ const NewsCard = () => {
           slidesPerView={1}
           className="w-[95%] max-w-[400px] h-[700px] bg-white rounded-md overflow-hidden"
         >
-          {allNews?.data?.map((item) => (
+          {allNews?.data?.map((item, index) => (
             <SwiperSlide
-              key={item?.id}
+              key={index}
               className="h-full relative overflow-hidden"
             >
               <div
@@ -167,30 +164,16 @@ const NewsCard = () => {
                   </div>
                   <div className="flex items-center justify-center gap-1">
                     <AiFillMessage
-                      onClick={() => setShowComment(true)}
+                      onClick={() => setShowComment(item?.id)}
                       className="text-3xl cursor-pointer"
                     />
                     <p>{item?.commentCount}</p>
                   </div>
                 </div>
               </div>
-              <div
-                style={{
-                  transform: `translateY(${showComment ? 0 : "100%"})`,
-                }}
-                className="absolute inset-0 top-0 left-0 z-20 bg-white duration-150"
-              >
-                <div className="border-b pl-2">
-                  <IoIosArrowRoundBack
-                    onClick={() => setShowComment(false)}
-                    className="text-3xl cursor-pointer"
-                  />
-                </div>
-                <div className="p-2 w-full h-full text-center">
-                  <p>Here will show comment for</p>
-                  <p>NewsId : {item?.id}</p>
-                </div>
-              </div>
+              {showComment === item?.id && (
+                <Comment setShowComment={setShowComment} newsId={item?.id} />
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
