@@ -80,6 +80,7 @@ const Store = () => {
   const [routes, setRoutes] = useState(false);
   const [allNews, setAllNews] = useState({ data: [], lastVisible: false });
   const [newsIndex, setNewsIndex] = useState(0);
+  const [showNewsCard, setShowNewsCard] = useState(false);
 
   useEffect(() => {
     if (!user?.userId) {
@@ -178,6 +179,8 @@ const Store = () => {
     setAllNews,
     newsIndex,
     setNewsIndex,
+    showNewsCard,
+    setShowNewsCard,
   };
 };
 

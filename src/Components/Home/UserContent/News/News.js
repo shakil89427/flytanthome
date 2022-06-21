@@ -28,7 +28,8 @@ const News = () => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
   const prevRef = useRef();
-  const { allNews, setAllNews, newsIndex, setNewsIndex } = useStore();
+  const { allNews, setAllNews, newsIndex, setNewsIndex, setShowNewsCard } =
+    useStore();
   const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const navigate = useNavigate();
@@ -111,7 +112,7 @@ const News = () => {
         >
           {allNews?.data?.slice(0, 10)?.map((item) => (
             <SwiperSlide
-              //   onClick={() => navigate(`/blogdetails/${item?.blogId}`)}
+              onClick={() => setShowNewsCard(item)}
               key={item?.id}
               className="cursor-pointer rounded-tl-xl rounded-tr-xl overflow-hidden relative pb-5"
             >

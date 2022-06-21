@@ -9,6 +9,7 @@ import Spinner from "../Spinner/Spinner";
 import useCheckCode from "../../Hooks/useCheckCode";
 import useLocationCheck from "../../Hooks/useLocationCheck";
 import useNotifications from "../../Hooks/useNotifications";
+import NewsCard from "../NewsCard/NewsCard";
 
 const styles = {
   spinnerDiv:
@@ -16,8 +17,14 @@ const styles = {
 };
 
 const ActivityCheck = () => {
-  const { showLogin, showLogout, notify, authLoading, userLoading } =
-    useStore();
+  const {
+    showLogin,
+    showLogout,
+    notify,
+    authLoading,
+    userLoading,
+    showNewsCard,
+  } = useStore();
   useAuthCheck();
   useCheckCode();
   useLocationCheck();
@@ -29,6 +36,7 @@ const ActivityCheck = () => {
       {showLogout && <Logout />}
       {notify && <Toast />}
       {authLoading && <Loading />}
+      {showNewsCard && <NewsCard />}
       {userLoading && (
         <div className={styles.spinnerDiv}>
           <Spinner />

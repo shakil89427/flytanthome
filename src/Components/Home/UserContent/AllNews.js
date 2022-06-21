@@ -14,7 +14,7 @@ import moment from "moment";
 import Spinner2 from "../../Spinner/Spinner2";
 
 const AllNews = () => {
-  const { allNews, setAllNews } = useStore();
+  const { allNews, setAllNews, setShowNewsCard } = useStore();
   const [loading, setLoading] = useState(false);
   const divRef = useRef();
   const db = getFirestore();
@@ -81,7 +81,7 @@ const AllNews = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-14">
         {allNews?.data?.map((item) => (
           <div
-            //   onClick={() => navigate(`/blogdetails/${item?.blogId}`)}
+            onClick={() => setShowNewsCard(item)}
             key={item?.id}
             className="cursor-pointer rounded-tl-xl rounded-tr-xl overflow-hidden relative pb-5"
           >
