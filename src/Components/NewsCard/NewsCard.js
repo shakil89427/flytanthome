@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import cross from "../../Assets/cross.svg";
 import useStore from "../../Store/useStore";
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import {
+  MdNavigateBefore,
+  MdNavigateNext,
+  MdModeComment,
+} from "react-icons/md";
+import { AiFillHeart, AiFillMessage } from "react-icons/ai";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Keyboard } from "swiper";
 import "swiper/css";
@@ -87,10 +92,10 @@ const NewsCard = () => {
           initialSlide={activeIndex}
           onSwiper={setSwiper}
           slidesPerView={1}
-          className="w-[95%] max-w-[450px] h-[80vh] bg-white rounded-md overflow-hidden"
+          className="w-[95%] max-w-[400px] h-[700px] bg-white rounded-md overflow-hidden"
         >
           {data.map((item) => (
-            <SwiperSlide key={item?.id} className="h-full">
+            <SwiperSlide key={item?.id} className="h-full relative">
               <div
                 style={{
                   backgroundImage: `url(${item?.blob[0]?.path})`,
@@ -99,7 +104,21 @@ const NewsCard = () => {
               />
               <div className="px-5">
                 <p className="font-semibold mt-2 text-lg">{item?.title}</p>
-                <p className="mt-2">{item?.description}</p>
+                <p className="mt-2 max-h-[200px] overflow-y-scroll scrollbar text-sm">
+                  {item?.description}
+                </p>
+              </div>
+              <div className="absolute bottom-5 left-0 w-full flex items-center justify-center">
+                <div className="flex items-center gap-7 font-medium">
+                  <div className="flex items-center justify-center gap-1 ">
+                    <AiFillHeart className="text-3xl cursor-pointer" />
+                    <p>{item?.likeCount}</p>
+                  </div>
+                  <div className="flex items-center justify-center gap-1">
+                    <AiFillMessage className="text-3xl cursor-pointer" />
+                    <p>{item?.commentCount}</p>
+                  </div>
+                </div>
               </div>
             </SwiperSlide>
           ))}
