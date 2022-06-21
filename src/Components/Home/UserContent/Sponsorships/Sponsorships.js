@@ -80,10 +80,7 @@ const Sponsorships = ({
           navigation={{
             nextEl: nextRef?.current,
           }}
-          onSlideChange={(val) => {
-            setActiveIndex(val?.realIndex);
-            console.log(val?.realIndex);
-          }}
+          onSlideChange={(val) => setActiveIndex(val?.realIndex)}
           initialSlide={activeIndex}
           onSwiper={setSwiper}
           slidesPerView={1.3}

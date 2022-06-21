@@ -110,9 +110,9 @@ const News = () => {
           }}
           className="grid grid-cols-1"
         >
-          {allNews?.data?.slice(0, 10)?.map((item) => (
+          {allNews?.data?.slice(0, 10)?.map((item, index) => (
             <SwiperSlide
-              onClick={() => setShowNewsCard(item)}
+              onClick={() => setShowNewsCard(index)}
               key={item?.id}
               className="cursor-pointer rounded-tl-xl rounded-tr-xl overflow-hidden relative pb-5"
             >

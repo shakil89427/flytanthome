@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import cross from "../../Assets/cross.svg";
 import useStore from "../../Store/useStore";
-import {
-  MdNavigateBefore,
-  MdNavigateNext,
-  MdModeComment,
-} from "react-icons/md";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { AiFillHeart, AiFillMessage } from "react-icons/ai";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Keyboard } from "swiper";
@@ -13,21 +9,13 @@ import "swiper/css";
 
 const NewsCard = () => {
   const { showNewsCard, setShowNewsCard, allNews } = useStore();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(showNewsCard);
   const [direction, setDirection] = useState(
     window?.innerWidth > 768 ? "horizontal" : "vertical"
   );
-  const [data, setData] = useState([]);
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
   const prevRef = useRef();
-
-  useEffect(() => {
-    const filtered = allNews?.data?.filter(
-      (item) => item?.id !== showNewsCard?.id
-    );
-    setData([showNewsCard, ...filtered]);
-  }, [allNews, showNewsCard]);
 
   useEffect(() => {
     if (swiper) {
@@ -54,7 +42,6 @@ const NewsCard = () => {
       window.removeEventListener("resize", checkScreen);
     };
   }, []);
-  console.log(data);
 
   return (
     <>
@@ -94,7 +81,7 @@ const NewsCard = () => {
           slidesPerView={1}
           className="w-[95%] max-w-[400px] h-[700px] bg-white rounded-md overflow-hidden"
         >
-          {data.map((item) => (
+          {allNews?.data?.map((item) => (
             <SwiperSlide key={item?.id} className="h-full relative">
               <div
                 style={{
