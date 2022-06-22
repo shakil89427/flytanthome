@@ -3,7 +3,7 @@ import useStore from "../../Store/useStore";
 import defaultUser from "../../Assets/defaultUser.png";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { BiSearch } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 /* Styles Start */
 const styles = {
   profile: "flex items-center justify-end gap-10 xl:gap-20 text-white gap-10",
@@ -17,20 +17,27 @@ const styles = {
 
 const LargeTop = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { user, setShowLogin, setShowLogout } = useStore();
   const [show, setShow] = useState(false);
   return (
     <div className="hidden lg:block w-full">
       {user?.id ? (
         <div className={styles.profile}>
-          {/* <div className="hidden lg:flex items-center gap-3 bg-gray-100 w-[50%] py-2 pl-5 rounded-full text-black overflow-hidden">
+          <div
+            onClick={() => navigate("/search")}
+            className={`hidden lg:flex items-center gap-3 bg-gray-100 w-[50%] py-2 pl-5 rounded-full text-black overflow-hidden cursor-pointer ${
+              pathname === "/search" ? "invisible" : "visible"
+            }`}
+          >
             <BiSearch />
             <input
               className="bg-gray-100 w-full border-0 outline-none"
               type="text"
               placeholder="Search 'Fashion Influencers'"
+              readOnly
             />
-          </div> */}
+          </div>
           <a
             href="mailto:contact@flytant.com"
             target="_blank"

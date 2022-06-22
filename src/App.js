@@ -44,6 +44,7 @@ import Courses from "./Pages/Courses";
 import Index from "./Components/Courses/Index";
 import Contents from "./Components/Courses/Contents";
 import AllNews from "./Components/Home/UserContent/AllNews";
+import Search from "./Pages/Search";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -131,6 +132,14 @@ function App() {
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/app-ads.txt" element={<AppAds />} />
           <Route path="/keywords" element={<Keywords />} />
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <Search />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/mycampaigns"
             element={
