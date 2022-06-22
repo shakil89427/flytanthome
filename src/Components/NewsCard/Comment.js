@@ -92,14 +92,14 @@ const Comment = ({ setShowComment, newsId }) => {
                 setShowComment(false);
               }, 200);
             }}
-            className="text-3xl cursor-pointer"
+            className="text-5xl cursor-pointer"
           />
         </div>
         {loading && <Spinner />}
         {!loading && !comments?.length && (
           <p className="text-center p-2">No comments found</p>
         )}
-        <div className="p-3 w-full h-full flex flex-col gap-5 overflow-y-scroll scrollbar">
+        <div className="p-3 w-full h-full flex flex-col gap-5 overflow-y-scroll scrollbar pb-20">
           {comments?.map((item) => (
             <div key={item?.id} className="flex items-start gap-2">
               <div>
@@ -111,7 +111,7 @@ const Comment = ({ setShowComment, newsId }) => {
                 />
               </div>
               <div className="w-full">
-                <div className="rounded-md p-1 bg-gray-100">
+                <div className="rounded-md p-2 bg-gray-100">
                   <p className="font-semibold mb-1">{item?.username}</p>
                   <p className="text-sm break-all">{item?.comment}</p>
                 </div>
@@ -128,6 +128,7 @@ const Comment = ({ setShowComment, newsId }) => {
         className="border-t flex items-center gap-1 p-2 w-full"
       >
         <input
+          placeholder="Type your comment"
           readOnly={addingComment}
           required
           type="text"

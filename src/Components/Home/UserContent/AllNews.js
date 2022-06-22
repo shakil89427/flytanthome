@@ -86,12 +86,7 @@ const AllNews = () => {
             className="cursor-pointer rounded-tl-xl rounded-tr-xl overflow-hidden relative pb-5"
           >
             <div>
-              <div
-                style={{
-                  backgroundImage: `url(${item?.blob[0]?.path})`,
-                }}
-                className="bg-cover bg-center bg-no-repeat aspect-[5/4]"
-              />
+              <img src={item?.blob[0]?.path} alt="" className="aspect-[5/4]" />
               <p className="font-semibold mt-2">
                 {item?.title?.length > 40
                   ? item?.title?.slice(0, 40) + "..."

@@ -67,7 +67,7 @@ const All = () => {
                     style={{
                       backgroundImage: `url(${video?.snippet?.thumbnails?.medium?.url})`,
                     }}
-                    className="bg-cover bg-center bg-no-repeat aspect-[6/4]"
+                    className="bg-cover bg-center bg-no-repeat aspect-[5/4]"
                   />
                 </div>
               </div>

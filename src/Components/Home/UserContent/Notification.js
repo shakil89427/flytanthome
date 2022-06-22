@@ -124,14 +124,11 @@ const Notification = () => {
 
           {/* Right */}
           {item?.postImageUrl && (
-            <div>
-              <div
-                style={{
-                  backgroundImage: `url(${item?.postImageUrl})`,
-                }}
-                className="bg-cover bg-center bg-no-repeat aspect-[4/2] w-24 md:w-28 rounded-md border ml-2"
-              />
-            </div>
+            <img
+              src={item?.postImageUrl}
+              alt=""
+              className="aspect-[4/2] w-24 md:w-28 rounded-md border ml-2"
+            />
           )}
         </div>
       ))}

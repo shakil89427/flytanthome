@@ -150,12 +150,8 @@ const NewsCard = () => {
               key={index}
               className="h-full relative overflow-hidden"
             >
-              <div
-                style={{
-                  backgroundImage: `url(${item?.blob[0]?.path})`,
-                }}
-                className="bg-cover bg-center bg-no-repeat aspect-[5/3]"
-              />
+              <img src={item?.blob[0]?.path} alt="" className="aspect-[7/4]" />
+
               <div className="px-5">
                 <p className="font-semibold mt-2 text-lg">{item?.title}</p>
                 <p
