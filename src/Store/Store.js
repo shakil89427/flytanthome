@@ -81,7 +81,6 @@ const Store = () => {
   const [allNews, setAllNews] = useState({ data: [], lastVisible: false });
   const [newsIndex, setNewsIndex] = useState(0);
   const [showNewsCard, setShowNewsCard] = useState(false);
-  const [commentsData, setCommentsData] = useState([]);
 
   useEffect(() => {
     if (!user?.userId) {
@@ -182,8 +181,6 @@ const Store = () => {
     setNewsIndex,
     showNewsCard,
     setShowNewsCard,
-    commentsData,
-    setCommentsData,
   };
 };
 

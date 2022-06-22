@@ -172,7 +172,11 @@ const NewsCard = () => {
                 </div>
               </div>
               {showComment === item?.id && (
-                <Comment setShowComment={setShowComment} newsId={item?.id} />
+                <Comment
+                  setShowComment={setShowComment}
+                  newsId={item?.id}
+                  news={item}
+                />
               )}
             </SwiperSlide>
           ))}
