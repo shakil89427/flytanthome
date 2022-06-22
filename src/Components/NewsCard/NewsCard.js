@@ -141,11 +141,14 @@ const NewsCard = () => {
                 style={{
                   backgroundImage: `url(${item?.blob[0]?.path})`,
                 }}
-                className="bg-cover bg-center bg-no-repeat aspect-[5/4]"
+                className="bg-cover bg-center bg-no-repeat aspect-[5/3]"
               />
               <div className="px-5">
                 <p className="font-semibold mt-2 text-lg">{item?.title}</p>
-                <p className="mt-2 max-h-[200px] overflow-y-scroll scrollbar text-sm">
+                <p
+                  style={{ lineHeight: "200%" }}
+                  className="mt-2 max-h-[250px] overflow-y-scroll scrollbar text-sm"
+                >
                   {item?.description}
                 </p>
               </div>
