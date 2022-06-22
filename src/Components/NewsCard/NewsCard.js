@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import cross from "../../Assets/cross.svg";
 import useStore from "../../Store/useStore";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import { AiFillHeart, AiFillMessage } from "react-icons/ai";
+import like from "../../Assets/news/Like.png";
+import liked from "../../Assets/news/Liked.png";
+import comment from "../../Assets/news/Comment.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Keyboard } from "swiper";
 import "swiper/css";
@@ -13,14 +15,12 @@ import {
   updateDoc,
   arrayRemove,
   arrayUnion,
-  getDoc,
 } from "firebase/firestore";
 import Comment from "./Comment";
 
 const NewsCard = () => {
   const { showNewsCard, setShowNewsCard, allNews, setAllNews, user, setUser } =
     useStore();
-  const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(showNewsCard - 1);
   const [showComment, setShowComment] = useState(false);
   const [direction, setDirection] = useState(
@@ -31,38 +31,51 @@ const NewsCard = () => {
   const prevRef = useRef();
   const db = getFirestore();
 
-  const changeLike = async (newsId) => {
-    if (loading) return;
-    setLoading(true);
-    try {
-      const newsRef = doc(db, "news", newsId);
-      const userRef = doc(db, "users", user?.userId);
-      const status = user?.likedNews?.includes(newsId) ? true : false;
-      await updateDoc(newsRef, {
-        likeCount: increment(status ? -1 : 1),
-      });
-      await updateDoc(userRef, {
-        likedNews: status ? arrayRemove(newsId) : arrayUnion(newsId),
-      });
-      const newsUpdatedData = await getDoc(newsRef);
-      const newsFinalData = {
-        ...newsUpdatedData.data(),
-        id: newsUpdatedData.id,
-      };
-      const newsMerged = allNews?.data?.map((item) =>
-        item?.id === newsId ? newsFinalData : item
-      );
-      const userUpdatedData = await getDoc(userRef);
-      const userFinalData = {
-        ...userUpdatedData.data(),
-        id: userUpdatedData.id,
-      };
-      setAllNews({ ...allNews, data: newsMerged });
-      setUser(userFinalData);
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-    }
+  const inCrease = async (newsId) => {
+    // Update to Local
+    const { likeCount, ...rest } = allNews.data.find(
+      (item) => item.id === newsId
+    );
+    const updatedNews = { ...rest, likeCount: likeCount + 1 };
+    const mergedNews = allNews.data.map((item) =>
+      item.id === newsId ? updatedNews : item
+    );
+    setAllNews((prev) => ({ ...prev, data: mergedNews }));
+    setUser((prev) => ({
+      ...prev,
+      likedNews: prev?.likedNews ? [...prev?.likedNews, newsId] : [newsId],
+    }));
+    // Update to DB
+    const newsRef = doc(db, "news", newsId);
+    const userRef = doc(db, "users", user?.userId);
+    await updateDoc(newsRef, {
+      likeCount: increment(1),
+    });
+    await updateDoc(userRef, {
+      likedNews: arrayUnion(newsId),
+    });
+  };
+  const deCrease = async (newsId) => {
+    // Update to Local
+    const { likeCount, ...rest } = allNews.data.find(
+      (item) => item.id === newsId
+    );
+    const updatedNews = { ...rest, likeCount: likeCount - 1 };
+    const mergedNews = allNews.data.map((item) =>
+      item.id === newsId ? updatedNews : item
+    );
+    const updatedUser = user?.likedNews?.filter((item) => item !== newsId);
+    setAllNews((prev) => ({ ...prev, data: mergedNews }));
+    setUser((prev) => ({ ...prev, likedNews: updatedUser }));
+    // Update to DB
+    const newsRef = doc(db, "news", newsId);
+    const userRef = doc(db, "users", user?.userId);
+    await updateDoc(newsRef, {
+      likeCount: increment(-1),
+    });
+    await updateDoc(userRef, {
+      likedNews: arrayRemove(newsId),
+    });
   };
 
   useEffect(() => {
@@ -155,20 +168,25 @@ const NewsCard = () => {
               <div className="absolute bottom-5 left-0 w-full flex items-center justify-center z-10">
                 <div className="flex items-center gap-7 font-medium">
                   <div className="flex items-center justify-center gap-1 ">
-                    <AiFillHeart
-                      onClick={() => changeLike(item?.id)}
-                      className={`text-3xl cursor-pointer ${
+                    <img
+                      onClick={() =>
                         user?.likedNews?.includes(item?.id)
-                          ? "text-black"
-                          : "text-gray-400"
-                      }`}
+                          ? deCrease(item?.id)
+                          : inCrease(item?.id)
+                      }
+                      src={user?.likedNews?.includes(item?.id) ? liked : like}
+                      className="cursor-pointer w-8"
+                      alt=""
                     />
+
                     <p>{item?.likeCount}</p>
                   </div>
                   <div className="flex items-center justify-center gap-1">
-                    <AiFillMessage
+                    <img
                       onClick={() => setShowComment(item?.id)}
-                      className="text-3xl cursor-pointer"
+                      className="cursor-pointer w-8"
+                      src={comment}
+                      alt=""
                     />
                     <p>{item?.commentCount}</p>
                   </div>
@@ -191,3 +209,19 @@ const NewsCard = () => {
 };
 
 export default NewsCard;
+
+// const newsUpdatedData = await getDoc(newsRef);
+// const newsFinalData = {
+//   ...newsUpdatedData.data(),
+//   id: newsUpdatedData.id,
+// };
+// const newsMerged = allNews?.data?.map((item) =>
+//   item?.id === newsId ? newsFinalData : item
+// );
+// const userUpdatedData = await getDoc(userRef);
+// const userFinalData = {
+//   ...userUpdatedData.data(),
+//   id: userUpdatedData.id,
+// };
+// setAllNews({ ...allNews, data: newsMerged });
+// setUser(userFinalData);
