@@ -209,19 +209,3 @@ const NewsCard = () => {
 };
 
 export default NewsCard;
-
-// const newsUpdatedData = await getDoc(newsRef);
-// const newsFinalData = {
-//   ...newsUpdatedData.data(),
-//   id: newsUpdatedData.id,
-// };
-// const newsMerged = allNews?.data?.map((item) =>
-//   item?.id === newsId ? newsFinalData : item
-// );
-// const userUpdatedData = await getDoc(userRef);
-// const userFinalData = {
-//   ...userUpdatedData.data(),
-//   id: userUpdatedData.id,
-// };
-// setAllNews({ ...allNews, data: newsMerged });
-// setUser(userFinalData);
