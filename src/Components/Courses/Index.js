@@ -76,7 +76,9 @@ const Index = () => {
                     : "Get Started"}
                 </button>
               </div>
-              <p className="mb-10">{course?.longDescription}</p>
+              <p style={{ lineHeight: "200%" }} className="mb-10 text-gray-500">
+                {course?.longDescription}
+              </p>
               <div className="flex items-center gap-5">
                 <div className="flex items-center gap-2">
                   <img className="w-5" src={views} alt="" />
@@ -84,7 +86,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <img className="w-5" src={duration} alt="" />
-                  <p>
+                  <p className="text-gray-500">
                     {moment
                       .utc(course?.totalDuration * 1000)
                       .format("HH:mm:ss")}
@@ -163,7 +165,7 @@ const Index = () => {
                       selected === index ? "h-auto" : "h-0"
                     }`}
                   >
-                    <p className="mx-5 mb-5 p-2 bg-white rounded-md text-gray-600 text-sm">
+                    <p className="mx-5 mb-5 p-2 bg-white rounded-md text-gray-600">
                       {item.answer}
                     </p>
                   </div>

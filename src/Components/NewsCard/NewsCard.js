@@ -109,12 +109,12 @@ const NewsCard = () => {
       <div className="fixed inset-0 top-0 left-0 bg-[#030303f6] z-30 flex items-center justify-center">
         <img
           onClick={() => setShowNewsCard(false)}
-          className="bg-[#ffffff86] absolute top-10 right-10 w-5 md:w-7 lg:w-9 rounded-full cursor-pointer hover:bg-white"
+          className="bg-[#ffffff86] absolute top-8 right-8 w-5 md:w-7 lg:w-9 rounded-full cursor-pointer hover:bg-white"
           src={cross}
           alt=""
         />
         <div
-          className={`absolute top-5 left-1/2 md:left-5 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 md:translate-x-0 rotate-90 md:rotate-0 text-[#ffffff86] hover:text-white text-4xl md:text-6xl lg:text-8xl  cursor-pointer select-none ${
+          className={`absolute top-3 left-1/2 md:left-5 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 md:translate-x-0 rotate-90 md:rotate-0 text-[#ffffff86] hover:text-white text-4xl md:text-6xl lg:text-8xl  cursor-pointer select-none ${
             activeIndex === 0 ? "invisible" : "visible"
           }`}
           ref={prevRef}
@@ -122,7 +122,7 @@ const NewsCard = () => {
           <MdNavigateBefore />
         </div>
         <div
-          className={`absolute bottom-5 right-1/2 md:right-5 md:bottom-1/2 translate-x-1/2 md:translate-y-1/2 md:translate-x-0 rotate-90 md:rotate-0 text-[#ffffff86] hover:text-white text-4xl md:text-6xl lg:text-8xl cursor-pointer select-none ${
+          className={`absolute bottom-3 right-1/2 md:right-5 md:bottom-1/2 translate-x-1/2 md:translate-y-1/2 md:translate-x-0 rotate-90 md:rotate-0 text-[#ffffff86] hover:text-white text-4xl md:text-6xl lg:text-8xl cursor-pointer select-none ${
             activeIndex + 1 === allNews?.data?.length ? "invisible" : "visible"
           }`}
           ref={nextRef}
@@ -146,28 +146,25 @@ const NewsCard = () => {
           className="w-[95%] max-w-[450px] h-[80vh] bg-white rounded-md overflow-hidden"
         >
           {allNews?.data?.map((item, index) => (
-            <SwiperSlide
-              key={index}
-              className="h-full relative overflow-hidden"
-            >
-              <div
-                style={{
-                  backgroundImage: `url("${item?.blob[0]?.path}")`,
-                }}
-                className="bg-cover bg-center bg-no-repeat aspect-[7/4]"
-              />
+            <SwiperSlide key={index} className="flex flex-col justify-between">
+              <div className="w-full overflow-y-scroll scrollbar">
+                <div
+                  style={{
+                    backgroundImage: `url("${item?.blob[0]?.path}")`,
+                  }}
+                  className="bg-cover bg-center bg-no-repeat aspect-[7/4]"
+                />
 
-              <div className="px-5">
-                <p className="font-semibold mt-2 text-lg">{item?.title}</p>
-                <p
-                  style={{ lineHeight: "200%" }}
-                  className="mt-2 max-h-[250px] overflow-y-scroll scrollbar text-sm"
-                >
-                  {item?.description}
-                </p>
+                <div className="px-5">
+                  <p className="font-semibold mt-2 text-lg">{item?.title}</p>
+                  <p style={{ lineHeight: "200%" }} className="mt-2 text-sm">
+                    {item?.description}
+                  </p>
+                </div>
               </div>
-              <div className="absolute bottom-5 left-0 w-full flex items-center justify-center z-10">
-                <div className="flex items-center gap-7 font-medium">
+
+              <div className="p-2">
+                <div className="flex items-center justify-center gap-7 font-medium">
                   <div className="flex items-center justify-center gap-1 ">
                     <img
                       onClick={() =>
