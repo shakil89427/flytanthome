@@ -123,7 +123,6 @@ const Subscription = () => {
             </div>
             <Outlet />
           </div>
-          {/* <Questions /> */}
         </div>
       )}
     </div>

@@ -37,7 +37,6 @@ import AllVideos from "./Components/Home/UserContent/AllVideos";
 import Notification from "./Components/Home/UserContent/Notification";
 import MostApplied from "./Components/Home/UserContent/SponsorshipsCategories/MostApplied";
 import Applied from "./Components/Home/UserContent/SponsorshipsCategories/Applied";
-import Error from "./Pages/Error";
 import Courses from "./Pages/Courses";
 import Index from "./Components/Courses/Index";
 import Contents from "./Components/Courses/Contents";
