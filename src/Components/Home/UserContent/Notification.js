@@ -15,6 +15,7 @@ const Notification = () => {
   const { user, notifications } = useStore();
   const [sorted, setSorted] = useState([]);
   const [allData, setAllData] = useState([]);
+  console.log(allData);
 
   const loadMore = () => {
     setAllData(sorted.slice(0, allData?.length + 20));
@@ -57,6 +58,9 @@ const Notification = () => {
       const last = info?.blogUrl.split("https://flytant.com/blogdetails/")[1];
       navigate(`/blogdetails/${last}`);
     }
+    if (info?.newsId) {
+      navigate(`/news`);
+    }
   };
 
   return (
@@ -74,6 +78,8 @@ const Notification = () => {
                 ? { blogUrl: item?.blogUrl }
                 : item?.senderId
                 ? { sender: item?.senderId }
+                : item?.newsId
+                ? { newsId: item?.newsId }
                 : false
             )
           }

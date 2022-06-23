@@ -144,7 +144,7 @@ const Buy = ({ course, setShowBuy }) => {
             <p className="relative z-20 bg-white px-2">You will Get</p>
             <div className="absolute w-full h-[2px] bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10" />
           </div>
-          <div className="flex flex-col gap-5 max-h-[400px] overflow-y-scroll scrollbar">
+          <div className="flex flex-col gap-5 max-h-[250px] overflow-y-scroll scrollbar">
             {course?.whatYouWillLearn?.map((item) => (
               <div key={item} className="flex items-start gap-5">
                 <img src={ok} alt="" className="w-4 mt-2" />

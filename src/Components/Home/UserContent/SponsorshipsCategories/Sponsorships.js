@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import millify from "millify";
 import Spinner2 from "../../../Spinner/Spinner2";
+import Back from "../../../../Assets/userHome/drawerItems/back.png";
 
 /* Styles Start */
 const styles = {
@@ -46,8 +47,17 @@ const Sponsorships = ({
 
   return (
     <div ref={divRef} className="pt-5 pb-14">
-      {type && <h1 className={styles.heading}>{type} Sponsorships</h1>}
-      {applied && <h1 className={styles.heading}>{applied}</h1>}
+      <div className="font-semibold text-lg md:text-xl xl:text-2xl mb-5 w-fit flex items-center gap-2">
+        <img
+          onClick={() => navigate(-1)}
+          src={Back}
+          alt=""
+          className="w-6 lg:w-7 xl:w-8 cursor-pointer"
+        />
+        {type && <p>{type} Sponsorships</p>}
+        {applied && <p>{applied}</p>}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-14">
         {sponsorships.map((sponsorship, index) => (
           <div
