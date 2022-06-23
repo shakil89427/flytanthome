@@ -36,11 +36,17 @@ const ActivePlans = () => {
 
         const time = validPlan?.subscriptionDays / 30;
         allPlans.forEach((plan) => {
-          if (validPlan?.planName === plan?.name && plan?.numberOfApplies > 0) {
+          if (
+            validPlan?.plan?.toLowerCase() === plan?.name?.toLowerCase() &&
+            plan?.numberOfApplies > 0
+          ) {
             allCampaignCredits =
               allCampaignCredits + plan?.numberOfApplies * time;
           }
-          if (validPlan?.planName === plan?.name && plan?.messageCredits > 0) {
+          if (
+            validPlan?.plan?.toLowerCase() === plan?.name?.toLowerCase() &&
+            plan?.messageCredits > 0
+          ) {
             allMessageCredits = allMessageCredits + plan?.messageCredits * time;
           }
         });
