@@ -40,14 +40,13 @@ const ActivePlans = () => {
             validPlan?.plan?.toLowerCase() === plan?.name?.toLowerCase() &&
             plan?.numberOfApplies > 0
           ) {
-            allCampaignCredits =
-              allCampaignCredits + plan?.numberOfApplies * time;
+            allCampaignCredits += plan?.numberOfApplies * time;
           }
           if (
             validPlan?.plan?.toLowerCase() === plan?.name?.toLowerCase() &&
             plan?.messageCredits > 0
           ) {
-            allMessageCredits = allMessageCredits + plan?.messageCredits * time;
+            allMessageCredits += plan?.messageCredits * time;
           }
         });
       });
