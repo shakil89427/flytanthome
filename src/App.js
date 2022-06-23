@@ -43,6 +43,7 @@ import Index from "./Components/Courses/Index";
 import Contents from "./Components/Courses/Contents";
 import AllNews from "./Components/Home/UserContent/AllNews";
 import Search from "./Pages/Search";
+import User from "./Pages/User";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -207,7 +208,7 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="*" element={<Error />} />
+          <Route path="/:id" element={<User />} />
         </Routes>
       </div>
       <div
