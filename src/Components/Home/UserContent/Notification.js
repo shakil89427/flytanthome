@@ -7,6 +7,7 @@ import useStore from "../../../Store/useStore";
 import blog from "../../../Assets/blog.png";
 import sponsorship from "../../../Assets/sponsorship.png";
 import { useNavigate } from "react-router-dom";
+import defaultUser from "../../../Assets/defaultUser.png";
 
 const Notification = () => {
   const navigate = useNavigate();
@@ -83,7 +84,11 @@ const Notification = () => {
               <div>
                 <div
                   style={{
-                    backgroundImage: `url(${item?.senderProfileImageUrl})`,
+                    backgroundImage: `url(${
+                      item?.senderProfileImageUrl?.includes("default")
+                        ? defaultUser
+                        : item?.senderProfileImageUrl
+                    })`,
                   }}
                   className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
                 />
@@ -124,11 +129,14 @@ const Notification = () => {
 
           {/* Right */}
           {item?.postImageUrl && (
-            <img
-              src={item?.postImageUrl}
-              alt=""
-              className="aspect-[4/2] w-24 md:w-28 rounded-md border ml-2"
-            />
+            <div>
+              <div
+                style={{
+                  backgroundImage: `url("${item?.postImageUrl}")`,
+                }}
+                className="bg-cover bg-center bg-no-repeat aspect-[4/2] w-24 md:w-28 rounded-md border ml-2"
+              />
+            </div>
           )}
         </div>
       ))}

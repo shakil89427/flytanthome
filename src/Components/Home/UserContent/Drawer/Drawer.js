@@ -54,8 +54,18 @@ const Drawer = () => {
     {
       title: "Social Profile",
       path: `/profile/${user?.userId}`,
-      img1: SocialProfile,
-      img2: SocialProfileB,
+      img1:
+        user?.profileImageUrl &&
+        !user?.profileImageUrl.toLowerCase()?.includes("default") &&
+        user?.profileImageUrl !== ""
+          ? user?.profileImageUrl
+          : SocialProfile,
+      img2:
+        user?.profileImageUrl &&
+        !user?.profileImageUrl.toLowerCase()?.includes("default") &&
+        user?.profileImageUrl !== ""
+          ? user?.profileImageUrl
+          : SocialProfileB,
     },
     {
       title: "My Campaigns",
@@ -118,10 +128,15 @@ const Drawer = () => {
             {selected === path.path && (
               <span className="absolute w-1 bg-black h-full top-0 left-0" />
             )}
-            <img
-              className="w-7 md:w-8"
-              src={selected === path.path ? path?.img2 : path.img1}
-              alt=""
+            <div
+              style={{
+                backgroundImage: `url(${
+                  selected === path.path ? path?.img2 : path.img1
+                })`,
+              }}
+              className={`w-7 md:w-8 aspect-square bg-center bg-cover bg-no-repeat ${
+                path?.title === "Social Profile" ? "rounded-full" : "rounded-0"
+              }`}
             />
             <span
               className={`hidden lg:block text-lg ${

@@ -27,14 +27,12 @@ import FAQs from "./Components/FAQs/FAQs";
 import MyCampaignDetails from "./Pages/MyCampaignDetails";
 import CampaignInfluencers from "./Pages/CampaignInfluencers";
 import BlogDetails from "./Pages/BlogDetails";
-import AppAds from "./Pages/AppAds";
 import RootPage from "./Components/Home/UserContent/RootPage";
 import AllSponsorships from "./Components/Home/UserContent/AllSponsorships";
 import Latest from "./Components/Home/UserContent/SponsorshipsCategories/Latest";
 import Paid from "./Components/Home/UserContent/SponsorshipsCategories/Paid";
 import Barter from "./Components/Home/UserContent/SponsorshipsCategories/Barter";
 import PopularAll from "./Components/Home/UserContent/Creators/PopularAll";
-import Keywords from "./Pages/Keywords";
 import AllVideos from "./Components/Home/UserContent/AllVideos";
 import Notification from "./Components/Home/UserContent/Notification";
 import MostApplied from "./Components/Home/UserContent/SponsorshipsCategories/MostApplied";
@@ -53,8 +51,6 @@ function App() {
     "/",
     "brands",
     "influencers",
-    "app-ads.txt",
-    "keywords",
     "sponsorships",
     "latest",
     "paid",
@@ -68,7 +64,6 @@ function App() {
     "news",
     user?.userId && "courses",
   ];
-  const footerPaths = ["/app-ads.txt", "/keywords"];
 
   return (
     <>
@@ -130,8 +125,6 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
-          <Route path="/app-ads.txt" element={<AppAds />} />
-          <Route path="/keywords" element={<Keywords />} />
           <Route
             path="/search"
             element={
@@ -221,7 +214,7 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        {!footerPaths.includes(pathname) && <Footer />}
+        <Footer />
       </div>
     </>
   );

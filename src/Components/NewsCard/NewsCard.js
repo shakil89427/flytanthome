@@ -106,7 +106,7 @@ const NewsCard = () => {
 
   return (
     <>
-      <div className="fixed inset-0 top-0 left-0 bg-[#030303ea] z-30 flex items-center justify-center">
+      <div className="fixed inset-0 top-0 left-0 bg-[#030303f6] z-30 flex items-center justify-center">
         <img
           onClick={() => setShowNewsCard(false)}
           className="bg-[#ffffff86] absolute top-10 right-10 w-5 md:w-7 lg:w-9 rounded-full cursor-pointer hover:bg-white"
@@ -114,7 +114,7 @@ const NewsCard = () => {
           alt=""
         />
         <div
-          className={`absolute top-7 left-1/2 md:left-5 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 md:translate-x-0 rotate-90 md:rotate-0 text-[#ffffff86] hover:text-white text-4xl md:text-6xl lg:text-8xl  cursor-pointer select-none ${
+          className={`absolute top-5 left-1/2 md:left-5 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 md:translate-x-0 rotate-90 md:rotate-0 text-[#ffffff86] hover:text-white text-4xl md:text-6xl lg:text-8xl  cursor-pointer select-none ${
             activeIndex === 0 ? "invisible" : "visible"
           }`}
           ref={prevRef}
@@ -122,7 +122,7 @@ const NewsCard = () => {
           <MdNavigateBefore />
         </div>
         <div
-          className={`absolute bottom-7 right-1/2 md:right-5 md:bottom-1/2 translate-x-1/2 md:translate-y-1/2 md:translate-x-0 rotate-90 md:rotate-0 text-[#ffffff86] hover:text-white text-4xl md:text-6xl lg:text-8xl cursor-pointer select-none ${
+          className={`absolute bottom-5 right-1/2 md:right-5 md:bottom-1/2 translate-x-1/2 md:translate-y-1/2 md:translate-x-0 rotate-90 md:rotate-0 text-[#ffffff86] hover:text-white text-4xl md:text-6xl lg:text-8xl cursor-pointer select-none ${
             activeIndex + 1 === allNews?.data?.length ? "invisible" : "visible"
           }`}
           ref={nextRef}
@@ -143,14 +143,19 @@ const NewsCard = () => {
           initialSlide={activeIndex}
           onSwiper={setSwiper}
           slidesPerView={1}
-          className="w-[95%] max-w-[400px] h-[700px] bg-white rounded-md overflow-hidden"
+          className="w-[95%] max-w-[450px] h-[80vh] bg-white rounded-md overflow-hidden"
         >
           {allNews?.data?.map((item, index) => (
             <SwiperSlide
               key={index}
               className="h-full relative overflow-hidden"
             >
-              <img src={item?.blob[0]?.path} alt="" className="aspect-[7/4]" />
+              <div
+                style={{
+                  backgroundImage: `url("${item?.blob[0]?.path}")`,
+                }}
+                className="bg-cover bg-center bg-no-repeat aspect-[7/4]"
+              />
 
               <div className="px-5">
                 <p className="font-semibold mt-2 text-lg">{item?.title}</p>

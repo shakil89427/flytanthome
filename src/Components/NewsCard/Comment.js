@@ -83,7 +83,7 @@ const Comment = ({ setShowComment, newsId }) => {
       }}
       className="absolute inset-0 top-0 left-0 z-20 bg-white duration-150 flex flex-col justify-between"
     >
-      <div className="h-full overflow-hidden">
+      <div className="w-full overflow-hidden flex flex-col">
         <div className="border-b px-2">
           <IoIosArrowRoundBack
             onClick={() => {
@@ -99,7 +99,7 @@ const Comment = ({ setShowComment, newsId }) => {
         {!loading && !comments?.length && (
           <p className="text-center p-2">No comments found</p>
         )}
-        <div className="p-3 w-full h-full flex flex-col gap-5 overflow-y-scroll scrollbar pb-20">
+        <div className="p-3 w-full  flex flex-col gap-5 overflow-y-scroll scrollbar">
           {comments?.map((item) => (
             <div key={item?.id} className="flex items-start gap-2">
               <div>
@@ -125,15 +125,17 @@ const Comment = ({ setShowComment, newsId }) => {
       </div>
       <form
         onSubmit={addComment}
-        className="border-t flex items-center gap-1 p-2 w-full"
+        className="border-t flex items-center gap-1 p-3 pb-10 w-full"
       >
-        <input
+        <textarea
           placeholder="Type your comment"
           readOnly={addingComment}
           required
           type="text"
-          className="border-0 outline-none w-full bg-gray-200 rounded-full px-3 py-1"
+          className="border-0 outline-none w-full bg-gray-100 rounded-md px-3 py-1 resize-none"
+          rows="2"
         />
+
         <button
           disabled={addingComment}
           type="submit"
