@@ -6,7 +6,7 @@ import { BiSearch } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 /* Styles Start */
 const styles = {
-  profile: "flex items-center justify-end gap-10 xl:gap-20 text-white gap-10",
+  profile: "flex items-center justify-end gap-10 text-white",
   profileImg: "w-9 h-9 md:w-10 md:h-10 rounded-full mr-2",
   contactBtn:
     "w-36 h-12 border-2 text-lg font-medium border-gray-400 flex items-center justify-center text-white rounded-md duration-150 hover:scale-105 hover:border-white hover:border-2",
@@ -26,7 +26,7 @@ const LargeTop = () => {
         <div className={styles.profile}>
           <div
             onClick={() => navigate("/search")}
-            className={`hidden lg:flex items-center gap-3 bg-gray-100 w-[50%] py-2 pl-5 rounded-full text-black overflow-hidden cursor-pointer ${
+            className={`hidden lg:flex items-center gap-3 bg-gray-100 w-[50%] py-2 pl-5 rounded-full text-black overflow-hidden cursor-pointer mr-14 ${
               pathname === "/search" ? "invisible" : "visible"
             }`}
           >

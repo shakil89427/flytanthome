@@ -13,14 +13,14 @@ const AllSubscriptions = () => {
       {plans?.map((plan, index) => (
         <div
           style={{
-            height: index === 1 && "680px",
-            paddingTop: index === 1 ? "60px" : "30px",
-            border: index === 1 && "2px solid black",
+            height: index === 2 && "680px",
+            paddingTop: index === 2 ? "60px" : "30px",
+            border: index === 2 && "2px solid black",
           }}
           key={plan?.planId}
           className="w-full flex flex-col justify-between rounded-lg shadow-lg border px-4 pb-5 hover:scale-105 duration-150 h-[650px] relative overflow-hidden"
         >
-          {index === 1 && (
+          {index === 2 && (
             <p className="absolute top-0 inset-x-0 text-center bg-black text-white py-2 font-medium">
               Popular
             </p>

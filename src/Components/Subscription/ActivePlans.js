@@ -124,8 +124,9 @@ const ActivePlans = () => {
                       width: `${
                         data?.unlimited
                           ? "100"
-                          : (data?.availableCampaignCredits * 100) /
-                            data?.allCampaignCredits
+                          : 100 -
+                            (data?.availableCampaignCredits * 100) /
+                              data?.allCampaignCredits
                       }%`,
                     }}
                     className="absolute bg-black inset-y-0 left-0"
@@ -148,8 +149,9 @@ const ActivePlans = () => {
                       width: `${
                         data?.unlimited
                           ? "100"
-                          : (data?.availableMessageCredits * 100) /
-                            data?.allMessageCredits
+                          : 100 -
+                            (data?.availableMessageCredits * 100) /
+                              data?.allMessageCredits
                       }%`,
                     }}
                     className="absolute bg-black inset-y-0 left-0"
