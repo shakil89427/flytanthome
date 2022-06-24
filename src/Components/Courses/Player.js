@@ -12,8 +12,10 @@ const Player = ({ videoId, thumbnail }) => {
     setLoading(true);
     axios
       .post("https://flytant.herokuapp.com/getvideo", { videoId })
-      .then(({ data }) => {
-        const sorted = data.sort((a, b) => a.height - b.height);
+      .then((res) => {
+        const sorted = res.data.request.files.progressive.sort(
+          (a, b) => a.height - b.height
+        );
         const maped = sorted.map((item) => {
           let name = "";
           if (item?.quality === "360p") {
