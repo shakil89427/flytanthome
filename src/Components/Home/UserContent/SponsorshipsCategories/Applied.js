@@ -25,10 +25,10 @@ const Applied = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (response?.empty) {
+      if (response?.empty || data?.length < 12) {
         setAppliedSponsorships((prev) => {
           return {
-            data: [...prev.data],
+            data: [...prev.data, ...data],
             lastVisible: false,
           };
         });
@@ -52,7 +52,7 @@ const Applied = () => {
         colRef,
         where("campaignId", "in", user?.appliedCampaigns),
         startAfter(appliedSponsorships?.lastVisible),
-        limit(10)
+        limit(12)
       );
       getBarter(q);
     }
@@ -63,7 +63,7 @@ const Applied = () => {
       const q = query(
         colRef,
         where("campaignId", "in", user?.appliedCampaigns),
-        limit(10)
+        limit(12)
       );
       getBarter(q);
     }

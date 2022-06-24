@@ -54,7 +54,11 @@ const Sponsorships = ({
   return (
     <div>
       <div className="flex items-center justify-between">
-        {type && <h1 className={styles.heading}>{type} Sponsorships</h1>}
+        {type && (
+          <h1 className={styles.heading}>
+            {type} {type.toLowerCase() === "my" ? "Campaigns" : "Sponsorships"}
+          </h1>
+        )}
         {applied && <h1 className={styles.heading}>{applied}</h1>}
         <span
           onClick={() => {

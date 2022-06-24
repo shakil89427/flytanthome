@@ -49,7 +49,7 @@ const Barter = () => {
         where("isApproved", "==", true),
         where("barter", "==", true),
         orderBy("creationDate", "desc"),
-        limit(10)
+        limit(12)
       );
       getBarter(q);
     } else {

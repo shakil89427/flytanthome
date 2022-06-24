@@ -50,7 +50,7 @@ const Applied = () => {
       const q = query(
         colRef,
         where("campaignId", "in", user?.appliedCampaigns),
-        limit(10)
+        limit(12)
       );
       getBarter(q);
     } else {

@@ -26,10 +26,10 @@ const MostApplied = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (response?.empty) {
+      if (response?.empty || data?.length < 12) {
         setMostAppliedSponsorships((prev) => {
           return {
-            data: [...prev.data],
+            data: [...prev.data, ...data],
             lastVisible: false,
           };
         });
@@ -57,7 +57,7 @@ const MostApplied = () => {
         where("isApproved", "==", true),
         orderBy("applied", "desc"),
         startAfter(mostAppliedSponsorships.lastVisible),
-        limit(10)
+        limit(12)
       );
       getLaitest(q);
     }
@@ -69,7 +69,7 @@ const MostApplied = () => {
         colRef,
         where("isApproved", "==", true),
         orderBy("applied", "desc"),
-        limit(10)
+        limit(12)
       );
       getLaitest(q);
     }

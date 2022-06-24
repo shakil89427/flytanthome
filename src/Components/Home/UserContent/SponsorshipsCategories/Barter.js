@@ -26,10 +26,10 @@ const Barter = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (response?.empty) {
+      if (response?.empty || data?.length < 12) {
         setBarterSponsorships((prev) => {
           return {
-            data: [...prev.data],
+            data: [...prev.data, ...data],
             lastVisible: false,
           };
         });
@@ -55,7 +55,7 @@ const Barter = () => {
         where("barter", "==", true),
         orderBy("creationDate", "desc"),
         startAfter(barterSponsorships?.lastVisible),
-        limit(10)
+        limit(12)
       );
       getBarter(q);
     }
@@ -68,7 +68,7 @@ const Barter = () => {
         where("isApproved", "==", true),
         where("barter", "==", true),
         orderBy("creationDate", "desc"),
-        limit(10)
+        limit(12)
       );
       getBarter(q);
     }

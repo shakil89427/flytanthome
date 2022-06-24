@@ -37,7 +37,7 @@ const News = () => {
   const getData = async () => {
     try {
       const colRef = collection(db, "news");
-      const q = query(colRef, orderBy("creationDate", "desc"), limit(10));
+      const q = query(colRef, orderBy("creationDate", "desc"), limit(12));
       const response = await getDocs(q);
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };

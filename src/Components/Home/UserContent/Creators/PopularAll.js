@@ -46,10 +46,10 @@ const PopularAll = () => {
           data.push(val);
         }
       });
-      if (response?.empty) {
+      if (response?.empty || data?.length < 12) {
         setPopularInfluencers((prev) => {
           return {
-            data: [...prev.data],
+            data: [...prev.data, ...data],
             lastVisible: false,
           };
         });
@@ -74,7 +74,7 @@ const PopularAll = () => {
         where("shouldShowInfluencer", "==", true),
         orderBy("socialScore", "desc"),
         startAfter(popularInfluencers?.lastVisible),
-        limit(20)
+        limit(12)
       );
       getPopular(q);
     }
@@ -86,7 +86,7 @@ const PopularAll = () => {
         colRef,
         where("shouldShowInfluencer", "==", true),
         orderBy("socialScore", "desc"),
-        limit(20)
+        limit(12)
       );
       getPopular(q);
     }

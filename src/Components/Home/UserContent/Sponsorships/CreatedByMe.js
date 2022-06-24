@@ -44,7 +44,7 @@ const CreatedByMe = () => {
         colRef,
         where("userId", "==", user?.userId),
         orderBy("creationDate", "desc"),
-        limit(10)
+        limit(12)
       );
       getMy(q);
     } else {

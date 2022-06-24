@@ -26,10 +26,10 @@ const Paid = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (response?.empty) {
+      if (response?.empty || data?.length < 12) {
         setPaidSponsorships((prev) => {
           return {
-            data: [...prev.data],
+            data: [...prev.data, ...data],
             lastVisible: false,
           };
         });
@@ -55,7 +55,7 @@ const Paid = () => {
         where("barter", "==", false),
         orderBy("creationDate", "desc"),
         startAfter(paidSponsorships.lastVisible),
-        limit(10)
+        limit(12)
       );
       getPaid(q);
     }
@@ -68,7 +68,7 @@ const Paid = () => {
         where("isApproved", "==", true),
         where("barter", "==", false),
         orderBy("creationDate", "desc"),
-        limit(10)
+        limit(12)
       );
       getPaid(q);
     }

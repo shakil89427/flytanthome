@@ -26,10 +26,10 @@ const Latest = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (response?.empty) {
+      if (response?.empty || data?.length < 12) {
         setLatestSponsorships((prev) => {
           return {
-            data: [...prev.data],
+            data: [...prev.data, ...data],
             lastVisible: false,
           };
         });
@@ -54,7 +54,7 @@ const Latest = () => {
         where("isApproved", "==", true),
         orderBy("creationDate", "desc"),
         startAfter(latestSponsorships.lastVisible),
-        limit(10)
+        limit(12)
       );
       getLaitest(q);
     }
@@ -66,7 +66,7 @@ const Latest = () => {
         colRef,
         where("isApproved", "==", true),
         orderBy("creationDate", "desc"),
-        limit(10)
+        limit(12)
       );
       getLaitest(q);
     }

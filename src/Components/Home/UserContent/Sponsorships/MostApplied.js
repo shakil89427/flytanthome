@@ -48,7 +48,7 @@ const MostApplied = () => {
         colRef,
         where("isApproved", "==", true),
         orderBy("applied", "desc"),
-        limit(10)
+        limit(12)
       );
       getMost(q);
     } else {

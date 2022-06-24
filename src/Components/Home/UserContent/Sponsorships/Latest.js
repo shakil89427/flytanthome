@@ -48,7 +48,7 @@ const Latest = () => {
         colRef,
         where("isApproved", "==", true),
         orderBy("creationDate", "desc"),
-        limit(10)
+        limit(12)
       );
       getLaitest(q);
     } else {

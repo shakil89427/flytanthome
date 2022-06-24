@@ -81,7 +81,7 @@ const PopularInfluencers = () => {
         colRef,
         where("shouldShowInfluencer", "==", true),
         orderBy("socialScore", "desc"),
-        limit(20)
+        limit(12)
       );
       getPopular(q);
     } else {

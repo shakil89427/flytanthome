@@ -120,7 +120,7 @@ const Drawer = () => {
       )}
       <div className="flex flex-col gap-8">
         {paths.map((path) => (
-          <p
+          <div
             onClick={() => changePath(path?.path)}
             key={path?.title}
             className="flex items-center gap-8 relative cursor-pointer h-8  pl-2"
@@ -128,7 +128,7 @@ const Drawer = () => {
             {selected === path.path && (
               <span className="absolute w-1 bg-black h-full top-0 left-0" />
             )}
-            <div
+            <p
               style={{
                 backgroundImage: `url(${
                   selected === path.path ? path?.img2 : path.img1
@@ -145,7 +145,7 @@ const Drawer = () => {
             >
               {path.title}
             </span>
-          </p>
+          </div>
         ))}
         {!routes && (
           <button

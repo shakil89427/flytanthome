@@ -45,7 +45,7 @@ const Paid = () => {
         where("isApproved", "==", true),
         where("barter", "==", false),
         orderBy("creationDate", "desc"),
-        limit(10)
+        limit(12)
       );
       getPaid(q);
     } else {

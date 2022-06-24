@@ -49,11 +49,11 @@ const Player = ({ videoId, thumbnail }) => {
           </div>
         </div>
       )}
-      {!loading && videos?.length > 0 && (
+      {!loading && (
         <JoLPlayer
           className="aspect-[4/2]"
           option={{
-            videoSrc: videos[0]?.url,
+            videoSrc: videos?.length > 0 ? videos[0]?.url : "",
             poster: thumbnail,
             language: "en",
             pausePlacement: "center",

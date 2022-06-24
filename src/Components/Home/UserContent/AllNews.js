@@ -28,10 +28,10 @@ const AllNews = () => {
       const data = response?.docs.map((item) => {
         return { ...item.data(), id: item.id };
       });
-      if (response?.empty) {
+      if (response?.empty || data?.length < 12) {
         setAllNews((prev) => {
           return {
-            data: [...prev.data],
+            data: [...prev.data, ...data],
             lastVisible: false,
           };
         });
@@ -55,7 +55,7 @@ const AllNews = () => {
         colRef,
         orderBy("creationDate", "desc"),
         startAfter(allNews?.lastVisible),
-        limit(10)
+        limit(12)
       );
       getNews(q);
     }
@@ -63,7 +63,7 @@ const AllNews = () => {
 
   useEffect(() => {
     if (!allNews?.data?.length) {
-      const q = query(colRef, orderBy("creationDate", "desc"), limit(10));
+      const q = query(colRef, orderBy("creationDate", "desc"), limit(12));
       getNews(q);
     }
   }, []);
