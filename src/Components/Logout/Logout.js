@@ -36,16 +36,16 @@ const Logout = () => {
           </p>
           <span className="flex items-center justify-center mt-7 gap-5">
             <button
-              onClick={() => setShowLogout(false)}
-              className="border-2 w-32 p-2 rounded-lg bg-black text-white border-black font-semibold duration-150 hover:scale-105"
-            >
-              No I don't
-            </button>
-            <button
               onClick={signOutUser}
               className="border-2 w-32 p-2 rounded-lg border-black font-semibold duration-150 hover:scale-105"
             >
               LOG OUT
+            </button>
+            <button
+              onClick={() => setShowLogout(false)}
+              className="border-2 w-32 p-2 rounded-lg bg-black text-white border-black font-semibold duration-150 hover:scale-105"
+            >
+              No I don't
             </button>
           </span>
         </div>

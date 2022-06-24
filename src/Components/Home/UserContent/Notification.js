@@ -12,7 +12,7 @@ import defaultUser from "../../../Assets/defaultUser.png";
 const Notification = () => {
   const navigate = useNavigate();
   const divRef = useRef();
-  const { user, notifications } = useStore();
+  const { user, notifications, setShowSingleCard } = useStore();
   const [sorted, setSorted] = useState([]);
   const [allData, setAllData] = useState([]);
   console.log(allData);
@@ -59,7 +59,7 @@ const Notification = () => {
       navigate(`/blogdetails/${last}`);
     }
     if (info?.newsId) {
-      navigate(`/news`);
+      setShowSingleCard(info?.newsId);
     }
   };
 

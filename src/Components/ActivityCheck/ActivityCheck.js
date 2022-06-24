@@ -10,6 +10,7 @@ import useCheckCode from "../../Hooks/useCheckCode";
 import useLocationCheck from "../../Hooks/useLocationCheck";
 import useNotifications from "../../Hooks/useNotifications";
 import NewsCard from "../NewsCard/NewsCard";
+import SingleCard from "../NewsCard/SingleCard";
 
 const styles = {
   spinnerDiv:
@@ -24,6 +25,7 @@ const ActivityCheck = () => {
     authLoading,
     userLoading,
     showNewsCard,
+    showSingleCard,
   } = useStore();
   useAuthCheck();
   useCheckCode();
@@ -37,6 +39,7 @@ const ActivityCheck = () => {
       {notify && <Toast />}
       {authLoading && <Loading />}
       {showNewsCard && <NewsCard />}
+      {showSingleCard && <SingleCard />}
       {userLoading && (
         <div className={styles.spinnerDiv}>
           <Spinner />

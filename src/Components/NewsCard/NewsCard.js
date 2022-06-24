@@ -194,7 +194,7 @@ const NewsCard = () => {
                 <Comment
                   setShowComment={setShowComment}
                   newsId={item?.id}
-                  news={item}
+                  setData={false}
                 />
               )}
             </SwiperSlide>

@@ -20,7 +20,7 @@ import { MdSend } from "react-icons/md";
 import moment from "moment";
 import Spinner2 from "../Spinner/Spinner2";
 
-const Comment = ({ setShowComment, newsId }) => {
+const Comment = ({ setShowComment, newsId, setData }) => {
   const { user, allNews, setAllNews } = useStore();
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,8 +37,8 @@ const Comment = ({ setShowComment, newsId }) => {
         comment: e.target[0].value,
         creationDate: moment().unix(),
         userId: user.userId,
-        userProfileImageUrl: user.profileImageUrl,
-        username: user.username,
+        userProfileImageUrl: user?.profileImageUrl,
+        username: user?.username,
       };
       await addDoc(colRef, commentData);
       const newsRef = doc(db, "news", newsId);
@@ -49,6 +49,9 @@ const Comment = ({ setShowComment, newsId }) => {
         item?.id === newsId ? updatedNews : item
       );
       setAllNews({ ...allNews, data: merged });
+      if (setData) {
+        setData(updatedNews);
+      }
       e.target.reset();
       getComments(setAddingComment);
     } catch (err) {
