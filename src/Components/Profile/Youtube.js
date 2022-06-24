@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "../../Components/Spinner/Spinner";
-import youtube from "../../Assets/profileSocials/youtube.png";
+import youtubeOriginal from "../../Assets/profileSocials/youtubeOriginal.png";
 import views from "../../Assets/profileSocials/youtube/views.png";
 import likes from "../../Assets/profileSocials/youtube/likes.png";
 import comments from "../../Assets/profileSocials/youtube/comments.png";
@@ -91,8 +91,8 @@ const Youtube = ({ details }) => {
             <p>No account linked</p>
             <p onClick={openPopup}>
               <img
-                className="w-1/2 mx-auto cursor-pointer"
-                src={youtube}
+                className="w-1/2 max-w-[150px] mx-auto cursor-pointer"
+                src={youtubeOriginal}
                 alt=""
               />
             </p>
@@ -103,7 +103,11 @@ const Youtube = ({ details }) => {
         <div className={styles.connect}>
           <p>No account linked</p>
           <p>
-            <img className="w-1/2 mx-auto" src={youtube} alt="" />
+            <img
+              className="w-1/2 max-w-[150px] mx-auto"
+              src={youtubeOriginal}
+              alt=""
+            />
           </p>
         </div>
       )}
