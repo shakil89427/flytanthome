@@ -24,7 +24,7 @@ const LargeTop = () => {
     <div className="hidden lg:block w-full">
       {user?.id ? (
         <div className={styles.profile}>
-          <div
+          {/* <div
             onClick={() => navigate("/search")}
             className={`hidden lg:flex items-center gap-3 bg-gray-100 w-[50%] py-2 pl-5 rounded-full text-black overflow-hidden cursor-pointer mr-14 ${
               pathname === "/search" ? "invisible" : "visible"
@@ -37,7 +37,7 @@ const LargeTop = () => {
               placeholder="Search 'Fashion Influencers'"
               readOnly
             />
-          </div>
+          </div> */}
           <a
             href="mailto:contact@flytant.com"
             target="_blank"

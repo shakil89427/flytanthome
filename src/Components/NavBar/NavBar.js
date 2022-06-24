@@ -59,14 +59,14 @@ const NavBar = ({ bg }) => {
           alt=""
         />
         <div className="lg:hidden flex items-center justify-end gap-3 w-full">
-          {user?.userId && (
+          {/* {user?.userId && (
             <BiSearch
               onClick={() => navigate("/search")}
               className={`cursor-pointer text-black ${
                 pathname === "/search" ? "invisible" : "visible"
               }`}
             />
-          )}
+          )} */}
           <GiHamburgerMenu
             onClick={() => setShowSide(true)}
             className={`text-3xl hover:border rounded-md p-1 cursor-pointer ${theme.text}`}

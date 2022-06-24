@@ -15,7 +15,6 @@ const Notification = () => {
   const { user, notifications, setShowSingleCard } = useStore();
   const [sorted, setSorted] = useState([]);
   const [allData, setAllData] = useState([]);
-  console.log(allData);
 
   const loadMore = () => {
     setAllData(sorted.slice(0, allData?.length + 20));
