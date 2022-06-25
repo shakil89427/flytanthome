@@ -39,22 +39,16 @@ const useConnect = (setLoading) => {
       window.innerWidth / 2 - 200
     },top=${window.screen.availHeight / 2 - 275}`;
 
-    localStorage.clear("access");
     window.open(url, "youtube", options);
 
-    let check = setInterval(() => {
-      const access = localStorage.getItem("access");
+    window.addEventListener("storage", () => {
+      const access = localStorage.getItem(state);
       if (access?.includes(state)) {
-        clearInterval(check);
         const token = access.split("access_token=")[1].split("&token_type=")[0];
         getInfo(token);
-        localStorage.clear("access");
+        localStorage.clear(state);
       }
-    }, 1000);
-
-    setTimeout(() => {
-      clearInterval(check);
-    }, 120000);
+    });
   };
 
   return { openPopup };

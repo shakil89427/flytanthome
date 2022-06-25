@@ -6,12 +6,18 @@ const useCheckCode = () => {
 
   useEffect(() => {
     if (location?.search?.includes("state=access")) {
-      localStorage.setItem("access", location?.search);
-      window.close();
+      try {
+        const key = location?.search?.split("state=")[1].slice(0, 19);
+        localStorage.setItem(key, location?.search);
+        window.close();
+      } catch (err) {}
     }
     if (location?.hash?.includes("state=access")) {
-      localStorage.setItem("access", location?.hash);
-      window.close();
+      try {
+        const key = location?.hash?.split("state=")[1].slice(0, 19);
+        localStorage.setItem(key, location?.hash);
+        window.close();
+      } catch (err) {}
     }
   }, []);
 };

@@ -39,22 +39,16 @@ const useConnect = (setLoading) => {
       window.innerWidth / 2 - 200
     },top=${window.screen.availHeight / 2 - 275}`;
 
-    localStorage.clear("access");
     window.open(url, "instagram", options);
 
-    let check = setInterval(() => {
-      const access = localStorage.getItem("access");
+    window.addEventListener("storage", () => {
+      const access = localStorage.getItem(state);
       if (access?.includes(state)) {
-        clearInterval(check);
         const code = access.split("code=")[1].split("&state=")[0];
         getInfo(code);
-        localStorage.clear("access");
+        localStorage.clear(state);
       }
-    }, 1000);
-
-    setTimeout(() => {
-      clearInterval(check);
-    }, 120000);
+    });
   };
 
   return { openPopup };
