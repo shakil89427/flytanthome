@@ -2,24 +2,33 @@ import React, { useEffect, useState } from "react";
 import useStore from "../../Store/useStore";
 import moment from "moment";
 import cross from "../../Assets/cross.svg";
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 
 const History = ({ setShowHistory }) => {
   const { user, remoteConfig } = useStore();
   const [plans, setPlans] = useState([]);
 
-  useEffect(() => {
-    const currencies = JSON.parse(getString(remoteConfig, "currency_list"));
-    const allPlans = user?.subscriptions?.map((pl) => {
-      const { symbol_native } = currencies.find(
-        (item) => item?.code === pl?.currencyCode
+  const getPlans = async () => {
+    try {
+      await fetchAndActivate(remoteConfig);
+      const currencies = await JSON.parse(
+        getString(remoteConfig, "currency_list")
       );
-      pl.symbol = symbol_native;
-      return pl;
-    });
-    const sorted = allPlans?.sort((a, b) => b.orderDate - a.orderDate);
-    if (!sorted?.length || sorted?.length < 1) return setPlans([]);
-    setPlans(sorted);
+      const allPlans = user?.subscriptions?.map((pl) => {
+        const { symbol_native } = currencies.find(
+          (item) => item?.code === pl?.currencyCode
+        );
+        pl.symbol = symbol_native;
+        return pl;
+      });
+      const sorted = allPlans?.sort((a, b) => b.orderDate - a.orderDate);
+      if (!sorted?.length || sorted?.length < 1) return setPlans([]);
+      setPlans(sorted);
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    getPlans();
   }, [user]);
 
   useEffect(() => {

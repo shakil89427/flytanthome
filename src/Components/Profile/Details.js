@@ -10,7 +10,7 @@ import Twitter from "./Twitter";
 import Tiktok from "./Tiktok";
 import { useParams } from "react-router-dom";
 import Edit from "./Edit";
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 const styles = {
   spinnerDiv:
     "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
@@ -88,11 +88,19 @@ const Profile = () => {
 
   useEffect(() => {
     if (!details?.countryCode) return;
-    const allCountries = JSON.parse(getString(remoteConfig, "country_list"));
-    const found = allCountries?.find(
-      (c) => c?.countryCode === details?.countryCode
-    );
-    setCountry(found?.countryName);
+    const getCountry = async () => {
+      try {
+        await fetchAndActivate(remoteConfig);
+        const allCountries = await JSON.parse(
+          getString(remoteConfig, "country_list")
+        );
+        const found = allCountries?.find(
+          (c) => c?.countryCode === details?.countryCode
+        );
+        setCountry(found?.countryName);
+      } catch (err) {}
+    };
+    getCountry();
   }, [details]);
 
   useEffect(() => {

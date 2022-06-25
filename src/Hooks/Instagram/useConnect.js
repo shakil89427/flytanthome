@@ -1,6 +1,6 @@
 import axios from "axios";
 import { doc, getFirestore, getDoc } from "firebase/firestore";
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 import useStore from "../../Store/useStore";
 
 const useConnect = (setLoading) => {
@@ -35,6 +35,7 @@ const useConnect = (setLoading) => {
 
   const openPopup = async () => {
     try {
+      await fetchAndActivate(remoteConfig);
       const { redirect_uri, instagram_app_id } = await JSON.parse(
         getString(remoteConfig, "instagram_keys")
       );

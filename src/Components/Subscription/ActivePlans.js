@@ -1,4 +1,4 @@
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import useStore from "../../Store/useStore";
@@ -10,8 +10,8 @@ const ActivePlans = () => {
   const [data, setData] = useState({});
   const [showHistory, setShowHistory] = useState(false);
 
-  useEffect(() => {
-    if (allPlans?.length > 0) {
+  const checkAllPlans = async () => {
+    try {
       const valid = user?.subscriptions?.filter(
         (sub) => sub.orderDate + sub.subscriptionDays * 86400 >= moment().unix()
       );
@@ -21,7 +21,10 @@ const ActivePlans = () => {
       let allDates = [];
       let allCampaignCredits = 0;
       let allMessageCredits = 0;
-      const currencies = JSON.parse(getString(remoteConfig, "currency_list"));
+      await fetchAndActivate(remoteConfig);
+      const currencies = await JSON.parse(
+        getString(remoteConfig, "currency_list")
+      );
       valid?.forEach((validPlan) => {
         const { symbol_native } = currencies.find(
           (item) => item?.code === validPlan?.currencyCode
@@ -69,6 +72,12 @@ const ActivePlans = () => {
         final.unlimited = true;
       }
       setData(final);
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    if (allPlans?.length > 0) {
+      checkAllPlans();
     }
   }, [allPlans]);
 

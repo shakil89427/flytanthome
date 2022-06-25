@@ -23,7 +23,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 
 const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen bg-[#49494980]",
@@ -65,16 +65,23 @@ const Edit = ({ progress, setEdit }) => {
   );
   const [gender, setGender] = useState(user?.gender);
 
+  const getCategories = async () => {
+    try {
+      await fetchAndActivate(remoteConfig);
+      const allCategories = Object.keys(
+        await JSON.parse(getString(remoteConfig, "explore_category"))
+      );
+      if (filterKey.length < 1) return setFiltered(allCategories);
+      setFiltered(
+        allCategories.filter((c) =>
+          c.toLowerCase().includes(filterKey.toLowerCase())
+        )
+      );
+    } catch (err) {}
+  };
+
   useEffect(() => {
-    const allCategories = Object.keys(
-      JSON.parse(getString(remoteConfig, "explore_category"))
-    );
-    if (filterKey.length < 1) return setFiltered(allCategories);
-    setFiltered(
-      allCategories.filter((c) =>
-        c.toLowerCase().includes(filterKey.toLowerCase())
-      )
-    );
+    getCategories();
   }, [filterKey]);
 
   /* Update data on db */

@@ -1,7 +1,7 @@
 import axios from "axios";
 import useStore from "../../Store/useStore";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 
 const useConnect = (setLoading) => {
   const { user, setUser, setNotify, remoteConfig } = useStore();
@@ -36,6 +36,7 @@ const useConnect = (setLoading) => {
   /* Create popup */
   const openPopup = async () => {
     try {
+      await fetchAndActivate(remoteConfig);
       const { client_id, redirect_uri } = await JSON.parse(
         getString(remoteConfig, "twitter_keys")
       );

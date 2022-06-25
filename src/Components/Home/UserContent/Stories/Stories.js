@@ -36,7 +36,7 @@ const Stories = () => {
   const getConfigs = async () => {
     try {
       await fetchAndActivate(remoteConfig);
-      const temp = JSON.parse(getString(remoteConfig, "blogs"));
+      const temp = await JSON.parse(getString(remoteConfig, "blogs"));
       const maped = temp?.map((item) => {
         const imgUrl = item?.content?.find((i) => i?.type === "image");
         const text = item?.content?.find((i) => i?.type === "text");

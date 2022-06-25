@@ -10,7 +10,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 import { Outlet } from "react-router-dom";
 import useCalculate from "../Hooks/useCalculate";
 import ActivePlans from "../Components/Subscription/ActivePlans";
@@ -23,8 +23,13 @@ const Subscription = () => {
 
   const checkCurrency = async (allData) => {
     try {
-      const countries = JSON.parse(getString(remoteConfig, "country_list"));
-      const currencies = JSON.parse(getString(remoteConfig, "currency_list"));
+      await fetchAndActivate(remoteConfig);
+      const countries = await JSON.parse(
+        getString(remoteConfig, "country_list")
+      );
+      const currencies = await JSON.parse(
+        getString(remoteConfig, "currency_list")
+      );
       /* USD */
       if (!user?.countryCode || user?.countryCode === "") {
         const { symbol_native } = currencies.find(

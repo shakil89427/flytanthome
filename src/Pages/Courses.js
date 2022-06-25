@@ -26,7 +26,7 @@ const Courses = () => {
   const getFromConfig = async () => {
     try {
       await fetchAndActivate(remoteConfig);
-      const data = JSON.parse(getString(remoteConfig, "courses"));
+      const data = await JSON.parse(getString(remoteConfig, "courses"));
       setCourses(data);
       setLoading(false);
     } catch (err) {

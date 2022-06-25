@@ -9,7 +9,6 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { fetchAndActivate } from "firebase/remote-config";
 import { formatPhoneNumberIntl } from "react-phone-number-input";
 import { useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
@@ -17,19 +16,11 @@ import useStore from "../Store/useStore";
 const useAddUser = () => {
   const navigate = useNavigate();
   const database = getFirestore();
-  const {
-    user,
-    remoteConfig,
-    setUser,
-    setUserLoading,
-    setNotify,
-    countryCode,
-  } = useStore();
+  const { user, setUser, setUserLoading, setNotify, countryCode } = useStore();
 
   const addTempUser = async (data) => {
     const userRef = doc(database, "users", data.uid);
     try {
-      await fetchAndActivate(remoteConfig);
       const userData = await getDoc(userRef);
       const finalData = { ...userData.data(), id: userData.id };
       if (finalData?.userId) {

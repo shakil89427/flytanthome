@@ -6,7 +6,7 @@ import {
   getFirestore,
   updateDoc,
 } from "firebase/firestore";
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
@@ -67,6 +67,7 @@ const usePayment = (plan, setPaymentLoading) => {
 
   const procced = async (id) => {
     try {
+      await fetchAndActivate(remoteConfig);
       const { key_id } = await JSON.parse(
         getString(remoteConfig, "razorpay_keys")
       );

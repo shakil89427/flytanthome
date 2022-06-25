@@ -15,7 +15,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import moment from "moment";
-import { getString } from "firebase/remote-config";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 
 const Buy = ({ course, setShowBuy }) => {
   const { user, setNotify, setCourses, remoteConfig } = useStore();
@@ -51,6 +51,7 @@ const Buy = ({ course, setShowBuy }) => {
 
   const procced = async (id) => {
     try {
+      await fetchAndActivate(remoteConfig);
       const { key_id } = await JSON.parse(
         getString(remoteConfig, "razorpay_keys")
       );
