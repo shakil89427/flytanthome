@@ -6,12 +6,13 @@ import {
   getFirestore,
   updateDoc,
 } from "firebase/firestore";
+import { getString } from "firebase/remote-config";
 import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
 
 const usePayment = (plan, setPaymentLoading) => {
-  const { user, setUser, setNotify } = useStore();
+  const { user, setUser, setNotify, remoteConfig } = useStore();
   const db = getFirestore();
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,22 +65,31 @@ const usePayment = (plan, setPaymentLoading) => {
     }
   };
 
-  const procced = (id) => {
-    const options = {
-      key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-      name: "Flytant",
-      amount: (plan?.priceNow * 100).toString(),
-      currency: plan?.currency,
-      order_id: id,
-      handler: ({ razorpay_payment_id }) => {
-        updateOnDb(razorpay_payment_id);
-      },
-    };
-    const razorpay = new window.Razorpay(options);
-    razorpay.on("payment.failed", (response) => {
-      console.log("err");
-    });
-    razorpay.open();
+  const procced = async (id) => {
+    try {
+      const { key_id } = await JSON.parse(
+        getString(remoteConfig, "razorpay_keys")
+      );
+      setPaymentLoading(false);
+      const options = {
+        key: key_id,
+        name: "Flytant",
+        amount: (plan?.priceNow * 100).toString(),
+        currency: plan?.currency,
+        order_id: id,
+        handler: ({ razorpay_payment_id }) => {
+          updateOnDb(razorpay_payment_id);
+        },
+      };
+      const razorpay = new window.Razorpay(options);
+      razorpay.on("payment.failed", (response) => {
+        console.log("err");
+      });
+      razorpay.open();
+    } catch (err) {
+      setPaymentLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+    }
   };
 
   const loadScript = (src) => {
@@ -121,7 +131,6 @@ const usePayment = (plan, setPaymentLoading) => {
         },
       });
       procced(id);
-      setPaymentLoading(false);
     } catch (err) {
       setPaymentLoading(false);
       setNotify({ status: false, message: "Something went wrong" });

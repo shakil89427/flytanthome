@@ -15,9 +15,10 @@ import {
   getDocs,
 } from "firebase/firestore";
 import moment from "moment";
+import { getString } from "firebase/remote-config";
 
 const Buy = ({ course, setShowBuy }) => {
-  const { user, setNotify, setCourses } = useStore();
+  const { user, setNotify, setCourses, remoteConfig } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
 
@@ -48,22 +49,31 @@ const Buy = ({ course, setShowBuy }) => {
     }
   };
 
-  const procced = (id) => {
-    const options = {
-      key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-      name: "Flytant",
-      amount: (course?.priceData?.priceNow * 100).toString(),
-      currency: course?.priceData?.currency,
-      order_id: id,
-      handler: ({ razorpay_payment_id }) => {
-        updateOnDb(razorpay_payment_id);
-      },
-    };
-    const razorpay = new window.Razorpay(options);
-    razorpay.on("payment.failed", (response) => {
-      console.log("err");
-    });
-    razorpay.open();
+  const procced = async (id) => {
+    try {
+      const { key_id } = await JSON.parse(
+        getString(remoteConfig, "razorpay_keys")
+      );
+      setLoading(false);
+      const options = {
+        key: key_id,
+        name: "Flytant",
+        amount: (course?.priceData?.priceNow * 100).toString(),
+        currency: course?.priceData?.currency,
+        order_id: id,
+        handler: ({ razorpay_payment_id }) => {
+          updateOnDb(razorpay_payment_id);
+        },
+      };
+      const razorpay = new window.Razorpay(options);
+      razorpay.on("payment.failed", (response) => {
+        console.log("err");
+      });
+      razorpay.open();
+    } catch (err) {
+      setLoading(false);
+      setNotify({ status: false, message: "Something went wrong" });
+    }
   };
 
   const loadScript = (src) => {
@@ -104,7 +114,6 @@ const Buy = ({ course, setShowBuy }) => {
         },
       });
       procced(id);
-      setLoading(false);
     } catch (err) {
       setLoading(false);
       setNotify({ status: false, message: "Something went wrong" });

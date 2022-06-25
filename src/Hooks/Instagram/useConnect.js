@@ -35,13 +35,13 @@ const useConnect = (setLoading) => {
 
   const openPopup = async () => {
     try {
-      const secrets = await JSON.parse(
+      const { redirect_uri, instagram_app_id } = await JSON.parse(
         getString(remoteConfig, "instagram_keys")
       );
 
       const state = `access${Date.now()}`;
 
-      const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=${state}&redirect_uri=${secrets.redirect_uri}&client_id=${secrets.instagram_app_id}`;
+      const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=${state}&redirect_uri=${redirect_uri}&client_id=${instagram_app_id}`;
 
       const options = `toolbar=no, menubar=no, width=400, height=550 left=${
         window.innerWidth / 2 - 200

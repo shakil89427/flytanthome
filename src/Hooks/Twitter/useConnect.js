@@ -36,11 +36,13 @@ const useConnect = (setLoading) => {
   /* Create popup */
   const openPopup = async () => {
     try {
-      const secrets = await JSON.parse(getString(remoteConfig, "twitter_keys"));
+      const { client_id, redirect_uri } = await JSON.parse(
+        getString(remoteConfig, "twitter_keys")
+      );
 
       const state = `access${Date.now()}`;
 
-      const url = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${secrets.client_id}&redirect_uri=${secrets.redirect_uri}&scope=tweet.read%20users.read%20follows.read%20offline.access&state=${state}&code_challenge=challenge&code_challenge_method=plain`;
+      const url = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=tweet.read%20users.read%20follows.read%20offline.access&state=${state}&code_challenge=challenge&code_challenge_method=plain`;
 
       const options = `toolbar=no, menubar=no, width=400, height=550 left=${
         window.innerWidth / 2 - 200

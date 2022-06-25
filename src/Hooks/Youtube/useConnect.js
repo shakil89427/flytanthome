@@ -35,11 +35,13 @@ const useConnect = (setLoading) => {
 
   const openPopup = async () => {
     try {
-      const secrets = await JSON.parse(getString(remoteConfig, "youtube_keys"));
+      const { client_id, redirect_uri } = await JSON.parse(
+        getString(remoteConfig, "youtube_keys")
+      );
 
       const state = `access${Date.now()}`;
 
-      const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=${state}&redirect_uri=${secrets.redirect_uri}&client_id=${secrets.client_id}`;
+      const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=${state}&redirect_uri=${redirect_uri}&client_id=${client_id}`;
 
       const options = `toolbar=no, menubar=no, width=400, height=550 left=${
         window.innerWidth / 2 - 200

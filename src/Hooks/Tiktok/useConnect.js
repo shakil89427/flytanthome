@@ -36,11 +36,13 @@ const useConnect = (setLoading) => {
   /* Create popup */
   const openPopup = async () => {
     try {
-      const secrets = await JSON.parse(getString(remoteConfig, "tiktok_keys"));
+      const { client_key, redirect_uri } = await JSON.parse(
+        getString(remoteConfig, "tiktok_keys")
+      );
 
       const state = `access${Date.now()}`;
 
-      const url = `https://www.tiktok.com/auth/authorize?response_type=code&client_key=${secrets.client_key}&redirect_uri=${secrets.redirect_uri}&scope=user.info.basic,video.list&state=${state}`;
+      const url = `https://www.tiktok.com/auth/authorize?response_type=code&client_key=${client_key}&redirect_uri=${redirect_uri}&scope=user.info.basic,video.list&state=${state}`;
 
       const options = `toolbar=no, menubar=no, width=400, height=550 left=${
         window.innerWidth / 2 - 200
