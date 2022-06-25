@@ -8,6 +8,7 @@ import blog from "../../../Assets/blog.png";
 import sponsorship from "../../../Assets/sponsorship.png";
 import { useNavigate } from "react-router-dom";
 import defaultUser from "../../../Assets/defaultUser.png";
+import News from "../../../Assets/News.png";
 
 const Notification = () => {
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ const Notification = () => {
         >
           <div className="flex items-start justify-center gap-2 lg:gap-5">
             {/* Left */}
-            {item?.senderProfileImageUrl && (
+            {item?.senderProfileImageUrl && item?.type !== 11 && (
               <div>
                 <div
                   style={{
@@ -94,6 +95,16 @@ const Notification = () => {
                         ? defaultUser
                         : item?.senderProfileImageUrl
                     })`,
+                  }}
+                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
+                />
+              </div>
+            )}
+            {item?.senderProfileImageUrl && item?.type === 11 && (
+              <div>
+                <div
+                  style={{
+                    backgroundImage: `url(${News})`,
                   }}
                   className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
                 />
