@@ -106,7 +106,7 @@ const Notification = () => {
                   style={{
                     backgroundImage: `url(${News})`,
                   }}
-                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
+                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] "
                 />
               </div>
             )}
@@ -116,7 +116,7 @@ const Notification = () => {
                   style={{
                     backgroundImage: `url(${blog})`,
                   }}
-                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
+                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] "
                 />
               </div>
             )}
@@ -126,7 +126,7 @@ const Notification = () => {
                   style={{
                     backgroundImage: `url(${sponsorship})`,
                   }}
-                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full "
+                  className="bg-cover bg-center bg-no-repeat w-[30px] h-[30px] md:w-[40px] md:h-[40px]"
                 />
               </div>
             )}
