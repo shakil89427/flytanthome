@@ -1,10 +1,11 @@
 import axios from "axios";
 import { doc, getFirestore, getDoc } from "firebase/firestore";
+import { getString } from "firebase/remote-config";
 import useStore from "../../Store/useStore";
 
 const useConnect = (setLoading) => {
   const db = getFirestore();
-  const { setNotify, user, setUser } = useStore();
+  const { setNotify, user, setUser, remoteConfig } = useStore();
 
   /* Get User info */
   const getInfo = async (code) => {
@@ -32,23 +33,31 @@ const useConnect = (setLoading) => {
     }
   };
 
-  const openPopup = () => {
-    const state = `access${Date.now()}`;
-    const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=${state}&redirect_uri=${process.env.REACT_APP_INSTAGRAM_REDIRECT_URI}&client_id=${process.env.REACT_APP_INSTAGRAM_CLIENT_ID}`;
-    const options = `toolbar=no, menubar=no, width=400, height=550 left=${
-      window.innerWidth / 2 - 200
-    },top=${window.screen.availHeight / 2 - 275}`;
+  const openPopup = async () => {
+    try {
+      const secrets = await JSON.parse(
+        getString(remoteConfig, "instagram_keys")
+      );
 
-    window.open(url, "instagram", options);
+      const state = `access${Date.now()}`;
 
-    window.addEventListener("storage", () => {
-      const access = localStorage.getItem(state);
-      if (access?.includes(state)) {
-        const code = access.split("code=")[1].split("&state=")[0];
-        getInfo(code);
-        localStorage.clear(state);
-      }
-    });
+      const url = `https://www.instagram.com/oauth/authorize?scope=user_profile,user_media&response_type=code&state=${state}&redirect_uri=${secrets.redirect_uri}&client_id=${secrets.instagram_app_id}`;
+
+      const options = `toolbar=no, menubar=no, width=400, height=550 left=${
+        window.innerWidth / 2 - 200
+      },top=${window.screen.availHeight / 2 - 275}`;
+
+      window.open(url, "instagram", options);
+
+      window.addEventListener("storage", () => {
+        const access = localStorage.getItem(state);
+        if (access?.includes(state)) {
+          const code = access.split("code=")[1].split("&state=")[0];
+          getInfo(code);
+          localStorage.clear(state);
+        }
+      });
+    } catch (err) {}
   };
 
   return { openPopup };

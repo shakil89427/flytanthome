@@ -1,9 +1,10 @@
 import axios from "axios";
 import useStore from "../../Store/useStore";
 import { doc, getFirestore, getDoc } from "firebase/firestore";
+import { getString } from "firebase/remote-config";
 
 const useConnect = (setLoading) => {
-  const { user, setUser, setNotify } = useStore();
+  const { user, setUser, setNotify, remoteConfig } = useStore();
   const db = getFirestore();
 
   /* Get Info and update on db */
@@ -33,23 +34,29 @@ const useConnect = (setLoading) => {
   };
 
   /* Create popup */
-  const openPopup = () => {
-    const state = `access${Date.now()}`;
-    const url = `https://www.tiktok.com/auth/authorize?response_type=code&client_key=${process.env.REACT_APP_TIKTOK_CLIENT_KEY}&redirect_uri=${process.env.REACT_APP_TIKTOK_REDIRECT_URI}&scope=user.info.basic,video.list&state=${state}`;
-    const options = `toolbar=no, menubar=no, width=400, height=550 left=${
-      window.innerWidth / 2 - 200
-    },top=${window.screen.availHeight / 2 - 275}`;
+  const openPopup = async () => {
+    try {
+      const secrets = await JSON.parse(getString(remoteConfig, "tiktok_keys"));
 
-    window.open(url, "tiktok", options);
+      const state = `access${Date.now()}`;
 
-    window.addEventListener("storage", () => {
-      const access = localStorage.getItem(state);
-      if (access?.includes(state)) {
-        const code = access.split("code=")[1].split("&scopes=")[0];
-        getInfo(code);
-        localStorage.clear(state);
-      }
-    });
+      const url = `https://www.tiktok.com/auth/authorize?response_type=code&client_key=${secrets.client_key}&redirect_uri=${secrets.redirect_uri}&scope=user.info.basic,video.list&state=${state}`;
+
+      const options = `toolbar=no, menubar=no, width=400, height=550 left=${
+        window.innerWidth / 2 - 200
+      },top=${window.screen.availHeight / 2 - 275}`;
+
+      window.open(url, "tiktok", options);
+
+      window.addEventListener("storage", () => {
+        const access = localStorage.getItem(state);
+        if (access?.includes(state)) {
+          const code = access.split("code=")[1].split("&scopes=")[0];
+          getInfo(code);
+          localStorage.clear(state);
+        }
+      });
+    } catch (err) {}
   };
 
   return { openPopup };

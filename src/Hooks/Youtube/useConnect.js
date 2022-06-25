@@ -1,9 +1,10 @@
 import axios from "axios";
 import useStore from "../../Store/useStore";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { getString } from "firebase/remote-config";
 
 const useConnect = (setLoading) => {
-  const { user, setUser, setNotify } = useStore();
+  const { user, setUser, setNotify, remoteConfig } = useStore();
   const db = getFirestore();
 
   /* Get channelId and set to user db */
@@ -32,23 +33,31 @@ const useConnect = (setLoading) => {
     }
   };
 
-  const openPopup = () => {
-    const state = `access${Date.now()}`;
-    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=${state}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}`;
-    const options = `toolbar=no, menubar=no, width=400, height=550 left=${
-      window.innerWidth / 2 - 200
-    },top=${window.screen.availHeight / 2 - 275}`;
+  const openPopup = async () => {
+    try {
+      const secrets = await JSON.parse(getString(remoteConfig, "youtube_keys"));
 
-    window.open(url, "youtube", options);
+      const state = `access${Date.now()}`;
 
-    window.addEventListener("storage", () => {
-      const access = localStorage.getItem(state);
-      if (access?.includes(state)) {
-        const token = access.split("access_token=")[1].split("&token_type=")[0];
-        getInfo(token);
-        localStorage.clear(state);
-      }
-    });
+      const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly&response_type=token&state=${state}&redirect_uri=${secrets.redirect_uri}&client_id=${secrets.client_id}`;
+
+      const options = `toolbar=no, menubar=no, width=400, height=550 left=${
+        window.innerWidth / 2 - 200
+      },top=${window.screen.availHeight / 2 - 275}`;
+
+      window.open(url, "youtube", options);
+
+      window.addEventListener("storage", () => {
+        const access = localStorage.getItem(state);
+        if (access?.includes(state)) {
+          const token = access
+            .split("access_token=")[1]
+            .split("&token_type=")[0];
+          getInfo(token);
+          localStorage.clear(state);
+        }
+      });
+    } catch (err) {}
   };
 
   return { openPopup };

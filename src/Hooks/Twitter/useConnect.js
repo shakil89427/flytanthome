@@ -1,9 +1,10 @@
 import axios from "axios";
 import useStore from "../../Store/useStore";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { getString } from "firebase/remote-config";
 
 const useConnect = (setLoading) => {
-  const { user, setUser, setNotify } = useStore();
+  const { user, setUser, setNotify, remoteConfig } = useStore();
   const db = getFirestore();
 
   /* Get Info and update on db */
@@ -33,23 +34,29 @@ const useConnect = (setLoading) => {
   };
 
   /* Create popup */
-  const openPopup = () => {
-    const state = `access${Date.now()}`;
-    const url = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${process.env.REACT_APP_TWITTER_OAUTH2_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_TWITTER_REDIRECT_URI}&scope=tweet.read%20users.read%20follows.read%20offline.access&state=${state}&code_challenge=challenge&code_challenge_method=plain`;
-    const options = `toolbar=no, menubar=no, width=400, height=550 left=${
-      window.innerWidth / 2 - 200
-    },top=${window.screen.availHeight / 2 - 275}`;
+  const openPopup = async () => {
+    try {
+      const secrets = await JSON.parse(getString(remoteConfig, "twitter_keys"));
 
-    window.open(url, "twitter", options);
+      const state = `access${Date.now()}`;
 
-    window.addEventListener("storage", () => {
-      const access = localStorage.getItem(state);
-      if (access?.includes(state)) {
-        const code = access.split("code=")[1];
-        getInfo(code);
-        localStorage.clear(state);
-      }
-    });
+      const url = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${secrets.client_id}&redirect_uri=${secrets.redirect_uri}&scope=tweet.read%20users.read%20follows.read%20offline.access&state=${state}&code_challenge=challenge&code_challenge_method=plain`;
+
+      const options = `toolbar=no, menubar=no, width=400, height=550 left=${
+        window.innerWidth / 2 - 200
+      },top=${window.screen.availHeight / 2 - 275}`;
+
+      window.open(url, "twitter", options);
+
+      window.addEventListener("storage", () => {
+        const access = localStorage.getItem(state);
+        if (access?.includes(state)) {
+          const code = access.split("code=")[1];
+          getInfo(code);
+          localStorage.clear(state);
+        }
+      });
+    } catch (err) {}
   };
 
   return { openPopup };
