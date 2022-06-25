@@ -24,17 +24,14 @@ const Instagram = ({ details }) => {
       } = await axios.post("https://flytant.herokuapp.com/getimage", {
         url,
       });
-      setData((prev) => {
-        const newData = { ...prev };
-        newData[id] = image;
-        return newData;
-      });
+      let obj = {};
+      obj[id] = image;
+      return obj;
     } catch (err) {}
   };
 
-  useEffect(() => {
-    if (data?.profile_pic_url && !data?.fetched) {
-      setData((prev) => ({ ...prev, fetched: true }));
+  const fetchImages = async () => {
+    try {
       const promises = [];
       promises.push(getImage(data?.profile_pic_url, "profileImg"));
       data?.edge_owner_to_timeline_media?.edges?.forEach((item) => {
@@ -42,16 +39,29 @@ const Instagram = ({ details }) => {
           promises.push(getImage(item?.node?.thumbnail_src, item?.node?.id));
         }
       });
-      Promise.allSettled(promises)
-        .then(() => {
-          setInstagramData([
-            ...instagramData,
-            { ...data, validId: details?.id },
-          ]);
-        })
-        .catch(() => {
-          setNotify({ status: false, meessage: "Something went wrong" });
-        });
+      const response = await Promise.allSettled(promises);
+      let temp = {};
+      response.forEach((item) => {
+        if (item?.status === "fulfilled") {
+          temp[Object.keys(item.value)[0]] = Object.values(item.value)[0];
+        }
+      });
+      const finalData = {
+        ...data,
+        ...temp,
+        fetched: true,
+        validId: details?.id,
+      };
+      setData(finalData);
+      setInstagramData([...instagramData, finalData]);
+    } catch (err) {
+      setNotify({ status: false, meessage: "Something went wrong" });
+    }
+  };
+
+  useEffect(() => {
+    if (data?.profile_pic_url && !data?.fetched) {
+      fetchImages();
     }
   }, [data]);
 
