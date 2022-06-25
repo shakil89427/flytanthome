@@ -24,7 +24,7 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(process.env.REACT_APP_CONTACT_URL, data);
+      await axios.post("https://flytant.herokuapp.com/sendmailContact", data);
       setLoading(false);
       setNotify({
         status: true,

@@ -65,7 +65,10 @@ const OnBoard = () => {
     const code = number.split("+")[1];
     const allData = { ...data, code, contact: "" };
     try {
-      await axios.post(process.env.REACT_APP_BRAND_CONTACT_URL, allData);
+      await axios.post(
+        "https://flytant.herokuapp.com/sendmailBrandsContact",
+        allData
+      );
       setLoading(false);
       setSuccess(true);
       window.scrollTo(0, 0);

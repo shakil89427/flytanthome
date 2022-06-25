@@ -36,7 +36,10 @@ const Career = () => {
 
   const submitData = async (url, e) => {
     try {
-      await axios.post(process.env.REACT_APP_CAREER_URL, { ...data, url });
+      await axios.post("https://flytant.herokuapp.com/sendmailCareer", {
+        ...data,
+        url,
+      });
       e.target.reset();
       setFile(null);
       setLoading(false);
