@@ -15,8 +15,8 @@ const Search = () => {
   const [result, setResult] = useState([]);
   const [showData, setShowData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const categories = ["All", "Instagram", "Youtube", "Twitter"];
-  const [active, setActive] = useState(categories[0]);
+  const [categories, setCategories] = useState([]);
+  const [active, setActive] = useState(false);
   const [base64Images, setBase64Images] = useState({});
 
   useEffect(() => {
@@ -56,11 +56,17 @@ const Search = () => {
           keyword: e.target[0].value,
         }
       );
+      let temp = ["All"];
       data.forEach((item) => {
-        if (item?.category === "instagram") {
+        if (!temp.includes(item?.category)) {
+          temp.push(item?.category);
+        }
+        if (item?.category === "Instagram") {
           getImage(item?.profileImage, item?.randomId);
         }
       });
+      setCategories(temp);
+      setActive("All");
       setResult(data);
       setLoading(false);
     } catch (err) {
@@ -71,10 +77,9 @@ const Search = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-  console.log(result);
 
   return (
-    <div className="r-box py-10">
+    <div className="r-box pt-10 pb-32">
       <form
         onSubmit={search}
         className="border border-black rounded-full pl-5 flex items-center overflow-hidden w-full max-w-[1000px] mx-auto"
@@ -117,8 +122,12 @@ const Search = () => {
                 key={item?.randomId}
                 className="shadow-lg p-5 border-t rounded-lg border-gray-100"
               >
-                {item?.category === "instagram" && (
-                  <div className="flex items-start gap-3 md:gap-4 lg:gap-5 xl:gap-6">
+                {item?.category === "Instagram" && (
+                  <div
+                    className={`flex ${
+                      item?.bio?.length > 0 ? "items-start" : "items-center"
+                    } gap-3 md:gap-4 lg:gap-5 xl:gap-6`}
+                  >
                     <div>
                       <div
                         style={{
@@ -143,8 +152,14 @@ const Search = () => {
                     </div>
                   </div>
                 )}
-                {item?.category === "youtube" && (
-                  <div className="flex items-start gap-3 md:gap-4 lg:gap-5 xl:gap-6">
+                {item?.category === "Youtube" && (
+                  <div
+                    className={`flex ${
+                      item?.description?.length > 0
+                        ? "items-start"
+                        : "items-center"
+                    } gap-3 md:gap-4 lg:gap-5 xl:gap-6`}
+                  >
                     <div>
                       <div
                         style={{
