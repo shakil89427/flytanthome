@@ -44,6 +44,7 @@ import AllNews from "./Components/Home/UserContent/AllNews";
 import Search from "./Pages/Search";
 import User from "./Pages/User";
 import Details from "./Components/Search/Details";
+import LandingApp from "./Pages/LandingApp";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -63,6 +64,7 @@ function App() {
     "mostapplied",
     "applied",
     "news",
+    "app",
     user?.userId && "courses",
   ];
 
@@ -116,6 +118,7 @@ function App() {
           )}
 
           <Route path="/brands" element={<Brands />} />
+          <Route path="/app" element={<LandingApp />} />
           <Route path="/onboard" element={<OnBoard />} />
           <Route path="/about" element={<About />} />
           <Route path="/career" element={<Career />} />

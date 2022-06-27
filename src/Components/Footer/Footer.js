@@ -13,9 +13,9 @@ import logo from "../../Assets/logo.png";
 import playstoreWhite from "../../Assets/playstoreWhite.png";
 
 const styles = {
-  main: "bg-black text-white py-14",
+  main: "bg-black text-white pb-14",
   wrapper:
-    "grid grid-cols-1 lg:grid-cols-3 gap-y-20 gap-x-5 lg:gap-x-10 xl:gap-x-20 border-b border-white r-box py-10 items-center",
+    "grid grid-cols-1 lg:grid-cols-3 gap-y-20 gap-x-5 lg:gap-x-10 xl:gap-x-20 border-y border-[#a8a8a877] r-box py-24 items-center",
   info: "flex flex-col items-center justify-between",
   logo: "w-64 cursor-pointer",
   infoText: "my-5 text-center",
