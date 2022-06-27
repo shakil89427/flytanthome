@@ -73,7 +73,9 @@ function App() {
       <ActivityCheck />
       <div
         style={{ opacity: authLoading ? "0" : "1" }}
-        className="min-h-screen duration-300"
+        className={`duration-300 ${
+          pathname === "/app" ? "min-h-0" : "min-h-screen"
+        }`}
       >
         {!navPaths.includes(
           pathname?.length === 1 ? "/" : pathname.split("/")[1]

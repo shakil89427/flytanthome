@@ -9,7 +9,7 @@ const LandingApp = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-black min-h-screen pb-28">
+    <div className="bg-black pb-32">
       <div className="r-box flex items-center h-14 md:h-24">
         <img
           onClick={() => navigate("/")}
