@@ -7,28 +7,41 @@ import { BiSearch } from "react-icons/bi";
 import Spinner from "../Components/Spinner/Spinner";
 import defaultUser from "../Assets/defaultUser.png";
 import millify from "millify";
+import { useNavigate, useLocation } from "react-router-dom";
+import useStore from "../Store/useStore";
 
 const selected = `px-1 text-center relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[3px] before:rounded-full text-black before:left-0`;
 
 const Search = () => {
+  const {
+    searchKeyword,
+    setSearchKeyword,
+    searchCategories,
+    setSearchCategories,
+    searchActive,
+    setSearchActive,
+    searchResult,
+    setSearchResult,
+    searchImages,
+    setSearchImages,
+  } = useStore();
+  const navigate = useNavigate();
   const inputRef = useRef();
-  const [result, setResult] = useState([]);
   const [showData, setShowData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [active, setActive] = useState(false);
-  const [base64Images, setBase64Images] = useState({});
+  const location = useLocation();
 
   useEffect(() => {
-    if (active === "All") {
-      setShowData(result);
+    if (!searchResult?.length || !searchActive) return;
+    if (searchActive === "All") {
+      setShowData(searchResult);
     } else {
-      const filtered = result.filter(
-        (item) => item?.category?.toLowerCase() === active?.toLowerCase()
+      const filtered = searchResult.filter(
+        (item) => item?.category?.toLowerCase() === searchActive?.toLowerCase()
       );
       setShowData(filtered);
     }
-  }, [result, active]);
+  }, [searchResult, searchActive]);
 
   const getImage = async (url, randomId) => {
     try {
@@ -37,7 +50,7 @@ const Search = () => {
       } = await axios.post("https://flytant.herokuapp.com/getimage", {
         url,
       });
-      setBase64Images((prev) => {
+      setSearchImages((prev) => {
         const newData = { ...prev };
         newData[randomId] = image;
         return newData;
@@ -48,7 +61,6 @@ const Search = () => {
   const search = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setResult([]);
     try {
       const { data } = await axios.post(
         "https://flytant.herokuapp.com/search",
@@ -56,18 +68,20 @@ const Search = () => {
           keyword: e.target[0].value,
         }
       );
+      setSearchImages({});
       let temp = ["All"];
       data.forEach((item) => {
-        if (!temp.includes(item?.category)) {
+        if (!temp?.includes(item?.category)) {
           temp.push(item?.category);
         }
         if (item?.category === "Instagram") {
           getImage(item?.profileImage, item?.randomId);
         }
       });
-      setCategories(temp);
-      setActive("All");
-      setResult(data);
+      setSearchCategories(temp);
+      setSearchActive("All");
+      setSearchResult(data);
+      setSearchKeyword(e.target[0].value);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -86,6 +100,7 @@ const Search = () => {
       >
         <BiSearch className="text-2xl" />
         <input
+          defaultValue={searchKeyword}
           ref={inputRef}
           placeholder="Search influencer"
           type="text"
@@ -106,11 +121,13 @@ const Search = () => {
       {!loading && showData?.length > 0 && (
         <div>
           <div className="flex items-center justify-between w-full max-w-[700px] mx-auto mt-10 font-medium text-gray-500 text-lg lg:text-xl px-5">
-            {categories.map((item) => (
+            {searchCategories.map((item) => (
               <p
                 key={item}
-                onClick={() => active !== item && setActive(item)}
-                className={active === item ? selected : "cursor-pointer px-1"}
+                onClick={() => searchActive !== item && setSearchActive(item)}
+                className={
+                  searchActive === item ? selected : "cursor-pointer px-1"
+                }
               >
                 {item}
               </p>
@@ -124,6 +141,11 @@ const Search = () => {
               >
                 {item?.category === "Instagram" && (
                   <div
+                    onClick={() =>
+                      navigate(`/search/details/instagram+${item?.username}`, {
+                        state: { from: location },
+                      })
+                    }
                     className={`flex ${
                       item?.bio?.length > 0 ? "items-start" : "items-center"
                     } gap-3 md:gap-4 lg:gap-5 xl:gap-6`}
@@ -131,9 +153,9 @@ const Search = () => {
                     <div>
                       <div
                         style={{
-                          backgroundImage: base64Images[item?.randomId]
+                          backgroundImage: searchImages[item?.randomId]
                             ? `url(data:image/png;base64,${
-                                base64Images[item?.randomId]
+                                searchImages[item?.randomId]
                               })`
                             : `url(${defaultUser})`,
                         }}
@@ -154,6 +176,11 @@ const Search = () => {
                 )}
                 {item?.category === "Youtube" && (
                   <div
+                    onClick={() =>
+                      navigate(`/search/details/youtube+${item?.channelId}`, {
+                        state: { from: location },
+                      })
+                    }
                     className={`flex ${
                       item?.description?.length > 0
                         ? "items-start"

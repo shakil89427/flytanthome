@@ -43,6 +43,7 @@ import Contents from "./Components/Courses/Contents";
 import AllNews from "./Components/Home/UserContent/AllNews";
 import Search from "./Pages/Search";
 import User from "./Pages/User";
+import Details from "./Components/Search/Details";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -130,6 +131,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Search />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/search/details/:info"
+            element={
+              <PrivateRoute>
+                <Details />
               </PrivateRoute>
             }
           />

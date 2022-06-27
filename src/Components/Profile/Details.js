@@ -17,7 +17,7 @@ const styles = {
   main: "grid grid-cols-1 lg:grid-cols-2 max-w-[1100px] px-5 gap-y-10 gap-x-10  mx-auto",
   profileTop: "flex justify-between gap-5",
   profileLeft: "flex flex-col gap-10",
-  profileWrapper: "flex gap-3",
+  profileWrapper: "flex gap-3 items-start",
   left: "pt-5 lg:pb-14",
   profileImage:
     "w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-center bg-no-repeat bg-cover",
@@ -137,20 +137,22 @@ const Profile = () => {
             <div className={styles.profileTop}>
               <div className={styles.profileLeft}>
                 <div className={styles.profileWrapper}>
-                  <div
-                    style={{
-                      backgroundImage: `url(${
-                        details?.profileImageUrl &&
-                        !details?.profileImageUrl
-                          ?.toLowerCase()
-                          ?.includes("default") &&
-                        details?.profileImageUrl !== ""
-                          ? details?.profileImageUrl
-                          : defaultUser
-                      })`,
-                    }}
-                    className={styles.profileImage}
-                  ></div>
+                  <div className="">
+                    <div
+                      style={{
+                        backgroundImage: `url(${
+                          details?.profileImageUrl &&
+                          !details?.profileImageUrl
+                            ?.toLowerCase()
+                            ?.includes("default") &&
+                          details?.profileImageUrl !== ""
+                            ? details?.profileImageUrl
+                            : defaultUser
+                        })`,
+                      }}
+                      className={styles.profileImage}
+                    />
+                  </div>
                   <span>
                     <p className={styles.topName}>{details?.username}</p>
                     <p className={styles.country}>

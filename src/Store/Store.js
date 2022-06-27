@@ -82,6 +82,11 @@ const Store = () => {
   const [newsIndex, setNewsIndex] = useState(0);
   const [showNewsCard, setShowNewsCard] = useState(false);
   const [showSingleCard, setShowSingleCard] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchCategories, setSearchCategories] = useState([]);
+  const [searchActive, setSearchActive] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+  const [searchImages, setSearchImages] = useState({});
 
   useEffect(() => {
     if (!user?.userId) {
@@ -184,6 +189,16 @@ const Store = () => {
     setShowNewsCard,
     showSingleCard,
     setShowSingleCard,
+    searchKeyword,
+    setSearchKeyword,
+    searchCategories,
+    setSearchCategories,
+    searchActive,
+    setSearchActive,
+    searchResult,
+    setSearchResult,
+    searchImages,
+    setSearchImages,
   };
 };
 
