@@ -10,7 +10,7 @@ const LandingApp = () => {
 
   return (
     <div className="bg-black min-h-screen">
-      <div className="r-box py-2">
+      <div className="r-box flex items-center h-14 md:h-24">
         <img
           onClick={() => navigate("/")}
           src={logo}

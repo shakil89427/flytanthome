@@ -50,7 +50,7 @@ const NavBar = ({ bg }) => {
   return (
     <div className={theme.bg}>
       <div
-        className={`h-14 md:h-24 r-box flex items-center justify-between ${theme.border}  r-box`}
+        className={`h-14 md:h-24 r-box flex items-center justify-between ${theme.border}`}
       >
         <img
           onClick={() => navigate("/")}
