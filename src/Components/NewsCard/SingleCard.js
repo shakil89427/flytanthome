@@ -116,7 +116,7 @@ const NewsCard = () => {
       <div className="fixed inset-0 top-0 left-0 bg-[#030303f6] z-30 flex items-center justify-center">
         <img
           onClick={() => setShowSingleCard(false)}
-          className="bg-[#ffffff86] absolute top-8 right-8 w-5 md:w-7 lg:w-9 rounded-full cursor-pointer hover:bg-white"
+          className="bg-[#ffffff86] absolute top-4 right-4 lg:top-8 lg:right-8 w-5 md:w-7 lg:w-9 rounded-full cursor-pointer hover:bg-white"
           src={cross}
           alt=""
         />
