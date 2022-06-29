@@ -131,7 +131,7 @@ const Buy = ({ course, setShowBuy }) => {
   return (
     <>
       {loading && (
-        <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center z-40 bg-[#69696969]">
+        <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center z-[999999] bg-[#69696969]">
           <Spinner />
         </div>
       )}
