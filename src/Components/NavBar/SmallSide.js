@@ -2,16 +2,17 @@ import React, { useEffect } from "react";
 import logoBlack from "../../Assets/logoBlack.png";
 import cross from "../../Assets/cross.svg";
 import defaultUser from "../../Assets/defaultUser.png";
-import mikeWhite from "../../Assets/navBar/mikeWhite.svg";
-import {
-  AiOutlineLogout,
-  AiOutlineLogin,
-  AiOutlineDollarCircle,
-} from "react-icons/ai";
-import { SiMinutemailer } from "react-icons/si";
-import { FaBullhorn } from "react-icons/fa";
 import useStore from "../../Store/useStore";
 import { useNavigate } from "react-router-dom";
+import mikewhite from "../../Assets/navBar/mikeWhite.svg";
+import campaignBlack from "../../Assets/navBar/campaignBlack.png";
+import campaignWhite from "../../Assets/navBar/campaignWhite.png";
+import subscriptionBlack from "../../Assets/navBar/subscriptionBlack.png";
+import subscriptionWhite from "../../Assets/navBar/subscriptionWhite.png";
+import contactBlack from "../../Assets/navBar/contactBlack.png";
+import contactWhite from "../../Assets/navBar/contactWhite.png";
+import logoutBlack from "../../Assets/navBar/logoutBlack.png";
+import logoutWhite from "../../Assets/navBar/logoutWhite.png";
 
 const styles = {
   area: "fixed top-0 left-0 w-full h-screen z-30 bg-[#07070783]",
@@ -19,7 +20,7 @@ const styles = {
   head: "h-14 flex items-center justify-between border-b px-5 gap-8",
   userImg: "w-6 h-6 rounded-full bg-cover bg-center bg-no-repeat",
   items: "px-2 flex flex-col gap-3 pt-5 text-md font-medium",
-  item: "flex items-center gap-3  h-12 rounded-md px-3 hover:bg-black hover:text-white duration-150 cursor-pointer nav_side_icons",
+  item: "flex items-center gap-3  h-12 rounded-md px-3 hover:bg-black hover:text-white duration-150 cursor-pointer navsideicons",
 };
 
 const SmallSide = ({ showSide, setShowSide }) => {
@@ -91,7 +92,8 @@ const SmallSide = ({ showSide, setShowSide }) => {
               }}
               className={styles.item}
             >
-              <FaBullhorn className="text-xl mr-1" />
+              <img src={campaignBlack} alt="" className="i1" />
+              <img src={campaignWhite} alt="" className="i2" />
               <p>My Campaigns</p>
             </div>
 
@@ -103,7 +105,8 @@ const SmallSide = ({ showSide, setShowSide }) => {
               }}
               className={styles.item}
             >
-              <AiOutlineDollarCircle className="text-2xl" />
+              <img src={subscriptionBlack} alt="" className="i1" />
+              <img src={subscriptionWhite} alt="" className="i2" />
               <p>Subscription</p>
             </div>
 
@@ -115,7 +118,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
               }}
               className="bg-black text-md text-white flex items-center gap-3 px-4 h-12 rounded-full mt-10 hover:scale-105 duration-150 cursor-pointer"
             >
-              <img className="w-6" src={mikeWhite} alt="" />
+              <img className="w-6" src={mikewhite} alt="" />
               <p>Create Campaign</p>
             </div>
 
@@ -127,7 +130,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
               }}
               className="flex items-center w-fit px-10 gap-3 justify-center cursor-pointer h-10  mx-auto border-2 border-gray-100 rounded-full font-medium hover:bg-gray-100 mt-5"
             >
-              <AiOutlineLogout className="text-xl" />
+              <img src={logoutBlack} alt="" className="w-[25px]" />
               <p>Logout</p>
             </div>
           </div>
@@ -140,7 +143,8 @@ const SmallSide = ({ showSide, setShowSide }) => {
               }}
               className={styles.item}
             >
-              <AiOutlineLogin className="text-2xl" />
+              <img src={logoutBlack} alt="" className="i1" />
+              <img src={logoutWhite} alt="" className="i2" />
               <p>Login | Signup</p>
             </div>
             <a
@@ -150,7 +154,8 @@ const SmallSide = ({ showSide, setShowSide }) => {
               rel="noreferrer"
               className={styles.item}
             >
-              <SiMinutemailer className="text-2xl" />
+              <img src={contactBlack} alt="" className="i1" />
+              <img src={contactWhite} alt="" className="i2" />
               <p>Contact</p>
             </a>
           </div>

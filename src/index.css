@@ -93,3 +93,16 @@ input[type="number"] {
 .swiper-pagination-bullet {
   background-color: black !important;
 }
+.i1,
+.i2 {
+  width: 25px;
+}
+.i2 {
+  display: none;
+}
+.navsideicons:hover .i2 {
+  display: block;
+}
+.navsideicons:hover .i1 {
+  display: none;
+}
