@@ -12,13 +12,12 @@ import subscriptionWhite from "../../Assets/navBar/subscriptionWhite.png";
 import contactBlack from "../../Assets/navBar/contactBlack.png";
 import contactWhite from "../../Assets/navBar/contactWhite.png";
 import logoutBlack from "../../Assets/navBar/logoutBlack.png";
-import logoutWhite from "../../Assets/navBar/logoutWhite.png";
 
 const styles = {
   area: "fixed top-0 left-0 w-full h-screen z-30 bg-[#07070783]",
   wrapper: "fixed top-0 right-0 w-fit h-screen z-30 duration-300 bg-white",
   head: "h-14 flex items-center justify-between border-b px-5 gap-8",
-  userImg: "w-6 h-6 rounded-full bg-cover bg-center bg-no-repeat",
+  userImg: "w-[25px] h-[25px] rounded-full bg-cover bg-center bg-no-repeat",
   items: "px-2 flex flex-col gap-3 pt-5 text-md font-medium",
   item: "flex items-center gap-3  h-12 rounded-md px-3 hover:bg-black hover:text-white duration-150 cursor-pointer navsideicons",
 };
@@ -143,8 +142,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
               }}
               className={styles.item}
             >
-              <img src={logoutBlack} alt="" className="i1" />
-              <img src={logoutWhite} alt="" className="i2" />
+              <img src={defaultUser} alt="" className="w-[25px]" />
               <p>Login | Signup</p>
             </div>
             <a
