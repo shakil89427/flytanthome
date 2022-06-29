@@ -14,7 +14,7 @@ import SingleCard from "../NewsCard/SingleCard";
 
 const styles = {
   spinnerDiv:
-    "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
+    "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f] z-[9999999999999]",
 };
 
 const ActivityCheck = () => {
