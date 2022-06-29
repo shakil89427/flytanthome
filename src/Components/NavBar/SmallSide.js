@@ -37,7 +37,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
     };
   }, [showSide]);
   return (
-    <div className="lg:hidden">
+    <div className="lg:hidden z-[999]">
       {showSide && (
         <div onClick={() => setShowSide(false)} className={styles.area} />
       )}

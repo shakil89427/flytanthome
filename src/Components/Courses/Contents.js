@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useStore from "../../Store/useStore";
 import moment from "moment";
+import lock from "../../Assets/lock.png";
 import {
   AiFillPlayCircle,
   AiFillPauseCircle,
@@ -106,7 +107,7 @@ const Contents = () => {
           }
           className="mt-7 bg-black text-white py-4 font-medium px-8 block mx-auto rounded-md"
         >
-          Unlock Course
+          Unlock full Course
         </button>
       )}
 
@@ -172,8 +173,8 @@ const Contents = () => {
                       <div className="flex items-start gap-2 lg:gap-5">
                         {video?.locked &&
                         !course?.courseBuyers?.includes(user?.userId) ? (
-                          <div className="w-fit">
-                            <AiFillLock className="text-[25px]" />
+                          <div className="w-[25px]">
+                            <img src={lock} alt="" />
                           </div>
                         ) : (
                           <div className="w-fit">
