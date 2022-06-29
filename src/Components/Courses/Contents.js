@@ -14,7 +14,7 @@ import Buy from "./Buy";
 import Player from "./Player";
 
 const Contents = () => {
-  const { user, courses } = useStore();
+  const { user, courses, setShowLogin } = useStore();
   const [course, setCourse] = useState({});
   const [selectedSection, setSelectedScetion] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState({});
@@ -67,7 +67,7 @@ const Contents = () => {
         </p>
       </div>
       {selectedVideo?.locked &&
-      !course?.courseBuyers?.includes(user?.userId) ? (
+      (!user?.userId || !course?.courseBuyers?.includes(user?.userId)) ? (
         <div
           style={{
             backgroundImage: `url(${
@@ -81,7 +81,9 @@ const Contents = () => {
               For Your plan only preview is available
             </p>
             <button
-              onClick={() => setShowBuy(true)}
+              onClick={() =>
+                !user?.userId ? setShowLogin("location") : setShowBuy(true)
+              }
               className="block mx-auto bg-white px-7 py-3 mt-2 rounded-md font-medium"
             >
               Unlock Course
@@ -95,6 +97,17 @@ const Contents = () => {
             selectedVideo?.thumbnail || "https://vumbnail.com/718275739.jpg"
           }
         />
+      )}
+
+      {(!user?.userId || !course?.courseBuyers?.includes(user?.userId)) && (
+        <button
+          onClick={() =>
+            !user?.userId ? setShowLogin("location") : setShowBuy(true)
+          }
+          className="mt-7 bg-black text-white py-4 font-medium px-8 block mx-auto rounded-md"
+        >
+          Unlock Course
+        </button>
       )}
 
       <p className="text-lg lg:text-xl xl:text-2xl mt-10">

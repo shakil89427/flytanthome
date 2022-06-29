@@ -16,7 +16,8 @@ import useStore from "../Store/useStore";
 const useAddUser = () => {
   const navigate = useNavigate();
   const database = getFirestore();
-  const { user, setUser, setUserLoading, setNotify, countryCode } = useStore();
+  const { user, setUser, showLogin, setUserLoading, setNotify, countryCode } =
+    useStore();
 
   const addTempUser = async (data) => {
     const userRef = doc(database, "users", data.uid);
@@ -26,6 +27,7 @@ const useAddUser = () => {
       if (finalData?.userId) {
         setUser(finalData);
         setUserLoading(false);
+        if (showLogin === "location") return;
         return navigate("/");
       }
       let current = {
@@ -73,6 +75,7 @@ const useAddUser = () => {
       await setDoc(userRef, newData);
       setUser({ ...newData, id: newData.userId });
       setUserLoading(false);
+      if (showLogin === "location") return;
       navigate("/");
     } catch (err) {
       setUserLoading(false);

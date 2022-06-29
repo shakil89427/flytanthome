@@ -108,14 +108,7 @@ function App() {
           {!user?.userId && (
             <Route path="courses" element={<Courses />}>
               <Route index element={<Index />} />
-              <Route
-                path="contents/:id"
-                element={
-                  <PrivateRoute>
-                    <Contents />
-                  </PrivateRoute>
-                }
-              />
+              <Route path="contents/:id" element={<Contents />} />
             </Route>
           )}
 

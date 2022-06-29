@@ -137,9 +137,9 @@ const Buy = ({ course, setShowBuy }) => {
       )}
       <div
         onClick={() => setShowBuy(false)}
-        className="fixed top-0 left-0 w-screen h-screen bg-[#6362625b] z-20"
+        className="fixed top-0 left-0 w-screen h-screen bg-[#6362625b] z-[9999]"
       />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[600px] pt-10 pb-5  px-5 lg:px-14 bg-white  z-30 rounded-md">
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[600px] pt-10 pb-5  px-5 lg:px-14 bg-white  z-[99999] rounded-md">
         <div>
           <img
             onClick={() => setShowBuy(false)}

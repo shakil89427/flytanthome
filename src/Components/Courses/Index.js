@@ -7,9 +7,10 @@ import moment from "moment";
 import qArrow from "../../Assets/qArrow.png";
 import antPlay2 from "../../Assets/antPlay2.png";
 import { useNavigate } from "react-router-dom";
+import millify from "millify";
 
 const Index = () => {
-  const { user, setShowLogin, courses } = useStore();
+  const { user, courses } = useStore();
   const [selected, setSelected] = useState(false);
   const navigate = useNavigate();
   const divRef = useRef();
@@ -50,9 +51,7 @@ const Index = () => {
               <div className="lg:hidden mb-10">
                 <div
                   onClick={() =>
-                    user?.userId
-                      ? navigate(`/courses/contents/${course?.courseId}`)
-                      : setShowLogin(true)
+                    navigate(`/courses/contents/${course?.courseId}`)
                   }
                   style={{ backgroundImage: `url(${course?.featureGraphic})` }}
                   className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
@@ -65,11 +64,9 @@ const Index = () => {
                 </div>
                 <button
                   onClick={() =>
-                    user?.userId
-                      ? navigate(`/courses/contents/${course?.courseId}`)
-                      : setShowLogin(true)
+                    navigate(`/courses/contents/${course?.courseId}`)
                   }
-                  className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium"
+                  className="w-full bg-[#FF8E10] text-white mt-5 py-3 rounded-md font-medium"
                 >
                   {course?.courseBuyers?.includes(user?.userId)
                     ? "Continue with Course"
@@ -82,7 +79,9 @@ const Index = () => {
               <div className="flex items-center gap-5">
                 <div className="flex items-center gap-2">
                   <img className="w-5" src={views} alt="" />
-                  <p className="text-gray-500 ">{course?.totalViews} Viewers</p>
+                  <p className="text-gray-500 ">
+                    {millify(course?.totalViews)} Viewers
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <img className="w-5" src={duration} alt="" />
@@ -97,9 +96,7 @@ const Index = () => {
             <div className="hidden lg:block">
               <div
                 onClick={() =>
-                  user?.userId
-                    ? navigate(`/courses/contents/${course?.courseId}`)
-                    : setShowLogin(true)
+                  navigate(`/courses/contents/${course?.courseId}`)
                 }
                 style={{ backgroundImage: `url(${course?.featureGraphic})` }}
                 className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
@@ -112,11 +109,9 @@ const Index = () => {
               </div>
               <button
                 onClick={() =>
-                  user?.userId
-                    ? navigate(`/courses/contents/${course?.courseId}`)
-                    : setShowLogin(true)
+                  navigate(`/courses/contents/${course?.courseId}`)
                 }
-                className="w-full bg-[#FF8E10] text-white mt-2 py-3 rounded-md font-medium"
+                className="w-full bg-[#FF8E10] text-white mt-5 py-3 rounded-md font-medium"
               >
                 {course?.courseBuyers?.includes(user?.userId)
                   ? "Continue with Course"

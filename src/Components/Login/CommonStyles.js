@@ -1,5 +1,5 @@
 export const styles = {
-  main: "fixed top-0 left-0 w-full min-h-screen z-30 bg-[#07070783]",
+  main: "fixed top-0 left-0 w-full min-h-screen z-[9999999] bg-[#07070783]",
   wrapper:
     "bg-white p-5 rounded-lg flex flex-col items-center w-full relative z-40",
   exit: "w-6 h-6 absolute top-4 right-4 cursor-pointer",
