@@ -9,10 +9,22 @@ import Spinner from "../../Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 
 const All = () => {
-  const { flytantYoutube, setFlytantYoutube, setNotify } = useStore();
+  const {
+    flytantYoutube,
+    setFlytantYoutube,
+    flytantShow,
+    setFlytantShow,
+    setNotify,
+  } = useStore();
   const [loading, setLoading] = useState(true);
   const divRef = useRef();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (flytantYoutube?.videos?.length > 0 && flytantShow?.length < 1) {
+      setFlytantShow(flytantYoutube?.videos?.slice(0, 12));
+    }
+  }, [flytantYoutube]);
 
   useEffect(() => {
     divRef.current.scrollIntoView();
@@ -54,7 +66,7 @@ const All = () => {
             <p>Videos</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
-            {flytantYoutube?.videos?.map((video, index) => (
+            {flytantShow?.map((video, index) => (
               <div
                 onClick={() =>
                   window.open(
@@ -81,6 +93,18 @@ const All = () => {
               </div>
             ))}
           </div>
+          {flytantYoutube?.videos?.length !== flytantShow?.length && (
+            <button
+              onClick={() =>
+                setFlytantShow(
+                  flytantYoutube?.videos?.slice(0, flytantShow?.length + 12)
+                )
+              }
+              className="bg-black text-white px-7 font-medium hover:scale-105 duration-150 py-3 rounded-full mt-7 mx-auto block"
+            >
+              Load More
+            </button>
+          )}
         </div>
       )}
     </div>

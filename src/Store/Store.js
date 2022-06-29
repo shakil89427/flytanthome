@@ -71,6 +71,7 @@ const Store = () => {
   const [twitterData, setTwitterData] = useState([]);
   const [tiktokData, setTiktokData] = useState([]);
   const [flytantYoutube, setFlytantYoutube] = useState({});
+  const [flytantShow, setFlytantShow] = useState([]);
   const [flytantIndex, setFlytantIndex] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [blogIndex, setBlogIndex] = useState(0);
@@ -159,6 +160,8 @@ const Store = () => {
     setLoaded,
     flytantYoutube,
     setFlytantYoutube,
+    flytantShow,
+    setFlytantShow,
     flytantIndex,
     setFlytantIndex,
     notifications,
