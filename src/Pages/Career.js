@@ -3,12 +3,6 @@ import useStore from "../Store/useStore";
 import Scroll from "../Components/Scroll/Scroll";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
 import ContactBar from "../Components/ContactBar/ContactBar";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
 import careerBg from "../Assets/career/careerBg.png";
 import axios from "axios";
 
@@ -26,57 +20,34 @@ const styles = {
 };
 
 const Career = () => {
-  const { app, setNotify } = useStore();
-  const storage = getStorage(app);
-  const [data, setData] = useState({ ask: "" });
+  const { setNotify } = useStore();
+  const [data, setData] = useState({});
   const [file, setFile] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [uploaded, setUploaded] = useState(0);
   const [loading, setLoading] = useState();
 
-  const submitData = async (url, e) => {
+  const submitData = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
-      await axios.post("https://flytant.herokuapp.com/sendmailCareer", {
-        ...data,
-        url,
+      let formData = new FormData();
+      formData.append("file", file);
+      formData.append("docs", JSON.stringify(data));
+      console.log(formData);
+      await axios.post("http://localhost:5000/sendmailCareer", formData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
       });
       e.target.reset();
       setFile(null);
+      setData({});
       setLoading(false);
       setNotify({ status: true, message: "Submitted Successfully.Thank you" });
     } catch (err) {
       setLoading(false);
       setNotify({ status: false, message: err.message });
     }
-  };
-
-  const uploadFile = (e) => {
-    e.preventDefault();
-    const storageRef = ref(storage, `/career/${Date.now() + file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    setUploading(true);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        setUploaded(
-          Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-        );
-      },
-      (err) => {
-        setUploading(false);
-        setNotify({ status: false, message: err.message });
-      },
-      () => {
-        setUploading(false);
-        setLoading(true);
-        getDownloadURL(uploadTask.snapshot.ref)
-          .then((url) => submitData(url, e))
-          .catch((err) => {
-            setLoading(false);
-            setNotify({ status: false, message: err.message });
-          });
-      }
-    );
   };
 
   return (
@@ -88,7 +59,7 @@ const Career = () => {
         <p className={styles.info}>
           Leave us a message. We’ll contact you soon
         </p>
-        <form className={styles.form} onSubmit={uploadFile}>
+        <form className={styles.form} onSubmit={submitData}>
           <input
             required
             className={`${styles.input} col-span-2 md:col-span-1`}
@@ -119,12 +90,6 @@ const Career = () => {
           />
           <div className="col-span-2 relative mt-8 md:mt-0">
             <div className="absolute w-full -top-14 left-0">
-              {uploading && (
-                <p className="text-sm">
-                  Uploading File
-                  <span className="text-lg ml-1">{uploaded}%</span>
-                </p>
-              )}
               {loading && <ProgressBar />}
             </div>
             <button type="submit" className={styles.btn}>

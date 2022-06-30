@@ -4,11 +4,7 @@ import { useParams } from "react-router-dom";
 import useStore from "../../Store/useStore";
 import moment from "moment";
 import lock from "../../Assets/lock.png";
-import {
-  AiFillPlayCircle,
-  AiFillPauseCircle,
-  AiFillLock,
-} from "react-icons/ai";
+import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
 import { FiChevronRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import Buy from "./Buy";

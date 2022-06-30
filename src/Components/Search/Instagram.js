@@ -54,7 +54,7 @@ const Instagram = ({ username }) => {
     <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[1100px] px-5 gap-y-10 mx-auto pb-24">
       {/* Left */}
       <div className="lg:pr-5 pt-5">
-        <div className="flex items-start gap-5  ">
+        <div className="flex items-start justify-between gap-5  ">
           <div className="flex items-start gap-3">
             <div>
               <div

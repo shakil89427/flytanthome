@@ -3,12 +3,13 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
-import { BiSearch } from "react-icons/bi";
+import { AiOutlineSearch } from "react-icons/ai";
 import Spinner from "../Components/Spinner/Spinner";
 import defaultUser from "../Assets/defaultUser.png";
 import millify from "millify";
 import { useNavigate, useLocation } from "react-router-dom";
 import useStore from "../Store/useStore";
+import cross from "../Assets/cross.svg";
 
 const selected = `px-1 text-center relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[3px] before:rounded-full text-black before:left-0`;
 
@@ -27,6 +28,7 @@ const Search = () => {
   } = useStore();
   const navigate = useNavigate();
   const inputRef = useRef();
+  const [showKeyword, setShowKeyword] = useState(searchKeyword);
   const [showData, setShowData] = useState([]);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
@@ -96,22 +98,28 @@ const Search = () => {
     <div className="r-box pt-10 pb-32">
       <form
         onSubmit={search}
-        className="border border-black rounded-full pl-5 flex items-center overflow-hidden w-full max-w-[1000px] mx-auto"
+        className=" rounded-full px-2 flex items-center w-full max-w-[1000px] mx-auto shadow-lg overflow-hidden border"
       >
-        <BiSearch className="text-2xl" />
         <input
-          defaultValue={searchKeyword}
+          defaultValue={showKeyword}
           ref={inputRef}
           placeholder="Search influencer"
           type="text"
-          className="w-full p-2 border-0 outline-none"
+          className="w-full p-3 border-0 outline-none"
           required
         />
         <button
-          type="submit"
-          className="bg-black text-white text-center w-[20%] min-w-[100px] py-3 font-medium"
+          onClick={() => setShowKeyword("")}
+          type="reset"
+          className="w-12 flex items-center justify-center"
         >
-          Search
+          <img src={cross} alt="" className="w-6" />
+        </button>
+        <button
+          type="submit"
+          className="border-l w-12 flex items-center justify-center"
+        >
+          <AiOutlineSearch className="text-2xl" />
         </button>
       </form>
       {loading && <Spinner />}
