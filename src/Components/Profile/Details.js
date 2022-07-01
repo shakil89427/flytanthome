@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import Spinner from "../Spinner/Spinner";
 import defaultUser from "../../Assets/defaultUser.png";
-import Scroll from "../Scroll/Scroll";
 import useStore from "../../Store/useStore";
 import Instagram from "./Instagram";
 import Youtube from "./Youtube";
@@ -125,7 +124,6 @@ const Profile = () => {
   return (
     <>
       {edit && <Edit progress={progress} setEdit={setEdit} />}
-      <Scroll />
       {loading && (
         <div className={styles.spinnerDiv}>
           <Spinner />

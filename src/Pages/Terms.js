@@ -1,12 +1,13 @@
-import React from "react";
-import Scroll from "../Components/Scroll/Scroll";
+import React, { useEffect } from "react";
 import ContactBar from "../Components/ContactBar/ContactBar";
 
 const Terms = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <>
       <div className="max-w-[1000px] mx-auto px-5 my-32">
-        <Scroll />
         <h1 className="text-4xl font-semibold">Terms Of Use</h1>
         <h4 className="text-xl md:text-2xl my-14 pr-5 text-gray-800">
           These Terms of Use govern your use of Flytant and provide information

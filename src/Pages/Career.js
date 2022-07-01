@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useStore from "../Store/useStore";
-import Scroll from "../Components/Scroll/Scroll";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
 import ContactBar from "../Components/ContactBar/ContactBar";
 import careerBg from "../Assets/career/careerBg.png";
@@ -50,10 +49,13 @@ const Career = () => {
     }
   };
 
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   return (
     <>
       <div className={styles.main}>
-        <Scroll />
         <img className={styles.bg} src={careerBg} alt="" />
         <h1 className={styles.title}>We're Hiring</h1>
         <p className={styles.info}>

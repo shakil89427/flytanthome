@@ -96,7 +96,7 @@ function App() {
             {user?.userId && (
               <Route path="courses" element={<Courses />}>
                 <Route index element={<Index />} />
-                <Route path="contents/:id" element={<Contents />} />
+                <Route path="contents" element={<Contents />} />
               </Route>
             )}
             <Route
@@ -108,7 +108,7 @@ function App() {
           {!user?.userId && (
             <Route path="courses" element={<Courses />}>
               <Route index element={<Index />} />
-              <Route path="contents/:id" element={<Contents />} />
+              <Route path="contents" element={<Contents />} />
             </Route>
           )}
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Scroll from "../Components/Scroll/Scroll";
 import moment from "moment";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -211,10 +210,13 @@ const SponsorshipDetails = () => {
     setDetailsLoading(false);
   }, [details]);
 
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   return (
     <div ref={divRef} className="w-full h-full md:overflow-hidden">
       {showDownload && <DownloadApp setShowDownload={setShowDownload} />}
-      <Scroll />
       {loading && (
         <div className="fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]">
           <Spinner />

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import useStore from "../../Store/useStore";
 import moment from "moment";
 import lock from "../../Assets/lock.png";
@@ -11,36 +10,39 @@ import Buy from "./Buy";
 import Player from "./Player";
 
 const Contents = () => {
-  const { user, courses, setShowLogin } = useStore();
-  const [course, setCourse] = useState({});
-  const [selectedSection, setSelectedScetion] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState({});
+  const {
+    user,
+    course,
+    setCourse,
+    setShowLogin,
+    selectedSection,
+    setSelectedScetion,
+    selectedVideo,
+    setSelectedVideo,
+  } = useStore();
   const [showBuy, setShowBuy] = useState(false);
-  const { id } = useParams();
   const divRef = useRef();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const matched = courses?.find((item) => item?.courseId === id);
-    if (matched?.title) {
+    if (course?.title) {
       let priceData = {};
       if (user?.countryCode === "IN") {
-        priceData.priceNow = matched?.inPrice;
-        priceData.pricePrev = matched?.inStrikePrice;
+        priceData.priceNow = course?.inPrice;
+        priceData.pricePrev = course?.inStrikePrice;
         priceData.currency = "INR";
         priceData.symbol = "₹";
       } else {
-        priceData.priceNow = matched?.usPrice;
-        priceData.pricePrev = matched?.usStrikePrice;
+        priceData.priceNow = course?.usPrice;
+        priceData.pricePrev = course?.usStrikePrice;
         priceData.currency = "USD";
         priceData.symbol = "$";
       }
-      setCourse({ ...matched, priceData });
-      setSelectedVideo(matched?.content[0]);
+      setCourse({ ...course, priceData });
     } else {
       navigate("/courses");
     }
-  }, [courses, id]);
+  }, []);
 
   useEffect(() => {
     divRef.current.scrollIntoView();
@@ -88,12 +90,7 @@ const Contents = () => {
           </div>
         </div>
       ) : (
-        <Player
-          videoId={selectedVideo?.videoId}
-          thumbnail={
-            selectedVideo?.thumbnail || "https://vumbnail.com/718275739.jpg"
-          }
-        />
+        <Player />
       )}
 
       {(!user?.userId || !course?.courseBuyers?.includes(user?.userId)) && (
@@ -114,7 +111,7 @@ const Contents = () => {
         <div
           key={index}
           className={`rounded-lg relative ${
-            selectedSection === index
+            selectedSection === item?.name
               ? "bg-black text-white"
               : "bg-gray-100 text-black"
           }`}
@@ -122,7 +119,9 @@ const Contents = () => {
           <div
             className="flex justify-between gap-5 items-start p-2 lg:p-5 cursor-pointer select-none mt-8"
             onClick={() =>
-              setSelectedScetion(selectedSection === index ? false : index)
+              setSelectedScetion(
+                selectedSection === item?.name ? false : item?.name
+              )
             }
           >
             <div className="flex items-start gap-2 lg:gap-5">
@@ -131,7 +130,9 @@ const Contents = () => {
                 <p className="text-md font-semibold">{item?.name}</p>
                 <span
                   className={`text-sm ${
-                    selectedSection === index ? "text-white" : "text-gray-500"
+                    selectedSection === item?.name
+                      ? "text-white"
+                      : "text-gray-500"
                   }`}
                 >
                   {moment.utc(item?.duration * 1000).format("mm:ss")} |{" "}
@@ -142,8 +143,8 @@ const Contents = () => {
             <div className="w-fit">
               <FiChevronRight
                 style={{
-                  transform: selectedSection === index && "rotate(90deg)",
-                  color: selectedSection === index ? "white" : "black",
+                  transform: selectedSection === item?.name && "rotate(90deg)",
+                  color: selectedSection === item?.name ? "white" : "black",
                 }}
                 className="text-3xl duration-150"
               />
@@ -151,7 +152,7 @@ const Contents = () => {
           </div>
           <div
             className={`overflow-hidden ${
-              selectedSection === index ? "h-auto" : "h-0"
+              selectedSection === item?.name ? "h-auto" : "h-0"
             }`}
           >
             <div className="border-t border-gray-600 mx-4 lg:mx-10 text-sm">
@@ -168,7 +169,8 @@ const Contents = () => {
                     >
                       <div className="flex items-start gap-2 lg:gap-5">
                         {video?.locked &&
-                        !course?.courseBuyers?.includes(user?.userId) ? (
+                        (!user?.userId ||
+                          !course?.courseBuyers?.includes(user?.userId)) ? (
                           <div className="w-[25px]">
                             <img src={lock} alt="" />
                           </div>

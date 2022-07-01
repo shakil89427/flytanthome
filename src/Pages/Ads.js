@@ -1,12 +1,13 @@
-import React from "react";
-import Scroll from "../Components/Scroll/Scroll";
+import React, { useEffect } from "react";
 import ContactBar from "../Components/ContactBar/ContactBar";
 
 const Ads = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <>
       <div className="max-w-[1050px] mx-auto px-5 my-32">
-        <Scroll />
         <h1 className="text-3xl font-semibold">Flytant Ads</h1>
         <h4 className="text-xl md:text-2xl mb-14 mt-5 pr-5 text-gray-800">
           We want to show you ads that are meaningful and you find them

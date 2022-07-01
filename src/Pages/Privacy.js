@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ContactBar from "../Components/ContactBar/ContactBar";
-import Scroll from "../Components/Scroll/Scroll";
 
 const Privacy = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <>
       <div className="max-w-[1050px] mx-auto px-5 my-32">
-        <Scroll />
         <h1 className="text-3xl font-semibold">Privacy Policy</h1>
         <h4 className="text-xl md:text-2xl mb-14 mt-5 pr-5 text-gray-800">
           These policies describes the information we use and process to support

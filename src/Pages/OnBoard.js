@@ -7,7 +7,6 @@ import downArrow from "../Assets/onboard/down.png";
 import successIcon from "../Assets/onboard/success.png";
 import PhoneInput from "react-phone-number-input";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
-import Scroll from "../Components/Scroll/Scroll";
 import axios from "axios";
 import useStore from "../Store/useStore";
 
@@ -79,6 +78,7 @@ const OnBoard = () => {
   };
 
   useEffect(() => {
+    window.scroll(0, 0);
     if (progress === 0 && data.name && data.brandname) {
       return setDisable(false);
     }
@@ -95,7 +95,6 @@ const OnBoard = () => {
     <>
       {!success ? (
         <div className={styles.main}>
-          <Scroll />
           {/* Topics */}
           <div className={styles.topics}>
             <img src={onboardBg} alt="" />

@@ -7,14 +7,14 @@ import Spinner from "../Components/Spinner/Spinner";
 import { useState } from "react";
 
 const Courses = () => {
-  const { user, setCourses } = useStore();
+  const { user, setCourse } = useStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get("https://flytant.herokuapp.com/getcourse")
       .then(({ data }) => {
-        setCourses(data);
+        setCourse(data[0]);
         setLoading(false);
       })
       .catch(() => setLoading(false));

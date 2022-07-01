@@ -20,7 +20,7 @@ const Store = () => {
   const [notify, setNotify] = useState(false);
   const [allPlans, setAllPlans] = useState([]);
   const [plans, setPlans] = useState([]);
-  const [courses, setCourses] = useState([]);
+  const [course, setCourse] = useState({});
   const [myCampaigns, setMyCampaigns] = useState([]);
   const [featuredInfluencers, setFeaturedInfluencers] = useState({
     data: [],
@@ -88,6 +88,8 @@ const Store = () => {
   const [searchActive, setSearchActive] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [searchImages, setSearchImages] = useState({});
+  const [selectedSection, setSelectedScetion] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState({});
 
   useEffect(() => {
     if (!user?.userId) {
@@ -95,6 +97,8 @@ const Store = () => {
       setAppliedSponsorships({ data: [], lastVisible: false });
       setMyIndex(0);
       setAppliedIndex(0);
+      setSelectedScetion(false);
+      setSelectedVideo({});
     }
   }, [user]);
 
@@ -182,8 +186,8 @@ const Store = () => {
     setAppliedIndex,
     routes,
     setRoutes,
-    courses,
-    setCourses,
+    course,
+    setCourse,
     allNews,
     setAllNews,
     newsIndex,
@@ -202,6 +206,10 @@ const Store = () => {
     setSearchResult,
     searchImages,
     setSearchImages,
+    selectedSection,
+    setSelectedScetion,
+    selectedVideo,
+    setSelectedVideo,
   };
 };
 

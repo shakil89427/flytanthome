@@ -1,5 +1,4 @@
-import React from "react";
-import Scroll from "../Components/Scroll/Scroll";
+import React, { useEffect } from "react";
 import Banner from "../Components/Brands_Influencers/Banner";
 import Title from "../Components/Brands_Influencers/Title";
 import HeroLeft from "../Components/Brands_Influencers/HeroLeft";
@@ -15,9 +14,11 @@ import { useNavigate } from "react-router-dom";
 
 const Influencers = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <>
-      <Scroll />
       <Banner data={bannerData} />
       <Title data={"Advantages For Influencers"} />
       {heroData.map((hero, i) =>

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import success from "../../Assets/onboard/success.png";
-import Scroll from "../Scroll/Scroll";
 
 const Success = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    window.scroll(0, 0);
     if (!location?.state?.from?.pathname?.includes("/subscription")) {
       navigate("/");
     }
@@ -15,7 +15,6 @@ const Success = () => {
 
   return (
     <>
-      <Scroll />
       <div className="w-fit min-h-[80vh] mx-auto flex flex-col items-center justify-center gap-7 px-5">
         <img src={success} alt="" />
         <p className="text-xl md:text-2xl lg:text-3xl text-center font-semibold">

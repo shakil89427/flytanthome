@@ -1,16 +1,19 @@
 import React from "react";
-import Scroll from "../Components/Scroll/Scroll";
 import img1 from "../Assets/about/img1.png";
 import img2 from "../Assets/about/img2.png";
 import img3 from "../Assets/about/img3.png";
 import img4 from "../Assets/about/img4.png";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const About = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <div>
-      <Scroll />
       <div className="max-w-[1240px] mx-auto px-5 my-40">
         <h1 className="text-4xl font-semibold">About</h1>
         <h4 className="text-xl md:text-3xl my-10 md:my-14 pr-5">
