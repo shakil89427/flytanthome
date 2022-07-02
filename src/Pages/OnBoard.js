@@ -85,7 +85,7 @@ const OnBoard = () => {
     if (progress === 50 && data.email && number?.length > 7) {
       return setDisable(false);
     }
-    if (progress === 100 && data.message?.length >= 20) {
+    if (progress === 100 && data.message?.length > 0) {
       return setDisable(false);
     }
     setDisable(true);
@@ -223,22 +223,14 @@ const OnBoard = () => {
                     <p>
                       Your Message <sup className="text-red-600">*</sup>
                     </p>
-                    <div className="relative">
-                      {data.message?.length < 20 && (
-                        <p className="text-xs absolute bottom-14 right-4">
-                          Minimum 20 characters
-                        </p>
-                      )}
-
-                      <textarea
-                        className={`${styles.input} resize-none`}
-                        rows="5"
-                        value={data.message}
-                        onChange={(e) =>
-                          setData({ ...data, message: e.target.value })
-                        }
-                      />
-                    </div>
+                    <textarea
+                      className={`${styles.input} resize-none`}
+                      rows="5"
+                      value={data.message}
+                      onChange={(e) =>
+                        setData({ ...data, message: e.target.value })
+                      }
+                    />
                   </div>
                 )}
                 {loading && (

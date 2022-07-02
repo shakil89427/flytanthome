@@ -21,7 +21,7 @@ const AllSubscriptions = () => {
           className="w-full flex flex-col justify-between rounded-lg shadow-lg border px-4 pb-5 hover:scale-105 duration-150 h-[650px] relative overflow-hidden"
         >
           {index === 2 && (
-            <p className="absolute top-0 inset-x-0 text-center bg-black text-white py-2 font-medium">
+            <p className="absolute top-0 rounded-tl-lg rounded-tr-lg inset-x-0 text-center bg-black text-white py-2 font-medium">
               Popular
             </p>
           )}

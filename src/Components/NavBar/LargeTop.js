@@ -99,26 +99,28 @@ const LargeTop = () => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-end gap-6">
-          <a
-            href="mailto:contact@flytant.com"
-            target="_blank"
-            rel="noreferrer"
-            style={{ letterSpacing: ".4px" }}
-            className={styles.contactBtn}
-          >
-            Contact
-          </a>
-          <button
-            style={{
-              letterSpacing: ".4px",
-            }}
-            onClick={() => setShowLogin(true)}
-            className={styles.loginBtn}
-          >
-            Login | Signup
-          </button>
-        </div>
+        pathname !== "/onboard" && (
+          <div className="flex items-center justify-end gap-6">
+            <a
+              href="mailto:contact@flytant.com"
+              target="_blank"
+              rel="noreferrer"
+              style={{ letterSpacing: ".4px" }}
+              className={styles.contactBtn}
+            >
+              Contact
+            </a>
+            <button
+              style={{
+                letterSpacing: ".4px",
+              }}
+              onClick={() => setShowLogin(true)}
+              className={styles.loginBtn}
+            >
+              Login | Signup
+            </button>
+          </div>
+        )
       )}
     </div>
   );

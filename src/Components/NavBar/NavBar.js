@@ -67,10 +67,12 @@ const NavBar = ({ bg }) => {
               }`}
             />
           )} */}
-          <GiHamburgerMenu
-            onClick={() => setShowSide(true)}
-            className={`text-3xl hover:border rounded-md p-1 cursor-pointer ${theme.text}`}
-          />
+          {pathname !== "/onboard" && (
+            <GiHamburgerMenu
+              onClick={() => setShowSide(true)}
+              className={`text-3xl hover:border rounded-md p-1 cursor-pointer ${theme.text}`}
+            />
+          )}
         </div>
 
         <SmallSide showSide={showSide} setShowSide={setShowSide} />
