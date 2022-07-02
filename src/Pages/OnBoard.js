@@ -78,7 +78,6 @@ const OnBoard = () => {
   };
 
   useEffect(() => {
-    window.scroll(0, 0);
     if (progress === 0 && data.name && data.brandname) {
       return setDisable(false);
     }
@@ -90,6 +89,10 @@ const OnBoard = () => {
     }
     setDisable(true);
   }, [data, number, progress]);
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
 
   return (
     <>
