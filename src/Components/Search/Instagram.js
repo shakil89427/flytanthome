@@ -8,12 +8,14 @@ import millify from "millify";
 import moment from "moment";
 import likes from "../../Assets/profileSocials/tiktok/like.png";
 import comment from "../../Assets/profileSocials/tiktok/comment.png";
+import DownloadApp from "../DownloadApp/DownloadApp";
 
 const Instagram = ({ username }) => {
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState({ fetched: false });
   const [avg, setAvg] = useState({ likes: 0, engagement: 0 });
+  const [showDownload, setShowDownload] = useState(false);
 
   const getImage = async (url, id) => {
     try {
@@ -78,6 +80,7 @@ const Instagram = ({ username }) => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[1100px] px-5 gap-y-10 mx-auto pb-24">
+      {showDownload && <DownloadApp setShowDownload={setShowDownload} />}
       {/* Left */}
       <div className="lg:pr-10 pt-5">
         <div className="flex items-start justify-between gap-5  ">
@@ -100,7 +103,10 @@ const Instagram = ({ username }) => {
             0
           </div>
         </div>
-        <p className="py-3 w-60 sm:w-72 rounded-md font-medium bg-black text-white text-lg cursor-pointer text-center mt-10">
+        <p
+          onClick={() => setShowDownload(true)}
+          className="py-3 w-60 sm:w-72 rounded-md font-medium bg-black text-white text-lg cursor-pointer text-center mt-10"
+        >
           Connect
         </p>
       </div>

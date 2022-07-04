@@ -70,6 +70,7 @@ const Search = () => {
           keyword: e.target[0].value,
         }
       );
+      console.log(data);
       setSearchImages({});
       if (data?.length < 1) {
         setSearchCategories([]);
@@ -161,7 +162,7 @@ const Search = () => {
                   boxShadow: `0px 0px 15px 0px rgba(13,12,12,.10)`,
                 }}
                 key={item?.randomId}
-                className="p-3 rounded-lg border-gray-100 cursor-pointer"
+                className="px-5 py-3 lg:pr-20 rounded-lg border-gray-100 cursor-pointer"
               >
                 {item?.category === "Instagram" && (
                   <div
@@ -183,7 +184,7 @@ const Search = () => {
                               })`
                             : `url(${defaultUser})`,
                         }}
-                        className="bg-cover bg-center bg-no-repeat w-12 md:w-20 aspect-square rounded-full border"
+                        className="bg-cover bg-center bg-no-repeat w-12 md:w-16 aspect-square rounded-full border"
                       />
                     </div>
                     <div className="">
@@ -216,7 +217,7 @@ const Search = () => {
                         style={{
                           backgroundImage: `url(${item?.thumbnails?.default?.url})`,
                         }}
-                        className="bg-cover bg-center bg-no-repeat w-12 md:w-20 aspect-square rounded-full border"
+                        className="bg-cover bg-center bg-no-repeat w-12 md:w-16 aspect-square rounded-full border"
                       />
                     </div>
                     <div className="">
