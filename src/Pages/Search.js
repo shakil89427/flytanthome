@@ -97,8 +97,11 @@ const Search = () => {
   return (
     <div className="r-box pt-10 pb-32">
       <form
+        style={{
+          boxShadow: `0px 0px 15px 0px rgba(13,12,12,.15)`,
+        }}
         onSubmit={search}
-        className=" rounded-full px-2 flex items-center w-full max-w-[1000px] mx-auto shadow-lg overflow-hidden border"
+        className=" rounded-full px-2 flex items-center w-full max-w-[1000px] mx-auto overflow-hidden"
       >
         <input
           defaultValue={showKeyword}
@@ -144,8 +147,11 @@ const Search = () => {
           <div className="grid grid-cols-1 gap-10 mt-10">
             {showData?.map((item) => (
               <div
+                style={{
+                  boxShadow: `0px 0px 15px 0px rgba(13,12,12,.15)`,
+                }}
                 key={item?.randomId}
-                className="shadow-lg p-5 border-t rounded-lg border-gray-100 cursor-pointer"
+                className="p-5 border-t rounded-lg border-gray-100 cursor-pointer"
               >
                 {item?.category === "Instagram" && (
                   <div
