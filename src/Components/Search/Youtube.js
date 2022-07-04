@@ -59,6 +59,7 @@ const Youtube = ({ channelId }) => {
   if (!info?.snippet?.title) {
     return <p className="text-center mt-20">Something went wrong</p>;
   }
+  console.log(info);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[1100px] px-5 gap-y-10 mx-auto pb-24">
@@ -99,23 +100,24 @@ const Youtube = ({ channelId }) => {
           <div className={styles.topicsMain}>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
-                {millify(info?.statistics?.subscriberCount)}
+                {millify(info?.statistics?.subscriberCount || 0)}
               </p>
               <p className={styles.topicName}>Subscriber</p>
             </div>
             <div className={styles.topicWrapper}>
-              <p className={styles.topic}>{millify(viewsPerVideo)}</p>
+              <p className={styles.topic}>{millify(viewsPerVideo || 0)}</p>
               <p className={styles.topicName}>Views/Video</p>
             </div>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
-                {millify(info?.statistics?.viewCount)}
+                {millify(info?.statistics?.viewCount || 0)}
               </p>
               <p className={styles.topicName}>Views</p>
             </div>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
                 {info?.statistics?.viewCount !== "0" &&
+                info?.statistics?.subscriberCount &&
                 info?.statistics?.subscriberCount !== "0"
                   ? parseFloat(
                       parseInt(info?.statistics?.viewCount) /
@@ -162,9 +164,9 @@ const Youtube = ({ channelId }) => {
                       <img className="w-6" src={views} alt="" />
                       <img className="w-6" src={likes} alt="" />
                       <img className="w-6" src={comments} alt="" />
-                      <p>{millify(video?.statistics?.viewCount)}</p>
-                      <p>{millify(video?.statistics?.likeCount)}</p>
-                      <p>{millify(video?.statistics?.commentCount)}</p>
+                      <p>{millify(video?.statistics?.viewCount || 0)}</p>
+                      <p>{millify(video?.statistics?.likeCount || 0)}</p>
+                      <p>{millify(video?.statistics?.commentCount || 0)}</p>
                     </div>
                   </div>
                   <p className={styles.videoTitle}>

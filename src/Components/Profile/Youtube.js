@@ -116,23 +116,24 @@ const Youtube = ({ details }) => {
           <div className={styles.topicsMain}>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
-                {millify(info?.statistics?.subscriberCount)}
+                {millify(info?.statistics?.subscriberCount || 0)}
               </p>
               <p className={styles.topicName}>Subscriber</p>
             </div>
             <div className={styles.topicWrapper}>
-              <p className={styles.topic}>{millify(viewsPerVideo)}</p>
+              <p className={styles.topic}>{millify(viewsPerVideo || 0)}</p>
               <p className={styles.topicName}>Views/Video</p>
             </div>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
-                {millify(info?.statistics?.viewCount)}
+                {millify(info?.statistics?.viewCount || 0)}
               </p>
               <p className={styles.topicName}>Views</p>
             </div>
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
                 {info?.statistics?.viewCount !== "0" &&
+                info?.statistics?.subscriberCount &&
                 info?.statistics?.subscriberCount !== "0"
                   ? parseFloat(
                       parseInt(info?.statistics?.viewCount) /
@@ -180,9 +181,9 @@ const Youtube = ({ details }) => {
                     <img className="w-6" src={views} alt="" />
                     <img className="w-6" src={likes} alt="" />
                     <img className="w-6" src={comments} alt="" />
-                    <p>{millify(video?.statistics?.viewCount)}</p>
-                    <p>{millify(video?.statistics?.likeCount)}</p>
-                    <p>{millify(video?.statistics?.commentCount)}</p>
+                    <p>{millify(video?.statistics?.viewCount || 0)}</p>
+                    <p>{millify(video?.statistics?.likeCount || 0)}</p>
+                    <p>{millify(video?.statistics?.commentCount || 0)}</p>
                   </div>
                 </div>
                 <p className={styles.videoTitle}>
