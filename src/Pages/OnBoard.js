@@ -61,8 +61,7 @@ const OnBoard = () => {
     if (progress < 100) setProgress((prev) => prev + 50);
     if (progress !== 100) return;
     setLoading(true);
-    const code = number.split("+")[1];
-    const allData = { ...data, code, contact: "" };
+    const allData = { ...data, contact: number };
     try {
       await axios.post(
         "https://flytant.herokuapp.com/sendmailBrandsContact",

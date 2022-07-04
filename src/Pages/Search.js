@@ -145,7 +145,7 @@ const Search = () => {
             {showData?.map((item) => (
               <div
                 key={item?.randomId}
-                className="shadow-lg p-5 border-t rounded-lg border-gray-100"
+                className="shadow-lg p-5 border-t rounded-lg border-gray-100 cursor-pointer"
               >
                 {item?.category === "Instagram" && (
                   <div

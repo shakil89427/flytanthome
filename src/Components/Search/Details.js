@@ -18,6 +18,7 @@ const Details = () => {
     if (mainInfo?.length < 2) navigate(-1);
     setPlatform(mainInfo[0]);
     setKeyword(mainInfo[1]);
+    window.scroll(0, 0);
   }, [info]);
 
   if (platform === "instagram") return <Instagram username={keyword} />;
