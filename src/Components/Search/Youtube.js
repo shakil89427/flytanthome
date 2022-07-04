@@ -94,6 +94,17 @@ const Youtube = ({ channelId }) => {
         >
           Connect
         </p>
+        {info?.snippet?.description && (
+          <p className="text-gray-600 mt-8 break-words">
+            {info?.snippet?.description}
+          </p>
+        )}
+        {info?.snippet?.title && (
+          <div>
+            <p className="font-medium mb-2 mt-8 text-gray-400">Name</p>
+            <p className="text-lg font-medium">{info?.snippet?.title}</p>
+          </div>
+        )}
       </div>
 
       {/* Right */}

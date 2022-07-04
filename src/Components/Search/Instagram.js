@@ -109,6 +109,15 @@ const Instagram = ({ username }) => {
         >
           Connect
         </p>
+        {info?.biography && (
+          <p className="text-gray-600 mt-8 break-words">{info?.biography}</p>
+        )}
+        {info?.full_name && (
+          <div>
+            <p className="font-medium mb-2 mt-8 text-gray-400">Name</p>
+            <p className="text-lg font-medium">{info?.full_name}</p>
+          </div>
+        )}
       </div>
 
       {/* Right */}
