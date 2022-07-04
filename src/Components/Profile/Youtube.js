@@ -61,7 +61,7 @@ const Youtube = ({ details }) => {
       const totalviews = info?.videos.reduce((total, current) => {
         return total + parseInt(current.statistics.viewCount);
       }, 0);
-      setViewsPerVideo(totalviews / info?.videos?.length);
+      setViewsPerVideo(Math.ceil(totalviews / info?.videos?.length));
     }
   }, [info]);
 

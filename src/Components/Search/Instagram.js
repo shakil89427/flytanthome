@@ -89,7 +89,7 @@ const Instagram = ({ username }) => {
                     ? `url(data:image/png;base64,${images?.profileImg})`
                     : `url(${defaultUser})`,
                 }}
-                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-center bg-no-repeat bg-cover"
+                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-center bg-no-repeat bg-cover border"
               />
             </div>
             <p className="text-lg sm:text-xl md:text-2xl font-semibold mt-4 break-words">
@@ -100,7 +100,7 @@ const Instagram = ({ username }) => {
             0
           </div>
         </div>
-        <p className="border py-4 w-60 sm:w-72 rounded-md shadow-md font-medium border-gray-400 cursor-pointer text-center mt-10">
+        <p className="py-3 w-60 sm:w-72 rounded-md font-medium bg-black text-white text-lg cursor-pointer text-center mt-10">
           Connect
         </p>
       </div>
@@ -146,7 +146,7 @@ const Instagram = ({ username }) => {
                     ? `url(data:image/png;base64,${images?.profileImg})`
                     : `url(${defaultUser})`,
                 }}
-                className="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat"
+                className="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat border"
               />
             </div>
             <span className="w-fit">
@@ -167,7 +167,7 @@ const Instagram = ({ username }) => {
                         ? `url(data:image/png;base64,${images?.profileImg})`
                         : `url(${defaultUser})`,
                     }}
-                    className="w-12 h-12 rounded-full bg-cover bg-center bg-no-repeat"
+                    className="w-12 h-12 rounded-full bg-cover bg-center bg-no-repeat border"
                   />
                   <span>
                     <p className="text-sm">{info?.full_name}</p>

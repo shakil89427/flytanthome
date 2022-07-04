@@ -17,7 +17,7 @@ const styles = {
     "w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium",
   topicName: "text-xs md:text-sm font-medium text-gray-500",
   channelContainer: "py-8 border-b flex gap-2",
-  channelBg: "w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat",
+  channelBg: "w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat border",
   channelTitle: "text-xl font-medium mt-3 mb-2",
   channelDescription: "text-sm pr-5 text text-gray-500",
   latest: "text-xl font-medium",
@@ -50,7 +50,7 @@ const Youtube = ({ channelId }) => {
       const totalviews = info?.videos.reduce((total, current) => {
         return total + parseInt(current.statistics.viewCount);
       }, 0);
-      setViewsPerVideo(totalviews / info?.videos?.length);
+      setViewsPerVideo(Math.ceil(totalviews / info?.videos?.length));
     }
   }, [info]);
 
@@ -72,7 +72,7 @@ const Youtube = ({ channelId }) => {
                 style={{
                   backgroundImage: `url(${info?.snippet?.thumbnails?.default?.url})`,
                 }}
-                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-center bg-no-repeat bg-cover"
+                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-center bg-no-repeat bg-cover border"
               />
             </div>
             <p className="text-lg sm:text-xl md:text-2xl font-semibold mt-4 break-words">
@@ -85,7 +85,7 @@ const Youtube = ({ channelId }) => {
             </div>
           </div>
         </div>
-        <p className="border py-4 w-60 sm:w-72 rounded-md shadow-md font-medium border-gray-400 cursor-pointer text-center mt-10">
+        <p className="py-3 w-60 sm:w-72 rounded-md font-medium bg-black text-white text-lg cursor-pointer text-center mt-10">
           Connect
         </p>
       </div>

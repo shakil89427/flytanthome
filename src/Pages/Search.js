@@ -34,11 +34,11 @@ const Search = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (!searchResult?.length || !searchActive) return;
-    if (searchActive === "All") {
-      setShowData(searchResult);
-    } else {
-      const filtered = searchResult.filter(
+    if (searchActive === "All" || searchResult?.length < 1) {
+      return setShowData(searchResult);
+    }
+    if (searchResult?.length > 0 && searchActive) {
+      const filtered = searchResult?.filter(
         (item) => item?.category?.toLowerCase() === searchActive?.toLowerCase()
       );
       setShowData(filtered);
@@ -71,6 +71,13 @@ const Search = () => {
         }
       );
       setSearchImages({});
+      if (data?.length < 1) {
+        setSearchCategories([]);
+        setSearchActive(false);
+        setSearchResult([]);
+        setSearchKeyword(e.target[0].value);
+        return setLoading(false);
+      }
       let temp = ["All"];
       data.forEach((item) => {
         if (!temp?.includes(item?.category)) {
@@ -101,7 +108,7 @@ const Search = () => {
           boxShadow: `0px 0px 15px 0px rgba(13,12,12,.15)`,
         }}
         onSubmit={search}
-        className=" rounded-full px-2 flex items-center w-full max-w-[1000px] mx-auto overflow-hidden"
+        className=" rounded-full px-2 flex items-center w-full max-w-[800px] mx-auto overflow-hidden"
       >
         <input
           defaultValue={showKeyword}
@@ -127,11 +134,14 @@ const Search = () => {
       </form>
       {loading && <Spinner />}
       {!loading && showData?.length < 1 && (
-        <p className="text-center mt-10 font-medium">No Data found</p>
+        <p className="text-center mt-10 font-medium">
+          No Data found <br />
+          Try searching Influencers
+        </p>
       )}
       {!loading && showData?.length > 0 && (
         <div>
-          <div className="flex items-center justify-between w-full max-w-[700px] mx-auto mt-10 font-medium text-gray-500 text-lg lg:text-xl px-5">
+          <div className="flex items-center justify-between w-full max-w-[600px] mx-auto mt-10 font-medium text-gray-500 text-lg lg:text-xl px-5">
             {searchCategories.map((item) => (
               <p
                 key={item}
@@ -144,14 +154,14 @@ const Search = () => {
               </p>
             ))}
           </div>
-          <div className="grid grid-cols-1 gap-10 mt-10">
+          <div className="grid grid-cols-1 gap-10 mt-10 max-w-[900px] mx-auto">
             {showData?.map((item) => (
               <div
                 style={{
                   boxShadow: `0px 0px 15px 0px rgba(13,12,12,.15)`,
                 }}
                 key={item?.randomId}
-                className="p-5 border-t rounded-lg border-gray-100 cursor-pointer"
+                className="p-5 rounded-lg border-gray-100 cursor-pointer"
               >
                 {item?.category === "Instagram" && (
                   <div
@@ -173,7 +183,7 @@ const Search = () => {
                               })`
                             : `url(${defaultUser})`,
                         }}
-                        className="bg-cover bg-center bg-no-repeat w-14 md:w-20 lg:w-24 xl:w-32 aspect-square rounded-full border"
+                        className="bg-cover bg-center bg-no-repeat w-14 md:w-20 lg:w-24 aspect-square rounded-full border"
                       />
                     </div>
                     <div className="">
@@ -206,7 +216,7 @@ const Search = () => {
                         style={{
                           backgroundImage: `url(${item?.thumbnails?.default?.url})`,
                         }}
-                        className="bg-cover bg-center bg-no-repeat w-14 md:w-20 lg:w-24 xl:w-32 aspect-square rounded-full border"
+                        className="bg-cover bg-center bg-no-repeat w-14 md:w-20 lg:w-24 aspect-square rounded-full border"
                       />
                     </div>
                     <div className="">
