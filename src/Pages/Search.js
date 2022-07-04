@@ -105,7 +105,7 @@ const Search = () => {
     <div className="r-box pt-10 pb-32">
       <form
         style={{
-          boxShadow: `0px 0px 15px 0px rgba(13,12,12,.15)`,
+          boxShadow: `0px 0px 15px 0px rgba(13,12,12,.10)`,
         }}
         onSubmit={search}
         className=" rounded-full px-2 flex items-center w-full max-w-[800px] mx-auto overflow-hidden"
@@ -134,10 +134,10 @@ const Search = () => {
       </form>
       {loading && <Spinner />}
       {!loading && showData?.length < 1 && (
-        <p className="text-center mt-10 font-medium">
-          No Data found <br />
-          Try searching Influencers
-        </p>
+        <div className="text-center mt-10 font-medium text-gray-500">
+          <p className="mb-2">No Data found</p>
+          <p>Try searching "Influencers"</p>
+        </div>
       )}
       {!loading && showData?.length > 0 && (
         <div>
@@ -154,14 +154,14 @@ const Search = () => {
               </p>
             ))}
           </div>
-          <div className="grid grid-cols-1 gap-10 mt-10 max-w-[900px] mx-auto">
+          <div className="grid grid-cols-1 gap-5 mt-10 max-w-[900px] mx-auto">
             {showData?.map((item) => (
               <div
                 style={{
-                  boxShadow: `0px 0px 15px 0px rgba(13,12,12,.15)`,
+                  boxShadow: `0px 0px 15px 0px rgba(13,12,12,.10)`,
                 }}
                 key={item?.randomId}
-                className="p-5 rounded-lg border-gray-100 cursor-pointer"
+                className="p-3 rounded-lg border-gray-100 cursor-pointer"
               >
                 {item?.category === "Instagram" && (
                   <div
@@ -183,11 +183,11 @@ const Search = () => {
                               })`
                             : `url(${defaultUser})`,
                         }}
-                        className="bg-cover bg-center bg-no-repeat w-14 md:w-20 lg:w-24 aspect-square rounded-full border"
+                        className="bg-cover bg-center bg-no-repeat w-12 md:w-20 aspect-square rounded-full border"
                       />
                     </div>
                     <div className="">
-                      <p className="text-lg md:text-xl lg:text-2xl font-semibold mb-2">
+                      <p className="text-lg md:text-xl font-semibold mb-2">
                         {item?.username}
                       </p>
                       <p className="text-gray-500">{item?.bio}</p>
@@ -216,11 +216,11 @@ const Search = () => {
                         style={{
                           backgroundImage: `url(${item?.thumbnails?.default?.url})`,
                         }}
-                        className="bg-cover bg-center bg-no-repeat w-14 md:w-20 lg:w-24 aspect-square rounded-full border"
+                        className="bg-cover bg-center bg-no-repeat w-12 md:w-20 aspect-square rounded-full border"
                       />
                     </div>
                     <div className="">
-                      <p className="text-lg md:text-xl lg:text-2xl font-semibold mb-2">
+                      <p className="text-lg md:text-xl font-semibold mb-2">
                         {item?.channelTitle}
                       </p>
                       <p className="text-gray-500">{item?.description}</p>
