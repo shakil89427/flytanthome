@@ -113,7 +113,9 @@ const Youtube = ({ details }) => {
             <div className={styles.topicWrapper}>
               <p className={styles.topic}>
                 {millify(
-                  info?.statistics?.viewCount / info?.videos?.length || 0
+                  Math.round(
+                    info?.statistics?.viewCount / info?.videos?.length
+                  ) || 0
                 )}
               </p>
               <p className={styles.topicName}>Views/Video</p>
