@@ -192,10 +192,14 @@ const Search = () => {
                         {item?.username}
                       </p>
                       <p className="text-gray-500">{item?.bio}</p>
-                      <p className="mt-2 font-medium">
-                        {millify(item?.followers)} Followers,{" "}
-                        {millify(item?.following)} Following
-                      </p>
+                      <div className="flex items-center gap-2 mt-2 font-medium">
+                        {item?.followers && (
+                          <p>{millify(item?.followers)} Followers,</p>
+                        )}
+                        {item?.following && (
+                          <p>{millify(item?.following)} Following</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -225,6 +229,45 @@ const Search = () => {
                         {item?.channelTitle}
                       </p>
                       <p className="text-gray-500">{item?.description}</p>
+                    </div>
+                  </div>
+                )}
+                {item?.category === "Twitter" && (
+                  <div
+                    onClick={() =>
+                      navigate(`/search/details/instagram+${item?.username}`, {
+                        state: { from: location },
+                      })
+                    }
+                    className={`flex ${
+                      item?.description?.length > 0
+                        ? "items-start"
+                        : "items-center"
+                    } gap-3 md:gap-4 lg:gap-5 xl:gap-6`}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          backgroundImage: item?.profile_image_url_https
+                            ? `url(${item?.profile_image_url_https})`
+                            : `url(${defaultUser})`,
+                        }}
+                        className="bg-cover bg-center bg-no-repeat w-12 md:w-16 aspect-square rounded-full border"
+                      />
+                    </div>
+                    <div className="">
+                      <p className="text-lg md:text-xl font-semibold mb-2">
+                        {item?.name}
+                      </p>
+                      <p className="text-gray-500">{item?.description}</p>
+                      <div className="flex items-center gap-2 mt-2 font-medium">
+                        {item?.followers_count && (
+                          <p>{millify(item?.followers_count)} Followers,</p>
+                        )}
+                        {item?.friends_count && (
+                          <p>{millify(item?.friends_count)} Friends</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
