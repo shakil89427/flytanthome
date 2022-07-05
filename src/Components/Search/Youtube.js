@@ -34,8 +34,8 @@ const styles = {
 const Youtube = ({ channelId }) => {
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
-  const [viewsPerVideo, setViewsPerVideo] = useState(0);
   const [showDownload, setShowDownload] = useState(false);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     axios
@@ -48,11 +48,11 @@ const Youtube = ({ channelId }) => {
   }, []);
 
   useEffect(() => {
-    if (info?.videos?.length > 0) {
-      const totalviews = info?.videos.reduce((total, current) => {
-        return total + parseInt(current.statistics.viewCount);
-      }, 0);
-      setViewsPerVideo(Math.ceil(totalviews / info?.videos?.length));
+    if (info?.statistics?.subscriberCount) {
+      const res = Math.ceil(
+        info?.statistics?.viewCount / info?.statistics?.subscriberCount / 100
+      );
+      setScore(res > 99 ? 99 : res);
     }
   }, [info]);
 
@@ -61,7 +61,6 @@ const Youtube = ({ channelId }) => {
   if (!info?.snippet?.title) {
     return <p className="text-center mt-20">Something went wrong</p>;
   }
-  console.log(info);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[1100px] px-5 gap-y-10 mx-auto pb-24">
@@ -84,7 +83,7 @@ const Youtube = ({ channelId }) => {
           </div>
           <div>
             <div className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400">
-              0
+              {score}
             </div>
           </div>
         </div>
@@ -122,7 +121,13 @@ const Youtube = ({ channelId }) => {
               <p className={styles.topicName}>Subscriber</p>
             </div>
             <div className={styles.topicWrapper}>
-              <p className={styles.topic}>{millify(viewsPerVideo || 0)}</p>
+              <p className={styles.topic}>
+                {millify(
+                  Math.round(
+                    info?.statistics?.viewCount / info?.videos?.length
+                  ) || 0
+                )}
+              </p>
               <p className={styles.topicName}>Views/Video</p>
             </div>
             <div className={styles.topicWrapper}>

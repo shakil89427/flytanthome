@@ -35,7 +35,6 @@ const styles = {
 const Youtube = ({ details }) => {
   const { youtubeData, setYoutubeData } = useStore();
   const [info, setInfo] = useState({});
-  const [viewsPerVideo, setViewsPerVideo] = useState(0);
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
 
@@ -55,15 +54,6 @@ const Youtube = ({ details }) => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (info?.videos?.length > 0) {
-      const totalviews = info?.videos.reduce((total, current) => {
-        return total + parseInt(current.statistics.viewCount);
-      }, 0);
-      setViewsPerVideo(Math.ceil(totalviews / info?.videos?.length));
-    }
-  }, [info]);
 
   useEffect(() => {
     setInfo({});
@@ -121,7 +111,11 @@ const Youtube = ({ details }) => {
               <p className={styles.topicName}>Subscriber</p>
             </div>
             <div className={styles.topicWrapper}>
-              <p className={styles.topic}>{millify(viewsPerVideo || 0)}</p>
+              <p className={styles.topic}>
+                {millify(
+                  info?.statistics?.viewCount / info?.videos?.length || 0
+                )}
+              </p>
               <p className={styles.topicName}>Views/Video</p>
             </div>
             <div className={styles.topicWrapper}>

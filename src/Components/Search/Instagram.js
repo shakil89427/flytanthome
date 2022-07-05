@@ -14,7 +14,7 @@ const Instagram = ({ username }) => {
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState({ fetched: false });
-  const [avg, setAvg] = useState({ likes: 0, engagement: 0 });
+  const [avg, setAvg] = useState({ likes: 0, engagement: 0, socialScore: 0 });
   const [showDownload, setShowDownload] = useState(false);
 
   const getImage = async (url, id) => {
@@ -68,7 +68,12 @@ const Instagram = ({ username }) => {
       const engagement = parseFloat(
         likes / info?.edge_followed_by?.count
       ).toFixed(2);
-      setAvg({ likes, engagement });
+      const socialScore = Math.ceil(engagement * 10);
+      setAvg({
+        likes,
+        engagement,
+        socialScore: socialScore > 99 ? 99 : socialScore,
+      });
     }
   }, [info]);
 
@@ -100,7 +105,7 @@ const Instagram = ({ username }) => {
             </p>
           </div>
           <div className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400">
-            0
+            {avg?.socialScore}
           </div>
         </div>
         <p
