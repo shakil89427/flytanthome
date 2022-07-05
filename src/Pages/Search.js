@@ -264,7 +264,7 @@ const Search = () => {
                           <p>{millify(item?.followers_count)} Followers,</p>
                         )}
                         {item?.friends_count && (
-                          <p>{millify(item?.friends_count)} Friends</p>
+                          <p>{millify(item?.friends_count)} Following</p>
                         )}
                       </div>
                     </div>

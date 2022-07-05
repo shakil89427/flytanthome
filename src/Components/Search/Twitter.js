@@ -69,10 +69,15 @@ const Twitter = ({ username }) => {
               {info?.name}
             </p>
           </div>
-          <div className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400">
-            {millify(
-              Math.round(info?.public_metrics?.followers_count / 1000000)
-            )}
+          <div>
+            <p className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400 mx-auto">
+              {millify(
+                Math.round(info?.public_metrics?.followers_count / 1000000)
+              )}
+            </p>
+            <p className="text-xs md:text-md font-semibold text-center">
+              Social Score
+            </p>
           </div>
         </div>
         <p

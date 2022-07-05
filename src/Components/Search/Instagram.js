@@ -104,8 +104,13 @@ const Instagram = ({ username }) => {
               {info?.full_name}
             </p>
           </div>
-          <div className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400">
-            {avg?.socialScore}
+          <div>
+            <p className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400 mx-auto">
+              {avg?.socialScore}
+            </p>
+            <p className="text-xs md:text-md font-semibold text-center">
+              Social Score
+            </p>
           </div>
         </div>
         <p
