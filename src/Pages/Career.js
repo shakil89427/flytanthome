@@ -31,7 +31,6 @@ const Career = () => {
       let formData = new FormData();
       formData.append("file", file);
       formData.append("docs", JSON.stringify(data));
-      console.log(formData);
       await axios.post("http://localhost:5000/sendmailCareer", formData, {
         headers: {
           Accept: "application/json",

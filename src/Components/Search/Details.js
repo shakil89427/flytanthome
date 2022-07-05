@@ -4,6 +4,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import Instagram from "./Instagram";
 import Youtube from "./Youtube";
+import Twitter from "./Twitter";
 
 const Details = () => {
   const { info } = useParams();
@@ -23,6 +24,7 @@ const Details = () => {
 
   if (platform === "instagram") return <Instagram username={keyword} />;
   if (platform === "youtube") return <Youtube channelId={keyword} />;
+  if (platform === "twitter") return <Twitter username={keyword} />;
 };
 
 export default Details;

@@ -70,7 +70,6 @@ const Search = () => {
           keyword: e.target[0].value,
         }
       );
-      console.log(data);
       setSearchImages({});
       if (data?.length < 1) {
         setSearchCategories([]);
@@ -235,7 +234,7 @@ const Search = () => {
                 {item?.category === "Twitter" && (
                   <div
                     onClick={() =>
-                      navigate(`/search/details/instagram+${item?.username}`, {
+                      navigate(`/search/details/twitter+${item?.screen_name}`, {
                         state: { from: location },
                       })
                     }
