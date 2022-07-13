@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Connect from "../Components/Connect/Connect";
 import Spinner from "../Components/Spinner/Spinner";
 import Error from "./Error";
 
@@ -11,6 +12,7 @@ const User = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showConnect, setShowConnect] = useState(false);
 
   useEffect(() => {
     axios
@@ -40,7 +42,8 @@ const User = () => {
   }
   return (
     <div className="fixed top-0 left-0 inset-0 bg-black z-[999999999999] flex items-center justify-center">
-      <div className="w-screen h-screen md:w-[400px] md:h-[90vh] bg-white md:rounded-lg  overflow-y-scroll scrollbar pb-14">
+      <div className="w-screen h-screen md:w-[400px] md:h-[90vh] bg-white md:rounded-lg  overflow-y-scroll scrollbar pb-14 relative">
+        {showConnect && <Connect setShowConnect={setShowConnect} />}
         <div
           style={{ backgroundImage: `url(${user?.featureImageUrl})` }}
           className="aspect-[4/2] bg-cover bg-center bg-no-repeat"
@@ -68,7 +71,10 @@ const User = () => {
           <p className="text-center  mt-5 text-gray-500 px-8 font-medium">
             {user?.bio}
           </p>
-          <button className="select-none mt-10 block bg-black text-white w-full py-5 rounded-full font-semibold text-xl">
+          <button
+            onClick={() => setShowConnect(true)}
+            className="select-none mt-10 block bg-black text-white w-full py-5 rounded-full font-semibold text-xl"
+          >
             Connect
           </button>
 
@@ -78,7 +84,13 @@ const User = () => {
             {user?.socialLinks?.map((item) => (
               <a
                 key={item?.name}
-                href={item?.url}
+                href={
+                  item?.type === "phone"
+                    ? `tel:${item?.data}`
+                    : item?.type === "email"
+                    ? `mailto:${item?.data}`
+                    : item?.data
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="hover:scale-105 duration-150 w-[27%]"

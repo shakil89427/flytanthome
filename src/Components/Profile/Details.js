@@ -10,6 +10,7 @@ import Tiktok from "./Tiktok";
 import { useParams } from "react-router-dom";
 import Edit from "./Edit";
 import { fetchAndActivate, getString } from "firebase/remote-config";
+import useScore from "../../Hooks/useScore";
 const styles = {
   spinnerDiv:
     "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
@@ -57,6 +58,8 @@ const Profile = () => {
   const [country, setCountry] = useState(false);
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [socialScore, setSocialScore] = useState(0);
+  useScore(setSocialScore, details);
   const socials = ["Instagram", "Youtube", "Twitter", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
   const [edit, setEdit] = useState(false);
@@ -173,9 +176,7 @@ const Profile = () => {
               </div>
               <div className={styles.topRight}>
                 <span>
-                  <p className={styles.score}>
-                    {details?.socialScore ? details?.socialScore : "0"}
-                  </p>
+                  <p className={styles.score}>{socialScore}</p>
                   <p className="text-xs md:text-md font-semibold text-center">
                     Social Score
                   </p>
