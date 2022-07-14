@@ -49,13 +49,13 @@ const Main = () => {
             <div className="flex items-center gap-x-1 mt-3">
               <Rating
                 className="text-md text-[#F7C02B] pt-1"
-                initialRating={product?.rating?.ratingCount}
+                initialRating={product?.rating?.ratingCount || 0}
                 readonly
                 emptySymbol={<AiOutlineStar />}
                 fullSymbol={<AiFillStar />}
               />
               <p className="text-sm font-medium pl-1 text-gray-600">
-                {product?.rating?.ratingCount} Rating
+                {product?.rating?.ratingCount || 0} Rating
               </p>
             </div>
             <div className="flex items-center gap-5 mt-3">
