@@ -27,7 +27,7 @@ const Contact = () => {
       setLoading(false);
       setNotify({
         status: true,
-        message: "Message sended successfully.Thank you",
+        message: "Sent Successfully",
       });
       e.target.reset();
     } catch (err) {

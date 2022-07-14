@@ -90,6 +90,7 @@ const Store = () => {
   const [searchImages, setSearchImages] = useState({});
   const [selectedSection, setSelectedScetion] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState({});
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     if (!user?.userId) {
@@ -210,6 +211,8 @@ const Store = () => {
     setSelectedScetion,
     selectedVideo,
     setSelectedVideo,
+    products,
+    setProducts,
   };
 };
 

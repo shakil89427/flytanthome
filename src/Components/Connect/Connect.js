@@ -34,7 +34,7 @@ const Connect = ({ id, setShowConnect }) => {
       await axios.post("https://flytant.herokuapp.com/contactinfo", finalData);
       e.target.reset();
       setContactLoading(false);
-      setNotify({ status: true, message: "Sended successfully" });
+      setNotify({ status: true, message: "Sent Successfully" });
     } catch (err) {
       setContactLoading(false);
     }
