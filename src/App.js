@@ -46,6 +46,8 @@ import User from "./Pages/User";
 import Details from "./Components/Search/Details";
 import LandingApp from "./Pages/LandingApp";
 import Products from "./Pages/Products";
+import Main from "./Components/Products/Main";
+import ProductDetails from "./Components/Products/ProductDetails";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -125,7 +127,10 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
-          <Route path="/products" element={<Products />} />
+          <Route path="/products" element={<Products />}>
+            <Route index element={<Main />} />
+            <Route path=":id" element={<ProductDetails />} />
+          </Route>
           <Route
             path="/search"
             element={
