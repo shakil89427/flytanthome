@@ -7,7 +7,7 @@ import { CgDanger } from "react-icons/cg";
 
 /* Styles Start */
 const styles = {
-  main: "fixed top-0 left-[50%] translate-x-[-50%] z-50",
+  main: "fixed top-0 left-[50%] translate-x-[-50%] z-[999999999999999]",
   toast: "toastMessage w-[350px] rounded-md py-1 px-3 text-white text-xs",
   head: "flex items-center justify-between mb-[3px]",
   status: "flex items-center gap-1 text-lg font-medium",

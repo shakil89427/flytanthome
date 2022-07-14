@@ -12,9 +12,10 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
+import axios from "axios";
 
 const Connect = ({ id, setShowConnect }) => {
-  const { user } = useStore();
+  const { user, setNotify } = useStore();
   const [showMain, setShowMain] = useState(true);
   const [followLoading, setFollowLoading] = useState(true);
   const [contactLoading, setContactLoading] = useState(false);
@@ -23,11 +24,20 @@ const Connect = ({ id, setShowConnect }) => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const name = e.target[0].value;
-    const email = e.target[0].value;
-    const phone = e.target[0].value;
-    const creationDate = moment().unix();
-    const finalData = { name, email, phone, creationDate, id };
+    setContactLoading(true);
+    try {
+      const name = e.target[0].value;
+      const email = e.target[1].value;
+      const phone = e.target[2].value;
+      const creationDate = moment().unix();
+      const finalData = { name, email, phone, creationDate, id };
+      await axios.post("https://flytant.herokuapp.com/contactinfo", finalData);
+      e.target.reset();
+      setContactLoading(false);
+      setNotify({ status: true, message: "Sended successfully" });
+    } catch (err) {
+      setContactLoading(false);
+    }
   };
 
   const getFollowers = async () => {
