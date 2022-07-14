@@ -22,21 +22,28 @@ const Main = () => {
             onClick={() => navigate(`/products/${product?.id}`)}
             className="bg-[#F8F8F8] grid grid-cols-1 lg:grid-cols-2 rounded-xl overflow-hidden cursor-pointer max-w-[350px] lg:max-w-[500px]"
           >
-            <div className="bg-white rounded-xl p-5 flex items-center justify-center">
+            <div className="bg-white rounded-xl p-5 min-h-[250px] flex items-center justify-center">
               <img src={product.blob[0].url} alt="" />
             </div>
-            <div className="p-5 flex flex-col items-center lg:items-start gap-5">
+            <div className="p-5 flex flex-col items-center lg:items-start">
               <p className="font-bold text-lg lg:text-xl xl:text-2xl">
                 {product?.name}
               </p>
-              <p
-                className={`text-xs w-fit lg:mx-0 px-5 py-1 font-medium rounded-full text-white ${
-                  product?.quantityLeft > 5 ? "bg-[#27C200]" : "bg-[#FF9345]"
-                }`}
-              >
-                {product?.quantityLeft} left
-              </p>
-              <div className="flex items-center gap-x-1">
+              {product?.customizable && (
+                <p className="text-sm mt-1">Customizable</p>
+              )}
+
+              {product?.quantityLeft > 100 ? (
+                <p className="text-xs w-fit lg:mx-0 px-5 py-1 font-medium rounded-full bg-[#27C200] text-white mt-3">
+                  Special Price
+                </p>
+              ) : (
+                <p className="text-xs w-fit lg:mx-0 px-5 py-1 font-medium rounded-full bg-[#FF9345] text-white mt-3">
+                  Only {product?.quantityLeft} left
+                </p>
+              )}
+
+              <div className="flex items-center gap-x-1 mt-3">
                 <Rating
                   className="text-md text-[#F7C02B] pt-1"
                   initialRating={product?.rating?.ratingCount}
@@ -48,8 +55,8 @@ const Main = () => {
                   {product?.rating?.ratingCount} Rating
                 </p>
               </div>
-              <div className="flex items-center gap-5">
-                <p className="font-bold text-md md:text-lg lg:text-xl">
+              <div className="flex items-center gap-5 mt-3">
+                <p className="font-bold text-lg md:text-xl lg:text-2xl">
                   {product?.priceData?.symbol}
                   {product?.priceData?.priceNow}
                 </p>
