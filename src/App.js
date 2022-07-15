@@ -51,6 +51,7 @@ import ProductDetails from "./Components/Products/ProductDetails";
 import PaymentDetails from "./Components/Products/PaymentDetails";
 import CreateInfluencersList from "./Pages/CreateInfluencersList";
 import InfluencersListDetails from "./Pages/InfluencersListDetails";
+import InfluencersList from "./Pages/InfluencersList";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -150,6 +151,14 @@ function App() {
             element={
               <PrivateRoute>
                 <InfluencersListDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/influencerslist"
+            element={
+              <PrivateRoute>
+                <InfluencersList />
               </PrivateRoute>
             }
           />
