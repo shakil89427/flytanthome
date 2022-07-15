@@ -11,7 +11,7 @@ import {
   arrayRemove,
 } from "firebase/firestore";
 
-const InfluencersList = () => {
+const InfluencersListDetails = () => {
   const [listData, setListData] = useState({});
   const [loading, setLoading] = useState(true);
   const [showAddProfile, setShowAddProfile] = useState(false);
@@ -152,4 +152,4 @@ const InfluencersList = () => {
   );
 };
 
-export default InfluencersList;
+export default InfluencersListDetails;

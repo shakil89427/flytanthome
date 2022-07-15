@@ -50,7 +50,7 @@ import Main from "./Components/Products/Main";
 import ProductDetails from "./Components/Products/ProductDetails";
 import PaymentDetails from "./Components/Products/PaymentDetails";
 import CreateInfluencersList from "./Pages/CreateInfluencersList";
-import InfluencersList from "./Pages/InfluencersList";
+import InfluencersListDetails from "./Pages/InfluencersListDetails";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -149,7 +149,7 @@ function App() {
             path="/influencerslist/:id"
             element={
               <PrivateRoute>
-                <InfluencersList />
+                <InfluencersListDetails />
               </PrivateRoute>
             }
           />
