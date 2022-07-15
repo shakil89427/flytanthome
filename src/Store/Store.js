@@ -91,6 +91,7 @@ const Store = () => {
   const [selectedSection, setSelectedScetion] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState({});
   const [products, setProducts] = useState([]);
+  const [customText, setCustomText] = useState("");
 
   useEffect(() => {
     if (!user?.userId) {
@@ -213,6 +214,8 @@ const Store = () => {
     setSelectedVideo,
     products,
     setProducts,
+    customText,
+    setCustomText,
   };
 };
 
