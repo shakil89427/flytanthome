@@ -134,7 +134,7 @@ const ProductDetails = () => {
             onClick={() =>
               user?.userId
                 ? navigate("/products/payment", { state: { from: location } })
-                : setShowLogin("location")
+                : setShowLogin(true)
             }
             className="w-full bg-black text-white mt-5 rounded-full h-14 text-xl font-medium"
           >

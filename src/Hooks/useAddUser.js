@@ -26,9 +26,7 @@ const useAddUser = () => {
       const finalData = { ...userData.data(), id: userData.id };
       if (finalData?.userId) {
         setUser(finalData);
-        setUserLoading(false);
-        if (showLogin === "location") return;
-        return navigate("/");
+        return setUserLoading(false);
       }
       let current = {
         deviceType: "Website",
@@ -74,9 +72,7 @@ const useAddUser = () => {
       const userRef = doc(database, "users", newData.userId);
       await setDoc(userRef, newData);
       setUser({ ...newData, id: newData.userId });
-      setUserLoading(false);
-      if (showLogin === "location") return;
-      navigate("/");
+      return setUserLoading(false);
     } catch (err) {
       setUserLoading(false);
       setNotify({ status: false, message: "Something went wrong" });

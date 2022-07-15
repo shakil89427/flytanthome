@@ -49,6 +49,8 @@ import Products from "./Pages/Products";
 import Main from "./Components/Products/Main";
 import ProductDetails from "./Components/Products/ProductDetails";
 import PaymentDetails from "./Components/Products/PaymentDetails";
+import CreateInfluencersList from "./Pages/CreateInfluencersList";
+import InfluencersList from "./Pages/InfluencersList";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -69,6 +71,8 @@ function App() {
     "applied",
     "news",
     "app",
+    "createinfluencerslist",
+    "influencerslist",
     user?.userId && "courses",
   ];
 
@@ -133,6 +137,22 @@ function App() {
             <Route path="payment" element={<PaymentDetails />} />
             <Route path=":id" element={<ProductDetails />} />
           </Route>
+          <Route
+            path="/createinfluencerslist"
+            element={
+              <PrivateRoute>
+                <CreateInfluencersList />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/influencerslist/:id"
+            element={
+              <PrivateRoute>
+                <InfluencersList />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/search"
             element={
@@ -230,7 +250,9 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        <Footer />
+        {!pathname.includes("createinfluencerslist" && "influencerslist") && (
+          <Footer />
+        )}
       </div>
     </>
   );

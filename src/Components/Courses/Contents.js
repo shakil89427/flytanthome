@@ -81,7 +81,7 @@ const Contents = () => {
             </p>
             <button
               onClick={() =>
-                !user?.userId ? setShowLogin("location") : setShowBuy(true)
+                !user?.userId ? setShowLogin(true) : setShowBuy(true)
               }
               className="block mx-auto bg-white px-7 py-3 mt-2 rounded-md font-medium"
             >
@@ -96,7 +96,7 @@ const Contents = () => {
       {(!user?.userId || !course?.courseBuyers?.includes(user?.userId)) && (
         <button
           onClick={() =>
-            !user?.userId ? setShowLogin("location") : setShowBuy(true)
+            !user?.userId ? setShowLogin(true) : setShowBuy(true)
           }
           className="mt-7 bg-black text-white py-4 font-medium px-8 block mx-auto rounded-md"
         >

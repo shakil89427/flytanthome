@@ -15,7 +15,7 @@ const styles = {
 };
 /* Styles End */
 
-const LargeTop = () => {
+const LargeTop = ({ theme }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { user, setShowLogin, setShowLogout } = useStore();
@@ -42,7 +42,7 @@ const LargeTop = () => {
             href="mailto:contact@flytant.com"
             target="_blank"
             rel="noreferrer"
-            className="border-2 border-gray-500 px-7 py-2 rounded-md font-semibold text-black"
+            className={`border-2 border-gray-500 px-7 py-2 rounded-md font-semibold ${theme.text}`}
           >
             Contact
           </a>
@@ -63,7 +63,7 @@ const LargeTop = () => {
               className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center cursor-pointer"
             />
             <TiArrowSortedDown
-              className={`text-2xl cursor-pointer text-black`}
+              className={`text-2xl cursor-pointer ${theme.text}`}
             />
             {show && (
               <>

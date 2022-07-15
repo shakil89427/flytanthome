@@ -11,6 +11,7 @@ import useStore from "../../Store/useStore";
 const NavBar = ({ bg }) => {
   const { user } = useStore();
   const { pathname } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   const [showSide, setShowSide] = useState(false);
   const [theme, setTheme] = useState({
@@ -29,15 +30,7 @@ const NavBar = ({ bg }) => {
         text: "text-white",
       });
     }
-    if (!bg && !user?.userId) {
-      setTheme({
-        bg: "bg-black",
-        border: "border-0",
-        img: logo,
-        text: "text-white",
-      });
-    }
-    if (user?.userId) {
+    if (user?.userId && !bg) {
       setTheme({
         bg: "bg-white",
         border: "border-b",
@@ -45,7 +38,24 @@ const NavBar = ({ bg }) => {
         text: "text-black",
       });
     }
-  }, [bg, user]);
+    if (!bg && !user?.userId) {
+      return setTheme({
+        bg: "bg-black",
+        border: "border-0",
+        img: logo,
+        text: "text-white",
+      });
+    }
+
+    if (user?.userId && bg) {
+      setTheme({
+        bg: "bg-transparent",
+        border: "border-0",
+        img: logo,
+        text: "text-white",
+      });
+    }
+  }, [bg, user, location]);
 
   return (
     <div className={theme.bg}>
@@ -76,7 +86,7 @@ const NavBar = ({ bg }) => {
         </div>
 
         <SmallSide showSide={showSide} setShowSide={setShowSide} />
-        <LargeTop />
+        <LargeTop theme={theme} />
       </div>
     </div>
   );
