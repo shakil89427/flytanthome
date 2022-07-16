@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "../../Store/useStore";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import { AiFillSafetyCertificate } from "react-icons/ai";
+import Input from "./Input";
 
 const PaymentDetails = () => {
   const { user, products, countryCode, setNotify, quantity } = useStore();
@@ -10,6 +12,7 @@ const PaymentDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [step, setStep] = useState(0);
+  const [focused, setFocused] = useState({});
   /* Form Data Start*/
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,6 +49,7 @@ const PaymentDetails = () => {
     }
     window.scroll(0, 0);
   }, []);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-[1200px] mx-auto">
       {/* Left */}
@@ -88,25 +92,26 @@ const PaymentDetails = () => {
               Contact Information
             </p>
             <div className="grid grid-cols-1 gap-5">
-              <input
-                required
+              <Input
+                name={"name"}
                 value={name}
-                onChan
-                onChange={(e) => setName(e.target.value)}
-                type="text"
-                placeholder="Full name"
-                className="border p-2 outline-none"
+                setValue={setName}
+                focused={focused}
+                setFocused={setFocused}
+                placeHolder={"Full name"}
+                type={"text"}
               />
-              <input
-                required
+              <Input
+                name={"email"}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="Email address"
-                className="border p-2 outline-none"
+                setValue={setEmail}
+                focused={focused}
+                setFocused={setFocused}
+                placeHolder={"Email address"}
+                type={"email"}
               />
               <PhoneInput
-                className="border p-2 overflow-hidden otpNumber"
+                className="border-2 h-11 p-2 overflow-hidden otpNumber"
                 international
                 defaultCountry={countryCode || "US"}
                 countryCallingCodeEditable={false}
@@ -118,54 +123,64 @@ const PaymentDetails = () => {
               Address Details
             </p>
             <div className="grid grid-cols-2 gap-5">
-              <input
-                required
+              <Input
+                name={"pinCode"}
                 value={pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
-                type="text"
-                className="border p-2 outline-none"
-                placeholder="Pincode"
+                setValue={setPinCode}
+                focused={focused}
+                setFocused={setFocused}
+                placeHolder={"Pincode"}
+                type={"text"}
               />
-              <input
-                required
+              <Input
+                name={"city"}
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
-                type="text"
-                className="border p-2 outline-none"
-                placeholder="City"
+                setValue={setCity}
+                focused={focused}
+                setFocused={setFocused}
+                placeHolder={"City"}
+                type={"text"}
               />
-              <input
-                required
+              <Input
+                name={"state"}
                 value={state}
-                onChange={(e) => setState(e.target.value)}
-                type="text"
-                className="border p-2 outline-none"
-                placeholder="State"
+                setValue={setState}
+                focused={focused}
+                setFocused={setFocused}
+                placeHolder={"State"}
+                type={"text"}
               />
-              <input
-                required
+              <Input
+                name={"country"}
                 value={country}
-                onChange={(e) => setCountry(e.target.value)}
-                type="text"
-                className="border p-2 outline-none"
-                placeholder="Country"
+                setValue={setCountry}
+                focused={focused}
+                setFocused={setFocused}
+                placeHolder={"Country"}
+                type={"text"}
               />
-              <input
-                required
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                type="text"
-                className="border p-2 outline-none col-span-2"
-                placeholder="Address Line 1"
-              />
-              <input
-                required
-                value={landMark}
-                onChange={(e) => setLandMark(e.target.value)}
-                type="text"
-                className="border p-2 outline-none col-span-2"
-                placeholder="Landmark"
-              />
+              <div className="col-span-2">
+                <Input
+                  name={"address"}
+                  value={address}
+                  setValue={setAddress}
+                  focused={focused}
+                  setFocused={setFocused}
+                  placeHolder={"Address Line 1"}
+                  type={"text"}
+                />
+              </div>
+              <div className="col-span-2">
+                <Input
+                  name={"landMark"}
+                  value={landMark}
+                  setValue={setLandMark}
+                  focused={focused}
+                  setFocused={setFocused}
+                  placeHolder={"Landmark"}
+                  type={"text"}
+                />
+              </div>
             </div>
             <button
               type="submit"
@@ -255,9 +270,24 @@ const PaymentDetails = () => {
                   {product?.priceData?.priceNow + 2}
                 </p>
               </div>
+              <p
+                onClick={() => setStep(100)}
+                className="mt-20 mb-10 bg-black text-white py-3 text-center text-lg font-medium rounded-md cursor-pointer"
+              >
+                Checkout
+              </p>
             </div>
           </div>
         )}
+      </div>
+      <div>
+        <p className="flex items-center justify-center gap-5 text-lg font-semibold">
+          <AiFillSafetyCertificate className="text-2xl" />
+          <span>Safe and Secure Payments</span>
+        </p>
+        <p className="mt-20 text-center font-semibold text-gray-600">
+          You're valuable to us!!
+        </p>
       </div>
     </div>
   );
