@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./Loading.module.css";
-import flytant from "../../Assets/flytant.png";
+import ReactLoading from "react-loading";
 
 const Loading = () => {
   return (
-    <div className="z-[999999999999999999] fixed w-full h-screen bg-[#ffffff81] top-0 left-0 flex flex-col items-center justify-center">
-      <div className={styles.loader}>
-        <img src={flytant} alt="" />
-      </div>
+    <div className="z-50 fixed w-full h-screen bg-[#ffffff81] top-0 left-0 flex flex-col items-center justify-center">
+      <ReactLoading type={"bars"} color={"#000000"} height={90} width={90} />
+      <p className="text-sm font-semibold mt-1">
+        <i>Please Wait...</i>
+      </p>
     </div>
   );
 };
