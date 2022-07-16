@@ -8,10 +8,9 @@ import { GoPrimitiveDot } from "react-icons/go";
 import CustomDesign from "./CustomDesign";
 
 const ProductDetails = () => {
-  const { user, products, setShowLogin } = useStore();
+  const { user, products, setShowLogin, setQuantity, quantity } = useStore();
   const [product, setProduct] = useState({});
   const [image, setImage] = useState("");
-  const [quantity, setQuantity] = useState(1);
   const [showCustom, setShowCustom] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();

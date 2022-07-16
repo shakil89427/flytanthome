@@ -9,6 +9,7 @@ const PaymentDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [step, setStep] = useState(0);
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     if (!user?.userId) return navigate("/products");
@@ -63,6 +64,64 @@ const PaymentDetails = () => {
           <p className="font-semibold text-lg md:text-xl xl:text-2xl mt-20 mb-10">
             Contact Information
           </p>
+          <div className="grid grid-cols-1 gap-5">
+            <input
+              type="text"
+              placeholder="Full name"
+              className="border p-2 outline-none"
+            />
+            <input
+              type="email"
+              placeholder="Email address"
+              className="border p-2 outline-none"
+            />
+            <input
+              type="number"
+              placeholder="Phone number"
+              className="border p-2 outline-none"
+            />
+          </div>
+          <p className="font-semibold text-lg md:text-xl xl:text-2xl mt-12 mb-10">
+            Address Details
+          </p>
+          <div className="grid grid-cols-2 gap-5">
+            <input
+              type="text"
+              className="border p-2 outline-none"
+              placeholder="Pincode"
+            />
+            <input
+              type="text"
+              className="border p-2 outline-none"
+              placeholder="City"
+            />
+            <input
+              type="text"
+              className="border p-2 outline-none"
+              placeholder="State"
+            />
+            <input
+              type="text"
+              className="border p-2 outline-none"
+              placeholder="Country"
+            />
+            <input
+              type="text"
+              className="border p-2 outline-none col-span-2"
+              placeholder="Address Line 1"
+            />
+            <input
+              type="text"
+              className="border p-2 outline-none col-span-2"
+              placeholder="Landmark"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-black text-white py-3 mt-5 block ml-auto w-1/2 font-medium"
+          >
+            Continue
+          </button>
         </form>
       </div>
     </div>

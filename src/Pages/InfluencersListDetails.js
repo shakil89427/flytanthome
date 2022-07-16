@@ -18,6 +18,7 @@ const InfluencersListDetails = () => {
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddProfile, setShowAddProfile] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const { id } = useParams();
   const db = getFirestore();
   const docRef = doc(db, "influencersList", id);
@@ -109,6 +110,31 @@ const InfluencersListDetails = () => {
           </div>
         </div>
       )}
+      {showDelete && (
+        <div className="fixed top-0 left-0 h-screen w-screen bg-[#8a898954] z-[99999] flex items-center justify-center">
+          <div className="w-[95%] max-w-[450px] p-7 bg-white rounded-lg">
+            <p className="text-lg font-medium text-center">Are you Sure?</p>
+            <div className="grid grid-cols-2 gap-5 text-center mt-5">
+              <p
+                onClick={() => {
+                  delateProfile(showDelete);
+                  setShowDelete(false);
+                }}
+                className="border py-2 border-black rounded-md font-medium cursor-pointer"
+              >
+                Delete
+              </p>
+              <p
+                onClick={() => setShowDelete(false)}
+                className="bg-black text-white py-2 rounded-md font-medium cursor-pointer"
+              >
+                Cancel
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {loading && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999999] w-screen h-screen flex items-center justify-center">
           <Spinner />
@@ -148,15 +174,28 @@ const InfluencersListDetails = () => {
                         className="bg-cover bg-center bg-no-repeat w-8 h-8 rounded-full mx-auto border"
                       />
                     </td>
-                    <td className="">{item?.url}</td>
-                    <td className="">{millify(item?.followers || 0)}</td>
-                    <td className="">{millify(item?.likesPerPost || 0)}</td>
-                    <td className="">{millify(item?.commentsPerPost || 0)}</td>
-                    <td className="">10</td>
-                    <td className="">20%</td>
-                    <td className="">
+                    <td
+                      onClick={() => window.open(item?.url)}
+                      className="cursor-pointer"
+                    >
+                      {item?.url}
+                    </td>
+                    <td>{millify(item?.followers || 0)}</td>
+                    <td>{millify(item?.totalLikes / item?.totalPost || 0)}</td>
+                    <td>
+                      {millify(item?.totalComments / item?.totalPost || 0)}
+                    </td>
+                    <td>{item?.postPerWeek}</td>
+                    <td>
+                      {parseFloat(
+                        (item?.totalLikes / item?.totalPost / item?.followers) *
+                          100 || 0
+                      ).toFixed(2)}
+                      %
+                    </td>
+                    <td>
                       <button
-                        onClick={() => delateProfile(item?.url)}
+                        onClick={() => setShowDelete(item?.url)}
                         className="text-gray-400"
                       >
                         Delate
