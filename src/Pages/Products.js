@@ -18,7 +18,11 @@ const Products = () => {
           : item?.usStrikeThroughPrice;
       const symbol = user?.countryCode === "IN" ? "₹" : "$";
       const discount = Math.floor(100 - (priceNow * 100) / pricePrev);
-      return { ...item, priceData: { priceNow, pricePrev, symbol, discount } };
+      const discountAmmount = pricePrev - priceNow;
+      return {
+        ...item,
+        priceData: { priceNow, pricePrev, symbol, discount, discountAmmount },
+      };
     });
     setProducts(maped);
     setLoading(false);
