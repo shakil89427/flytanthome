@@ -178,12 +178,20 @@ const InfluencersListDetails = () => {
                       onClick={() => window.open(item?.url)}
                       className="cursor-pointer"
                     >
-                      {item?.url}
+                      {item?.url?.length > 40
+                        ? item?.url?.slice(0, 40) + "..."
+                        : item?.url}
                     </td>
                     <td>{millify(item?.followers || 0)}</td>
-                    <td>{millify(item?.totalLikes / item?.totalPost || 0)}</td>
                     <td>
-                      {millify(item?.totalComments / item?.totalPost || 0)}
+                      {millify(
+                        parseInt(item?.totalLikes / item?.totalPost) || 0
+                      )}
+                    </td>
+                    <td>
+                      {millify(
+                        parseInt(item?.totalComments / item?.totalPost) || 0
+                      )}
                     </td>
                     <td>{item?.postPerWeek}</td>
                     <td>
