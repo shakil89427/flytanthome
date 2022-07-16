@@ -15,6 +15,8 @@ const InfluencersList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const password = window.prompt("Enter Password");
+    if (password !== "flytant@#$") return navigate("/");
     const colRef = collection(db, "influencersList");
     getDocs(colRef)
       .then(({ docs }) => {
