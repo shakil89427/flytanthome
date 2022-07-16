@@ -1,99 +1,85 @@
 import moment from "moment";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useStore from "../../Store/useStore";
 import Spinner2 from "../Spinner/Spinner2";
-import {
-  getFirestore,
-  doc,
-  deleteDoc,
-  setDoc,
-  getDoc,
-} from "firebase/firestore";
+import { getFirestore, doc, deleteDoc, setDoc } from "firebase/firestore";
 import axios from "axios";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
-const Connect = ({ id, setShowConnect, cardUser }) => {
-  const { user, setNotify } = useStore();
+const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
+  const { user, setNotify, countryCode } = useStore();
   const [showMain, setShowMain] = useState(true);
-  const [followLoading, setFollowLoading] = useState(true);
-  const [contactLoading, setContactLoading] = useState(false);
-  const [followData, setFollowData] = useState({});
+  const [loading, setLoading] = useState(false);
   const db = getFirestore();
+  /* FormData */
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState();
 
   const submitForm = async (e) => {
     e.preventDefault();
-    setContactLoading(true);
+    if (!phone) {
+      return setNotify({ status: false, message: "Enter a valid number" });
+    }
+    if (!isValidPhoneNumber(phone)) {
+      return setNotify({ status: false, message: "Invalid number" });
+    }
+    setLoading(true);
     try {
-      const name = e.target[0].value;
-      const email = e.target[1].value;
-      const phone = e.target[2].value;
-      const creationDate = moment().unix();
-      const finalData = { name, email, phone, creationDate, id };
-      await axios.post("https://flytant.herokuapp.com/contactinfo", finalData);
-      e.target.reset();
-      setContactLoading(false);
+      await axios.post("https://flytant.herokuapp.com/contactinfo", {
+        name,
+        email,
+        phone,
+        creationDate: moment().unix(),
+        id: cardUser?.id,
+      });
       setNotify({ status: true, message: "Sent Successfully" });
       setShowConnect(false);
     } catch (err) {
-      setContactLoading(false);
+      setLoading(false);
     }
   };
 
-  const getFollowers = async () => {
+  const changeFollow = () => {
     try {
-      const docRef = doc(db, "users", id, "followers", user?.userId);
-      const response = await getDoc(docRef);
-      const finalData = response.data();
-      if (finalData?.userId) {
-        setFollowData(finalData);
-      } else {
+      const cardUserRef = doc(
+        db,
+        "users",
+        cardUser?.id,
+        "followers",
+        user?.userId
+      );
+      const userRef = doc(
+        db,
+        "users",
+        user?.userId,
+        "followings",
+        cardUser?.id
+      );
+      if (followData?.userId === user?.userId) {
         setFollowData({});
-      }
-      setFollowLoading(false);
-    } catch (err) {
-      setFollowLoading(false);
-    }
-  };
-
-  const changeFollow = async () => {
-    if (followLoading) return;
-    setFollowLoading(true);
-    try {
-      if (followData?.userId) {
-        const cardUserRef = doc(db, "users", id, "followers", user?.userId);
-        const userRef = doc(db, "users", user?.userId, "followings", id);
-        await deleteDoc(cardUserRef);
-        await deleteDoc(userRef);
-        setFollowData({});
-        setFollowLoading(false);
+        deleteDoc(cardUserRef);
+        deleteDoc(userRef);
       } else {
-        const cardUserRef = doc(db, "users", id, "followers", user?.userId);
-        const userRef = doc(db, "users", user?.userId, "followings", id);
-        await setDoc(cardUserRef, {
+        const cardUserData = {
+          creationDate: moment().unix(),
+          profileImageUrl: cardUser?.profileImageUrl,
+          userId: cardUser?.id,
+          username: cardUser?.name,
+        };
+        const userData = {
           creationDate: moment().unix(),
           profileImageUrl: user?.profileImageUrl,
           userId: user?.userId,
           username: user?.username,
-        });
-        await setDoc(userRef, {
-          creationDate: moment().unix(),
-          profileImageUrl: cardUser?.profileImageUrl,
-          userId: id,
-          username: cardUser?.name,
-        });
-        getFollowers();
+        };
+        setFollowData(userData);
+        setDoc(cardUserRef, userData);
+        setDoc(userRef, cardUserData);
       }
-    } catch (err) {
-      setFollowLoading(false);
-    }
+    } catch (err) {}
   };
-
-  useEffect(() => {
-    if (user?.userId) {
-      getFollowers();
-    } else {
-      setFollowLoading(false);
-    }
-  }, [user]);
 
   return (
     <div className="z-[99999] fixed top-0 left-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-screen h-screen md:w-[400px] md:h-[90vh] bg-white md:rounded-lg bg-[#08080850] flex items-end">
@@ -104,11 +90,7 @@ const Connect = ({ id, setShowConnect, cardUser }) => {
               onClick={changeFollow}
               className="bg-black text-white py-3 rounded-lg text-lg font-medium w-full"
             >
-              {followLoading
-                ? "Loading..."
-                : followData?.userId === user?.userId
-                ? "Following"
-                : "Follow"}
+              {followData?.userId === user?.userId ? "Following" : "Follow"}
             </button>
           )}
           <button
@@ -128,7 +110,7 @@ const Connect = ({ id, setShowConnect, cardUser }) => {
         </div>
       ) : (
         <div className="bg-white w-full p-5 rounded-lg relative overflow-hidden">
-          {contactLoading && (
+          {loading && (
             <div className="absolute inset-0 top-0 left-0 flex items-center justify-center bg-[#63626250]">
               <Spinner2 />
             </div>
@@ -136,21 +118,28 @@ const Connect = ({ id, setShowConnect, cardUser }) => {
           <form className="text-lg font-semibold" onSubmit={submitForm}>
             <p>Name</p>
             <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
               type="text"
               className="bg-[#7c7c7c25] w-full p-2 mt-1 mb-5 rounded-md outline-none"
             />
             <p>Email</p>
             <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               type="email"
               className="bg-[#7c7c7c25] w-full p-2 mt-1 mb-5 rounded-md outline-none"
             />
             <p>Phone Number</p>
-            <input
-              required
-              type="number"
-              className="bg-[#7c7c7c25] w-full p-2 mt-1 mb-5 rounded-md outline-none"
+            <PhoneInput
+              className="p-2 overflow-hidden otpNumber bg-[#7c7c7c25] rounded-md"
+              international
+              defaultCountry={countryCode || "US"}
+              countryCallingCodeEditable={false}
+              value={phone}
+              onChange={setPhone}
             />
             <button
               type="submit"

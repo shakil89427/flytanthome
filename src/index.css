@@ -37,7 +37,9 @@ input[type="number"] {
 }
 .otpNumber > input {
   outline: none;
+  background-color: transparent;
 }
+
 #career_file::file-selector-button {
   border: none;
   padding: 5px 10px;

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "../../Store/useStore";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import Input from "./Input";
 
