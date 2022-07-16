@@ -206,7 +206,7 @@ const InfluencersListDetails = () => {
                         onClick={() => setShowDelete(item?.url)}
                         className="text-gray-400"
                       >
-                        Delate
+                        Delete
                       </button>
                     </td>
                   </tr>

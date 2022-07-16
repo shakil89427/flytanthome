@@ -4,17 +4,14 @@ import useStore from "../../Store/useStore";
 import Spinner2 from "../Spinner/Spinner2";
 import {
   getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-  addDoc,
   doc,
   deleteDoc,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 import axios from "axios";
 
-const Connect = ({ id, setShowConnect }) => {
+const Connect = ({ id, setShowConnect, cardUser }) => {
   const { user, setNotify } = useStore();
   const [showMain, setShowMain] = useState(true);
   const [followLoading, setFollowLoading] = useState(true);
@@ -35,6 +32,7 @@ const Connect = ({ id, setShowConnect }) => {
       e.target.reset();
       setContactLoading(false);
       setNotify({ status: true, message: "Sent Successfully" });
+      setShowConnect(false);
     } catch (err) {
       setContactLoading(false);
     }
@@ -42,14 +40,11 @@ const Connect = ({ id, setShowConnect }) => {
 
   const getFollowers = async () => {
     try {
-      const q = query(
-        collection(db, "users", id, "followers"),
-        where("userId", "==", user?.userId)
-      );
-      const { docs } = await getDocs(q);
-      if (docs?.length > 0) {
-        const valid = docs[0];
-        setFollowData({ ...valid.data(), id: valid.id });
+      const docRef = doc(db, "users", id, "followers", user?.userId);
+      const response = await getDoc(docRef);
+      const finalData = response.data();
+      if (finalData?.userId) {
+        setFollowData(finalData);
       } else {
         setFollowData({});
       }
@@ -64,18 +59,27 @@ const Connect = ({ id, setShowConnect }) => {
     setFollowLoading(true);
     try {
       if (followData?.userId) {
-        const docRef = doc(db, "users", id, "followers", followData.id);
-        await deleteDoc(docRef);
-        getFollowers();
+        const cardUserRef = doc(db, "users", id, "followers", user?.userId);
+        const userRef = doc(db, "users", user?.userId, "followings", id);
+        await deleteDoc(cardUserRef);
+        await deleteDoc(userRef);
+        setFollowData({});
+        setFollowLoading(false);
       } else {
-        const colRef = collection(db, "users", id, "followers");
-        const data = {
+        const cardUserRef = doc(db, "users", id, "followers", user?.userId);
+        const userRef = doc(db, "users", user?.userId, "followings", id);
+        await setDoc(cardUserRef, {
           creationDate: moment().unix(),
           profileImageUrl: user?.profileImageUrl,
           userId: user?.userId,
           username: user?.username,
-        };
-        await addDoc(colRef, data);
+        });
+        await setDoc(userRef, {
+          creationDate: moment().unix(),
+          profileImageUrl: cardUser?.profileImageUrl,
+          userId: id,
+          username: cardUser?.name,
+        });
         getFollowers();
       }
     } catch (err) {

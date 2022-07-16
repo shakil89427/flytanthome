@@ -68,7 +68,7 @@ const Buy = ({ course, setShowBuy }) => {
       };
       const razorpay = new window.Razorpay(options);
       razorpay.on("payment.failed", (response) => {
-        console.log("err");
+        setNotify({ status: false, messgae: "Payment failed" });
       });
       razorpay.open();
     } catch (err) {

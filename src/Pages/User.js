@@ -43,7 +43,9 @@ const User = () => {
   return (
     <>
       <div className="fixed top-0 left-0 inset-0 bg-black z-[999] flex items-center justify-center" />
-      {showConnect && <Connect id={id} setShowConnect={setShowConnect} />}
+      {showConnect && (
+        <Connect id={id} setShowConnect={setShowConnect} cardUser={user} />
+      )}
       <div className="z-[9999] fixed top-0 left-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-screen h-screen md:w-[400px] md:h-[90vh] md:rounded-lg overflow-y-scroll scrollbar pb-14 bg-white">
         <div
           style={{ backgroundImage: `url(${user?.featureImageUrl})` }}
