@@ -6,9 +6,11 @@ import Spinner2 from "../Components/Spinner/Spinner2";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
+import { useEffect } from "react";
 
 const CreateInfluencersList = () => {
-  const { setNotify } = useStore();
+  const { user, setNotify, setShowLogin, userLoading, authLoading } =
+    useStore();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const db = getFirestore();
@@ -31,26 +33,35 @@ const CreateInfluencersList = () => {
     }
   };
 
+  useEffect(() => {
+    if (userLoading || authLoading) return;
+    if (!user?.userId) {
+      setShowLogin(true);
+    }
+  }, [user, userLoading, authLoading]);
+
   return (
     <div className="w-screen h-screen bg-black">
       <NavBar bg={true} />
-      <form
-        onSubmit={createList}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[400px] mx-auto"
-      >
-        <input
-          type="text"
-          className="w-full border-2 mb-8 bg-black px-3 h-12 border-gray-600 rounded-md outline-none text-white"
-          placeholder="Enter List Name"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-white text-black w-full h-12 text-lg rounded-md font-medium flex items-center justify-center"
+      {user?.userId && (
+        <form
+          onSubmit={createList}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[400px] mx-auto"
         >
-          {loading ? <Spinner2 /> : <span>Create List</span>}
-        </button>
-      </form>
+          <input
+            type="text"
+            className="w-full border-2 mb-8 bg-black px-3 h-12 border-gray-600 rounded-md outline-none text-white"
+            placeholder="Enter List Name"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-white text-black w-full h-12 text-lg rounded-md font-medium flex items-center justify-center"
+          >
+            {loading ? <Spinner2 /> : <span>Create List</span>}
+          </button>
+        </form>
+      )}
     </div>
   );
 };

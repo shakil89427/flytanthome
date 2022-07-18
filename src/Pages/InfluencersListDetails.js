@@ -12,8 +12,10 @@ import {
 } from "firebase/firestore";
 import axios from "axios";
 import millify from "millify";
+import useStore from "../Store/useStore";
 
 const InfluencersListDetails = () => {
+  const { userLoading, authLoading, user, setShowLogin } = useStore();
   const [title, setTitle] = useState("");
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -76,10 +78,18 @@ const InfluencersListDetails = () => {
   };
 
   useEffect(() => {
-    if (listData?.length < 1) {
+    if (userLoading || authLoading) return;
+    if (!user?.userId) {
+      setShowLogin(true);
+    }
+  }, [user, userLoading, authLoading]);
+
+  useEffect(() => {
+    if (user?.userId) {
+      setListData([]);
       getList();
     }
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -144,10 +154,12 @@ const InfluencersListDetails = () => {
         <div className="w-full">
           <NavBar bg={true} />
         </div>
-        <p className="font-semibold text-lg md:text-xl r-box text-white my-10">
-          {title}
-        </p>
-        {title && (
+        {user?.userId && (
+          <p className="font-semibold text-lg md:text-xl r-box text-white my-10">
+            {title}
+          </p>
+        )}
+        {title && user?.userId && (
           <div className="r-box text-white h-full overflow-scroll scrollbar w-full text-center">
             <table className="w-full min-w-[1300px]">
               <thead>
@@ -165,7 +177,7 @@ const InfluencersListDetails = () => {
               <tbody>
                 {listData?.map((item, index) => (
                   <tr key={item?.url} className="text-sm">
-                    <td className="">{index}</td>
+                    <td className="">{index + 1}</td>
                     <td className="py-2">
                       <div
                         style={{
@@ -178,9 +190,7 @@ const InfluencersListDetails = () => {
                       onClick={() => window.open(item?.url)}
                       className="cursor-pointer"
                     >
-                      {item?.url?.length > 40
-                        ? item?.url?.slice(0, 40) + "..."
-                        : item?.url}
+                      {item?.url?.split("instagram.com/")[1]?.split("/")[0]}
                     </td>
                     <td>{millify(item?.followers || 0)}</td>
                     <td>
@@ -193,7 +203,7 @@ const InfluencersListDetails = () => {
                         parseInt(item?.totalComments / item?.totalPost) || 0
                       )}
                     </td>
-                    <td>{item?.postPerWeek}</td>
+                    <td>{item?.postPerWeek > 0 ? item?.postPerWeek : "0"}</td>
                     <td>
                       {parseFloat(
                         (item?.totalLikes / item?.totalPost / item?.followers) *
@@ -215,7 +225,7 @@ const InfluencersListDetails = () => {
             </table>
           </div>
         )}
-        {title && (
+        {title && user?.userId && (
           <button
             onClick={() => setShowAddProfile(true)}
             className="bg-white text-black my-5 px-8 py-3 text-lg font-semibold rounded-md"

@@ -6,10 +6,11 @@ import { getFirestore, doc, deleteDoc, setDoc } from "firebase/firestore";
 import axios from "axios";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { useEffect } from "react";
 
 const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
   const { user, setNotify, countryCode } = useStore();
-  const [showMain, setShowMain] = useState(true);
+  const [showMain, setShowMain] = useState(0);
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   /* FormData */
@@ -81,20 +82,26 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
     } catch (err) {}
   };
 
+  useEffect(() => {
+    if (user?.userId) {
+      setShowMain(1);
+    } else {
+      setShowMain(2);
+    }
+  }, [user]);
+
   return (
     <div className="z-[99999] fixed top-0 left-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-screen h-screen md:w-[400px] md:h-[90vh] bg-white md:rounded-lg bg-[#08080850] flex items-end">
-      {showMain ? (
+      {showMain === 1 && (
         <div className="bg-white w-full p-5 grid grid-cols-2 gap-x-5 gap-y-10 rounded-lg">
-          {user?.userId && (
-            <button
-              onClick={changeFollow}
-              className="bg-black text-white py-3 rounded-lg text-lg font-medium w-full"
-            >
-              {followData?.userId === user?.userId ? "Following" : "Follow"}
-            </button>
-          )}
           <button
-            onClick={() => setShowMain(false)}
+            onClick={changeFollow}
+            className="bg-black text-white py-3 rounded-lg text-lg font-medium w-full"
+          >
+            {followData?.userId === user?.userId ? "Following" : "Follow"}
+          </button>
+          <button
+            onClick={() => setShowMain(2)}
             className={`bg-gray-200 py-3 rounded-lg text-lg font-medium ${
               user?.userId ? "col-span-1" : "col-span-2"
             }`}
@@ -108,7 +115,8 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
             Cancel
           </button>
         </div>
-      ) : (
+      )}
+      {showMain === 2 && (
         <div className="bg-white w-full p-5 rounded-lg relative overflow-hidden">
           {loading && (
             <div className="absolute inset-0 top-0 left-0 flex items-center justify-center bg-[#63626250]">
@@ -149,7 +157,9 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
             </button>
           </form>
           <button
-            onClick={() => setShowMain(true)}
+            onClick={() =>
+              user?.userId ? setShowMain(1) : setShowConnect(false)
+            }
             className="border-2 py-3 text-lg  font-medium border-black rounded-lg w-full text-center cursor-pointer"
           >
             Back

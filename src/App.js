@@ -140,28 +140,13 @@ function App() {
           </Route>
           <Route
             path="/createinfluencerslist"
-            element={
-              <PrivateRoute>
-                <CreateInfluencersList />
-              </PrivateRoute>
-            }
+            element={<CreateInfluencersList />}
           />
           <Route
             path="/influencerslist/:id"
-            element={
-              <PrivateRoute>
-                <InfluencersListDetails />
-              </PrivateRoute>
-            }
+            element={<InfluencersListDetails />}
           />
-          <Route
-            path="/influencerslist"
-            element={
-              <PrivateRoute>
-                <InfluencersList />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/influencerslist" element={<InfluencersList />} />
           <Route
             path="/search"
             element={
