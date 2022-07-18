@@ -64,6 +64,7 @@ const InfluencersListDetails = () => {
 
   const getList = async () => {
     try {
+      setListData([]);
       const response = await getDoc(docRef);
       const finalData = response.data();
       setTitle(finalData?.name);
@@ -86,7 +87,6 @@ const InfluencersListDetails = () => {
 
   useEffect(() => {
     if (user?.userId) {
-      setListData([]);
       getList();
     }
   }, [user]);

@@ -23,6 +23,7 @@ const InfluencersList = () => {
   useEffect(() => {
     if (user?.userId) {
       setLoading(true);
+      setAllData([]);
       const colRef = collection(db, "influencersList");
       getDocs(colRef)
         .then(({ docs }) => {
