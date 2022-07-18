@@ -9,8 +9,15 @@ import CustomDesign from "./CustomDesign";
 import MoreCards from "./MoreCards";
 
 const ProductDetails = () => {
-  const { user, products, setShowLogin, setQuantity, quantity, countryCode } =
-    useStore();
+  const {
+    user,
+    products,
+    setShowLogin,
+    setQuantity,
+    quantity,
+    countryCode,
+    customText,
+  } = useStore();
   const [product, setProduct] = useState({});
   const [image, setImage] = useState("");
   const [showCustom, setShowCustom] = useState(false);
@@ -38,7 +45,7 @@ const ProductDetails = () => {
           <div className="grid grid-cols-4 gap-5">
             <div
               style={{ backgroundImage: `url(${image})` }}
-              className="col-span-4 border aspect-square bg-contain bg-center bg-no-repeat"
+              className="col-span-4 aspect-square bg-contain bg-center bg-no-repeat"
             />
             {product?.blob?.map((img) => (
               <div
@@ -146,7 +153,7 @@ const ProductDetails = () => {
               onClick={() => setShowCustom(true)}
               className="bg-[#E6E6E6] w-[75%] h-12 flex items-center justify-center gap-5 rounded-full mt-5 font-semibold cursor-pointer select-none"
             >
-              <p>Customize</p>
+              <p>{customText?.length > 0 ? customText : "Customize"}</p>
               <FiEdit />
             </div>
           )}
@@ -163,7 +170,9 @@ const ProductDetails = () => {
           </button>
           <hr className="my-10" />
           {/* Description */}
-          <p className="font-medium text-gray-500">{product?.description}</p>
+          <p style={{ lineHeight: "200%" }} className=" text-gray-500">
+            {product?.description}
+          </p>
           <p className="mt-5 font-semibold">Highlights</p>
           {/* Highlights */}
           {product.highlights?.map((item) => (

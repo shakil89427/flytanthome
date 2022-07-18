@@ -10,7 +10,8 @@ import useProductPayment from "../../Hooks/useProductPayment";
 import Spinner from "../Spinner/Spinner";
 
 const PaymentDetails = () => {
-  const { user, products, countryCode, setNotify, quantity } = useStore();
+  const { user, products, countryCode, setNotify, quantity, customText } =
+    useStore();
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [step, setStep] = useState(0);
   const [product, setProduct] = useState(false);
@@ -65,8 +66,7 @@ const PaymentDetails = () => {
       city?.length > 0 &&
       state?.length > 0 &&
       country?.length > 0 &&
-      address?.length > 0 &&
-      landMark?.length > 0
+      address?.length > 0
     ) {
       setStep(50);
     }
@@ -134,6 +134,7 @@ const PaymentDetails = () => {
             </p>
             <div className="grid grid-cols-1 gap-5">
               <Input
+                required={true}
                 name={"name"}
                 value={name}
                 setValue={setName}
@@ -143,6 +144,7 @@ const PaymentDetails = () => {
                 type={"text"}
               />
               <Input
+                required={true}
                 name={"email"}
                 value={email}
                 setValue={setEmail}
@@ -165,6 +167,7 @@ const PaymentDetails = () => {
             </p>
             <div className="grid grid-cols-2 gap-5">
               <Input
+                required={true}
                 name={"pinCode"}
                 value={pinCode}
                 setValue={setPinCode}
@@ -174,6 +177,7 @@ const PaymentDetails = () => {
                 type={"text"}
               />
               <Input
+                required={true}
                 name={"city"}
                 value={city}
                 setValue={setCity}
@@ -183,6 +187,7 @@ const PaymentDetails = () => {
                 type={"text"}
               />
               <Input
+                required={true}
                 name={"state"}
                 value={state}
                 setValue={setState}
@@ -192,6 +197,7 @@ const PaymentDetails = () => {
                 type={"text"}
               />
               <Input
+                required={true}
                 name={"country"}
                 value={country}
                 setValue={setCountry}
@@ -202,6 +208,7 @@ const PaymentDetails = () => {
               />
               <div className="col-span-2">
                 <Input
+                  required={true}
                   name={"address"}
                   value={address}
                   setValue={setAddress}
@@ -213,6 +220,7 @@ const PaymentDetails = () => {
               </div>
               <div className="col-span-2">
                 <Input
+                  required={false}
                   name={"landMark"}
                   value={landMark}
                   setValue={setLandMark}
@@ -252,6 +260,7 @@ const PaymentDetails = () => {
               <p className="font-semibold my-5">{name}</p>
               <p className="max-w-[350px]">{`${address}, ${city}, ${state}, ${country} ${landMark}`}</p>
               <p className="mt-5">{phone}</p>
+              <p className="mt-2">{email}</p>
             </div>
             <div className="my-10 py-10 border-t border-b grid grid-cols-5 gap-3">
               <div className="col-span-3">
@@ -259,7 +268,10 @@ const PaymentDetails = () => {
                   {product?.name}
                 </p>
                 {product?.customizable && (
-                  <p className="mt-2 text-gray-500">Customizable</p>
+                  <div>
+                    <p className="my-2 text-gray-500">Customizable</p>
+                    <p>{customText}</p>
+                  </div>
                 )}
                 <div className="flex items-center gap-5 mt-5">
                   {user?.countryCode === "IN" || countryCode === "IN" ? (

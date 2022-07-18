@@ -8,6 +8,7 @@ const Input = ({
   setFocused,
   placeHolder,
   type,
+  required,
 }) => {
   return (
     <div className="w-full relative flex items-center border-2">
@@ -22,7 +23,7 @@ const Input = ({
       </p>
       <input
         type={type}
-        required
+        required={required}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onFocus={() =>
