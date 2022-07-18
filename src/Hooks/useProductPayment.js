@@ -33,16 +33,16 @@ const usePayment = (product, setPaymentLoading, setStep) => {
           placed: true,
           shipped: false,
         },
-        paidAmount: priceData?.total * quantity + priceData?.shippingCost,
+        paidAmount: priceData?.priceNow * quantity + priceData?.shippingCost,
         price: priceData?.pricePrev,
         productId: product?.productId,
         productImage: product?.blob[0]?.url,
+        productName: product?.name,
         quantity,
-        shippingCost: product?.shippingCost,
+        shippingCost: priceData?.shippingCost,
         userId: user?.userId,
       };
-      const colRef = collection(db, "orders");
-      const docRef = doc(colRef);
+      const docRef = doc(collection(db, "orders"));
       await setDoc(docRef, { ...finalData, orderId: docRef.id });
       setQuantity(1);
       setCustomText("");

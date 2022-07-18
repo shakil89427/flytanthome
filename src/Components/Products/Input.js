@@ -24,7 +24,6 @@ const Input = ({
         type={type}
         required
         value={value}
-        onChan
         onChange={(e) => setValue(e.target.value)}
         onFocus={() =>
           setFocused((prev) => {

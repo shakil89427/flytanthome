@@ -379,6 +379,19 @@ const PaymentDetails = () => {
             </div>
           </div>
         )}
+        {step === 100 && (
+          <div className="mt-20">
+            <p className="text-center text-lg font-medium">
+              Order placed successfully
+            </p>
+            <p
+              onClick={() => navigate("/products")}
+              className="w-fit px-5 py-3 bg-black text-white mx-auto cursor-pointer rounded-md mt-5"
+            >
+              Back to Products
+            </p>
+          </div>
+        )}
       </div>
       <div>
         <p className="flex items-center justify-center gap-5 text-lg font-semibold">

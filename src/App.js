@@ -83,11 +83,11 @@ function App() {
       <div
         style={{ opacity: authLoading ? "0" : "1" }}
         className={`duration-300 ${
-          pathname === "/app" ? "min-h-0" : "min-h-screen"
+          pathname?.toLowerCase() === "/app" ? "min-h-0" : "min-h-screen"
         }`}
       >
         {!navPaths.includes(
-          pathname?.length === 1 ? "/" : pathname.split("/")[1]
+          pathname?.length === 1 ? "/" : pathname.split("/")[1].toLowerCase()
         ) && <NavBar />}
         <Routes>
           <Route path="/" element={<Home />}>

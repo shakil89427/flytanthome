@@ -24,7 +24,7 @@ const Main = () => {
           <div className="bg-white flex items-center justify-center rounded-xl">
             <div
               style={{ backgroundImage: `url(${product.blob[0].url})` }}
-              className="w-full aspect-square bg-contain bg-center bg-no-repeat"
+              className="w-full aspect-square bg-contain bg-center bg-no-repeat m-3"
             />
           </div>
 
