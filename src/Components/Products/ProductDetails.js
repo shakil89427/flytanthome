@@ -8,7 +8,8 @@ import { GoPrimitiveDot } from "react-icons/go";
 import CustomDesign from "./CustomDesign";
 
 const ProductDetails = () => {
-  const { user, products, setShowLogin, setQuantity, quantity } = useStore();
+  const { user, products, setShowLogin, setQuantity, quantity, countryCode } =
+    useStore();
   const [product, setProduct] = useState({});
   const [image, setImage] = useState("");
   const [showCustom, setShowCustom] = useState(false);
@@ -60,19 +61,39 @@ const ProductDetails = () => {
           )}
           {/* Prices */}
           <div className="flex items-center gap-5 mt-5">
-            <p className="font-bold text-lg md:text-xl lg:text-2xl">
-              {product?.priceData?.symbol}
-              {product?.priceData?.priceNow}
-            </p>
-            <p className="text-[#06A015] font-semibold">
-              {product?.priceData?.discount}% off
-            </p>
+            {user?.countryCode === "IN" || countryCode === "IN" ? (
+              <p className="font-bold text-lg md:text-xl lg:text-2xl">
+                {product?.inFinal?.symbol}
+                {product?.inFinal?.priceNow}
+              </p>
+            ) : (
+              <p className="font-bold text-lg md:text-xl lg:text-2xl">
+                {product?.usFinal?.symbol}
+                {product?.usFinal?.priceNow}
+              </p>
+            )}
+            {user?.countryCode === "IN" || countryCode === "IN" ? (
+              <p className="text-[#06A015] font-semibold">
+                {product?.inFinal?.discount}% off
+              </p>
+            ) : (
+              <p className="text-[#06A015] font-semibold">
+                {product?.usFinal?.discount}% off
+              </p>
+            )}
           </div>
           <p className="text-sm md:text-md lg:text-lg font-semibold text-gray-500">
-            <del>
-              {product?.priceData?.symbol}
-              {product?.priceData?.pricePrev}
-            </del>
+            {user?.countryCode === "IN" || countryCode === "IN" ? (
+              <del>
+                {product?.inFinal?.symbol}
+                {product?.inFinal?.pricePrev}
+              </del>
+            ) : (
+              <del>
+                {product?.usFinal?.symbol}
+                {product?.usFinal?.pricePrev}
+              </del>
+            )}
           </p>
           {/* Stock or special prize */}
           {product?.quantityLeft > 100 ? (

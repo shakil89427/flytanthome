@@ -6,13 +6,18 @@ import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import Input from "./Input";
+import useProductPayment from "../../Hooks/useProductPayment";
+import Spinner from "../Spinner/Spinner";
 
 const PaymentDetails = () => {
-  const { user, products, countryCode, setNotify, quantity } = useStore();
+  const { user, products, setShowLogin, countryCode, setNotify, quantity } =
+    useStore();
+  const [paymentLoading, setPaymentLoading] = useState(false);
+  const [step, setStep] = useState(0);
   const [product, setProduct] = useState(false);
+  const { startToPay } = useProductPayment(product, setPaymentLoading, setStep);
   const navigate = useNavigate();
   const location = useLocation();
-  const [step, setStep] = useState(0);
   const [focused, setFocused] = useState({});
   /* Form Data Start*/
   const [name, setName] = useState("");
@@ -26,6 +31,26 @@ const PaymentDetails = () => {
   const [landMark, setLandMark] = useState("");
   /* Form Data End*/
 
+  const processPayment = () => {
+    if (!user?.userId) return setShowLogin(true);
+    const inputData = {
+      name,
+      email,
+      phone,
+      pinCode,
+      city,
+      state,
+      country,
+      address,
+      landMark,
+    };
+    const priceData =
+      user?.countryCode === "IN" || countryCode === "IN"
+        ? product?.inFinal
+        : product?.usFinal;
+    startToPay(inputData, priceData);
+  };
+
   const saveForm = (e) => {
     e.preventDefault();
     if (!phone) {
@@ -34,7 +59,19 @@ const PaymentDetails = () => {
     if (!isValidPhoneNumber(phone)) {
       return setNotify({ status: false, message: "Invalid number" });
     }
-    setStep(50);
+    if (
+      name?.length > 0 &&
+      email?.length > 0 &&
+      phone?.length > 0 &&
+      pinCode?.length > 0 &&
+      city?.length > 0 &&
+      state?.length > 0 &&
+      country?.length > 0 &&
+      address?.length > 0 &&
+      landMark?.length > 0
+    ) {
+      setStep(50);
+    }
   };
 
   useEffect(() => {
@@ -53,6 +90,11 @@ const PaymentDetails = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-[1200px] mx-auto">
+      {paymentLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-[#85848448] z-[999] flex items-center justify-center">
+          <Spinner />
+        </div>
+      )}
       {/* Left */}
       <div>
         {/* Step */}
@@ -194,7 +236,7 @@ const PaymentDetails = () => {
         {step === 50 && (
           <div>
             <p
-              onClick={() => setStep(100)}
+              onClick={processPayment}
               className="mt-20 mb-10 bg-black text-white py-3 text-center text-lg font-medium rounded-md cursor-pointer"
             >
               Checkout
@@ -222,19 +264,39 @@ const PaymentDetails = () => {
                   <p className="mt-2 text-gray-500">Customizable</p>
                 )}
                 <div className="flex items-center gap-5 mt-5">
-                  <p className="font-bold text-md md:text-lg lg:text-xl">
-                    {product?.priceData?.symbol}
-                    {product?.priceData?.priceNow}
-                  </p>
-                  <p className="text-[#06A015] font-semibold text-sm md:text-md">
-                    {product?.priceData?.discount}% off
-                  </p>
+                  {user?.countryCode === "IN" || countryCode === "IN" ? (
+                    <p className="font-bold text-md md:text-lg lg:text-xl">
+                      {product?.inFinal?.symbol}
+                      {product?.inFinal?.priceNow}
+                    </p>
+                  ) : (
+                    <p className="font-bold text-md md:text-lg lg:text-xl">
+                      {product?.usFinal?.symbol}
+                      {product?.usFinal?.priceNow}
+                    </p>
+                  )}
+                  {user?.countryCode === "IN" || countryCode === "IN" ? (
+                    <p className="text-[#06A015] font-semibold text-sm md:text-md">
+                      {product?.inFinal?.discount}% off
+                    </p>
+                  ) : (
+                    <p className="text-[#06A015] font-semibold text-sm md:text-md">
+                      {product?.usFinal?.discount}% off
+                    </p>
+                  )}
                 </div>
                 <p className="text-sm md:text-md lg:text-lg font-semibold text-gray-500">
-                  <del>
-                    {product?.priceData?.symbol}
-                    {product?.priceData?.pricePrev}
-                  </del>
+                  {user?.countryCode === "IN" || countryCode === "IN" ? (
+                    <del>
+                      {product?.inFinal?.symbol}
+                      {product?.inFinal?.pricePrev}
+                    </del>
+                  ) : (
+                    <del>
+                      {product?.usFinal?.symbol}
+                      {product?.usFinal?.pricePrev}
+                    </del>
+                  )}
                 </p>
               </div>
               <div className="col-span-2">
@@ -248,31 +310,68 @@ const PaymentDetails = () => {
               <p className="font-bold">Price Details</p>
               <div className="flex items-center justify-between mt-5">
                 <p>Price</p>
-                <p>
-                  {product?.priceData?.symbol}
-                  {product?.priceData?.pricePrev}
-                </p>
+                {user?.countryCode === "IN" || countryCode === "IN" ? (
+                  <p>
+                    {product?.inFinal?.symbol}
+                    {product?.inFinal?.pricePrev}
+                  </p>
+                ) : (
+                  <p>
+                    {product?.usFinal?.symbol}
+                    {product?.usFinal?.pricePrev}
+                  </p>
+                )}
               </div>
               <div className="flex items-center justify-between mt-5">
                 <p>Discount</p>
-                <p className=" text-green-700">
-                  -{product?.priceData?.symbol}
-                  {product?.priceData?.discountAmmount}
-                </p>
+                {user?.countryCode === "IN" || countryCode === "IN" ? (
+                  <p className=" text-green-700">
+                    -{product?.inFinal?.symbol}
+                    {product?.inFinal?.discountAmmount}
+                  </p>
+                ) : (
+                  <p className=" text-green-700">
+                    -{product?.usFinal?.symbol}
+                    {product?.usFinal?.discountAmmount}
+                  </p>
+                )}
+              </div>
+              <div className="flex items-center justify-between mt-5">
+                <p>Delivery charges</p>
+                {user?.countryCode === "IN" || countryCode === "IN" ? (
+                  <p className=" text-red-700">
+                    +{product?.inFinal?.symbol}
+                    {product?.inFinal?.shippingCost}
+                  </p>
+                ) : (
+                  <p className=" text-red-700">
+                    +{product?.usFinal?.symbol}
+                    {product?.usFinal?.shippingCost}
+                  </p>
+                )}
               </div>
               <div className="flex items-center justify-between mt-5 pb-10 border-b">
-                <p>Delivery charges</p>
-                <p className=" text-red-700">+{product?.priceData?.symbol}2</p>
+                <p>Quantity</p>
+                <p>x{quantity}</p>
               </div>
               <div className="flex items-center justify-between font-bold mt-5">
                 <p>Total Ammount</p>
-                <p>
-                  {product?.priceData?.symbol}
-                  {product?.priceData?.priceNow + 2}
-                </p>
+                {user?.countryCode === "IN" || countryCode === "IN" ? (
+                  <p>
+                    {product?.inFinal?.symbol}
+                    {product?.inFinal?.priceNow * quantity +
+                      product?.inFinal?.shippingCost}
+                  </p>
+                ) : (
+                  <p>
+                    {product?.usFinal?.symbol}
+                    {product?.usFinal?.priceNow * quantity +
+                      product?.usFinal?.shippingCost}
+                  </p>
+                )}
               </div>
               <p
-                onClick={() => setStep(100)}
+                onClick={processPayment}
                 className="mt-20 mb-10 bg-black text-white py-3 text-center text-lg font-medium rounded-md cursor-pointer"
               >
                 Checkout

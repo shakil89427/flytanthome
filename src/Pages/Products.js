@@ -3,26 +3,41 @@ import React, { useState, useEffect } from "react";
 import useStore from "../Store/useStore";
 import Spinner from "../Components/Spinner/Spinner";
 import { Outlet } from "react-router-dom";
+import { fetchAndActivate, getString } from "firebase/remote-config";
 
 const Products = () => {
-  const { user, products, setProducts } = useStore();
+  const { products, setProducts, remoteConfig } = useStore();
   const [loading, setLoading] = useState(true);
 
-  const calculate = (items) => {
+  const calculate = async (items) => {
+    await fetchAndActivate(remoteConfig);
+    const { inShippingCharges, usShippingCharges } = await JSON.parse(
+      getString(remoteConfig, "shippingCharges")
+    );
     const maped = items?.map((item) => {
-      const priceNow =
-        user?.countryCode === "IN" ? item?.inPrice : item?.usPrice;
-      const pricePrev =
-        user?.countryCode === "IN"
-          ? item?.inStrikeThroughPrice
-          : item?.usStrikeThroughPrice;
-      const symbol = user?.countryCode === "IN" ? "₹" : "$";
-      const discount = Math.floor(100 - (priceNow * 100) / pricePrev);
-      const discountAmmount = pricePrev - priceNow;
-      return {
-        ...item,
-        priceData: { priceNow, pricePrev, symbol, discount, discountAmmount },
+      const usFinal = {
+        priceNow: item?.usPrice,
+        pricePrev: item?.usStrikeThroughPrice,
+        symbol: "$",
+        currency: "USD",
+        shippingCost: usShippingCharges,
+        discount: Math.floor(
+          100 - (item?.usPrice * 100) / item?.usStrikeThroughPrice
+        ),
+        discountAmmount: item?.usStrikeThroughPrice - item?.usPrice,
       };
+      const inFinal = {
+        priceNow: item?.inPrice,
+        pricePrev: item?.inStrikeThroughPrice,
+        symbol: "₹",
+        currency: "INR",
+        shippingCost: inShippingCharges,
+        discount: Math.floor(
+          100 - (item?.inPrice * 100) / item?.inStrikeThroughPrice
+        ),
+        discountAmmount: item?.inStrikeThroughPrice - item?.inPrice,
+      };
+      return { ...item, usFinal, inFinal };
     });
     setProducts(maped);
     setLoading(false);
@@ -34,8 +49,6 @@ const Products = () => {
         .get("https://flytant.herokuapp.com/products")
         .then(({ data }) => calculate(data))
         .catch(() => setLoading(false));
-    } else {
-      calculate(products);
     }
   }, []);
 
