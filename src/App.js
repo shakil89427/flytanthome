@@ -135,7 +135,14 @@ function App() {
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/products" element={<Products />}>
             <Route index element={<Main />} />
-            <Route path="payment" element={<PaymentDetails />} />
+            <Route
+              path="payment"
+              element={
+                <PrivateRoute>
+                  <PaymentDetails />
+                </PrivateRoute>
+              }
+            />
             <Route path=":id" element={<ProductDetails />} />
           </Route>
           <Route

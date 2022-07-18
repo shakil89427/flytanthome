@@ -10,8 +10,7 @@ import useProductPayment from "../../Hooks/useProductPayment";
 import Spinner from "../Spinner/Spinner";
 
 const PaymentDetails = () => {
-  const { user, products, setShowLogin, countryCode, setNotify, quantity } =
-    useStore();
+  const { user, products, countryCode, setNotify, quantity } = useStore();
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [step, setStep] = useState(0);
   const [product, setProduct] = useState(false);
@@ -32,7 +31,6 @@ const PaymentDetails = () => {
   /* Form Data End*/
 
   const processPayment = () => {
-    if (!user?.userId) return setShowLogin(true);
     const inputData = {
       name,
       email,
