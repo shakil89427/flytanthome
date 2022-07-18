@@ -6,6 +6,7 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { GoPrimitiveDot } from "react-icons/go";
 import CustomDesign from "./CustomDesign";
+import MoreCards from "./MoreCards";
 
 const ProductDetails = () => {
   const { user, products, setShowLogin, setQuantity, quantity, countryCode } =
@@ -26,7 +27,7 @@ const ProductDetails = () => {
       navigate("/products");
     }
     window.scroll(0, 0);
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -189,6 +190,7 @@ const ProductDetails = () => {
           <hr className="my-10" />
         </div>
       </div>
+      <MoreCards current={id} />
     </>
   );
 };

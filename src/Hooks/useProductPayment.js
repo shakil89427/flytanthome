@@ -41,6 +41,7 @@ const usePayment = (product, setPaymentLoading, setStep) => {
         quantity,
         shippingCost: priceData?.shippingCost,
         userId: user?.userId,
+        deviceType: "Website",
       };
       const docRef = doc(collection(db, "orders"));
       await setDoc(docRef, { ...finalData, orderId: docRef.id });
