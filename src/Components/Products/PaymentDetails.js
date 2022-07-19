@@ -35,13 +35,13 @@ const PaymentDetails = () => {
     const inputData = {
       name,
       email,
-      phone,
-      pinCode,
+      contactNumber: phone,
+      pincode: pinCode,
       city,
       state,
       country,
       address,
-      landMark,
+      landmark: landMark,
     };
     const priceData =
       user?.countryCode === "IN" || countryCode === "IN"

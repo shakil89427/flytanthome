@@ -52,6 +52,7 @@ import PaymentDetails from "./Components/Products/PaymentDetails";
 import CreateInfluencersList from "./Pages/CreateInfluencersList";
 import InfluencersListDetails from "./Pages/InfluencersListDetails";
 import InfluencersList from "./Pages/InfluencersList";
+import SocialCards from "./Pages/SocialCards";
 
 function App() {
   const { user, authLoading } = useStore();
@@ -74,6 +75,7 @@ function App() {
     "app",
     "createinfluencerslist",
     "influencerslist",
+    "socialcards",
     user?.userId && "courses",
   ];
 
@@ -133,6 +135,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
+          <Route path="/socialcards" element={<SocialCards />} />
           <Route path="/products" element={<Products />}>
             <Route index element={<Main />} />
             <Route
@@ -251,9 +254,11 @@ function App() {
         style={{ opacity: authLoading ? "0" : "1" }}
         className="duration-300"
       >
-        {!pathname.includes("createinfluencerslist" && "influencerslist") && (
-          <Footer />
-        )}
+        {!pathname
+          ?.toLowerCase()
+          ?.includes(
+            "createinfluencerslist" && "influencerslist" && "socialcards"
+          ) && <Footer />}
       </div>
     </>
   );
