@@ -5,21 +5,21 @@ import bannerBg from "../../Assets/socialCards/bannerBg.png";
 const Banner = () => {
   const navigate = useNavigate();
   return (
-    <div className="r-box w-full flex flex-col xl:flex-row xl xl:items-center items-start pt-20 lg:pt-0">
-      <div className="text-white w-full xl:w-1/2 lg:pl-5">
+    <div className="r-box w-full flex flex-col items-start md:flex-row md:items-center md:justify-between gap-10 pt-20 lg:pt-0">
+      <div className="text-white w-full md:w-1/2 lg:pl-5">
         <p
           style={{ lineHeight: "120%" }}
-          className="text-3xl md:text-4xl lg:text-[52px] font-bold"
+          className="text-3xl md:text-4xl xl:text-[52px] font-bold"
         >
           Social Card
         </p>
         <p
           style={{ lineHeight: "120%" }}
-          className="text-3xl md:text-4xl lg:text-[52px] font-bold"
+          className="text-3xl md:text-4xl xl:text-[52px] font-bold"
         >
           For Influencers
         </p>
-        <p className="text-md lg:text-2xl break-words my-5">
+        <p className="text-md lg:text-xl xl:text-2xl break-words my-5">
           Premium Card For Social Media Influencers
         </p>
         <p
@@ -31,7 +31,7 @@ const Banner = () => {
       </div>
       <div
         style={{ backgroundImage: `url(${bannerBg})` }}
-        className="w-full xl:w-1/2 aspect-square bg-contain bg-no-repeat bg-center"
+        className="w-full md:w-1/2 aspect-square bg-contain bg-no-repeat bg-center"
       />
     </div>
   );
