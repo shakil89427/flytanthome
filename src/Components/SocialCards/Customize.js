@@ -16,15 +16,15 @@ const Customize = () => {
       style={{
         backgroundImage: "linear-gradient(145deg, #121212 0%, #000000 100%)",
       }}
-      className="py-5 md:py-7 lg:py-14"
+      className="min-h-screen flex items-center justify-center"
     >
       <div className="r-box text-white flex flex-col items-start md:flex-row md:items-center md:justify-between gap-10">
         <div
           style={{ backgroundImage: `url(${bigBg})` }}
           className="aspect-square p-5 lg:p-10 bg-cover bg-center bg-no-repeat rounded-xl border border-[#4d4d4d9d] w-full md:w-1/2 lg:w-5/12 flex items-center justify-center gap-10"
         >
-          <div className="w-full grid grid-cols-4 gap-x-5 gap-y-10">
-            <div className="col-span-4 relative overflow-hidden ">
+          <div className="w-full grid grid-cols-3 gap-x-5 gap-y-10">
+            <div className="col-span-3 relative overflow-hidden ">
               <img src={selectedImage} alt="" className="w-full" />
               <p className="absolute right-7 bottom-7 text-lg font-bold  text-white px-3">
                 {text?.length > 0 ? text : "Your Name Here"}
@@ -34,13 +34,14 @@ const Customize = () => {
               <div
                 onClick={() => setSelectedImage(item)}
                 key={index}
-                style={{ backgroundImage: `url(${item})` }}
-                className={`aspect-square bg-contain bg-center bg-no-repeat bg-[#323232] cursor-pointer rounded-lg ${
+                className={`bg-[#323232] cursor-pointer rounded-lg p-3 ${
                   selectedImage === item
                     ? "border border-neutral-300"
                     : "border-0"
                 }`}
-              />
+              >
+                <img src={item} alt="" className="w-full" />
+              </div>
             ))}
           </div>
         </div>
@@ -48,15 +49,15 @@ const Customize = () => {
           style={{
             backgroundImage: `url(${smallBg})`,
           }}
-          className="border border-[#4d4d4d9d] bg-cover bg-bottom bg-no-repeat p-7 xl:p-14 rounded-xl w-full md:w-1/2 lg:w-5/12"
+          className="border border-[#4d4d4d9d] bg-cover bg-bottom bg-no-repeat p-7 rounded-xl w-full md:w-1/2 lg:w-5/12"
         >
           <p
-            style={{ lineHeight: "140%" }}
-            className="text-3xl lg:text-4xl font-semibold"
+            style={{ lineHeight: "120%" }}
+            className="text-4xl lg:text-5xl font-semibold"
           >
             Customizable <br /> Social Card
           </p>
-          <p className="text-md lg:text-xl mt-4 font-medium text-[#BEBEBE]">
+          <p className="text-md lg:text-2xl pr-10 lg:pr-14 mt-8 font-light">
             Give A Try
           </p>
           <input
@@ -64,11 +65,11 @@ const Customize = () => {
             value={text}
             onChange={(e) => setText(e.target.value.toUpperCase())}
             type="text"
-            className="border-0 outline-none w-[80%] mt-2 mb-6 p-2 bg-[#3D3D3D] rounded-md"
+            className="border-0 outline-none w-[80%] mt-2 mb-8 p-2 bg-[#3D3D3D] rounded-md"
           />
           <p
             onClick={() => navigate("/products")}
-            className="border-2 font-bold w-fit px-8 py-3 rounded-full cursor-pointer select-none hover:bg-white hover:text-black duration-150"
+            className="w-fit border py-3 px-10 md:px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium cursor-pointer"
           >
             GET YOUR CARD
           </p>
