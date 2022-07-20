@@ -106,8 +106,10 @@ const Instagram = ({ details }) => {
 
   useEffect(() => {
     if (data?.edge_owner_to_timeline_media?.edges?.length > 0) {
+      let totalPost = 0;
       const totalLikes = data?.edge_owner_to_timeline_media?.edges?.reduce(
         (total, current) => {
+          totalPost++;
           return total + current?.node?.edge_liked_by?.count;
         },
         0
@@ -116,7 +118,7 @@ const Instagram = ({ details }) => {
         totalLikes / data?.edge_owner_to_timeline_media?.edges?.length
       );
       const engagement = parseFloat(
-        likes / data?.edge_followed_by?.count
+        (likes / totalPost / data?.edge_followed_by?.count) * 100 || 0
       ).toFixed(2);
       setAvg({ likes, engagement });
     }

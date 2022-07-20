@@ -24,7 +24,7 @@ const Banner = () => {
         </p>
         <p
           onClick={() => navigate("/products")}
-          className="bg-white text-black w-fit px-5 py-2 font-medium text-lg rounded-full cursor-pointer select-none"
+          className="bg-white text-black w-fit px-6 py-3 font-bold hover:scale-105 duration-150 text-lg rounded-full cursor-pointer select-none"
         >
           Get your Card
         </p>

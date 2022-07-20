@@ -3,7 +3,7 @@ import premiumBg from "../../Assets/socialCards/premiumBg.png";
 
 const Premium = () => {
   return (
-    <div className="py-32 text-white">
+    <div className="py-24 md:py-40 lg:py-60 xl:py-80 text-white">
       <div className="relative">
         <img src={premiumBg} alt="" className="w-full" />
         <p className="absolute w-full text-center bottom-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">

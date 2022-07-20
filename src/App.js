@@ -256,9 +256,9 @@ function App() {
       >
         {!pathname
           ?.toLowerCase()
-          ?.includes(
-            "createinfluencerslist" && "influencerslist" && "socialcards"
-          ) && <Footer />}
+          ?.includes("createinfluencerslist" && "influencerslist") && (
+          <Footer />
+        )}
       </div>
     </>
   );

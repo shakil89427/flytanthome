@@ -14,7 +14,7 @@ const Nav = () => {
       />
       <button
         onClick={() => navigate("/products")}
-        className="bg-white px-5 py-2 text-lg font-medium rounded-full"
+        className="bg-white text-black w-fit px-5 py-2 font-semibold text-lg rounded-full cursor-pointer select-none hover:scale-105 duration-150"
       >
         Get Card Now
       </button>
