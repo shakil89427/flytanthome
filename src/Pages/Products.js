@@ -49,7 +49,10 @@ const Products = () => {
         .get("https://flytant.herokuapp.com/products")
         .then(({ data }) => calculate(data))
         .catch(() => setLoading(false));
+    } else {
+      setLoading(false);
     }
+    window.scroll(0, 0);
   }, []);
 
   if (loading) {
