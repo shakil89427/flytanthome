@@ -28,14 +28,15 @@ const Impression = () => {
       style={{
         backgroundImage: "linear-gradient(145deg, #121212 0%, #000000 100%)",
       }}
-      className="min-h-screen flex items-center justify-center"
+      className="min-h-screen flex items-center justify-center mb-14"
     >
-      <div className="r-box text-white flex flex-col-reverse items-start md:flex-row md:items-center md:justify-between gap-10">
+      <div className="r-box text-white flex flex-col items-start md:flex-row md:items-center md:justify-between gap-10">
         <div
+          onClick={() => navigate("/products")}
           style={{
             backgroundImage: `url(${smallBg})`,
           }}
-          className="border border-[#4d4d4d9d] bg-cover bg-bottom bg-no-repeat p-7 rounded-xl w-full md:w-1/2 lg:w-5/12"
+          className="cursor-pointer border border-[#4d4d4d9d] bg-cover bg-bottom bg-no-repeat p-7 pb-10 rounded-xl w-full md:w-1/2 lg:w-5/12"
         >
           <p
             style={{ lineHeight: "120%" }}
@@ -48,10 +49,7 @@ const Impression = () => {
             Feel. Leave an Instant impression and exchange contacts with your
             Social Card.
           </p>
-          <p
-            onClick={() => navigate("/products")}
-            className="w-fit border py-3 px-10 md:px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium cursor-pointer"
-          >
+          <p className="w-fit border py-3 px-10 md:px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium">
             BUY NOW
           </p>
         </div>

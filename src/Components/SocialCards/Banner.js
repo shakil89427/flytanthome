@@ -6,7 +6,7 @@ import logo from "../../Assets/logo.png";
 const Banner = () => {
   const navigate = useNavigate();
   return (
-    <div className="r-box min-h-screen">
+    <div className="r-box min-h-screen mb-14">
       <div className="h-14 md:h-24 flex items-center justify-between">
         <img
           onClick={() => navigate("/")}
@@ -19,13 +19,13 @@ const Banner = () => {
             letterSpacing: ".4px",
           }}
           onClick={() => navigate("/products")}
-          className="bg-white w-40 h-10 lg:w-48 lg:h-12  lg:text-lg  flex items-center justify-center rounded-md duration-150 hover:scale-105 font-semibold invisible lg:visible"
+          className="bg-white w-40 h-10 lg:w-48 lg:h-12  lg:text-lg  flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium invisible lg:visible"
         >
           Get Card Now
         </button>
       </div>
       <div className="w-full flex flex-col items-start md:flex-row md:items-center md:justify-between gap-10 pt-20 lg:pt-0">
-        <div className="text-white w-full md:w-1/2 lg:pl-5">
+        <div className="text-white w-full md:w-1/2 pl-5">
           <p
             style={{ lineHeight: "120%" }}
             className="text-4xl lg:text-[52px] font-bold mb-2"
@@ -43,7 +43,7 @@ const Banner = () => {
           </p>
           <p
             onClick={() => navigate("/products")}
-            className="bg-white text-black w-fit px-6 py-3 mt-14 font-bold hover:scale-105 duration-150 text-lg rounded-full cursor-pointer select-none"
+            className="border-2 font-bold w-fit px-12 py-4 text-lg mt-14 rounded-full cursor-pointer select-none bg-white text-black hover:scale-105 duration-150"
           >
             GET YOUR CARD
           </p>
