@@ -10,7 +10,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import useStore from "../Store/useStore";
 
 const User = () => {
-  const { user } = useStore();
+  const { user, authLoading, userLoading } = useStore();
   const { id } = useParams();
   const [cardUser, setCardUser] = useState({});
   const [followData, setFollowData] = useState({});
@@ -27,34 +27,51 @@ const User = () => {
       if (finalData?.userId) {
         setFollowData(finalData);
       }
-    } catch (err) {}
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+    }
+  };
+
+  const getUser = async () => {
+    try {
+      const { data } = await axios.post(
+        "https://flytant.herokuapp.com/getuser",
+        {
+          userId: id,
+        }
+      );
+      setCardUser({ ...data, id });
+      if (user?.userId) {
+        getFollowers();
+      } else {
+        setLoading(false);
+      }
+    } catch (err) {
+      setError(true);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    if (user?.userId) {
-      getFollowers();
+    if (!authLoading && !userLoading) {
+      getUser();
     }
-  }, [user]);
+  }, [authLoading, userLoading]);
 
   useEffect(() => {
     document.body.style.overflowY = "hidden";
-    axios
-      .post("https://flytant.herokuapp.com/getuser", { userId: id })
-      .then((res) => {
-        setCardUser({ ...res.data, id });
-        setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-        setLoading(false);
-      });
     return () => {
       document.body.style.overflowY = "auto";
     };
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return (
+      <div className="fixed top-0 left-0 inset-0 flex items-center justify-center bg-black z-[999]">
+        <Spinner />
+      </div>
+    );
   }
   if (error) {
     return <Error />;
