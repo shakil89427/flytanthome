@@ -91,9 +91,13 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
   }, [user]);
 
   return (
-    <div className="z-[99999] absolute w-screen h-screen md:w-[400px] md:h-[90vh] bg-white md:rounded-xl bg-[#08080850] flex items-end">
+    <div className="z-10 absolute w-full h-full md:w-[400px] md:h-[90vh] md:rounded-xl overflow-hidden">
+      <div
+        onClick={() => setShowConnect(false)}
+        className="w-full h-full bg-[#08080850]"
+      />
       {showMain === 1 && (
-        <div className="bg-white w-full p-5 grid grid-cols-2 gap-x-5 gap-y-10 rounded-lg">
+        <div className="bg-white w-full p-5 grid grid-cols-2 gap-x-5 gap-y-10 rounded-lg -translate-y-full">
           <button
             onClick={changeFollow}
             className="bg-black text-white py-3 rounded-lg text-lg font-medium w-full"
@@ -110,20 +114,20 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
           </button>
           <button
             onClick={() => setShowConnect(false)}
-            className="col-span-2 border-2 py-3 border-black rounded-lg text-lg font-medium"
+            className="col-span-2 border-2 py-3 border-gray-500 rounded-lg text-lg font-medium"
           >
             Cancel
           </button>
         </div>
       )}
       {showMain === 2 && (
-        <div className="bg-white w-full p-5 rounded-lg relative overflow-hidden">
+        <div className="bg-white w-full p-5 rounded-lg relative overflow-hidden -translate-y-full">
           {loading && (
             <div className="absolute inset-0 top-0 left-0 flex items-center justify-center bg-[#63626250]">
               <Spinner2 />
             </div>
           )}
-          <form className="text-lg font-semibold" onSubmit={submitForm}>
+          <form className="text-md font-semibold" onSubmit={submitForm}>
             <p>Name</p>
             <input
               value={name}
@@ -142,7 +146,7 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
             />
             <p>Phone Number</p>
             <PhoneInput
-              className="p-2 overflow-hidden otpNumber bg-[#7c7c7c25] rounded-md"
+              className="p-2 mt-1 mb-5 overflow-hidden otpNumber bg-[#7c7c7c25] rounded-md"
               international
               defaultCountry={countryCode || "US"}
               countryCallingCodeEditable={false}
@@ -160,9 +164,9 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
             onClick={() =>
               user?.userId ? setShowMain(1) : setShowConnect(false)
             }
-            className="border-2 py-3 text-lg  font-medium border-black rounded-lg w-full text-center cursor-pointer"
+            className="border-2 py-3 text-lg  font-medium border-gray-500 rounded-lg w-full text-center cursor-pointer"
           >
-            Back
+            {user?.userId ? "Back" : "Cancel"}
           </button>
         </div>
       )}

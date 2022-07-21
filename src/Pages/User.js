@@ -69,7 +69,7 @@ const User = () => {
           setShowConnect={setShowConnect}
         />
       )}
-      <div className="w-screen h-screen md:w-[400px] md:h-[90vh] md:rounded-xl overflow-y-scroll scrollbar pb-14 bg-white">
+      <div className="w-full h-full md:w-[400px] md:h-[90vh] md:rounded-xl overflow-y-scroll pb-14 scrollbar bg-white">
         <div
           style={{ backgroundImage: `url(${cardUser?.featureImageUrl})` }}
           className="aspect-[4/2] bg-cover bg-center bg-no-repeat md:rounded-tl-lg md:rounded-tr-lg"
@@ -93,13 +93,18 @@ const User = () => {
         </div>
         <div className="px-5 -mt-14">
           <p className="text-center text-2xl font-bold">{cardUser?.name}</p>
-          <p className="text-center  text-gray-500 mt-2 font-medium">India</p>
+          {cardUser?.manualLocation && (
+            <p className="text-center  text-gray-500 mt-2 font-medium">
+              {cardUser?.manualLocation}
+            </p>
+          )}
+
           <p className="text-center  mt-5 text-gray-500 px-8 font-medium">
             {cardUser?.bio}
           </p>
           <button
             onClick={() => setShowConnect(true)}
-            className="select-none mt-10 block bg-black text-white w-full py-5 rounded-full font-semibold text-xl"
+            className="select-none mt-10 block bg-black text-white w-full py-5 rounded-full font-semibold text-xl active:outline-0 active:scale-95"
           >
             Connect
           </button>
