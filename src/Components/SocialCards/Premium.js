@@ -1,18 +1,31 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import premiumBg from "../../Assets/socialCards/premiumBg.png";
 
 const Premium = () => {
+  const navigate = useNavigate();
   return (
     <div className="pt-24 pb-24 lg:pb-60 text-white">
       <div className="relative">
         <img src={premiumBg} alt="" className="w-full" />
-        <p className="absolute w-full text-center bottom-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
-          Premium Social Card
-        </p>
+        <div className="absolute w-full left-0 text-center bottom-0">
+          <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
+            Premium Social Card
+          </p>
+          <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold mt-2 lg:mt-5">
+            100K+ Influencers Already Using
+          </p>
+        </div>
       </div>
-      <p className="text-center mt-3 lg:mt-5 text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold">
-        100K+ Influencers Already Using
-      </p>
+      <button
+        style={{
+          letterSpacing: ".4px",
+        }}
+        onClick={() => navigate("/products")}
+        className="bg-white w-40 h-10 lg:w-48 lg:h-12  lg:text-lg hidden  lg:flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium invisible lg:visible text-black mx-auto mt-7"
+      >
+        Get Card Now
+      </button>
     </div>
   );
 };

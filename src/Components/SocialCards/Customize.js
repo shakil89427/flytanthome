@@ -16,7 +16,7 @@ const Customize = () => {
       style={{
         backgroundImage: "linear-gradient(145deg, #121212 0%, #000000 100%)",
       }}
-      className="min-h-screen flex items-center justify-center mb-14"
+      className="min-h-screen flex items-center justify-center mb-24 md:mb-0"
     >
       <div className="r-box text-white flex flex-col-reverse items-start md:flex-row md:items-center md:justify-between gap-10">
         <div
@@ -26,7 +26,7 @@ const Customize = () => {
           <div className="w-full grid grid-cols-3 gap-x-5 gap-y-10">
             <div className="col-span-3 relative overflow-hidden ">
               <img src={selectedImage} alt="" className="w-full" />
-              <p className="absolute right-7 bottom-7 text-lg font-semibold  text-white px-3">
+              <p className="absolute right-3 bottom-3 xl:right-7 xl:bottom-7 xl:text-lg font-semibold  text-white px-3">
                 {text?.length > 0 ? text?.toUpperCase() : "Your Name Here"}
               </p>
             </div>

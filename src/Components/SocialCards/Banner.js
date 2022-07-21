@@ -6,7 +6,7 @@ import logo from "../../Assets/logo.png";
 const Banner = () => {
   const navigate = useNavigate();
   return (
-    <div className="r-box min-h-screen mb-14">
+    <div className="r-box min-h-screen mb-24 md:mb-0">
       <div className="h-14 md:h-24 flex items-center justify-between">
         <img
           onClick={() => navigate("/")}
