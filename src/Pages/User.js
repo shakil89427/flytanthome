@@ -102,12 +102,12 @@ const User = () => {
           <p className="text-center  mt-5 text-gray-500 px-8 font-medium">
             {cardUser?.bio}
           </p>
-          <button
+          <p
             onClick={() => setShowConnect(true)}
-            className="select-none mt-10 block bg-black text-white w-full py-5 rounded-full font-semibold text-xl active:outline-0 active:scale-95"
+            className="cursor-pointer text-center select-none mt-10 bg-black text-white w-full py-5 rounded-full font-semibold text-xl active:scale-95"
           >
             Connect
-          </button>
+          </p>
 
           <div
             className={`mt-12 flex items-center justify-center gap-5 flex-wrap`}
