@@ -19,7 +19,7 @@ const Banner = () => {
             letterSpacing: ".4px",
           }}
           onClick={() => navigate("/products")}
-          className="bg-white w-40 h-10 lg:w-48 lg:h-12  lg:text-lg  flex items-center justify-center rounded-md duration-150 hover:scale-105 font-semibold"
+          className="bg-white w-40 h-10 lg:w-48 lg:h-12  lg:text-lg  flex items-center justify-center rounded-md duration-150 hover:scale-105 font-semibold invisible lg:visible"
         >
           Get Card Now
         </button>

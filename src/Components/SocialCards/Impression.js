@@ -43,9 +43,10 @@ const Impression = () => {
           >
             Instant Impression
           </p>
-          <p className="text-md lg:text-2xl pr-10 lg:pr-14 mt-8 mb-10 font-light">
-            Not Anymore Connect Your Other Bank Accounts to Fi And See All Your
-            Balances And Transactions On Fi
+          <p className="text-md lg:text-2xl pr-5 mt-8 mb-10 font-light">
+            The High Quality Flytant Social Card has an Immaculate Look and
+            Feel. Leave an Instant impression and exchange contacts with your
+            Social Card.
           </p>
           <p
             onClick={() => navigate("/products")}
@@ -58,7 +59,7 @@ const Impression = () => {
           style={{ backgroundImage: `url(${bigBg})` }}
           className="aspect-square p-5 lg:p-10 bg-cover bg-center bg-no-repeat rounded-xl border border-[#4d4d4d9d] w-full md:w-1/2 lg:w-5/12 flex items-center justify-center"
         >
-          <img ref={imgRef} src={card3} alt="" />
+          <img ref={imgRef} src={card1} alt="" />
         </div>
       </div>
     </div>

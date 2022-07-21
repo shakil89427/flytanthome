@@ -34,9 +34,10 @@ const Share = () => {
           >
             One Tap Sharing
           </p>
-          <p className="text-md lg:text-2xl pr-10 lg:pr-14 mt-8 mb-10 font-light">
-            Not Anymore Connect Your Other Bank Accounts to Fi And See All Your
-            Balances And Transactions On Fi
+          <p className="text-md lg:text-2xl pr-5 mt-8 mb-10 font-light">
+            Instantly Share Your Profile with Anyone by Tapping your Card on
+            their Phone. Other Users do not need a Card or an App to connect.
+            Make Unlimited Connections with Your Social Card.
           </p>
           <p
             onClick={() => navigate("/products")}

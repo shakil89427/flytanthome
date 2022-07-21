@@ -29,9 +29,10 @@ const Analytics = () => {
           >
             Analytics
           </p>
-          <p className="text-md lg:text-2xl pr-10 lg:pr-14 mt-8 mb-10 font-light">
-            Not Anymore Connect Your Other Bank Accounts to Fi And See All Your
-            Balances And Transactions On Fi
+          <p className="text-md lg:text-2xl mt-8 mb-10 font-light">
+            Full Access to Your Social Media Analytics and who viewed your
+            Profile, how many people visited links, who saved your contact and
+            all sorts Data that you need to build your Strong Fan Following.
           </p>
           <p
             onClick={() => navigate("/products")}

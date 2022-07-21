@@ -25,9 +25,12 @@ const Followers = () => {
           >
             Followers Data
           </p>
-          <p className="text-md lg:text-2xl pr-10 lg:pr-14 mt-8 mb-10 font-light">
-            Not Anymore Connect Your Other Bank Accounts to Fi And See All Your
-            Balances And Transactions On Fi
+          <p className="text-md lg:text-2xl pr-5 mt-8 mb-10 font-light">
+            Get Complete Access to Your Followers Data from All Social Media
+            Platforms. You are No Longer Dependent on Social Media Platforms to
+            connect with your Followers or Subscribers. That means even if
+            Social Media Platform bans your account, you can Directly connect
+            with Your Followers.
           </p>
           <p
             onClick={() => navigate("/products")}
