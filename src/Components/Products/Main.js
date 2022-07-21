@@ -3,15 +3,11 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Rating from "react-rating";
 import useStore from "../../Store/useStore";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const Main = () => {
   const { products, user, countryCode } = useStore();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 lg:gap-10 w-fit mx-auto">
       <p className="font-semibold text-lg md:text-xl xl:text-3xl lg:col-span-2">

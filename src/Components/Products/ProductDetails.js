@@ -17,6 +17,7 @@ const ProductDetails = () => {
     quantity,
     countryCode,
     customText,
+    setCustomText,
   } = useStore();
   const [product, setProduct] = useState({});
   const [image, setImage] = useState("");
@@ -26,6 +27,8 @@ const ProductDetails = () => {
   const location = useLocation();
 
   useEffect(() => {
+    setQuantity(1);
+    setCustomText("");
     const matched = products?.find((item) => item?.id === id);
     if (matched?.id) {
       setProduct(matched);
@@ -33,7 +36,6 @@ const ProductDetails = () => {
     } else {
       navigate("/products");
     }
-    window.scroll(0, 0);
   }, [id]);
 
   return (

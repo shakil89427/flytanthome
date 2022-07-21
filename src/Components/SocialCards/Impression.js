@@ -1,28 +1,38 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import bigBg from "../../Assets/socialCards/bigBg.png";
 import smallBg from "../../Assets/socialCards/smallBg.png";
 import { useNavigate } from "react-router-dom";
 import card1 from "../../Assets/socialCards/impression/card1.png";
 import card2 from "../../Assets/socialCards/impression/card2.png";
 import card3 from "../../Assets/socialCards/impression/card3.png";
+import { useRef } from "react";
 
 const Impression = () => {
   const navigate = useNavigate();
   const imgRef = useRef();
-  // const images = [card1, card2, card3];
-  // const [index, setIndex] = useState(0);
 
-  // const animation = () => {
-  //   imgRef.current.className = "scale-0 duration-1000";
-  //   setTimeout(() => {
-  //     imgRef.current.src = card2;
-  //     imgRef.current.className = "scale-100 duration-1000";
-  //   }, 1000);
-  // };
+  useEffect(() => {
+    let active = card1;
+    const startAnimation = setInterval(() => {
+      imgRef.current.className = "duration-1000 scale-0 opacity-0";
+      setTimeout(() => {
+        if (active === card1) {
+          active = card2;
+          imgRef.current.src = card2;
+        } else if (active === card2) {
+          active = card3;
+          imgRef.current.src = card3;
+        } else {
+          active = card1;
+          imgRef.current.src = card1;
+        }
+        imgRef.current.className = "duration-1000 scale-100 opacity-1";
+      }, 1000);
+    }, 3000);
 
-  // useEffect(() => {
-  //   animation();
-  // }, []);
+    return () => clearInterval(startAnimation);
+  }, []);
+
   return (
     <div
       style={{

@@ -60,7 +60,7 @@ const User = () => {
     return <Error />;
   }
   return (
-    <div className="fixed top-0 left-0 inset-0 bg-black z-[999] flex items-center justify-center">
+    <div className="fixed top-0 left-0 h-full w-full bg-black z-[999] flex items-center justify-center">
       {showConnect && (
         <Connect
           cardUser={cardUser}
@@ -69,7 +69,7 @@ const User = () => {
           setShowConnect={setShowConnect}
         />
       )}
-      <div className="w-full h-full md:w-[400px] md:h-[90vh] md:rounded-xl overflow-y-scroll pb-14 scrollbar bg-white">
+      <div className="w-full h-full md:w-[400px] md:h-[90vh] md:rounded-xl overflow-y-scroll pb-14 scrollbar bg-white relative">
         <div
           style={{ backgroundImage: `url(${cardUser?.featureImageUrl})` }}
           className="aspect-[4/2] bg-cover bg-center bg-no-repeat md:rounded-tl-lg md:rounded-tr-lg"

@@ -4,14 +4,10 @@ import img2 from "../Assets/about/img2.png";
 import img3 from "../Assets/about/img3.png";
 import img4 from "../Assets/about/img4.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const About = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
   return (
     <div>
       <div className="max-w-[1240px] mx-auto px-5 my-40">

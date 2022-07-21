@@ -28,7 +28,6 @@ const BlogDetails = () => {
     if (blogsData?.all?.length > 0) {
       const temp = blogsData?.all?.find((item) => item?.blogId === id);
       setData(temp);
-      window.scroll(0, 0);
       setLoading((prev) => prev && !prev);
     }
   }, [blogsData, id]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useStore from "../Store/useStore";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
 import ContactBar from "../Components/ContactBar/ContactBar";
@@ -47,10 +47,6 @@ const Career = () => {
       setNotify({ status: false, message: err.message });
     }
   };
-
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
 
   return (
     <>

@@ -97,7 +97,6 @@ const CampaignInfluencers = () => {
   };
 
   useEffect(() => {
-    window.scroll(0, 0);
     if (!user?.userId) return;
     if (!id) return navigate("/mycampaigns", { replace: true });
     getCampaign();

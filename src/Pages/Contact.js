@@ -1,6 +1,6 @@
 import axios from "axios";
 import useStore from "../Store/useStore";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
 import ContactBar from "../Components/ContactBar/ContactBar";
 
@@ -39,9 +39,6 @@ const Contact = () => {
     }
   };
 
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
   return (
     <>
       <div className={styles.main}>

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useState } from "react";
 import { AiFillCaretRight, AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import faqbg from "../../Assets/faqbg.png";
@@ -34,10 +34,6 @@ const FAQs = () => {
   const [selected, setSelected] = useState(false);
   const [category, setCategory] = useState("INFLUENCERS");
   const navigate = useNavigate();
-
-  useLayoutEffect(() => {
-    window.scroll(0, 0);
-  }, [category]);
 
   return (
     <div className="r-box py-24">

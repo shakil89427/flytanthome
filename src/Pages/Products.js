@@ -52,7 +52,6 @@ const Products = () => {
     } else {
       setLoading(false);
     }
-    window.scroll(0, 0);
   }, []);
 
   if (loading) {

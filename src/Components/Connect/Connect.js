@@ -94,10 +94,10 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
     <div className="z-10 absolute w-full h-full md:w-[400px] md:h-[90vh] md:rounded-xl overflow-hidden">
       <div
         onClick={() => setShowConnect(false)}
-        className="w-full h-full bg-[#08080850]"
+        className="w-full h-full absolute top-0 left-0 bg-[#08080850]"
       />
       {showMain === 1 && (
-        <div className="bg-white w-full p-5 grid grid-cols-2 gap-x-5 gap-y-10 rounded-lg -translate-y-full">
+        <div className="bg-white w-full p-5 grid grid-cols-2 gap-x-5 gap-y-10 rounded-lg absolute left-0 bottom-0">
           <button
             onClick={changeFollow}
             className="bg-black text-white py-3 rounded-lg text-lg font-medium w-full"
@@ -121,7 +121,7 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
         </div>
       )}
       {showMain === 2 && (
-        <div className="bg-white w-full p-5 rounded-lg relative overflow-hidden -translate-y-full">
+        <div className="bg-white w-full p-5 rounded-lg absolute left-0 bottom-0 overflow-hidden">
           {loading && (
             <div className="absolute inset-0 top-0 left-0 flex items-center justify-center bg-[#63626250]">
               <Spinner2 />

@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ContactBar from "../Components/ContactBar/ContactBar";
 
 const Terms = () => {
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
   return (
     <>
       <div className="max-w-[1000px] mx-auto px-5 my-32">

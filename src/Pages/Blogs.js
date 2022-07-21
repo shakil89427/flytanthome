@@ -43,7 +43,6 @@ const Blogs = () => {
   };
 
   useEffect(() => {
-    window.scroll(0, 0);
     if (blogsData?.all?.length < 1) {
       getConfigs();
     } else {

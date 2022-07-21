@@ -26,7 +26,7 @@ const Customize = () => {
           <div className="w-full grid grid-cols-3 gap-x-5 gap-y-10">
             <div className="col-span-3 relative overflow-hidden ">
               <img src={selectedImage} alt="" className="w-full" />
-              <p className="absolute right-7 bottom-7 text-lg font-bold  text-white px-3">
+              <p className="absolute right-7 bottom-7 text-lg font-semibold  text-white px-3">
                 {text?.length > 0 ? text?.toUpperCase() : "Your Name Here"}
               </p>
             </div>

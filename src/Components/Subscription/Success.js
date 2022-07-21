@@ -7,7 +7,6 @@ const Success = () => {
   const location = useLocation();
 
   useEffect(() => {
-    window.scroll(0, 0);
     if (!location?.state?.from?.pathname?.includes("/subscription")) {
       navigate("/");
     }

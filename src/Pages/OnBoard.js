@@ -89,10 +89,6 @@ const OnBoard = () => {
     setDisable(true);
   }, [data, number, progress]);
 
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
-
   return (
     <>
       {!success ? (

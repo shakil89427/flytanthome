@@ -5,7 +5,6 @@ const Error = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.scroll(0, 0);
     document.body.style.overflowY = "hidden";
     return () => {
       document.body.style.overflowY = "auto";

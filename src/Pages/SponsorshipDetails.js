@@ -210,10 +210,6 @@ const SponsorshipDetails = () => {
     setDetailsLoading(false);
   }, [details]);
 
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
-
   return (
     <div ref={divRef} className="w-full h-full md:overflow-hidden">
       {showDownload && <DownloadApp setShowDownload={setShowDownload} />}

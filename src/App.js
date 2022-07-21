@@ -53,10 +53,12 @@ import CreateInfluencersList from "./Pages/CreateInfluencersList";
 import InfluencersListDetails from "./Pages/InfluencersListDetails";
 import InfluencersList from "./Pages/InfluencersList";
 import SocialCards from "./Pages/SocialCards";
+import { useLayoutEffect } from "react";
 
 function App() {
   const { user, authLoading } = useStore();
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const { pathname } = location;
   const navPaths = [
     "/",
     "brands",
@@ -78,6 +80,10 @@ function App() {
     "socialcards",
     user?.userId && "courses",
   ];
+
+  useLayoutEffect(() => {
+    window.scroll(0, 0);
+  }, [location]);
 
   return (
     <>

@@ -73,6 +73,10 @@ const PaymentDetails = () => {
   };
 
   useEffect(() => {
+    window.scroll(0, 0);
+  }, [step]);
+
+  useEffect(() => {
     if (!user?.userId) return navigate("/products");
     try {
       const id = location.state.from.pathname.split("/products/")[1];
@@ -83,7 +87,6 @@ const PaymentDetails = () => {
     } catch (err) {
       navigate("/products");
     }
-    window.scroll(0, 0);
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Banner from "../Components/Brands_Influencers/Banner";
 import Title from "../Components/Brands_Influencers/Title";
 import HeroLeft from "../Components/Brands_Influencers/HeroLeft";
@@ -10,9 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 const Brands = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
   return (
     <>
       <Banner data={bannerData} />
