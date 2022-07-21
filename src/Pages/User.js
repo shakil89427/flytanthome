@@ -20,42 +20,42 @@ const User = () => {
   const db = getFirestore();
 
   const getFollowers = async () => {
-    try {
-      const docRef = doc(db, "users", id, "followers", user?.userId);
-      const response = await getDoc(docRef);
-      const finalData = response.data();
-      if (finalData?.userId) {
-        setFollowData(finalData);
-      }
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
+    const docRef = doc(db, "users", id, "followers", user?.userId);
+    const response = await getDoc(docRef);
+    const finalData = response.data();
+    if (finalData?.userId) {
+      return finalData;
+    } else {
+      return {};
     }
   };
-
   const getUser = async () => {
-    try {
-      const { data } = await axios.post(
-        "https://flytant.herokuapp.com/getuser",
-        {
-          userId: id,
-        }
-      );
-      setCardUser({ ...data, id });
-      if (user?.userId) {
-        getFollowers();
-      } else {
-        setLoading(false);
-      }
-    } catch (err) {
-      setError(true);
-      setLoading(false);
-    }
+    const { data } = await axios.post("https://flytant.herokuapp.com/getuser", {
+      userId: id,
+    });
+    return { ...data, id };
   };
 
   useEffect(() => {
     if (!authLoading && !userLoading) {
-      getUser();
+      let promises = [];
+      promises.push(getUser(), getFollowers());
+      Promise.allSettled(promises)
+        .then((res) => {
+          if (res[0]?.status === "rejected") {
+            setLoading(false);
+            return setError(true);
+          }
+          setCardUser(res[0].value);
+          if (res[1]?.status === "fulfilled") {
+            setFollowData(res[1].value);
+          }
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+          setError(true);
+        });
     }
   }, [authLoading, userLoading]);
 
@@ -120,7 +120,7 @@ const User = () => {
             {cardUser?.bio}
           </p>
           <p
-            onClick={() => setShowConnect(true)}
+            onClick={() => user?.userId !== id && setShowConnect(true)}
             className="cursor-pointer text-center select-none mt-10 bg-black text-white w-full py-5 rounded-full font-semibold text-xl active:scale-95"
           >
             Connect
