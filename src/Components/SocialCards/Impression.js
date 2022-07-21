@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import bigBg from "../../Assets/socialCards/bigBg.png";
 import smallBg from "../../Assets/socialCards/smallBg.png";
-import impressionBg from "../../Assets/socialCards/impressionBg.png";
 import { useNavigate } from "react-router-dom";
+import card1 from "../../Assets/socialCards/impression/card1.png";
+import card2 from "../../Assets/socialCards/impression/card2.png";
+import card3 from "../../Assets/socialCards/impression/card3.png";
 
 const Impression = () => {
   const navigate = useNavigate();
+  // const imgRef = useRef();
+  // const images = [card1,card2,card3]
+  // const [index,setIndex] = useState(0)
+
+  // const animation = () => {
+  //   imgRef.current.className = "scale-0 duration-1000";
+  //   setTimeout(() => {
+  //     imgRef.current.src = card2;
+  //   }, 1000);
+  //   imgRef.current.className = "scale-100 duration-1000";
+  // };
+
+  // useEffect(() => {
+  //   animation();
+  // }, []);
   return (
     <div
       style={{
@@ -41,12 +58,7 @@ const Impression = () => {
           style={{ backgroundImage: `url(${bigBg})` }}
           className="aspect-square p-5 lg:p-10 bg-cover bg-center bg-no-repeat rounded-xl border border-[#4d4d4d9d] w-full md:w-1/2 lg:w-5/12 flex items-center justify-center"
         >
-          <div
-            style={{
-              backgroundImage: `url(${impressionBg})`,
-            }}
-            className="w-full aspect-square bg-contain bg-center bg-no-repeat"
-          />
+          <img src={card3} alt="" />
         </div>
       </div>
     </div>

@@ -91,7 +91,7 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
   }, [user]);
 
   return (
-    <div className="z-[99999] fixed top-0 left-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-screen h-screen md:w-[400px] md:h-[90vh] bg-white md:rounded-lg bg-[#08080850] flex items-end">
+    <div className="z-[99999] absolute w-screen h-screen md:w-[400px] md:h-[90vh] bg-white md:rounded-xl bg-[#08080850] flex items-end">
       {showMain === 1 && (
         <div className="bg-white w-full p-5 grid grid-cols-2 gap-x-5 gap-y-10 rounded-lg">
           <button

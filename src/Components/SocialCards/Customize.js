@@ -57,15 +57,13 @@ const Customize = () => {
           >
             Customizable <br /> Social Card
           </p>
-          <p className="text-md lg:text-2xl pr-10 lg:pr-14 mt-8 font-light">
-            Give A Try
-          </p>
+          <p className="text-md mt-8 font-light">Give A Try</p>
           <input
             placeholder="Enter your name"
             value={text}
             onChange={(e) => setText(e.target.value.toUpperCase())}
             type="text"
-            className="border-0 outline-none w-[80%] mt-2 mb-8 p-2 bg-[#3D3D3D] rounded-md"
+            className="border-0 outline-none w-[80%] mt-2 mb-10 p-2 bg-[#3D3D3D] rounded-md"
           />
           <p
             onClick={() => navigate("/products")}

@@ -39,7 +39,7 @@ const Banner = () => {
             For Influencers
           </p>
           <p className="text-md lg:text-xl xl:text-2xl break-words my-5">
-            Premium Card For Social Media Influencers
+            Premium Card For <br /> Social Media Influencers
           </p>
           <p
             onClick={() => navigate("/products")}
