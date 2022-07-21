@@ -25,7 +25,7 @@ const usePayment = (product, setPaymentLoading, setStep) => {
         nameOnCard: product?.customizable ? customText : false,
         creationDate: moment().unix(),
         currency: priceData?.symbol,
-        discount: priceData?.discountAmmount,
+        discount: priceData?.discountAmmount * quantity,
         orderComplete: false,
         paymentId,
         orderStatus: {

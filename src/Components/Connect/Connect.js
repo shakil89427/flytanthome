@@ -51,13 +51,7 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
         "followers",
         user?.userId
       );
-      const userRef = doc(
-        db,
-        "users",
-        user?.userId,
-        "followings",
-        cardUser?.id
-      );
+      const userRef = doc(db, "users", user?.userId, "following", cardUser?.id);
       if (followData?.userId === user?.userId) {
         setFollowData({});
         deleteDoc(cardUserRef);
@@ -65,13 +59,17 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
       } else {
         const cardUserData = {
           creationDate: moment().unix(),
-          profileImageUrl: cardUser?.profileImageUrl,
+          profileImageUrl:
+            cardUser?.profileImageUrl ||
+            "https://firebasestorage.googleapis.com/v0/b/flytant-cb72e.appspot.com/o/default_user_image%2FGroup%201763.png?alt=media&token=ef261d0b-a8d9-4791-a0c5-2d8338b77ea3",
           userId: cardUser?.id,
-          username: cardUser?.name,
+          username: cardUser?.username,
         };
         const userData = {
           creationDate: moment().unix(),
-          profileImageUrl: user?.profileImageUrl,
+          profileImageUrl:
+            user?.profileImageUrl ||
+            "https://firebasestorage.googleapis.com/v0/b/flytant-cb72e.appspot.com/o/default_user_image%2FGroup%201763.png?alt=media&token=ef261d0b-a8d9-4791-a0c5-2d8338b77ea3",
           userId: user?.userId,
           username: user?.username,
         };
