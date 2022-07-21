@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import Connect from "../Components/Connect/Connect";
 import Spinner from "../Components/Spinner/Spinner";
 import Error from "./Error";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
 import useStore from "../Store/useStore";
 
 const User = () => {
@@ -17,45 +16,27 @@ const User = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showConnect, setShowConnect] = useState(false);
-  const db = getFirestore();
 
-  const getFollowers = async () => {
-    const docRef = doc(db, "users", id, "followers", user?.userId);
-    const response = await getDoc(docRef);
-    const finalData = response.data();
-    if (finalData?.userId) {
-      return finalData;
-    } else {
-      return {};
+  const getData = async () => {
+    try {
+      const {
+        data: { card, follow },
+      } = await axios.post("https://flytant.herokuapp.com/getuser", {
+        cardId: id,
+        userId: user?.userId || false,
+      });
+      setCardUser(card);
+      setFollowData(follow);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      setError(true);
     }
-  };
-  const getUser = async () => {
-    const { data } = await axios.post("https://flytant.herokuapp.com/getuser", {
-      userId: id,
-    });
-    return { ...data, id };
   };
 
   useEffect(() => {
     if (!authLoading && !userLoading) {
-      let promises = [];
-      promises.push(getUser(), getFollowers());
-      Promise.allSettled(promises)
-        .then((res) => {
-          if (res[0]?.status === "rejected") {
-            setLoading(false);
-            return setError(true);
-          }
-          setCardUser(res[0].value);
-          if (res[1]?.status === "fulfilled") {
-            setFollowData(res[1].value);
-          }
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-          setError(true);
-        });
+      getData();
     }
   }, [authLoading, userLoading]);
 
