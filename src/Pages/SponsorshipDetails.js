@@ -54,7 +54,6 @@ const SponsorshipDetails = () => {
   const [detailsLoading, setDetailsLoading] = useState(true);
   const [similarLoading, setSimilarLoading] = useState(true);
   const [similar, setSimilar] = useState([]);
-  const [description, setDescription] = useState("");
   const [full, setFull] = useState(false);
   const [socialError, setSocialError] = useState(false);
   const [showDownload, setShowDownload] = useState(false);
@@ -65,10 +64,17 @@ const SponsorshipDetails = () => {
   const nextRef = useRef();
 
   const divRef = useRef();
+  const divRef2 = useRef();
+
   useEffect(() => {
-    divRef.current.scrollIntoView();
+    divRef?.current?.scrollIntoView();
     window.scroll(0, 0);
   }, []);
+
+  useEffect(() => {
+    divRef2?.current?.scrollIntoView();
+    window.scroll(0, 0);
+  }, [id]);
 
   useEffect(() => {
     if (swiper) {
@@ -166,6 +172,7 @@ const SponsorshipDetails = () => {
         setDetails(data);
         setSponsorships([...sponsorships, data]);
         getSimilar(data);
+        setDetailsLoading(false);
       } else {
         setDetailsLoading(false);
       }
@@ -180,35 +187,32 @@ const SponsorshipDetails = () => {
     if (exist1?.id) {
       setDetails(exist1);
       getSimilar(exist1);
+      setDetailsLoading(false);
       return;
     }
     const exist2 = paidSponsorships?.data?.find((item) => item?.id === id);
     if (exist2?.id) {
       setDetails(exist2);
       getSimilar(exist2);
+      setDetailsLoading(false);
       return;
     }
     const exist3 = barterSponsorships?.data?.find((item) => item?.id === id);
     if (exist3?.id) {
       setDetails(exist3);
       getSimilar(exist3);
+      setDetailsLoading(false);
       return;
     }
     const exist4 = sponsorships?.find((item) => item?.id === id);
     if (exist4?.id) {
       setDetails(exist4);
       getSimilar(exist4);
+      setDetailsLoading(false);
       return;
     }
     getDetails();
   }, [id]);
-
-  /* getting description from sponsorship */
-  useEffect(() => {
-    if (details?.description) setDescription(details?.description);
-    if (details?.barterDescription) setDescription(details?.barterDescription);
-    setDetailsLoading(false);
-  }, [details]);
 
   return (
     <div ref={divRef} className="w-full h-full md:overflow-hidden">
@@ -221,10 +225,10 @@ const SponsorshipDetails = () => {
       {socialError && <SocialError setSocialError={setSocialError} />}
       <div className="flex flex-col md:flex-row gap-y-14 w-full h-full md:overflow-hidden">
         {/* Left Side */}
-        <div className="w-full md:w-8/12 md:border-r relative md:overflow-y-scroll scrollbar md:pr-5 pt-5 md:pb-14">
+        <div className="w-full md:w-8/12 md:border-r relative md:overflow-y-scroll scrollbar md:pr-5 md:pb-14">
           {detailsLoading && <Spinner position={true} />}
           {details?.id && (
-            <div>
+            <div ref={divRef2} className="pt-5">
               <div className="relative">
                 <Swiper
                   loop
@@ -308,18 +312,22 @@ const SponsorshipDetails = () => {
                   </div>
                 )}
 
-                {!details?.barter && (
-                  <h5 className="text-xl font-semibold mb-5">Description</h5>
+                {details?.barterDescription && (
+                  <p className="mb-14 text-gray-700">
+                    {details?.barterDescription}
+                  </p>
                 )}
+
+                <h5 className="text-xl font-semibold mb-5">Description</h5>
                 <div className="mb-14 text-gray-700">
-                  {description?.length <= 250 ? (
-                    <p>{description}</p>
+                  {details?.description?.length <= 250 ? (
+                    <p>{details?.description}</p>
                   ) : (
                     <p>
                       {full ? (
-                        <span>{description}</span>
+                        <span>{details?.description}</span>
                       ) : (
-                        <span>{description?.slice(0, 250)}</span>
+                        <span>{details?.description?.slice(0, 250)}</span>
                       )}
                       <span
                         onClick={() => setFull(!full)}
