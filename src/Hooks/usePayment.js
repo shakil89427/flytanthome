@@ -10,14 +10,28 @@ import { fetchAndActivate, getString } from "firebase/remote-config";
 import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
+import { logEvent } from "firebase/analytics";
 
 const usePayment = (plan, setPaymentLoading) => {
-  const { user, setUser, setNotify, remoteConfig } = useStore();
+  const { user, setUser, setNotify, remoteConfig, analytics } = useStore();
   const db = getFirestore();
   const navigate = useNavigate();
   const location = useLocation();
 
   const updateOnDb = async (orderId) => {
+    try {
+      logEvent(analytics, "purchase", {
+        currency: plan.currency,
+        transaction_id: orderId,
+        value: plan.priceNow,
+        items: [
+          {
+            item_id: plan.id,
+            item_name: "web_subscription",
+          },
+        ],
+      });
+    } catch (err) {}
     try {
       setPaymentLoading(true);
       const tempData = {

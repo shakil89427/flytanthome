@@ -3,6 +3,7 @@ import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 import { fetchAndActivate, getString } from "firebase/remote-config";
 import moment from "moment";
 import useStore from "../Store/useStore";
+import { logEvent } from "firebase/analytics";
 
 const usePayment = (product, setPaymentLoading, setStep) => {
   const {
@@ -13,10 +14,24 @@ const usePayment = (product, setPaymentLoading, setStep) => {
     setQuantity,
     customText,
     setCustomText,
+    analytics,
   } = useStore();
   const db = getFirestore();
 
   const updateOnDb = async (paymentId, inputData, priceData) => {
+    try {
+      logEvent(analytics, "purchase", {
+        currency: priceData.currency,
+        transaction_id: paymentId,
+        value: priceData.priceNow * quantity + priceData.shippingCost,
+        items: [
+          {
+            item_id: product.productId,
+            item_name: "social_card_web",
+          },
+        ],
+      });
+    } catch (err) {}
     setPaymentLoading(true);
     try {
       const finalData = {

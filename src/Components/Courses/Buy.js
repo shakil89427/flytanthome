@@ -17,14 +17,28 @@ import {
 import moment from "moment";
 import { fetchAndActivate, getString } from "firebase/remote-config";
 import useAnalytics from "../../Hooks/useAnalytics";
+import { logEvent } from "firebase/analytics";
 
 const Buy = ({ course, setShowBuy }) => {
-  const { user, setNotify, setCourses, remoteConfig } = useStore();
+  const { user, setNotify, setCourses, remoteConfig, analytics } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const { addLog } = useAnalytics();
 
   const updateOnDb = async (paymentId) => {
+    try {
+      logEvent(analytics, "purchase", {
+        currency: course.priceData.currency,
+        transaction_id: paymentId,
+        value: course.priceData.priceNow,
+        items: [
+          {
+            item_id: course.courseId,
+            item_name: "course_web",
+          },
+        ],
+      });
+    } catch (err) {}
     setLoading(true);
     try {
       const coursesRef = collection(db, "courses");
