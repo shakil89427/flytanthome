@@ -27,7 +27,7 @@ const usePayment = (plan, setPaymentLoading) => {
         items: [
           {
             item_id: plan.id,
-            item_name: "web_subscription",
+            item_name: "Web_subscription",
           },
         ],
       });

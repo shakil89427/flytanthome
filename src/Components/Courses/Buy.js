@@ -34,7 +34,7 @@ const Buy = ({ course, setShowBuy }) => {
         items: [
           {
             item_id: course.courseId,
-            item_name: "course_web",
+            item_name: "Web_course",
           },
         ],
       });

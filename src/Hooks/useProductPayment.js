@@ -27,7 +27,7 @@ const usePayment = (product, setPaymentLoading, setStep) => {
         items: [
           {
             item_id: product.productId,
-            item_name: "social_card_web",
+            item_name: "Web_social_card",
           },
         ],
       });
