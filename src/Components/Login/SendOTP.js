@@ -9,11 +9,13 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const SendOTP = ({ back, setShow }) => {
   const auth = getAuth();
   const { countryCode, userLoading, setUserLoading, setNotify } = useStore();
   const [number, setNumber] = useState();
+  const { addLog } = useAnalytics();
 
   const sendOTP = (e) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ const SendOTP = ({ back, setShow }) => {
       return setNotify({ status: false, message: "Invalid number" });
     }
     setUserLoading(true);
+    addLog("send_otp");
     /* Generate Captcha */
     window.appVerifier = new RecaptchaVerifier(
       "captcha",

@@ -17,6 +17,7 @@ import "swiper/css";
 import "swiper/css";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import moment from "moment";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 const styles = {
   heading: "font-semibold text-lg md:text-xl xl:text-2xl",
@@ -33,6 +34,7 @@ const News = () => {
   const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   const getData = async () => {
     try {
@@ -80,7 +82,10 @@ const News = () => {
       <div className="flex items-center justify-between">
         <h1 className={styles.heading}>News</h1>
         <span
-          onClick={() => navigate(`/news`)}
+          onClick={() => {
+            addLog("view_all");
+            navigate(`/news`);
+          }}
           className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all
@@ -112,7 +117,10 @@ const News = () => {
         >
           {allNews?.data?.slice(0, 10)?.map((item, index) => (
             <SwiperSlide
-              onClick={() => setShowNewsCard(index + 1)}
+              onClick={() => {
+                addLog("change_news");
+                setShowNewsCard(index + 1);
+              }}
               key={item?.id}
               className="cursor-pointer rounded-tl-xl rounded-tr-xl overflow-hidden relative pb-5"
             >

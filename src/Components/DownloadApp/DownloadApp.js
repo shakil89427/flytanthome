@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import playstoreWhite from "../../Assets/playstoreWhite.png";
 import { AiFillApple } from "react-icons/ai";
 import cross from "../../Assets/cross.svg";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
   appMain:
@@ -14,6 +15,7 @@ const styles = {
 };
 
 const DownloadApp = ({ setShowDownload }) => {
+  const { addLog } = useAnalytics();
   useEffect(() => {
     document.body.style.overflowY = "hidden";
     return () => {
@@ -24,12 +26,18 @@ const DownloadApp = ({ setShowDownload }) => {
   return (
     <>
       <div
-        onClick={() => setShowDownload(false)}
+        onClick={() => {
+          addLog("show_download_popup");
+          setShowDownload(false);
+        }}
         className="fixed w-full h-full bg-[#07070783] top-0 left-0 z-20"
       />
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 bg-white px-5 py-12 rounded-md w-[95%] max-w-[700px]">
         <img
-          onClick={() => setShowDownload(false)}
+          onClick={() => {
+            addLog("hide_download_popup");
+            setShowDownload(false);
+          }}
           className="absolute top-3 right-3 w-6 cursor-pointer"
           src={cross}
           alt=""
@@ -39,7 +47,10 @@ const DownloadApp = ({ setShowDownload }) => {
         </p>
         <div className={styles.appMain}>
           <a
-            onClick={() => setShowDownload(false)}
+            onClick={() => {
+              addLog("playstore_download");
+              setShowDownload(false);
+            }}
             href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
             target="_blank"
             rel="noreferrer"
@@ -52,7 +63,10 @@ const DownloadApp = ({ setShowDownload }) => {
             </div>
           </a>
           <a
-            onClick={() => setShowDownload(false)}
+            onClick={() => {
+              addLog("appstore_download");
+              setShowDownload(false);
+            }}
             href="https://apps.apple.com/in/app/flytant/id1530158515"
             target="_blank"
             rel="noreferrer"

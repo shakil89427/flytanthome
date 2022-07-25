@@ -8,6 +8,7 @@ import Spinner from "../Components/Spinner/Spinner";
 import { fetchAndActivate, getString } from "firebase/remote-config";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const Blogs = () => {
   const {
@@ -20,6 +21,7 @@ const Blogs = () => {
   } = useStore();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   const getConfigs = async () => {
     try {
@@ -67,7 +69,10 @@ const Blogs = () => {
           >
             {blogsData?.carousel?.map((item) => (
               <SwiperSlide
-                onClick={() => navigate(`/blogdetails/${item?.blogId}`)}
+                onClick={() => {
+                  addLog("blog_details");
+                  navigate(`/blogdetails/${item?.blogId}`);
+                }}
                 className="cursor-pointer"
                 key={item?.blogId}
               >
@@ -97,7 +102,10 @@ const Blogs = () => {
           <div className="grid grid-cols-12 md:gap-x-8 gap-y-24 py-24">
             {loaded?.map((item, index) => (
               <div
-                onClick={() => navigate(`/blogdetails/${item?.blogId}`)}
+                onClick={() => {
+                  addLog("blog_details");
+                  navigate(`/blogdetails/${item?.blogId}`);
+                }}
                 key={item?.blogId}
                 className={`col-span-12 md:col-span-6 cursor-pointer ${
                   index < 2 ? "lg:col-span-6" : "lg:col-span-4"
@@ -133,11 +141,12 @@ const Blogs = () => {
           </div>
           {blogsData?.notCarousel?.length > loaded?.length && (
             <button
-              onClick={() =>
+              onClick={() => {
+                addLog("load_more");
                 setLoaded((prev) =>
                   blogsData?.notCarousel?.slice(0, prev?.length + 3)
-                )
-              }
+                );
+              }}
               className="bg-black text-white px-8 py-3 rounded-full block mx-auto hover:scale-105 duration-150"
             >
               Load more

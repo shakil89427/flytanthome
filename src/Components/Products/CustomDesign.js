@@ -2,14 +2,20 @@ import React from "react";
 import { useState } from "react";
 import card from "../../Assets/card.png";
 import useStore from "../../Store/useStore";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const CustomDesign = ({ setShowCustom }) => {
   const { customText, setCustomText } = useStore();
   const [text, setText] = useState(customText);
+  const { addLog } = useAnalytics();
+
   return (
     <>
       <div
-        onClick={() => setShowCustom(false)}
+        onClick={() => {
+          addLog("hide_customize_popup");
+          setShowCustom(false);
+        }}
         className="fixed h-screen w-screen z-20 top-0 left-0 bg-[#7e7d7d60]"
       />
       <div className="w-[95%] max-w-[500px] p-3 md:p-5 lg:p-8 xl:p-12 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
@@ -28,6 +34,7 @@ const CustomDesign = ({ setShowCustom }) => {
         />
         <button
           onClick={() => {
+            addLog("save_customize_text");
             setCustomText(text);
             setShowCustom(false);
           }}

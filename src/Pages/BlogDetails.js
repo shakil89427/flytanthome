@@ -10,6 +10,7 @@ import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css";
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const BlogDetails = () => {
   const { blogsData, setBlogsData, remoteConfig, setNotify, setLoaded } =
@@ -23,6 +24,7 @@ const BlogDetails = () => {
   const nextRef = useRef();
   const prevRef = useRef();
   const [activeSlide, setActiveSlide] = useState(0);
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (blogsData?.all?.length > 0) {
@@ -126,7 +128,10 @@ const BlogDetails = () => {
             ))}
 
             <button
-              onClick={() => setShowNewsleter(true)}
+              onClick={() => {
+                addLog("subscribe_newsletter");
+                setShowNewsleter(true);
+              }}
               className="block mx-auto bg-black text-white px-8 py-3 rounded-full text-lg hover:scale-105 duration-150"
             >
               Subscribe newsletter
@@ -154,11 +159,12 @@ const BlogDetails = () => {
               >
                 {blogsData?.all?.map((item) => (
                   <SwiperSlide
-                    onClick={() =>
+                    onClick={() => {
+                      addLog("blog_details");
                       navigate(`/blogdetails/${item?.blogId}`, {
                         replace: true,
-                      })
-                    }
+                      });
+                    }}
                     key={item?.blogId}
                     className="cursor-pointer"
                   >

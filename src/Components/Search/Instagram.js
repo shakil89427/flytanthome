@@ -9,6 +9,7 @@ import moment from "moment";
 import likes from "../../Assets/profileSocials/tiktok/like.png";
 import comment from "../../Assets/profileSocials/tiktok/comment.png";
 import DownloadApp from "../DownloadApp/DownloadApp";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Instagram = ({ username }) => {
   const [info, setInfo] = useState({});
@@ -16,6 +17,7 @@ const Instagram = ({ username }) => {
   const [images, setImages] = useState({ fetched: false });
   const [avg, setAvg] = useState({ likes: 0, engagement: 0, socialScore: 0 });
   const [showDownload, setShowDownload] = useState(false);
+  const { addLog } = useAnalytics();
 
   const getImage = async (url, id) => {
     try {
@@ -114,7 +116,10 @@ const Instagram = ({ username }) => {
           </div>
         </div>
         <p
-          onClick={() => setShowDownload(true)}
+          onClick={() => {
+            addLog("connect");
+            setShowDownload(true);
+          }}
           className="py-3 w-60 sm:w-72 rounded-md font-medium bg-black text-white text-lg cursor-pointer text-center mt-10"
         >
           Connect
@@ -140,19 +145,19 @@ const Instagram = ({ username }) => {
           <div className="flex justify-between border-b py-8">
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(info?.edge_followed_by?.count)}
+                {millify(info?.edge_followed_by?.count || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Followers</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(info?.edge_follow?.count)}
+                {millify(info?.edge_follow?.count || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(avg?.likes)}
+                {millify(avg?.likes || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Likes/Post</p>
             </div>
@@ -219,7 +224,7 @@ const Instagram = ({ username }) => {
                   <div>
                     <img className="w-6 h-6 mb-1 mx-auto" src={likes} alt="" />
                     <p className="text-xs">
-                      {millify(node?.edge_liked_by?.count)} likes
+                      {millify(node?.edge_liked_by?.count || 0)} likes
                     </p>
                   </div>
 
@@ -230,7 +235,8 @@ const Instagram = ({ username }) => {
                       alt=""
                     />
                     <p className="text-xs">
-                      {millify(node?.edge_media_to_comment?.count)} comments
+                      {millify(node?.edge_media_to_comment?.count || 0)}{" "}
+                      comments
                     </p>
                   </div>
                 </div>

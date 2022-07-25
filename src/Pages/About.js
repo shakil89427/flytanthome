@@ -4,9 +4,11 @@ import img2 from "../Assets/about/img2.png";
 import img3 from "../Assets/about/img3.png";
 import img4 from "../Assets/about/img4.png";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const About = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   return (
     <div>
@@ -63,7 +65,10 @@ const About = () => {
           Fastest Growing Influencers Community
         </p>
         <button
-          onClick={() => navigate("/")}
+          onClick={() => {
+            addLog("download_now");
+            navigate("/");
+          }}
           className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold shadow-xl"
         >
           Download Now

@@ -8,6 +8,7 @@ import { AiFillSafetyCertificate } from "react-icons/ai";
 import Input from "./Input";
 import useProductPayment from "../../Hooks/useProductPayment";
 import Spinner from "../Spinner/Spinner";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const PaymentDetails = () => {
   const { user, products, countryCode, setNotify, quantity, customText } =
@@ -19,6 +20,7 @@ const PaymentDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [focused, setFocused] = useState({});
+  const { addLog } = useAnalytics();
   /* Form Data Start*/
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -245,7 +247,10 @@ const PaymentDetails = () => {
         {step === 50 && (
           <div>
             <p
-              onClick={processPayment}
+              onClick={() => {
+                addLog("checkout");
+                processPayment();
+              }}
               className="mt-20 mb-10 bg-black text-white py-3 text-center text-lg font-medium rounded-md cursor-pointer"
             >
               Checkout
@@ -253,7 +258,10 @@ const PaymentDetails = () => {
             <div className="flex items-center justify-between font-medium text-gray-500">
               <p>Deliver to:</p>
               <p
-                onClick={() => setStep(0)}
+                onClick={() => {
+                  addLog("change");
+                  setStep(0);
+                }}
                 className="border-2 px-3 py-1 rounded-md cursor-pointer"
               >
                 Change
@@ -384,7 +392,10 @@ const PaymentDetails = () => {
                 )}
               </div>
               <p
-                onClick={processPayment}
+                onClick={() => {
+                  addLog("checkout");
+                  processPayment();
+                }}
                 className="mt-20 mb-10 bg-black text-white py-3 text-center text-lg font-medium rounded-md cursor-pointer"
               >
                 Checkout
@@ -398,7 +409,10 @@ const PaymentDetails = () => {
               Order placed successfully
             </p>
             <p
-              onClick={() => navigate("/products")}
+              onClick={() => {
+                addLog("back_to_products");
+                navigate("/products");
+              }}
               className="w-fit px-5 py-3 bg-black text-white mx-auto cursor-pointer rounded-md mt-5"
             >
               Back to Products

@@ -4,9 +4,11 @@ import works2 from "../../Assets/socialCards/howItWorks/works2.png";
 import works3 from "../../Assets/socialCards/howItWorks/works3.png";
 import works4 from "../../Assets/socialCards/howItWorks/works4.png";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const How = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   const works = [
     { title: "Get Your Card", img: works1 },
     { title: "Create Profile", img: works2 },
@@ -43,7 +45,10 @@ const How = () => {
           ))}
         </div>
         <p
-          onClick={() => navigate("/products")}
+          onClick={() => {
+            addLog("buy_social_card");
+            navigate("/products");
+          }}
           className="border-2 font-bold w-fit px-12 py-4 text-lg rounded-full cursor-pointer select-none mx-auto hover:bg-white hover:text-black duration-150"
         >
           BUY SOCIAL CARD

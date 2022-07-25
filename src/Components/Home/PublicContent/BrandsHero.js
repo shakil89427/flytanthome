@@ -5,9 +5,11 @@ import wavy from "../../../Assets/publicHome/wavy.png";
 import brandsHero from "../../../Assets/publicHome/brandsHero.png";
 import blackDots from "../../../Assets/blackDots.png";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../../../Hooks/useAnalytics";
 
 const BrandsHero = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div className="w-full relative min-h-screen">
       <img
@@ -23,7 +25,10 @@ const BrandsHero = () => {
       <div className="flex flex-col md:flex-row  r-box gap-14 lg:gap-20 items-center py-24 justify-between">
         <div className="w-full md:w-1/2 lg:w-5/12 z-20">
           <div
-            onClick={() => navigate("/brands")}
+            onClick={() => {
+              addLog("promote_now");
+              navigate("/brands");
+            }}
             className="border-2 rounded-3xl text-white px-5 lg:pl-8 py-8 bg-black cursor-pointer"
           >
             <h1
@@ -37,7 +42,10 @@ const BrandsHero = () => {
               Reach Your Target Audience WorldWide
             </p>
             <p
-              onClick={() => navigate("/brands")}
+              onClick={() => {
+                addLog("promote_now");
+                navigate("/brands");
+              }}
               className="w-fit border py-3 px-8 md:px-12 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
             >
               Promote Now

@@ -12,6 +12,7 @@ import { useState } from "react";
 import useStore from "../../../Store/useStore";
 import moment from "moment";
 import Spinner2 from "../../Spinner/Spinner2";
+import useAnalytics from "../../../Hooks/useAnalytics";
 
 const AllNews = () => {
   const { allNews, setAllNews, setShowNewsCard } = useStore();
@@ -19,6 +20,7 @@ const AllNews = () => {
   const divRef = useRef();
   const db = getFirestore();
   const colRef = collection(db, "news");
+  const { addLog } = useAnalytics();
 
   const getNews = async (q) => {
     if (loading) return;
@@ -50,6 +52,7 @@ const AllNews = () => {
   };
 
   const loadMore = () => {
+    addLog("load_more");
     if (allNews?.data?.length && allNews?.lastVisible) {
       const q = query(
         colRef,
@@ -81,7 +84,10 @@ const AllNews = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-14">
         {allNews?.data?.map((item, index) => (
           <div
-            onClick={() => setShowNewsCard(index + 1)}
+            onClick={() => {
+              addLog("show_newscard");
+              setShowNewsCard(index + 1);
+            }}
             key={item?.id}
             className="cursor-pointer rounded-tl-xl rounded-tr-xl overflow-hidden relative pb-5"
           >

@@ -8,6 +8,7 @@ import { FiChevronRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import Buy from "./Buy";
 import Player from "./Player";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Contents = () => {
   const {
@@ -23,6 +24,7 @@ const Contents = () => {
   const [showBuy, setShowBuy] = useState(false);
   const divRef = useRef();
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (course?.title) {
@@ -80,9 +82,10 @@ const Contents = () => {
               For Your plan only preview is available
             </p>
             <button
-              onClick={() =>
-                !user?.userId ? setShowLogin(true) : setShowBuy(true)
-              }
+              onClick={() => {
+                !user?.userId ? setShowLogin(true) : setShowBuy(true);
+                addLog("unlock_course");
+              }}
               className="block mx-auto bg-white px-7 py-3 mt-2 rounded-md font-medium"
             >
               Unlock Course
@@ -95,9 +98,10 @@ const Contents = () => {
 
       {(!user?.userId || !course?.courseBuyers?.includes(user?.userId)) && (
         <button
-          onClick={() =>
-            !user?.userId ? setShowLogin(true) : setShowBuy(true)
-          }
+          onClick={() => {
+            !user?.userId ? setShowLogin(true) : setShowBuy(true);
+            addLog("unlock_full_course");
+          }}
           className="mt-7 bg-black text-white py-4 font-medium px-8 block mx-auto rounded-md"
         >
           Unlock full Course
@@ -118,11 +122,12 @@ const Contents = () => {
         >
           <div
             className="flex justify-between gap-5 items-start p-2 lg:p-5 cursor-pointer select-none mt-8"
-            onClick={() =>
+            onClick={() => {
               setSelectedScetion(
                 selectedSection === item?.name ? false : item?.name
-              )
-            }
+              );
+              addLog("video_section");
+            }}
           >
             <div className="flex items-start gap-2 lg:gap-5">
               <p className="text-md font-semibold">{index + 1}.</p>
@@ -161,9 +166,10 @@ const Contents = () => {
                   video?.sectionName?.toLowerCase() ===
                     item?.name?.toLowerCase() && (
                     <div
-                      onClick={() =>
-                        video?.videoId?.length > 5 && setSelectedVideo(video)
-                      }
+                      onClick={() => {
+                        video?.videoId?.length > 5 && setSelectedVideo(video);
+                        addLog("video");
+                      }}
                       key={index}
                       className="flex items-start justify-between gap-2 lg:gap-5 my-5 cursor-pointer"
                     >

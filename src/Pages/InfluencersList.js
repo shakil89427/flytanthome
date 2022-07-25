@@ -6,6 +6,7 @@ import Spinner from "../Components/Spinner/Spinner";
 import moment from "moment";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const InfluencersList = () => {
   const { setNotify, userLoading, authLoading, user, setShowLogin } =
@@ -14,6 +15,7 @@ const InfluencersList = () => {
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     const password = window.prompt("Enter Password");
@@ -71,7 +73,10 @@ const InfluencersList = () => {
                   <tr
                     key={item?.listId}
                     className="cursor-pointer"
-                    onClick={() => navigate(`/influencerslist/${item?.listId}`)}
+                    onClick={() => {
+                      addLog("influencers_list_details");
+                      navigate(`/influencerslist/${item?.listId}`);
+                    }}
                   >
                     <td className="py-2">{index + 1}</td>
                     <td className="py-2">{item?.name}</td>

@@ -7,9 +7,11 @@ import GalleryLeft from "../Components/Brands_Influencers/GalleryLeft";
 import GalleryRight from "../Components/Brands_Influencers/GalleryRight";
 import { bannerData, heroData, galleryData } from "../Assets/brands/BrandsData";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const Brands = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <>
       <Banner data={bannerData} />
@@ -37,7 +39,10 @@ const Brands = () => {
             Download the App and Post Your Campaign Free
           </p>
           <button
-            onClick={() => navigate("/")}
+            onClick={() => {
+              addLog("download_now");
+              navigate("/");
+            }}
             className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold shadow-xl"
           >
             Download Now
@@ -50,6 +55,7 @@ const Brands = () => {
             Schedule a Meet With us before Getting Onboard
           </p>
           <a
+            onClick={() => addLog("schedule_meet")}
             rel="noreferrer"
             href="https://calendly.com/flytant"
             target="_blank"

@@ -7,6 +7,7 @@ import { FiEdit } from "react-icons/fi";
 import { GoPrimitiveDot } from "react-icons/go";
 import CustomDesign from "./CustomDesign";
 import MoreCards from "./MoreCards";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const ProductDetails = () => {
   const {
@@ -25,6 +26,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     setQuantity(1);
@@ -52,7 +54,10 @@ const ProductDetails = () => {
             {product?.blob?.map((img) => (
               <div
                 key={img?.url}
-                onClick={() => setImage(img?.url)}
+                onClick={() => {
+                  addLog("blob_image_change");
+                  setImage(img?.url);
+                }}
                 style={{ backgroundImage: `url(${img?.url})` }}
                 className="border aspect-square bg-contain bg-center bg-no-repeat"
               />
@@ -133,16 +138,20 @@ const ProductDetails = () => {
             <p className="text-center font-medium mb-1 text-gray-500">QTY</p>
             <div className="flex items-center justify-between border border-[#E6E6E6]">
               <p
-                onClick={() =>
-                  setQuantity((prev) => (prev > 1 ? prev - 1 : prev))
-                }
+                onClick={() => {
+                  addLog("decrease_quantity");
+                  setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+                }}
                 className="w-11 h-11 bg-[#E6E6E6] flex items-center justify-center text-2xl cursor-pointer select-none"
               >
                 -
               </p>
               <p className="text-lg">{quantity}</p>
               <p
-                onClick={() => setQuantity((prev) => prev + 1)}
+                onClick={() => {
+                  addLog("increase_quantity");
+                  setQuantity((prev) => prev + 1);
+                }}
                 className="w-11 h-11 bg-[#E6E6E6] flex items-center justify-center text-2xl cursor-pointer select-none"
               >
                 +
@@ -152,7 +161,10 @@ const ProductDetails = () => {
           {/* Customize button */}
           {product?.customizable && (
             <div
-              onClick={() => setShowCustom(true)}
+              onClick={() => {
+                addLog("customizetext_popup_show");
+                setShowCustom(true);
+              }}
               className="bg-[#E6E6E6] w-[75%] h-12 flex items-center justify-center gap-5 rounded-full mt-5 font-semibold cursor-pointer select-none"
             >
               <p>{customText?.length > 0 ? customText : "Customize"}</p>
@@ -161,11 +173,12 @@ const ProductDetails = () => {
           )}
           {/* Buy button */}
           <button
-            onClick={() =>
+            onClick={() => {
+              addLog("buy_now");
               user?.userId
                 ? navigate("/products/payment", { state: { from: location } })
-                : setShowLogin(true)
-            }
+                : setShowLogin(true);
+            }}
             className="w-full bg-black text-white mt-5 rounded-full h-14 text-xl font-medium"
           >
             BUY NOW

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import usePayment from "../../Hooks/usePayment";
 import useStore from "../../Store/useStore";
 import Spinner from "../Spinner/Spinner";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const SubscriptionDetails = () => {
   const { plans } = useStore();
@@ -12,6 +13,7 @@ const SubscriptionDetails = () => {
   const [selected, setSelected] = useState(false);
   const [paymentLoading, setPaymentLoading] = useState(false);
   const { startToPay } = usePayment(selected, setPaymentLoading);
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     const matched = plans.find(
@@ -63,7 +65,10 @@ const SubscriptionDetails = () => {
             </div>
           ))}
           <p
-            onClick={() => selected && startToPay()}
+            onClick={() => {
+              addLog("proceed");
+              selected && startToPay();
+            }}
             style={{
               backgroundColor: selected ? "black" : "gray",
               cursor: selected && "pointer",

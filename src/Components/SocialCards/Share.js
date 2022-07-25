@@ -2,9 +2,11 @@ import React from "react";
 import smallBg from "../../Assets/socialCards/smallBg.png";
 import animation from "../../Assets/socialCards/animation.mp4";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Share = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div
       style={{
@@ -23,7 +25,10 @@ const Share = () => {
         </video>
 
         <div
-          onClick={() => navigate("/products")}
+          onClick={() => {
+            addLog("share_profile");
+            navigate("/products");
+          }}
           style={{
             backgroundImage: `url(${smallBg})`,
           }}

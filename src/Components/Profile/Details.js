@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import Edit from "./Edit";
 import { fetchAndActivate, getString } from "firebase/remote-config";
 import useScore from "../../Hooks/useScore";
+import useAnalytics from "../../Hooks/useAnalytics";
 const styles = {
   spinnerDiv:
     "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f]",
@@ -63,6 +64,7 @@ const Profile = () => {
   const socials = ["Instagram", "Youtube", "Twitter", "Tiktok"];
   const [selected, setSelected] = useState(socials[0]);
   const [edit, setEdit] = useState(false);
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (id === user?.id) return setDetails({ ...user, access: true });
@@ -165,7 +167,10 @@ const Profile = () => {
                 </div>
                 {details?.access && (
                   <p
-                    onClick={() => setEdit(true)}
+                    onClick={() => {
+                      addLog("edit_profile");
+                      setEdit(true);
+                    }}
                     className={styles.completeBtn}
                   >
                     {progress === 100
@@ -235,7 +240,10 @@ const Profile = () => {
             <div className={styles.socials}>
               {socials.map((social) => (
                 <p
-                  onClick={() => social !== selected && setSelected(social)}
+                  onClick={() => {
+                    addLog("change_social_caregory");
+                    social !== selected && setSelected(social);
+                  }}
                   className={
                     selected === social
                       ? styles.selectedSocial

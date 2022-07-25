@@ -4,15 +4,20 @@ import logo from "../Assets/logo.png";
 import playstore from "../Assets/playstore.png";
 import { AiFillApple } from "react-icons/ai";
 import AppBG from "../Assets/AppBG.png";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const LandingApp = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   return (
     <div className="bg-black pb-64">
       <div className="r-box flex items-center h-14 md:h-24">
         <img
-          onClick={() => navigate("/")}
+          onClick={() => {
+            addLog("nav_logo");
+            navigate("/");
+          }}
           src={logo}
           alt=""
           className="cursor-pointer w-[130px] md:w-[185px]"
@@ -40,6 +45,7 @@ const LandingApp = () => {
 
           <div className="flex gap-4 text-black mt-14 flex-wrap">
             <a
+              onClick={() => addLog("playstore_download")}
               href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
               target="_blank"
               rel="noreferrer"
@@ -52,6 +58,7 @@ const LandingApp = () => {
               </span>
             </a>
             <a
+              onClick={() => addLog("appstore_download")}
               href="https://apps.apple.com/in/app/flytant/id1530158515"
               target="_blank"
               rel="noreferrer"

@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import millify from "millify";
 import useStore from "../Store/useStore";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const InfluencersListDetails = () => {
   const { userLoading, authLoading, user, setShowLogin } = useStore();
@@ -24,6 +25,7 @@ const InfluencersListDetails = () => {
   const { id } = useParams();
   const db = getFirestore();
   const docRef = doc(db, "influencersList", id);
+  const { addLog } = useAnalytics();
 
   const delateProfile = async (url) => {
     try {
@@ -40,6 +42,7 @@ const InfluencersListDetails = () => {
     if (!e.target[0].value.includes("instagram.com/")) return;
     setLoading(true);
     try {
+      addLog("save_profile");
       getInfluencer(e.target[0].value);
       await updateDoc(docRef, { influencers: arrayUnion(e.target[0].value) });
     } catch (err) {
@@ -112,7 +115,10 @@ const InfluencersListDetails = () => {
               </button>
             </form>
             <p
-              onClick={() => setShowAddProfile(false)}
+              onClick={() => {
+                addLog("hide_add_profile_popup");
+                setShowAddProfile(false);
+              }}
               className="w-fit mx-auto font-medium cursor-pointer"
             >
               Cancel
@@ -127,6 +133,7 @@ const InfluencersListDetails = () => {
             <div className="grid grid-cols-2 gap-5 text-center mt-5">
               <p
                 onClick={() => {
+                  addLog("delete");
                   delateProfile(showDelete);
                   setShowDelete(false);
                 }}
@@ -135,7 +142,10 @@ const InfluencersListDetails = () => {
                 Delete
               </p>
               <p
-                onClick={() => setShowDelete(false)}
+                onClick={() => {
+                  addLog("cancel");
+                  setShowDelete(false);
+                }}
                 className="bg-black text-white py-2 rounded-md font-medium cursor-pointer"
               >
                 Cancel
@@ -187,7 +197,10 @@ const InfluencersListDetails = () => {
                       />
                     </td>
                     <td
-                      onClick={() => window.open(item?.url)}
+                      onClick={() => {
+                        addLog("open_instagram_profile");
+                        window.open(item?.url);
+                      }}
                       className="cursor-pointer"
                     >
                       {item?.url?.split("instagram.com/")[1]?.split("/")[0]}
@@ -213,7 +226,10 @@ const InfluencersListDetails = () => {
                     </td>
                     <td>
                       <button
-                        onClick={() => setShowDelete(item?.url)}
+                        onClick={() => {
+                          addLog("delete");
+                          setShowDelete(item?.url);
+                        }}
                         className="text-gray-400"
                       >
                         Delete
@@ -227,7 +243,10 @@ const InfluencersListDetails = () => {
         )}
         {title && user?.userId && (
           <button
-            onClick={() => setShowAddProfile(true)}
+            onClick={() => {
+              addLog("add_profile");
+              setShowAddProfile(true);
+            }}
             className="bg-white text-black my-5 px-8 py-3 text-lg font-semibold rounded-md"
           >
             Add Profile

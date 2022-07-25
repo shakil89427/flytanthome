@@ -4,6 +4,7 @@ import { AiFillFacebook, AiOutlineTwitter, AiFillApple } from "react-icons/ai";
 import { IoKeypadSharp } from "react-icons/io5";
 import useLogins from "../../Hooks/useLogins";
 import playstoreWhite from "../../Assets/playstoreWhite.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 /* Styles Start */
 const styles = {
@@ -23,6 +24,8 @@ const styles = {
 const Methods = ({ setShow }) => {
   const { googleSignIn, facebookSignIn, twitterSignIn, appleSignIn } =
     useLogins();
+  const { addLog } = useAnalytics();
+
   return (
     <div className="w-full">
       <h1 className={styles.heading}>Welcome</h1>
@@ -30,7 +33,10 @@ const Methods = ({ setShow }) => {
       <div className={styles.loginButtons}>
         {/* Google */}
         <div
-          onClick={googleSignIn}
+          onClick={() => {
+            addLog("google_signin");
+            googleSignIn();
+          }}
           className={`${styles.loginButton} text-black border-2`}
         >
           <FcGoogle className="text-2xl" />
@@ -39,7 +45,10 @@ const Methods = ({ setShow }) => {
 
         {/* Facebook */}
         <div
-          onClick={facebookSignIn}
+          onClick={() => {
+            addLog("facebook_signin");
+            facebookSignIn();
+          }}
           className={`${styles.loginButton} bg-[#1D4CB3]`}
         >
           <AiFillFacebook className="text-2xl" />
@@ -48,7 +57,10 @@ const Methods = ({ setShow }) => {
 
         {/* Twitter */}
         <div
-          onClick={twitterSignIn}
+          onClick={() => {
+            addLog("twitter_signin");
+            twitterSignIn();
+          }}
           className={`${styles.loginButton} bg-[#55ACEE]`}
         >
           <AiOutlineTwitter className="text-2xl" />
@@ -56,7 +68,13 @@ const Methods = ({ setShow }) => {
         </div>
 
         {/* Apple */}
-        <div onClick={appleSignIn} className={`${styles.loginButton} bg-black`}>
+        <div
+          onClick={() => {
+            addLog("apple_signin");
+            appleSignIn();
+          }}
+          className={`${styles.loginButton} bg-black`}
+        >
           <AiFillApple className="text-2xl" />
           <p>Continue with Apple</p>
         </div>
@@ -65,7 +83,10 @@ const Methods = ({ setShow }) => {
 
         {/* Phone */}
         <div
-          onClick={() => setShow("sendOTP")}
+          onClick={() => {
+            addLog("login_with_number");
+            setShow("sendOTP");
+          }}
           className={`${styles.loginButton} bg-white text-black border-2 border-black`}
         >
           <IoKeypadSharp className="text-xl " />
@@ -76,6 +97,7 @@ const Methods = ({ setShow }) => {
       {/* Download Buttons */}
       <div className={styles.downButtons}>
         <a
+          onClick={() => addLog("playstore_download")}
           href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
           target="_blank"
           rel="noreferrer"
@@ -88,6 +110,7 @@ const Methods = ({ setShow }) => {
           </span>
         </a>
         <a
+          onClick={() => addLog("appstore_download")}
           href="https://apps.apple.com/in/app/flytant/id1530158515"
           target="_blank"
           rel="noreferrer"

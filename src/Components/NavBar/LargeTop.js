@@ -4,6 +4,7 @@ import defaultUser from "../../Assets/defaultUser.png";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { BiSearch } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAnalytics from "../../Hooks/useAnalytics";
 /* Styles Start */
 const styles = {
   profile: "flex items-center justify-end gap-10 text-white",
@@ -20,6 +21,7 @@ const LargeTop = ({ theme }) => {
   const { pathname } = useLocation();
   const { user, setShowLogin, setShowLogout } = useStore();
   const [show, setShow] = useState(false);
+  const { addLog } = useAnalytics();
   return (
     <div className="hidden lg:block w-full">
       {user?.id ? (
@@ -39,6 +41,7 @@ const LargeTop = ({ theme }) => {
             />
           </div> */}
           <a
+            onClick={() => addLog("nav_contact")}
             href="mailto:contact@flytant.com"
             target="_blank"
             rel="noreferrer"
@@ -47,7 +50,10 @@ const LargeTop = ({ theme }) => {
             Contact
           </a>
           <div
-            onClick={() => setShow(!show)}
+            onClick={() => {
+              addLog("profile_dropdown");
+              setShow(!show);
+            }}
             className="flex items-center gap-1 relative"
           >
             <div
@@ -70,25 +76,37 @@ const LargeTop = ({ theme }) => {
                 <div className="fixed top-0 left-0 w-screen h-screen z-[999999]" />
                 <div className="absolute top-full right-0 bg-gray-800 w-[220px] p-2 rounded-md z-[9999999]">
                   <p
-                    onClick={() => navigate(`/profile/${user?.id}`)}
+                    onClick={() => {
+                      addLog("social_profile");
+                      navigate(`/profile/${user?.id}`);
+                    }}
                     className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
                     Social Profile
                   </p>
                   <p
-                    onClick={() => navigate(`/mycampaigns`)}
+                    onClick={() => {
+                      addLog("my_campaigns");
+                      navigate(`/mycampaigns`);
+                    }}
                     className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
                     My Campaigns
                   </p>
                   <p
-                    onClick={() => navigate(`/subscription`)}
+                    onClick={() => {
+                      addLog("subscription");
+                      navigate(`/subscription`);
+                    }}
                     className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
                     Subscription
                   </p>
                   <p
-                    onClick={() => setShowLogout(true)}
+                    onClick={() => {
+                      addLog("show_logout_popup");
+                      setShowLogout(true);
+                    }}
                     className="hover:bg-white hover:text-black py-2 my-2 px-3 text-md font-medium rounded-sm cursor-pointer"
                   >
                     Logout
@@ -102,6 +120,7 @@ const LargeTop = ({ theme }) => {
         pathname !== "/onboard" && (
           <div className="flex items-center justify-end gap-6">
             <a
+              onClick={() => addLog("nav_contact")}
               href="mailto:contact@flytant.com"
               target="_blank"
               rel="noreferrer"
@@ -114,7 +133,10 @@ const LargeTop = ({ theme }) => {
               style={{
                 letterSpacing: ".4px",
               }}
-              onClick={() => setShowLogin(true)}
+              onClick={() => {
+                addLog("login_signup");
+                setShowLogin(true);
+              }}
               className={styles.loginBtn}
             >
               Login | Signup

@@ -9,6 +9,7 @@ import sponsorship from "../../../Assets/sponsorship.png";
 import { useNavigate } from "react-router-dom";
 import defaultUser from "../../../Assets/defaultUser.png";
 import News from "../../../Assets/News.png";
+import useAnalytics from "../../../Hooks/useAnalytics";
 
 const Notification = () => {
   const navigate = useNavigate();
@@ -16,8 +17,10 @@ const Notification = () => {
   const { user, notifications, setShowSingleCard } = useStore();
   const [sorted, setSorted] = useState([]);
   const [allData, setAllData] = useState([]);
+  const { addLog } = useAnalytics();
 
   const loadMore = () => {
+    addLog("load_more");
     setAllData(sorted.slice(0, allData?.length + 20));
   };
 
@@ -70,7 +73,8 @@ const Notification = () => {
         <div
           key={item?.id}
           className="flex items-start justify-between mb-6 border-b pb-6 border-gray-100 cursor-pointer"
-          onClick={() =>
+          onClick={() => {
+            addLog("notification");
             changeRoute(
               item?.campId
                 ? { campId: item?.campId }
@@ -81,8 +85,8 @@ const Notification = () => {
                 : item?.newsId
                 ? { newsId: item?.newsId }
                 : false
-            )
-          }
+            );
+          }}
         >
           <div className="flex items-start justify-center gap-2 lg:gap-5">
             {/* Left */}

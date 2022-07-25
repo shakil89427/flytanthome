@@ -9,12 +9,14 @@ import playstore from "../../../Assets/playstore.png";
 import useStore from "../../../Store/useStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import useAnalytics from "../../../Hooks/useAnalytics";
 
 const Banner = () => {
   const { authLoading, userLoading } = useStore();
   const [play, setPlay] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (!authLoading && !userLoading && pathname !== "/") {
@@ -39,6 +41,7 @@ const Banner = () => {
           </p>
           <div className="flex gap-4 text-black mt-14 flex-wrap">
             <a
+              onClick={() => addLog("playstore_download")}
               href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
               target="_blank"
               rel="noreferrer"
@@ -51,6 +54,7 @@ const Banner = () => {
               </span>
             </a>
             <a
+              onClick={() => addLog("appstore_download")}
               href="https://apps.apple.com/in/app/flytant/id1530158515"
               target="_blank"
               rel="noreferrer"
@@ -80,14 +84,20 @@ const Banner = () => {
             )}
             {play ? (
               <img
-                onClick={() => setPlay(false)}
+                onClick={() => {
+                  addLog("play_video");
+                  setPlay(false);
+                }}
                 className="absolute top-0 right-0 text-2xl cursor-pointer bg-white"
                 src={cross}
                 alt=""
               />
             ) : (
               <BsPlayCircle
-                onClick={() => setPlay(true)}
+                onClick={() => {
+                  addLog("stop_video");
+                  setPlay(true);
+                }}
                 className="absolute bottom-8 left-8 text-5xl lg:text-6xl cursor-pointer"
               />
             )}

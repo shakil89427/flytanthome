@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const Error = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     document.body.style.overflowY = "hidden";
@@ -23,7 +25,10 @@ const Error = () => {
           </p>
         </div>
         <button
-          onClick={() => navigate("/")}
+          onClick={() => {
+            addLog("back_to_home_error_page");
+            navigate("/");
+          }}
           className="bg-black text-white px-5 py-3 rounded-lg font-medium cursor-pointer z-50"
         >
           Back To Home

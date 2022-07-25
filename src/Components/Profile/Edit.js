@@ -24,6 +24,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { fetchAndActivate, getString } from "firebase/remote-config";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
   main: "fixed top-0 left-0 w-full min-h-screen bg-[#49494980]",
@@ -51,6 +52,7 @@ const Edit = ({ progress, setEdit }) => {
   const [filterKey, setFilterKey] = useState("");
   const [filtered, setFiltered] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
+  const { addLog } = useAnalytics();
 
   const [image, setImage] = useState(null);
   const [username, setUsername] = useState(user?.username);
@@ -184,10 +186,19 @@ const Edit = ({ progress, setEdit }) => {
           <Spinner />
         </div>
       )}
-      <div onClick={() => setShowCategories(false)} className={styles.main} />
+      <div
+        onClick={() => {
+          addLog("hide_categories_popup");
+          setShowCategories(false);
+        }}
+        className={styles.main}
+      />
       <div className={styles.inner}>
         <img
-          onClick={() => setEdit(false)}
+          onClick={() => {
+            addLog("hide_edit_popup");
+            setEdit(false);
+          }}
           className="w-6 h-6 cursor-pointer absolute top-2 right-2"
           src={cross}
           alt=""
@@ -318,7 +329,10 @@ const Edit = ({ progress, setEdit }) => {
             <div className="relative">
               <div className="w-full border-0 border-b border-gray-300 mt-2 text-sm flex items-center gap-1 flex-wrap pb-1">
                 <button
-                  onClick={() => setShowCategories(true)}
+                  onClick={() => {
+                    addLog("edit");
+                    setShowCategories(true);
+                  }}
                   type="button"
                   className="border px-4 bg-black text-white rounded-md"
                 >
@@ -340,12 +354,18 @@ const Edit = ({ progress, setEdit }) => {
               {showCategories && (
                 <>
                   <div
-                    onClick={() => setShowCategories(false)}
+                    onClick={() => {
+                      addLog("hide_categories_popup");
+                      setShowCategories(false);
+                    }}
                     className="fixed top-0 left-0 w-full h-full"
                   />
                   <div className="absolute bg-white bottom-0 right-0 w-3/4  pt-7 shadow-xl text-sm border rounded-md z-40">
                     <img
-                      onClick={() => setShowCategories(false)}
+                      onClick={() => {
+                        addLog("show_categories_popup");
+                        setShowCategories(false);
+                      }}
                       className="absolute top-1 right-1 w-5 cursor-pointer"
                       src={cross}
                       alt=""
@@ -368,13 +388,14 @@ const Edit = ({ progress, setEdit }) => {
                       )}
                       {filtered.map((c) => (
                         <p
-                          onClick={() =>
+                          onClick={() => {
+                            addLog("select_category");
                             setCategories(
                               categories.includes(c)
                                 ? categories.filter((i) => i !== c).slice(0, 5)
                                 : [...categories, c].slice(0, 5)
-                            )
-                          }
+                            );
+                          }}
                           style={{
                             backgroundColor: categories.includes(c)
                               ? "black"

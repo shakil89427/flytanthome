@@ -7,6 +7,7 @@ import Connect from "../Components/Connect/Connect";
 import Spinner from "../Components/Spinner/Spinner";
 import Error from "./Error";
 import useStore from "../Store/useStore";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const User = () => {
   const { user, authLoading, userLoading } = useStore();
@@ -16,6 +17,7 @@ const User = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showConnect, setShowConnect] = useState(false);
+  const { addLog } = useAnalytics();
 
   const getData = async () => {
     try {
@@ -101,7 +103,10 @@ const User = () => {
             {cardUser?.bio}
           </p>
           <p
-            onClick={() => user?.userId !== id && setShowConnect(true)}
+            onClick={() => {
+              addLog("connect");
+              user?.userId !== id && setShowConnect(true);
+            }}
             className="cursor-pointer text-center select-none mt-10 bg-black text-white w-full py-5 rounded-full font-semibold text-xl active:scale-95"
           >
             Connect
@@ -112,6 +117,7 @@ const User = () => {
           >
             {cardUser?.socialLinks?.map((item) => (
               <a
+                onClick={() => addLog("cardprofile_social_link")}
                 key={item?.name}
                 href={
                   item?.type === "phone"

@@ -7,6 +7,7 @@ import { BiSearch } from "react-icons/bi";
 import LargeTop from "./LargeTop";
 import SmallSide from "./SmallSide";
 import useStore from "../../Store/useStore";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const NavBar = ({ bg }) => {
   const { user } = useStore();
@@ -14,6 +15,8 @@ const NavBar = ({ bg }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [showSide, setShowSide] = useState(false);
+  const { addLog } = useAnalytics();
+
   const [theme, setTheme] = useState({
     bg: "bg-transparent",
     border: "border-0",
@@ -63,7 +66,10 @@ const NavBar = ({ bg }) => {
         className={`h-14 md:h-24 r-box flex items-center justify-between ${theme.border}`}
       >
         <img
-          onClick={() => navigate("/")}
+          onClick={() => {
+            addLog("nav_logo");
+            navigate("/");
+          }}
           className="cursor-pointer w-[130px] md:w-[185px]"
           src={theme.img}
           alt=""
@@ -79,7 +85,10 @@ const NavBar = ({ bg }) => {
           )} */}
           {pathname !== "/onboard" && (
             <GiHamburgerMenu
-              onClick={() => setShowSide(true)}
+              onClick={() => {
+                addLog("hamburger");
+                setShowSide(true);
+              }}
               className={`text-3xl hover:border rounded-md p-1 cursor-pointer ${theme.text}`}
             />
           )}

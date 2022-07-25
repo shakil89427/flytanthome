@@ -10,6 +10,7 @@ import millify from "millify";
 import { useNavigate, useLocation } from "react-router-dom";
 import useStore from "../Store/useStore";
 import cross from "../Assets/cross.svg";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const selected = `px-1 text-center relative font-semibold before:content-[''] before:absolute before:w-full before:h-[3px] before:bg-black before:-bottom-[3px] before:rounded-full text-black before:left-0`;
 
@@ -32,6 +33,7 @@ const Search = () => {
   const [showData, setShowData] = useState([]);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (searchActive === "All" || searchResult?.length < 1) {
@@ -63,6 +65,7 @@ const Search = () => {
   const search = async (e) => {
     e.preventDefault();
     setLoading(true);
+    addLog("search");
     try {
       const { data } = await axios.post(
         "https://flytant.herokuapp.com/search",
@@ -193,10 +196,10 @@ const Search = () => {
                       <p className="text-gray-500">{item?.bio}</p>
                       <div className="flex items-center gap-2 mt-2 font-medium">
                         {item?.followers && (
-                          <p>{millify(item?.followers)} Followers,</p>
+                          <p>{millify(item?.followers || 0)} Followers,</p>
                         )}
                         {item?.following && (
-                          <p>{millify(item?.following)} Following</p>
+                          <p>{millify(item?.following || 0)} Following</p>
                         )}
                       </div>
                     </div>
@@ -261,10 +264,12 @@ const Search = () => {
                       <p className="text-gray-500">{item?.description}</p>
                       <div className="flex items-center gap-2 mt-2 font-medium">
                         {item?.followers_count && (
-                          <p>{millify(item?.followers_count)} Followers,</p>
+                          <p>
+                            {millify(item?.followers_count || 0)} Followers,
+                          </p>
                         )}
                         {item?.friends_count && (
-                          <p>{millify(item?.friends_count)} Following</p>
+                          <p>{millify(item?.friends_count || 0)} Following</p>
                         )}
                       </div>
                     </div>

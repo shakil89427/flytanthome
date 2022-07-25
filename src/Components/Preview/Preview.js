@@ -12,6 +12,7 @@ import {
 import { FaTiktok } from "react-icons/fa";
 import moment from "moment";
 import millify from "millify";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
@@ -31,6 +32,7 @@ const Preview = ({
 }) => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (swiper) {
@@ -43,7 +45,10 @@ const Preview = ({
   return (
     <div className="w-[95%] max-w-[550px] mx-auto relative my-24">
       <button
-        onClick={() => setPreview(false)}
+        onClick={() => {
+          addLog("back");
+          setPreview(false);
+        }}
         className="bg-black text-white px-5 py-2 rounded-md absolute -top-12 left-0"
       >
         Back
@@ -125,7 +130,7 @@ const Preview = ({
 
         <div className="">
           <p className="text-xl font-semibold mb-2">Minimum followers</p>
-          <p>{millify(followers)}</p>
+          <p>{millify(followers || 0)}</p>
         </div>
 
         <div className="">

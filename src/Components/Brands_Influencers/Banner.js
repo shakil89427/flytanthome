@@ -4,8 +4,10 @@ import { AiFillApple } from "react-icons/ai";
 import "./CSS/Banner.css";
 import blackDots from "../../Assets/blackDots.png";
 import playstore from "../../Assets/playstore.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Banner = ({ data }) => {
+  const { addLog } = useAnalytics();
   return (
     <div className="relative">
       <div className="bgmain" />
@@ -30,6 +32,7 @@ const Banner = ({ data }) => {
             </p>
             <div className="flex flex-wrap gap-3">
               <a
+                onClick={() => addLog("playstore_download")}
                 href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
                 target="_blank"
                 rel="noreferrer"
@@ -44,6 +47,7 @@ const Banner = ({ data }) => {
                 </span>
               </a>
               <a
+                onClick={() => addLog("appstore_download")}
                 href="https://apps.apple.com/in/app/flytant/id1530158515"
                 target="_blank"
                 rel="noreferrer"

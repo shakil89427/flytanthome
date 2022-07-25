@@ -7,6 +7,7 @@ import views from "../../Assets/profileSocials/youtube/views.png";
 import likes from "../../Assets/profileSocials/youtube/likes.png";
 import comments from "../../Assets/profileSocials/youtube/comments.png";
 import DownloadApp from "../DownloadApp/DownloadApp";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
   connect:
@@ -36,6 +37,7 @@ const Youtube = ({ channelId }) => {
   const [loading, setLoading] = useState(true);
   const [showDownload, setShowDownload] = useState(false);
   const [score, setScore] = useState(0);
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     axios
@@ -91,7 +93,10 @@ const Youtube = ({ channelId }) => {
           </div>
         </div>
         <p
-          onClick={() => setShowDownload(true)}
+          onClick={() => {
+            addLog("connect");
+            setShowDownload(true);
+          }}
           className="py-3 w-60 sm:w-72 rounded-md font-medium bg-black text-white text-lg cursor-pointer text-center mt-10"
         >
           Connect

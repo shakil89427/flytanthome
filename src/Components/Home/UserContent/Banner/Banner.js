@@ -4,9 +4,12 @@ import { AiFillApple } from "react-icons/ai";
 import { BsPlayCircle } from "react-icons/bs";
 import bannerBg from "../../../../Assets/publicHome/bannerBg.png";
 import cross from "../../../../Assets/cross.svg";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 const Banner = () => {
   const [play, setPlay] = useState(false);
+  const { addLog } = useAnalytics();
+
   return (
     <div className="bg-[#ecebebf8] p-5 lg:p-10 rounded-lg">
       <div className="flex flex-col items-start lg:flex-row lg:items-center justify-center gap-y-10">
@@ -18,10 +21,11 @@ const Banner = () => {
             Connecting <br /> Brands & Influencers
           </h1>
           <p className="text-md lg:text-xl  my-5 w-[230px] lg:w-full text-gray-600">
-            Find influencers and Brands of your niche
+            Find Influencers and Brands of your niche
           </p>
           <div className="flex gap-4  mt-14 flex-wrap text-white">
             <a
+              onClick={() => addLog("playstore_download")}
               href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
               target="_blank"
               rel="noreferrer"
@@ -34,6 +38,7 @@ const Banner = () => {
               </span>
             </a>
             <a
+              onClick={() => addLog("appstore_download")}
               href="https://apps.apple.com/in/app/flytant/id1530158515"
               target="_blank"
               rel="noreferrer"
@@ -63,14 +68,20 @@ const Banner = () => {
             )}
             {play ? (
               <img
-                onClick={() => setPlay(false)}
+                onClick={() => {
+                  addLog("stop_video");
+                  setPlay(false);
+                }}
                 className="absolute top-0 right-0 text-2xl cursor-pointer bg-white"
                 src={cross}
                 alt=""
               />
             ) : (
               <BsPlayCircle
-                onClick={() => setPlay(true)}
+                onClick={() => {
+                  addLog("play_video");
+                  setPlay(true);
+                }}
                 className="absolute bottom-8 left-8 text-5xl cursor-pointer"
               />
             )}

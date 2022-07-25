@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import premiumBg from "../../Assets/socialCards/premiumBg.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Premium = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div className="pt-24 pb-24 lg:pb-60 text-white">
       <div className="relative">
@@ -21,7 +23,10 @@ const Premium = () => {
         style={{
           letterSpacing: ".4px",
         }}
-        onClick={() => navigate("/products")}
+        onClick={() => {
+          addLog("get_card_now");
+          navigate("/products");
+        }}
         className="bg-white w-40 h-10 lg:w-48 lg:h-12  lg:text-lg hidden  lg:flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium invisible lg:visible text-black mx-auto mt-7"
       >
         Get Card Now

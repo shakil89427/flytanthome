@@ -7,6 +7,7 @@ import antPlay from "../../../Assets/antPlay.png";
 import Back from "../../../Assets/userHome/drawerItems/back.png";
 import Spinner from "../../Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../../../Hooks/useAnalytics";
 
 const All = () => {
   const {
@@ -19,6 +20,7 @@ const All = () => {
   const [loading, setLoading] = useState(true);
   const divRef = useRef();
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (flytantYoutube?.videos?.length > 0 && flytantShow?.length < 1) {
@@ -58,7 +60,10 @@ const All = () => {
         <div>
           <div className="font-semibold text-lg md:text-xl xl:text-2xl mb-5 w-fit flex items-center gap-2">
             <img
-              onClick={() => navigate(-1)}
+              onClick={() => {
+                addLog("back_previous_route");
+                navigate(-1);
+              }}
               src={Back}
               alt=""
               className="w-6 lg:w-7 xl:w-8 cursor-pointer"
@@ -68,12 +73,13 @@ const All = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
             {flytantShow?.map((video, index) => (
               <div
-                onClick={() =>
+                onClick={() => {
+                  addLog("open_video_youtube");
                   window.open(
                     `https://www.youtube.com/watch?v=${video?.id}`,
                     "_blank"
-                  )
-                }
+                  );
+                }}
                 key={index}
                 className="rounded-lg overflow-hidden cursor-pointer"
               >
@@ -95,11 +101,12 @@ const All = () => {
           </div>
           {flytantYoutube?.videos?.length !== flytantShow?.length && (
             <button
-              onClick={() =>
+              onClick={() => {
+                addLog("load_more");
                 setFlytantShow(
                   flytantYoutube?.videos?.slice(0, flytantShow?.length + 12)
-                )
-              }
+                );
+              }}
               className="bg-black text-white px-7 font-medium hover:scale-105 duration-150 py-3 rounded-full mt-7 mx-auto block"
             >
               Load More

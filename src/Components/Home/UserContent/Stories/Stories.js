@@ -9,6 +9,7 @@ import "swiper/css";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import moment from "moment";
 import Spinner from "../../../Spinner/Spinner";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 /* Styles Start */
 const styles = {
   heading: "font-semibold text-lg md:text-xl xl:text-2xl",
@@ -32,6 +33,7 @@ const Stories = () => {
   } = useStore();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const { addLog } = useAnalytics();
 
   const getConfigs = async () => {
     try {
@@ -80,7 +82,10 @@ const Stories = () => {
       <div className="flex items-center justify-between">
         <h1 className={styles.heading}>Top Stories</h1>
         <span
-          onClick={() => navigate(`/blogs`)}
+          onClick={() => {
+            addLog("view_all");
+            navigate(`/blogs`);
+          }}
           className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all
@@ -112,7 +117,10 @@ const Stories = () => {
         >
           {blogsData?.all?.slice(0, 10)?.map((item, index) => (
             <SwiperSlide
-              onClick={() => navigate(`/blogdetails/${item?.blogId}`)}
+              onClick={() => {
+                addLog("blog_details");
+                navigate(`/blogdetails/${item?.blogId}`);
+              }}
               key={index}
               className="cursor-pointer rounded-tl-xl rounded-tr-xl overflow-hidden relative pb-5"
             >

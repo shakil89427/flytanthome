@@ -4,16 +4,19 @@ import { useState } from "react";
 import updateBg from "../../../../Assets/userHome/updateBg.png";
 import useStore from "../../../../Store/useStore";
 import Spinner2 from "../../../Spinner/Spinner2";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 const Update = () => {
   const { user, setNotify } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
+  const { addLog } = useAnalytics();
 
   const getUpdate = async (e) => {
     e.preventDefault();
     if (loading) return;
     setLoading(true);
+    addLog("get_updates");
     try {
       const userRef = doc(db, "marketingEmails", user?.userId);
       await setDoc(userRef, {

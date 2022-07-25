@@ -17,6 +17,7 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../../Spinner/Spinner";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 /* Styles Start */
 const styles = {
@@ -43,6 +44,7 @@ const PopularInfluencers = () => {
   const [loading, setLoading] = useState(true);
   const db = getFirestore();
   const colRef = collection(db, "users");
+  const { addLog } = useAnalytics();
 
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
@@ -108,7 +110,10 @@ const PopularInfluencers = () => {
       <div className="flex items-center justify-between">
         <h1 className={styles.heading}>Popular Influencers</h1>
         <span
-          onClick={() => navigate("/popularinfluencers")}
+          onClick={() => {
+            addLog("view_all");
+            navigate("/popularinfluencers");
+          }}
           className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all
@@ -140,7 +145,10 @@ const PopularInfluencers = () => {
         >
           {popularInfluencers?.data?.slice(0, 10)?.map((item, index) => (
             <SwiperSlide
-              onClick={() => navigate(`/profile/${item?.id}`)}
+              onClick={() => {
+                addLog("influencer_profile");
+                navigate(`/profile/${item?.id}`);
+              }}
               key={index}
               className="cursor-pointer border rounded-xl overflow-hidden"
             >

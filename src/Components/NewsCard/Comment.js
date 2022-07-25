@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { MdSend } from "react-icons/md";
 import moment from "moment";
 import Spinner2 from "../Spinner/Spinner2";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Comment = ({ setShowComment, newsId, setData }) => {
   const { user, allNews, setAllNews } = useStore();
@@ -28,10 +29,12 @@ const Comment = ({ setShowComment, newsId, setData }) => {
   const [translate, setTranslate] = useState(false);
   const db = getFirestore();
   const colRef = collection(db, "news", newsId, "comments");
+  const { addLog } = useAnalytics();
 
   const addComment = async (e) => {
     e.preventDefault();
     setAddingComment(true);
+    addLog("add_comment");
     try {
       const commentData = {
         comment: e.target[0].value,
@@ -90,6 +93,7 @@ const Comment = ({ setShowComment, newsId, setData }) => {
         <div className="border-b px-2">
           <IoIosArrowRoundBack
             onClick={() => {
+              addLog("hide_comments");
               setTranslate(false);
               setTimeout(() => {
                 setShowComment(false);

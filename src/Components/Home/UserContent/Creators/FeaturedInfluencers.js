@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../../Spinner/Spinner";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 /* Styles Start */
 const styles = {
@@ -46,6 +47,7 @@ const FeaturedInfluencers = () => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
   const prevRef = useRef();
+  const { addLog } = useAnalytics();
 
   const getFeatured = async (q) => {
     try {
@@ -131,7 +133,10 @@ const FeaturedInfluencers = () => {
         >
           {featuredInfluencers?.data?.map((item, index) => (
             <SwiperSlide
-              onClick={() => navigate(`/profile/${item?.id}`)}
+              onClick={() => {
+                addLog("influencer_profile");
+                navigate(`/profile/${item?.id}`);
+              }}
               key={index}
               className="cursor-pointer rounded-xl border overflow-hidden"
             >

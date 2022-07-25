@@ -8,6 +8,7 @@ import likes from "../../Assets/profileSocials/twitter/likes.png";
 import retweet from "../../Assets/profileSocials/twitter/retweet.png";
 import moment from "moment";
 import millify from "millify";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Twitter = ({ details }) => {
   const { twitterData, setTwitterData } = useStore();
@@ -15,6 +16,7 @@ const Twitter = ({ details }) => {
   const [data, setData] = useState({});
   const [avg, setAvg] = useState({ likes: 0, rating: 0 });
   const { openPopup } = useConnect(setLoading);
+  const { addLog } = useAnalytics();
 
   /* Get user data */
   const getData = async (userId) => {
@@ -73,7 +75,12 @@ const Twitter = ({ details }) => {
         details.access && (
           <div className="flex flex-col items-center gap-5 mt-40 text-gray-500 text-sm font-medium">
             <p>No account linked</p>
-            <p onClick={openPopup}>
+            <p
+              onClick={() => {
+                addLog("connect_twitter");
+                openPopup();
+              }}
+            >
               <img
                 className="w-1/2 max-w-[150px] mx-auto cursor-pointer"
                 src={twitter}
@@ -102,19 +109,19 @@ const Twitter = ({ details }) => {
           <div className="flex justify-between border-b py-8">
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(data?.public_metrics?.followers_count)}
+                {millify(data?.public_metrics?.followers_count || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Followers</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(data?.public_metrics?.following_count)}
+                {millify(data?.public_metrics?.following_count || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(avg.likes)}
+                {millify(avg.likes || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Likes/Tweet</p>
             </div>
@@ -177,7 +184,7 @@ const Twitter = ({ details }) => {
                   <div>
                     <img className="w-6 h-6 mb-1 mx-auto" src={likes} alt="" />
                     <p className="text-xs">
-                      {millify(tweet?.public_metrics?.like_count)} likes
+                      {millify(tweet?.public_metrics?.like_count || 0)} likes
                     </p>
                   </div>
 
@@ -188,7 +195,8 @@ const Twitter = ({ details }) => {
                       alt=""
                     />
                     <p className="text-xs">
-                      {millify(tweet?.public_metrics?.retweet_count)} retweets
+                      {millify(tweet?.public_metrics?.retweet_count || 0)}{" "}
+                      retweets
                     </p>
                   </div>
                 </div>

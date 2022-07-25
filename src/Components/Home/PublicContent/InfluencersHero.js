@@ -2,9 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import influencersHero from "../../../Assets/publicHome/influencersHero.png";
 import whiteDots from "../../../Assets/whiteDots.png";
+import useAnalytics from "../../../Hooks/useAnalytics";
 
 const InfluencersHero = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div
       style={{
@@ -19,7 +21,10 @@ const InfluencersHero = () => {
         <div className="w-full md:w-1/2 lg:w-5/12">
           <img className="mb-10 ml-auto md:mx-auto" src={whiteDots} alt="" />
           <div
-            onClick={() => navigate("/influencers")}
+            onClick={() => {
+              addLog("join_now");
+              navigate("/influencers");
+            }}
             className="border-2 rounded-3xl text-white px-5 md:pl-8 py-8 cursor-pointer"
           >
             <h1
@@ -33,7 +38,10 @@ const InfluencersHero = () => {
               Sponsorships from Brands to Monetise Your Content
             </p>
             <p
-              onClick={() => navigate("/influencers")}
+              onClick={() => {
+                addLog("join_now");
+                navigate("/influencers");
+              }}
               className="w-fit border py-3 px-10 md:px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
             >
               Join Now

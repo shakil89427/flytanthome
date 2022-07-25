@@ -3,11 +3,13 @@ import { styles } from "./CommonStyles";
 import { BiArrowBack } from "react-icons/bi";
 import useStore from "../../Store/useStore";
 import useAddUser from "../../Hooks/useAddUser";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const VerifyOTP = ({ setShow }) => {
   const { addTempUser } = useAddUser();
   const { setUserLoading, setNotify } = useStore();
   const [otpArr, setOtpArr] = useState(new Array(6).fill(""));
+  const { addLog } = useAnalytics();
 
   /* Get OTP from Input */
   const getOTPvalue = (e, index) => {
@@ -29,6 +31,7 @@ const VerifyOTP = ({ setShow }) => {
     const otp = otpArr.join("");
     if (otp.length === 6) {
       setUserLoading(true);
+      addLog("verify_otp");
       const confirmationResult = window.confirmationResult;
       confirmationResult
         .confirm(otp)

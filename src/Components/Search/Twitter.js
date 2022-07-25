@@ -9,12 +9,14 @@ import moment from "moment";
 import likes from "../../Assets/profileSocials/twitter/likes.png";
 import retweet from "../../Assets/profileSocials/twitter/retweet.png";
 import DownloadApp from "../DownloadApp/DownloadApp";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Twitter = ({ username }) => {
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [showDownload, setShowDownload] = useState(false);
   const [avg, setAvg] = useState({ likes: 0, rating: 0 });
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (info?.tweets?.length > 0) {
@@ -72,7 +74,7 @@ const Twitter = ({ username }) => {
           <div>
             <p className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400 mx-auto">
               {millify(
-                Math.round(info?.public_metrics?.followers_count / 1000000)
+                Math.round(info?.public_metrics?.followers_count / 1000000) || 0
               )}
             </p>
             <p className="text-xs md:text-md font-semibold text-center">
@@ -81,7 +83,10 @@ const Twitter = ({ username }) => {
           </div>
         </div>
         <p
-          onClick={() => setShowDownload(true)}
+          onClick={() => {
+            addLog("connect");
+            setShowDownload(true);
+          }}
           className="py-3 w-60 sm:w-72 rounded-md font-medium bg-black text-white text-lg cursor-pointer text-center mt-10"
         >
           Connect
@@ -107,19 +112,19 @@ const Twitter = ({ username }) => {
           <div className="flex justify-between border-b py-8">
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(info?.public_metrics?.followers_count)}
+                {millify(info?.public_metrics?.followers_count || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Followers</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(info?.public_metrics?.following_count)}
+                {millify(info?.public_metrics?.following_count || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(avg?.likes)}
+                {millify(avg?.likes || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Likes/Tweet</p>
             </div>
@@ -185,7 +190,7 @@ const Twitter = ({ username }) => {
                   <div>
                     <img className="w-6 h-6 mb-1 mx-auto" src={likes} alt="" />
                     <p className="text-xs">
-                      {millify(tweet?.public_metrics?.like_count)} likes
+                      {millify(tweet?.public_metrics?.like_count || 0)} likes
                     </p>
                   </div>
 
@@ -196,7 +201,8 @@ const Twitter = ({ username }) => {
                       alt=""
                     />
                     <p className="text-xs">
-                      {millify(tweet?.public_metrics?.retweet_count)} retweets
+                      {millify(tweet?.public_metrics?.retweet_count || 0)}{" "}
+                      retweets
                     </p>
                   </div>
                 </div>

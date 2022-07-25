@@ -12,6 +12,7 @@ import subscriptionWhite from "../../Assets/navBar/subscriptionWhite.png";
 import contactBlack from "../../Assets/navBar/contactBlack.png";
 import contactWhite from "../../Assets/navBar/contactWhite.png";
 import logoutBlack from "../../Assets/navBar/logoutBlack.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
   area: "fixed top-0 left-0 w-full h-screen z-30 bg-[#07070783]",
@@ -25,6 +26,7 @@ const styles = {
 const SmallSide = ({ showSide, setShowSide }) => {
   const navigate = useNavigate();
   const { user, setShowLogin, setShowLogout } = useStore();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (showSide) {
@@ -39,7 +41,13 @@ const SmallSide = ({ showSide, setShowSide }) => {
   return (
     <div className="lg:hidden z-[999]">
       {showSide && (
-        <div onClick={() => setShowSide(false)} className={styles.area} />
+        <div
+          onClick={() => {
+            addLog("hide_hamburger");
+            setShowSide(false);
+          }}
+          className={styles.area}
+        />
       )}
       <div
         style={{
@@ -51,7 +59,10 @@ const SmallSide = ({ showSide, setShowSide }) => {
         <div className={styles.head}>
           <img className="w-[130px]" src={logoBlack} alt="" />
           <img
-            onClick={() => setShowSide(false)}
+            onClick={() => {
+              addLog("hide_hamburger");
+              setShowSide(false);
+            }}
             className="cursor-pointer"
             src={cross}
             alt=""
@@ -63,6 +74,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
             {/* Profile */}
             <div
               onClick={() => {
+                addLog("social_profile");
                 navigate(`/profile/${user?.id}`);
                 setShowSide(false);
               }}
@@ -86,6 +98,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
             {/* My Campaign */}
             <div
               onClick={() => {
+                addLog("my_campaigns");
                 navigate("/mycampaigns");
                 setShowSide(false);
               }}
@@ -99,6 +112,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
             {/* Subscription */}
             <div
               onClick={() => {
+                addLog("subscription");
                 navigate("/subscription");
                 setShowSide(false);
               }}
@@ -112,6 +126,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
             {/* Create Campaign */}
             <div
               onClick={() => {
+                addLog("create_campaign");
                 navigate("/createcampaign");
                 setShowSide(false);
               }}
@@ -124,6 +139,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
             {/* Logout */}
             <div
               onClick={() => {
+                addLog("show_logout_popup");
                 setShowSide(false);
                 setShowLogout(true);
               }}
@@ -137,6 +153,7 @@ const SmallSide = ({ showSide, setShowSide }) => {
           <div className={styles.items}>
             <div
               onClick={() => {
+                addLog("show_login_popup");
                 setShowSide(false);
                 setShowLogin(true);
               }}
@@ -146,7 +163,10 @@ const SmallSide = ({ showSide, setShowSide }) => {
               <p>Login | Signup</p>
             </div>
             <a
-              onClick={() => setShowSide(false)}
+              onClick={() => {
+                addLog("contact");
+                setShowSide(false);
+              }}
               href="mailto:contact@flytant.com"
               target="_blank"
               rel="noreferrer"

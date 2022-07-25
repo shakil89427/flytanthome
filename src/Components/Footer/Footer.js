@@ -11,6 +11,7 @@ import { HiMail } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assets/logo.png";
 import playstoreWhite from "../../Assets/playstoreWhite.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
   main: "bg-black text-white pb-14",
@@ -35,18 +36,33 @@ const styles = {
 
 const Footer = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   const icons = [
-    { url: "https://www.instagram.com/flytant/", icon: <AiFillInstagram /> },
-    { url: "https://www.facebook.com/flytantapp/", icon: <AiFillFacebook /> },
-    { url: "https://twitter.com/flytant", icon: <AiFillTwitterSquare /> },
+    {
+      url: "https://www.instagram.com/flytant/",
+      icon: <AiFillInstagram />,
+      name: "instagram",
+    },
+    {
+      url: "https://www.facebook.com/flytantapp/",
+      icon: <AiFillFacebook />,
+      name: "facebook",
+    },
+    {
+      url: "https://twitter.com/flytant",
+      icon: <AiFillTwitterSquare />,
+      name: "twitter",
+    },
     { url: "mailto:contact@flytant.com", icon: <HiMail /> },
     {
       url: "https://www.youtube.com/channel/UC_r46_UgBvaG2k94LDjEIWQ",
       icon: <AiFillYoutube />,
+      name: "youtube",
     },
     {
       url: "https://www.linkedin.com/company/flytant/mycompany/",
       icon: <AiFillLinkedin />,
+      name: "linkedin",
     },
   ];
 
@@ -69,7 +85,10 @@ const Footer = () => {
         <div className={styles.info}>
           <span>
             <img
-              onClick={() => navigate("/")}
+              onClick={() => {
+                addLog("footer_logo");
+                navigate("/");
+              }}
               className={styles.logo}
               src={logo}
               alt=""
@@ -80,6 +99,7 @@ const Footer = () => {
           <div className={styles.iconMain}>
             {icons.map((item, i) => (
               <a
+                onClick={() => addLog(`connect_us_${item?.name}`)}
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
@@ -96,6 +116,7 @@ const Footer = () => {
           <div className={styles.linksMain}>
             {links.map((item) => (
               <Link
+                onClick={() => addLog(`from_footer_${item}`)}
                 to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                 key={item}
                 className={styles.link}
@@ -110,6 +131,7 @@ const Footer = () => {
           <div className="flex flex-col gap-y-5 items-center xl:items-start">
             <p className={styles.appHead}>Get the apps!</p>
             <a
+              onClick={() => addLog("playstore_download")}
               href="https://play.google.com/store/apps/details?id=influencer.marketing.flytant"
               target="_blank"
               rel="noreferrer"
@@ -122,6 +144,7 @@ const Footer = () => {
               </div>
             </a>
             <a
+              onClick={() => addLog("appstore_download")}
               href="https://apps.apple.com/in/app/flytant/id1530158515"
               target="_blank"
               rel="noreferrer"

@@ -11,6 +11,7 @@ import moment from "moment";
 import millify from "millify";
 import Spinner2 from "../../../Spinner/Spinner2";
 import Back from "../../../../Assets/userHome/drawerItems/back.png";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 /* Styles Start */
 const styles = {
@@ -39,6 +40,7 @@ const Sponsorships = ({
 }) => {
   const navigate = useNavigate();
   const divRef = useRef();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     divRef.current.scrollIntoView();
@@ -49,7 +51,10 @@ const Sponsorships = ({
     <div ref={divRef} className="pt-5 pb-14">
       <div className="font-semibold text-lg md:text-xl xl:text-2xl mb-5 w-fit flex items-center gap-2">
         <img
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            addLog("back_previous_route");
+            navigate(-1);
+          }}
           src={Back}
           alt=""
           className="w-6 lg:w-7 xl:w-8 cursor-pointer"
@@ -61,7 +66,10 @@ const Sponsorships = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-14">
         {sponsorships.map((sponsorship, index) => (
           <div
-            onClick={() => navigate(`/sponsorshipdetails/${sponsorship.id}`)}
+            onClick={() => {
+              addLog("sponsorship_details");
+              navigate(`/sponsorshipdetails/${sponsorship.id}`);
+            }}
             key={index}
             className="cursor-pointer"
           >
@@ -93,7 +101,8 @@ const Sponsorships = ({
 
               <div className={styles.bottomWrapper}>
                 <p className={styles.followers}>
-                  Min {millify(sponsorship.minFollowers)} followers required
+                  Min {millify(sponsorship.minFollowers || 0)} followers
+                  required
                 </p>
 
                 <div className="flex justify-between">
@@ -127,7 +136,10 @@ const Sponsorships = ({
           lastVisible &&
           sponsorships?.length > 9 && (
             <button
-              onClick={loadMore}
+              onClick={() => {
+                addLog("load_more");
+                loadMore();
+              }}
               className="bg-black text-white px-7 font-medium hover:scale-105 duration-150 py-3 rounded-full"
             >
               Load More

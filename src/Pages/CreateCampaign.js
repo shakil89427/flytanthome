@@ -23,6 +23,7 @@ import {
 import Spinner from "../Components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 import { fetchAndActivate, getString } from "firebase/remote-config";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const CreateCampaign = () => {
   const { remoteConfig, user, app, setMyCampaigns, setNotify } = useStore();
@@ -47,6 +48,7 @@ const CreateCampaign = () => {
   ];
   const allGenders = ["Male", "Female", "Any"];
   const [filtered, setFiltered] = useState([]);
+  const { addLog } = useAnalytics();
 
   /* Data states */
   const [name, setName] = useState("");
@@ -376,6 +378,7 @@ const CreateCampaign = () => {
                     color: platforms.includes(item) ? "white" : "black",
                   }}
                   onClick={() => {
+                    addLog("select_platform");
                     setPlatforms(
                       platforms.includes(item)
                         ? platforms.filter((platform) => platform !== item)
@@ -456,7 +459,10 @@ const CreateCampaign = () => {
               </p>
               <div
                 style={{ color: categories.length > 0 ? "black" : "#7c7b7b" }}
-                onClick={() => setShowCategories(true)}
+                onClick={() => {
+                  addLog("show_categories");
+                  setShowCategories(true);
+                }}
                 className=" border-2 border-black w-fit min-w-[300px] max-w-[100%] h-12 flex items-center justify-between gap-5 px-2 mt-3 rounded-md font-medium cursor-pointer"
               >
                 <p>
@@ -468,7 +474,10 @@ const CreateCampaign = () => {
               {showCategories && (
                 <div className="">
                   <div
-                    onClick={() => setShowCategories(false)}
+                    onClick={() => {
+                      addLog("hide_categories");
+                      setShowCategories(false);
+                    }}
                     className="fixed w-full h-screen top-0 left-0 bg-[#807f7f60]"
                   />
                   <div className="bg-white py-5 px-5 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[350px] rounded-md flex flex-col justify-between">
@@ -493,15 +502,16 @@ const CreateCampaign = () => {
                         )}
                         {filtered.map((category) => (
                           <div
-                            onClick={() =>
+                            onClick={() => {
+                              addLog("set_categories");
                               setCategories(
                                 categories.includes(category)
                                   ? categories
                                       .filter((c) => c !== category)
                                       .slice(0, 5)
                                   : [...categories, category].slice(0, 5)
-                              )
-                            }
+                              );
+                            }}
                             key={category}
                             className="flex items-center justify-between pr-5 mb-4 cursor-pointer"
                           >
@@ -515,7 +525,10 @@ const CreateCampaign = () => {
                     </div>
                     <button
                       type="button"
-                      onClick={() => setShowCategories(false)}
+                      onClick={() => {
+                        addLog("hide_categories");
+                        setShowCategories(false);
+                      }}
                       className="bg-black text-white w-3/4 block mx-auto p-2 rounded-md"
                     >
                       Done
@@ -542,7 +555,10 @@ const CreateCampaign = () => {
             </button>
             {page === 8 && categories.length > 0 && (
               <button
-                onClick={() => setPreview(true)}
+                onClick={() => {
+                  addLog("preview");
+                  setPreview(true);
+                }}
                 type="button"
                 className="text-black bg-white border-2 border-black font-medium flex items-center justify-center w-36 h-10 rounded-md"
               >
@@ -553,7 +569,10 @@ const CreateCampaign = () => {
           <div className="flex items-center gap-3 justify-end mt-14">
             <button
               disabled={page === 1}
-              onClick={() => page > 1 && setPage((prev) => prev - 1)}
+              onClick={() => {
+                addLog("up_arrow");
+                page > 1 && setPage((prev) => prev - 1);
+              }}
               type="button"
               style={{ backgroundColor: page === 1 ? "#686767" : "black" }}
               className=" w-9 h-9 p-2 flex items-center justify-center rounded-md"

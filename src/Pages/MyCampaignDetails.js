@@ -22,6 +22,7 @@ import millify from "millify";
 import { useNavigate, useParams } from "react-router-dom";
 import useStore from "../Store/useStore";
 import Spinner from "../Components/Spinner/Spinner";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const styles = {
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
@@ -37,6 +38,7 @@ const MyCampaignDetails = () => {
   const navigate = useNavigate();
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (!user?.userId) return;
@@ -133,7 +135,10 @@ const MyCampaignDetails = () => {
             )}
 
             <p
-              onClick={() => navigate(`/mycampaigns/details/influencers/${id}`)}
+              onClick={() => {
+                addLog("view_influencers");
+                navigate(`/mycampaigns/details/influencers/${id}`);
+              }}
               className="border-2 border-black font-semibold cursor-pointer text-center py-2 rounded-md text-lg hover:bg-black hover:text-white duration-150"
             >
               View Influencers
@@ -169,7 +174,7 @@ const MyCampaignDetails = () => {
 
             <div className="">
               <p className="text-xl font-semibold mb-2">Minimum followers</p>
-              <p>{millify(data?.minFollowers)}</p>
+              <p>{millify(data?.minFollowers || 0)}</p>
             </div>
 
             <div className="">

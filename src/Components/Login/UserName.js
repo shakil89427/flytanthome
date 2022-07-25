@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { styles } from "./CommonStyles";
 import { BiArrowBack } from "react-icons/bi";
 import useAddUser from "../../Hooks/useAddUser";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const UserName = ({ back }) => {
   const { addUserToDB } = useAddUser();
   const [username, setUsername] = useState("");
+  const { addLog } = useAnalytics();
 
   const addUser = (e) => {
     e.preventDefault();
+    addLog("submit_login_username");
     addUserToDB(username);
   };
 

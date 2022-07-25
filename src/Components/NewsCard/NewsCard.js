@@ -17,6 +17,7 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 import Comment from "./Comment";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const NewsCard = () => {
   const { showNewsCard, setShowNewsCard, allNews, setAllNews, user, setUser } =
@@ -30,8 +31,10 @@ const NewsCard = () => {
   const nextRef = useRef();
   const prevRef = useRef();
   const db = getFirestore();
+  const { addLog } = useAnalytics();
 
   const inCrease = async (newsId) => {
+    addLog("like");
     // Update to Local
     const { likeCount, ...rest } = allNews.data.find(
       (item) => item.id === newsId
@@ -56,6 +59,7 @@ const NewsCard = () => {
     });
   };
   const deCrease = async (newsId) => {
+    addLog("unlike");
     // Update to Local
     const { likeCount, ...rest } = allNews.data.find(
       (item) => item.id === newsId
@@ -108,7 +112,10 @@ const NewsCard = () => {
     <>
       <div className="fixed inset-0 top-0 left-0 bg-[#030303f6] z-30 flex items-center justify-center">
         <img
-          onClick={() => setShowNewsCard(false)}
+          onClick={() => {
+            addLog("hide_newscard");
+            setShowNewsCard(false);
+          }}
           className="bg-[#ffffff86] absolute top-4 right-4 lg:top-8 lg:right-8 w-5 md:w-7 lg:w-9 rounded-full cursor-pointer hover:bg-white"
           src={cross}
           alt=""
@@ -181,7 +188,10 @@ const NewsCard = () => {
                   </div>
                   <div className="flex items-center justify-center gap-1">
                     <img
-                      onClick={() => setShowComment(item?.id)}
+                      onClick={() => {
+                        addLog("show_comments");
+                        setShowComment(item?.id);
+                      }}
                       className="cursor-pointer w-8"
                       src={comment}
                       alt=""

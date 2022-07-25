@@ -12,6 +12,7 @@ import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import millify from "millify";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 /* Styles Start */
 const styles = {
@@ -41,6 +42,7 @@ const Sponsorships = ({
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
   const prevRef = useRef();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (swiper) {
@@ -62,6 +64,7 @@ const Sponsorships = ({
         {applied && <h1 className={styles.heading}>{applied}</h1>}
         <span
           onClick={() => {
+            addLog("view_all");
             const lower = type?.toLowerCase();
             if (lower === "my") {
               navigate("/mycampaigns");
@@ -103,7 +106,10 @@ const Sponsorships = ({
         >
           {sponsorships.map((sponsorship, index) => (
             <SwiperSlide
-              onClick={() => navigate(`/sponsorshipdetails/${sponsorship.id}`)}
+              onClick={() => {
+                addLog("sponsorship_details");
+                navigate(`/sponsorshipdetails/${sponsorship.id}`);
+              }}
               key={index}
               className="cursor-pointer"
             >
@@ -136,7 +142,8 @@ const Sponsorships = ({
 
                   <div className={styles.bottomWrapper}>
                     <p className={styles.followers}>
-                      Min {millify(sponsorship.minFollowers)} followers required
+                      Min {millify(sponsorship.minFollowers || 0)} followers
+                      required
                     </p>
 
                     <div className="flex justify-between">

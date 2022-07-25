@@ -7,6 +7,7 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
 import { useEffect } from "react";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const CreateInfluencersList = () => {
   const { user, setNotify, setShowLogin, userLoading, authLoading } =
@@ -14,11 +15,13 @@ const CreateInfluencersList = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const db = getFirestore();
+  const { addLog } = useAnalytics();
 
   const createList = async (e) => {
     e.preventDefault();
     if (loading) return;
     setLoading(true);
+    addLog("create_list");
     try {
       const newDocRef = doc(collection(db, "influencersList"));
       await setDoc(newDocRef, {

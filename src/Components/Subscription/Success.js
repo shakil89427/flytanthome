@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import success from "../../Assets/onboard/success.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Success = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (!location?.state?.from?.pathname?.includes("/subscription")) {
@@ -20,7 +22,10 @@ const Success = () => {
           You've Successfully subscribed the plan
         </p>
         <button
-          onClick={() => navigate("/subscription", { replace: true })}
+          onClick={() => {
+            addLog("done");
+            navigate("/subscription", { replace: true });
+          }}
           className="bg-black text-white px-10 py-2 rounded-md font-medium text-xl"
         >
           Done

@@ -8,6 +8,7 @@ import useConnect from "../../Hooks/Youtube/useConnect";
 import axios from "axios";
 import useStore from "../../Store/useStore";
 import millify from "millify";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
   connect:
@@ -37,6 +38,7 @@ const Youtube = ({ details }) => {
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
+  const { addLog } = useAnalytics();
 
   const getData = async (channelId) => {
     try {
@@ -79,7 +81,12 @@ const Youtube = ({ details }) => {
         details?.access && (
           <div className={styles.connect}>
             <p>No account linked</p>
-            <p onClick={openPopup}>
+            <p
+              onClick={() => {
+                addLog("connect_youtube");
+                openPopup();
+              }}
+            >
               <img
                 className="w-1/2 max-w-[150px] mx-auto cursor-pointer"
                 src={youtubeOriginal}

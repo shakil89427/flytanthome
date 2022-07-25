@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import firebaseConfig from "../Firebase/firebaseConfig";
 import { getRemoteConfig } from "firebase/remote-config";
 import { useEffect } from "react";
 /* Initialize Firebase */
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const remoteConfig = getRemoteConfig(app);
 remoteConfig.settings.minimumFetchIntervalMillis = 1800000;
 
@@ -108,6 +110,7 @@ const Store = () => {
   /* Returned Items */
   return {
     app,
+    analytics,
     remoteConfig,
     user,
     setUser,

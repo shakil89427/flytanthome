@@ -9,6 +9,7 @@ import Spinner from "../../Components/Spinner/Spinner";
 import useConnect from "../../Hooks/Instagram/useConnect";
 import useStore from "../../Store/useStore";
 import millify from "millify";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Instagram = ({ details }) => {
   const { instagramData, setInstagramData, setNotify } = useStore();
@@ -16,6 +17,7 @@ const Instagram = ({ details }) => {
   const { openPopup } = useConnect(setLoading);
   const [data, setData] = useState({});
   const [avg, setAvg] = useState({ likes: 0, engagement: 0 });
+  const { addLog } = useAnalytics();
 
   const getImage = async (url, id) => {
     try {
@@ -132,7 +134,12 @@ const Instagram = ({ details }) => {
         details.access && (
           <div className="flex flex-col items-center gap-5 mt-40 text-gray-500 text-sm font-medium">
             <p>No account linked</p>
-            <p onClick={openPopup}>
+            <p
+              onClick={() => {
+                addLog("connect_instagram");
+                openPopup();
+              }}
+            >
               <img
                 className="w-1/2 max-w-[150px] mx-auto cursor-pointer"
                 src={instagram}
@@ -161,25 +168,25 @@ const Instagram = ({ details }) => {
           <div className="flex justify-between border-b py-8">
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(data?.edge_followed_by?.count)}
+                {millify(data?.edge_followed_by?.count || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Followers</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(data?.edge_follow?.count)}
+                {millify(data?.edge_follow?.count || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Following</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(avg.likes)}
+                {millify(avg.likes || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Likes/Post</p>
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {avg.engagement}%
+                {avg.engagement || 0}%
               </p>
               <p className="text-sm font-medium text-gray-500">Engagement</p>
             </div>
@@ -240,7 +247,7 @@ const Instagram = ({ details }) => {
                   <div>
                     <img className="w-6 h-6 mb-1 mx-auto" src={likes} alt="" />
                     <p className="text-xs">
-                      {millify(node?.edge_liked_by?.count)} likes
+                      {millify(node?.edge_liked_by?.count || 0)} likes
                     </p>
                   </div>
 
@@ -251,7 +258,8 @@ const Instagram = ({ details }) => {
                       alt=""
                     />
                     <p className="text-xs">
-                      {millify(node?.edge_media_to_comment?.count)} comments
+                      {millify(node?.edge_media_to_comment?.count || 0)}{" "}
+                      comments
                     </p>
                   </div>
                 </div>

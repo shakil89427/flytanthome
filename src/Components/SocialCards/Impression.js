@@ -6,9 +6,11 @@ import card1 from "../../Assets/socialCards/impression/card1.png";
 import card2 from "../../Assets/socialCards/impression/card2.png";
 import card3 from "../../Assets/socialCards/impression/card3.png";
 import { useRef } from "react";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Impression = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   const imgRef = useRef();
 
   useEffect(() => {
@@ -42,7 +44,10 @@ const Impression = () => {
     >
       <div className="r-box text-white flex flex-col items-start md:flex-row md:items-center md:justify-between gap-10">
         <div
-          onClick={() => navigate("/products")}
+          onClick={() => {
+            addLog("buy_now");
+            navigate("/products");
+          }}
           style={{
             backgroundImage: `url(${smallBg})`,
           }}

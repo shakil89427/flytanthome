@@ -32,6 +32,7 @@ import SocialError from "../Components/SponsorshipDetails/SocialError";
 import useStore from "../Store/useStore";
 import millify from "millify";
 import DownloadApp from "../Components/DownloadApp/DownloadApp";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const styles = {
   image: "w-full h-full rounded-md bg-cover bg-center bg-no-repeat",
@@ -62,6 +63,7 @@ const SponsorshipDetails = () => {
   const navigate = useNavigate();
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
+  const { addLog } = useAnalytics();
 
   const divRef = useRef();
   const divRef2 = useRef();
@@ -286,11 +288,12 @@ const SponsorshipDetails = () => {
                 </div>
                 {details?.userId === user?.userId ? (
                   <p
-                    onClick={() =>
+                    onClick={() => {
+                      addLog("campaign_details");
                       navigate(
                         `/mycampaigns/details/influencers/${details?.campaignId}`
-                      )
-                    }
+                      );
+                    }}
                     className="my-14 py-3 px-5  border-2 border-black rounded-3xl text-center font-medium cursor-pointer"
                   >
                     View Influencers
@@ -303,7 +306,10 @@ const SponsorshipDetails = () => {
                       </p>
                     ) : (
                       <p
-                        onClick={() => apply()}
+                        onClick={() => {
+                          addLog("apply");
+                          apply();
+                        }}
                         className="my-14 py-3 px-5 bg-black text-white rounded-3xl text-center font-medium cursor-pointer"
                       >
                         Apply
@@ -356,7 +362,7 @@ const SponsorshipDetails = () => {
                 <h5 className="text-xl font-semibold mb-5">
                   Minimum followers
                 </h5>
-                <p className="mb-10">{millify(details?.minFollowers)}</p>
+                <p className="mb-10">{millify(details?.minFollowers || 0)}</p>
                 <p className="text-xl font-semibold mb-5">Platform required</p>
                 <div className="flex items-center gap-3 text-xs">
                   {details?.platforms?.includes("Instagram") && (
@@ -402,7 +408,10 @@ const SponsorshipDetails = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-x-5 gap-y-10">
               {similar?.map((item) => (
                 <div
-                  onClick={() => navigate(`/sponsorshipdetails/${item?.id}`)}
+                  onClick={() => {
+                    addLog("sponsorship_details");
+                    navigate(`/sponsorshipdetails/${item?.id}`);
+                  }}
                   key={item.id}
                   className="relative cursor-pointer"
                 >
@@ -428,7 +437,7 @@ const SponsorshipDetails = () => {
                     </div>
                     <p className="text-md font-semibold">{item.name}</p>
                     <p className="text-xs my-1">
-                      Min {millify(item.minFollowers)} followers required
+                      Min {millify(item.minFollowers || 0)} followers required
                     </p>
                     <div className="flex items-center gap-2 text-lg text-gray-400 mt-2">
                       {item?.platforms?.includes("Instagram") && (

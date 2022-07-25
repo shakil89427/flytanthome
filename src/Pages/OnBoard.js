@@ -9,6 +9,7 @@ import PhoneInput from "react-phone-number-input";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
 import axios from "axios";
 import useStore from "../Store/useStore";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const styles = {
   main: "max-w-[1100px] mx-auto px-5 flex flex-col-reverse md:flex-row my-20 md:my-28 gap-10 lg:gap-10 md:items-center lg:items-end",
@@ -54,6 +55,7 @@ const OnBoard = () => {
   const [disable, setDisable] = useState(true);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { addLog } = useAnalytics();
 
   const next = async (e) => {
     e.preventDefault();
@@ -305,6 +307,7 @@ const OnBoard = () => {
             </h1>
           </div>
           <a
+            onClick={() => addLog("schedule_meet")}
             rel="noreferrer"
             href="https://calendly.com/flytant"
             target="_blank"

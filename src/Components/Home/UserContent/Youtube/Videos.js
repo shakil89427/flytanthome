@@ -9,6 +9,7 @@ import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import antPlay from "../../../../Assets/antPlay.png";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../../Spinner/Spinner";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 /* Styles Start */
 const styles = {
@@ -31,6 +32,7 @@ const Youtube = () => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
   const prevRef = useRef();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (swiper) {
@@ -70,7 +72,10 @@ const Youtube = () => {
       <div className="flex items-center justify-between">
         <h1 className={styles.heading}>Videos</h1>
         <span
-          onClick={() => navigate(`/allvideos`)}
+          onClick={() => {
+            addLog("view_all");
+            navigate(`/allvideos`);
+          }}
           className="cursor-pointer font-medium text-sm md:text-md"
         >
           View all
@@ -102,12 +107,13 @@ const Youtube = () => {
           {flytantYoutube?.videos?.slice(0, 10)?.map((video, index) => (
             <SwiperSlide key={index} className="rounded-lg overflow-hidden">
               <div
-                onClick={() =>
+                onClick={() => {
+                  addLog("open_video_youtube");
                   window.open(
                     `https://www.youtube.com/watch?v=${video?.id}`,
                     "_blank"
-                  )
-                }
+                  );
+                }}
                 key={index}
                 className="rounded-lg overflow-hidden cursor-pointer"
               >

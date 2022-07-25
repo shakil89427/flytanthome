@@ -3,10 +3,12 @@ import useStore from "../../Store/useStore";
 import available from "../../Assets/available.png";
 import notAvailable from "../../Assets/notAvailable.png";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const AllSubscriptions = () => {
   const { plans } = useStore();
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-end gap-x-3 gap-y-7 ">
@@ -68,13 +70,19 @@ const AllSubscriptions = () => {
           </div>
           <div>
             <button
-              onClick={() => navigate(`/subscription/${plan?.name}`)}
+              onClick={() => {
+                addLog("buy_now");
+                navigate(`/subscription/${plan?.name}`);
+              }}
               className="bg-black text-white w-full py-3 rounded-lg text-sm"
             >
               Buy now
             </button>
             <p
-              onClick={() => navigate("/terms")}
+              onClick={() => {
+                addLog("terms_of_use");
+                navigate("/terms");
+              }}
               className="w-fit mx-auto text-xs mt-3 cursor-pointer text-gray-500"
             >
               Terms of use

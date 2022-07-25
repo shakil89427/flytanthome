@@ -2,9 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import analyticsBg from "../../Assets/socialCards/analyticsBg.png";
 import smallBg from "../../Assets/socialCards/smallBg.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Analytics = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div
       style={{
@@ -18,7 +20,10 @@ const Analytics = () => {
           className="aspect-square p-5 lg:p-10 bg-contain bg-center bg-no-repeat rounded-xl w-full md:w-1/2 lg:w-5/12 flex items-center justify-center"
         ></div>
         <div
-          onClick={() => navigate("/products")}
+          onClick={() => {
+            addLog("view_analytics");
+            navigate("/products");
+          }}
           style={{
             backgroundImage: `url(${smallBg})`,
           }}

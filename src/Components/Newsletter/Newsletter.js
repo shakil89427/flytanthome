@@ -5,15 +5,18 @@ import useStore from "../../Store/useStore";
 import Spinner from "../Spinner/Spinner";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import axios from "axios";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Newsletter = ({ setShowNewsleter }) => {
   const { user, setNotify } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
+  const { addLog } = useAnalytics();
 
   const submitEmail = async (e) => {
     e.preventDefault();
     try {
+      addLog("subscribe_to_newsletter");
       const email = e.target[0].value;
       setLoading(true);
       if (user?.userId) {
@@ -44,7 +47,10 @@ const Newsletter = ({ setShowNewsleter }) => {
   return (
     <>
       <div
-        onClick={() => setShowNewsleter(false)}
+        onClick={() => {
+          addLog("hide_newsletter_popup");
+          setShowNewsleter(false);
+        }}
         className="fixed top-0 left-0 inset-0 bg-[#8f8e8e41] z-10"
       />
       <div className="bg-white rounded-md p-10 flex flex-col items-center gap-5 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[95%] max-w-[600px]">
@@ -54,7 +60,10 @@ const Newsletter = ({ setShowNewsleter }) => {
           </div>
         )}
         <img
-          onClick={() => setShowNewsleter(false)}
+          onClick={() => {
+            addLog("hide_newsletter_popup");
+            setShowNewsleter(false);
+          }}
           src={cross}
           alt=""
           className="absolute top-5 right-5 w-5 cursor-pointer"

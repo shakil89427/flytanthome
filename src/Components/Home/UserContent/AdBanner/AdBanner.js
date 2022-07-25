@@ -1,12 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import adBannerBg from "../../../../Assets/userHome/adBannerBg.png";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 const AdBanner = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div
-      onClick={() => navigate("/subscription")}
+      onClick={() => {
+        addLog("ad_banner");
+        navigate("/subscription");
+      }}
       className="flex-col items-center justify-center cursor-pointer"
     >
       <div

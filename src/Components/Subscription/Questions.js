@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import qArrow from "../../Assets/qArrow.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const data = [
   {
@@ -26,6 +27,7 @@ const data = [
 
 const Questions = () => {
   const [selected, setSelected] = useState(0);
+  const { addLog } = useAnalytics();
   return (
     <div className="my-28">
       <p className="text-2xl lg:text-3xl font-semibold mb-10 text-center">
@@ -38,7 +40,10 @@ const Questions = () => {
         >
           <div
             className="flex justify-between gap-5 items-start p-5 cursor-pointer select-none"
-            onClick={() => setSelected(selected === index ? false : index)}
+            onClick={() => {
+              addLog("question");
+              setSelected(selected === index ? false : index);
+            }}
           >
             <p className="text-lg">{item.title}</p>
             <img

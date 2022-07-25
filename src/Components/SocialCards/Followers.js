@@ -2,9 +2,11 @@ import React from "react";
 import smallBg from "../../Assets/socialCards/smallBg.png";
 import followersBg from "../../Assets/socialCards/followersBg.png";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Followers = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div
       style={{
@@ -14,7 +16,10 @@ const Followers = () => {
     >
       <div className="r-box text-white flex flex-col items-start md:flex-row md:items-center md:justify-between gap-10">
         <div
-          onClick={() => navigate("/products")}
+          onClick={() => {
+            addLog("access_data");
+            navigate("/products");
+          }}
           style={{
             backgroundImage: `url(${smallBg})`,
           }}

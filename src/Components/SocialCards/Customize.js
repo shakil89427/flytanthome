@@ -5,12 +5,14 @@ import card1 from "../../Assets/socialCards/customize/card1.png";
 import card2 from "../../Assets/socialCards/customize/card2.png";
 import card3 from "../../Assets/socialCards/customize/card3.png";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Customize = () => {
   const [text, setText] = useState("");
   const images = [card1, card2, card3];
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div
       style={{
@@ -32,7 +34,10 @@ const Customize = () => {
             </div>
             {images.map((item, index) => (
               <div
-                onClick={() => setSelectedImage(item)}
+                onClick={() => {
+                  addLog("blob_change");
+                  setSelectedImage(item);
+                }}
                 key={index}
                 className={`bg-[#323232] cursor-pointer rounded-lg p-3 ${
                   selectedImage === item
@@ -66,7 +71,10 @@ const Customize = () => {
             className="border-0 outline-none w-[80%] mt-2 mb-10 p-2 bg-[#3D3D3D] rounded-md"
           />
           <p
-            onClick={() => navigate("/products")}
+            onClick={() => {
+              addLog("get_your_card");
+              navigate("/products");
+            }}
             className="w-fit border py-3 px-10 md:px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium cursor-pointer"
           >
             GET YOUR CARD

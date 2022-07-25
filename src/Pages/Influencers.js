@@ -11,9 +11,11 @@ import {
   galleryData,
 } from "../Assets/influencers/InfluencersData";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const Influencers = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   return (
     <>
@@ -41,7 +43,10 @@ const Influencers = () => {
           Download the App and Get Sponsorships
         </p>
         <button
-          onClick={() => navigate("/")}
+          onClick={() => {
+            addLog("download_now");
+            navigate("/");
+          }}
           className="bg-black text-white px-10 py-3 rounded-3xl hover:scale-105 duration-150 hover:font-semibold shadow-xl"
         >
           Download Now

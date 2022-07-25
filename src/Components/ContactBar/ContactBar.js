@@ -7,6 +7,7 @@ import {
   AiFillLinkedin,
 } from "react-icons/ai";
 import { HiMail } from "react-icons/hi";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
   main: "text-white py-14 bg-[#252525]",
@@ -18,12 +19,14 @@ const styles = {
 };
 
 const ContactBar = () => {
+  const { addLog } = useAnalytics();
   return (
     <div className={styles.main}>
       <h1 className={styles.title}>Or connect with us on</h1>
       <div className={styles.mainWrapper}>
         <div className={styles.innerWrapper}>
           <a
+            onClick={() => addLog("connect_us_instagram")}
             href="https://www.instagram.com/flytant/"
             target="_blank"
             rel="noreferrer"
@@ -33,6 +36,7 @@ const ContactBar = () => {
           </a>
 
           <a
+            onClick={() => addLog("connect_us_youtube")}
             href="https://www.youtube.com/channel/UC_r46_UgBvaG2k94LDjEIWQ"
             target="_blank"
             rel="noreferrer"
@@ -42,6 +46,7 @@ const ContactBar = () => {
           </a>
 
           <a
+            onClick={() => addLog("connect_us_facebook")}
             href="https://www.facebook.com/flytantapp/"
             target="_blank"
             rel="noreferrer"
@@ -53,6 +58,7 @@ const ContactBar = () => {
 
         <div className={styles.innerWrapper}>
           <a
+            onClick={() => addLog("connect_us_linkedin")}
             href="https://www.linkedin.com/company/flytant/mycompany/"
             target="_blank"
             rel="noreferrer"
@@ -62,6 +68,7 @@ const ContactBar = () => {
           </a>
 
           <a
+            onClick={() => addLog("connect_us_twitter")}
             href="https://twitter.com/flytant"
             target="_blank"
             rel="noreferrer"
@@ -71,6 +78,7 @@ const ContactBar = () => {
           </a>
 
           <a
+            onClick={() => addLog("connect_us_email")}
             href="mailto:contact@flytant.com"
             target="_blank"
             rel="noreferrer"

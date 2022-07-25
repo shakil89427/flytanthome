@@ -3,6 +3,7 @@ import useStore from "../Store/useStore";
 import React, { useState } from "react";
 import ProgressBar from "../Components/ProgressBar/ProgressBar";
 import ContactBar from "../Components/ContactBar/ContactBar";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const styles = {
   main: "mx-auto max-w-[900px] py-14 md:py-24 px-5",
@@ -18,11 +19,13 @@ const Contact = () => {
   const { setNotify } = useStore();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
+  const { addLog } = useAnalytics();
 
   const submitData = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
+      addLog("submit");
       await axios.post("https://flytant.herokuapp.com/sendmailContact", data);
       setLoading(false);
       setNotify({

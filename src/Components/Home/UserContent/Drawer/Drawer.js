@@ -23,6 +23,7 @@ import MyCampaigns from "../../../../Assets/userHome/drawerItems/MyCampaigns.png
 import News from "../../../../Assets/userHome/drawerItems/News.png";
 import NewsB from "../../../../Assets/userHome/drawerItems/NewsB.png";
 import useStore from "../../../../Store/useStore";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 const Drawer = () => {
   const { user, setShowLogout, routes, setRoutes } = useStore();
@@ -85,6 +86,7 @@ const Drawer = () => {
   const { pathname } = useLocation();
   const [selected, setSelected] = useState(pathname);
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   useLayoutEffect(() => {
     if (routes) {
@@ -111,7 +113,10 @@ const Drawer = () => {
     <div className="">
       {routes && (
         <div
-          onClick={() => setRoutes(false)}
+          onClick={() => {
+            addLog("settings");
+            setRoutes(false);
+          }}
           className="flex items-center gap-8 pl-2 mb-10 cursor-pointer h-8 font-semibold"
         >
           <img className="w-7 md:w-8" src={Back} alt="" />
@@ -121,7 +126,10 @@ const Drawer = () => {
       <div className="flex flex-col gap-8">
         {paths.map((path) => (
           <div
-            onClick={() => changePath(path?.path)}
+            onClick={() => {
+              addLog(path?.title?.toLowerCase());
+              changePath(path?.path);
+            }}
             key={path?.title}
             className="flex items-center gap-8 relative cursor-pointer h-8  pl-2"
           >
@@ -149,7 +157,10 @@ const Drawer = () => {
         ))}
         {!routes && (
           <button
-            onClick={() => navigate("/createcampaign")}
+            onClick={() => {
+              addLog("create_campaign");
+              navigate("/createcampaign");
+            }}
             className="bg-black text-md text-white py-3 rounded-full font-medium hidden lg:block w-[90%]"
           >
             Create Campaign

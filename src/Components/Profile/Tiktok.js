@@ -8,12 +8,15 @@ import comment from "../../Assets/profileSocials/tiktok/comment.png";
 import share from "../../Assets/profileSocials/tiktok/share.png";
 import Spinner from "../Spinner/Spinner";
 import millify from "millify";
+import useAnalytics from "../../Hooks/useAnalytics";
+
 const Tiktok = ({ details }) => {
   const { tiktokData, setTiktokData } = useStore();
   const [data, setData] = useState({});
   const [avg, setAvg] = useState({ likes: 0, engagement: 0 });
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
+  const { addLog } = useAnalytics();
 
   const getData = async (userId) => {
     try {
@@ -66,7 +69,10 @@ const Tiktok = ({ details }) => {
           <div className="flex flex-col items-center gap-5 mt-40 text-gray-500 text-sm font-medium">
             <p>No account linked</p>
             <p
-              onClick={openPopup}
+              onClick={() => {
+                addLog("connect_tiktok");
+                openPopup();
+              }}
               className="bg-black text-white text-3xl p-5 rounded-full cursor-pointer"
             >
               <FaTiktok />
@@ -101,7 +107,7 @@ const Tiktok = ({ details }) => {
             </div>
             <div className="flex flex-col items-center gap-3">
               <p className="w-[65px] h-[65px] md:w-20 md:h-20 bg-[#E8E8E8] rounded-full flex items-center justify-center text-lg font-medium">
-                {millify(avg?.likes)}
+                {millify(avg?.likes || 0)}
               </p>
               <p className="text-sm font-medium text-gray-500">Likes/Video</p>
             </div>
@@ -134,7 +140,7 @@ const Tiktok = ({ details }) => {
                     <div>
                       <img className="w-6 h-6 mb-1 mx-auto" src={like} alt="" />
                       <p className="text-xs">
-                        {millify(video?.like_count)} likes
+                        {millify(video?.like_count || 0)} likes
                       </p>
                     </div>
                     <div>
@@ -144,7 +150,7 @@ const Tiktok = ({ details }) => {
                         alt=""
                       />
                       <p className="text-xs">
-                        {millify(video?.comment_count)} Comments
+                        {millify(video?.comment_count || 0)} Comments
                       </p>
                     </div>
                     <div>
@@ -154,7 +160,7 @@ const Tiktok = ({ details }) => {
                         alt=""
                       />
                       <p className="text-xs">
-                        {millify(video?.share_count)} Share
+                        {millify(video?.share_count || 0)} Share
                       </p>
                     </div>
                   </div>

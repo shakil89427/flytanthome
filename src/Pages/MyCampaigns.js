@@ -18,6 +18,7 @@ import {
 } from "firebase/firestore";
 import millify from "millify";
 import { useNavigate } from "react-router-dom";
+import useAnalytics from "../Hooks/useAnalytics";
 
 /* Styles Start */
 const styles = {
@@ -45,6 +46,7 @@ const MyCampaigns = () => {
   const [allData, setAllData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (!user?.userId) return;
@@ -94,7 +96,10 @@ const MyCampaigns = () => {
         <div className="w-[90%] md:w-[80%] mx-auto my-12">
           <div className="flex flex-wrap items-center gap-6 md:gap-12">
             <p
-              onClick={() => selected !== "All" && setSelected("All")}
+              onClick={() => {
+                addLog("all");
+                selected !== "All" && setSelected("All");
+              }}
               className={
                 selected === "All" ? styles.selected : styles.nonSelect
               }
@@ -102,7 +107,10 @@ const MyCampaigns = () => {
               All
             </p>
             <p
-              onClick={() => selected !== "Live" && setSelected("Live")}
+              onClick={() => {
+                addLog("live");
+                selected !== "Live" && setSelected("Live");
+              }}
               className={
                 selected === "Live" ? styles.selected : styles.nonSelect
               }
@@ -110,7 +118,10 @@ const MyCampaigns = () => {
               Live
             </p>
             <p
-              onClick={() => selected !== "Review" && setSelected("Review")}
+              onClick={() => {
+                addLog("under_review");
+                selected !== "Review" && setSelected("Review");
+              }}
               className={
                 selected === "Review" ? styles.selected : styles.nonSelect
               }
@@ -127,9 +138,10 @@ const MyCampaigns = () => {
               {filteredData.map((sponsorship) => (
                 <div
                   key={sponsorship?.id}
-                  onClick={() =>
-                    navigate(`/mycampaigns/details/${sponsorship?.id}`)
-                  }
+                  onClick={() => {
+                    addLog("sponsorship_details");
+                    navigate(`/mycampaigns/details/${sponsorship?.id}`);
+                  }}
                   className="relative shadow-md rounded-lg overflow-hidden cursor-pointer"
                 >
                   <div className="absolute top-4 right-0">
@@ -181,7 +193,7 @@ const MyCampaigns = () => {
 
                     <div className={styles.bottomWrapper}>
                       <p className={styles.followers}>
-                        Min {millify(sponsorship.minFollowers)} followers
+                        Min {millify(sponsorship.minFollowers || 0)} followers
                         required
                       </p>
 

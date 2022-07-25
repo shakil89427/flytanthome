@@ -7,10 +7,12 @@ import SendOTP from "./SendOTP";
 import VerifyOTP from "./VerifyOTP";
 import UserName from "./UserName";
 import TermsLink from "./TermsLink";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Login = () => {
   const { user, setUser, setShowLogin } = useStore();
   const [show, setShow] = useState("methods");
+  const { addLog } = useAnalytics();
 
   const back = () => {
     if (user?.required) {
@@ -45,7 +47,13 @@ const Login = () => {
 
   return (
     <>
-      <div onClick={() => setShowLogin(false)} className={styles.main} />
+      <div
+        onClick={() => {
+          addLog("hide_login_popup");
+          setShowLogin(false);
+        }}
+        className={styles.main}
+      />
       <div className="fixed z-[99999999] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[450px] overflow-y-scroll scrollbar max-h-[95vh]">
         <div className={styles.wrapper}>
           {/* Exit Button */}

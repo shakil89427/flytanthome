@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiFillCaretRight, AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import faqbg from "../../Assets/faqbg.png";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const data = [
   {
@@ -34,6 +35,7 @@ const FAQs = () => {
   const [selected, setSelected] = useState(false);
   const [category, setCategory] = useState("INFLUENCERS");
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
 
   return (
     <div className="r-box py-24">
@@ -70,7 +72,10 @@ const FAQs = () => {
             )}
             <div
               className="flex justify-between gap-5 items-start p-5 cursor-pointer select-none"
-              onClick={() => setSelected(selected === index ? false : index)}
+              onClick={() => {
+                setSelected(selected === index ? false : index);
+                addLog("faq");
+              }}
             >
               <p className="text-lg">{item.title}</p>
               <AiFillCaretRight
@@ -93,9 +98,10 @@ const FAQs = () => {
         ))}
       </div>
       <button
-        onClick={() =>
-          setCategory(category === "INFLUENCERS" ? "BRANDS" : "INFLUENCERS")
-        }
+        onClick={() => {
+          setCategory(category === "INFLUENCERS" ? "BRANDS" : "INFLUENCERS");
+          addLog("change_faq_category");
+        }}
         className="w-fit block mx-auto border-2 border-black px-5 py-2 rounded-md hover:bg-black hover:text-white duration-150 font-medium"
       >
         {category === "INFLUENCERS"
@@ -112,7 +118,10 @@ const FAQs = () => {
               You will get all help from our team.
             </p>
             <p
-              onClick={() => navigate("/contact")}
+              onClick={() => {
+                addLog("contact_us");
+                navigate("/contact");
+              }}
               className="bg-black text-white rounded-xl px-10 py-3 w-fit cursor-pointer"
             >
               Contact us

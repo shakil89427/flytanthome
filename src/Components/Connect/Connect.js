@@ -7,6 +7,7 @@ import axios from "axios";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useEffect } from "react";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
   const { user, setNotify, countryCode } = useStore();
@@ -17,6 +18,7 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState();
+  const { addLog } = useAnalytics();
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
       return setNotify({ status: false, message: "Invalid number" });
     }
     setLoading(true);
+    addLog("submit");
     try {
       await axios.post("https://flytant.herokuapp.com/contactinfo", {
         name,
@@ -53,10 +56,12 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
       );
       const userRef = doc(db, "users", user.userId, "following", cardUser.id);
       if (followData?.userId) {
+        addLog("unfollow");
         setFollowData({});
         deleteDoc(cardUserRef);
         deleteDoc(userRef);
       } else {
+        addLog("follow");
         const cardUserData = {
           creationDate: moment().unix(),
           profileImageUrl:
@@ -91,7 +96,10 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
   return (
     <div className="z-10 absolute w-full h-full md:w-[400px] md:h-[90vh] md:rounded-xl overflow-hidden">
       <div
-        onClick={() => setShowConnect(false)}
+        onClick={() => {
+          setShowConnect(false);
+          addLog("connect");
+        }}
         className="w-full h-full absolute top-0 left-0 bg-[#08080850]"
       />
       {showMain === 1 && (
@@ -103,7 +111,10 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
             {followData?.userId === user?.userId ? "Following" : "Follow"}
           </button>
           <button
-            onClick={() => setShowMain(2)}
+            onClick={() => {
+              setShowMain(2);
+              addLog("contact");
+            }}
             className={`bg-gray-200 py-3 rounded-lg text-lg font-medium ${
               user?.userId ? "col-span-1" : "col-span-2"
             }`}
@@ -111,7 +122,10 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
             Contact
           </button>
           <button
-            onClick={() => setShowConnect(false)}
+            onClick={() => {
+              setShowConnect(false);
+              addLog("cancel");
+            }}
             className="col-span-2 border-2 py-3 border-gray-500 rounded-lg text-lg font-medium"
           >
             Cancel
@@ -159,9 +173,10 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
             </button>
           </form>
           <button
-            onClick={() =>
-              user?.userId ? setShowMain(1) : setShowConnect(false)
-            }
+            onClick={() => {
+              user?.userId ? setShowMain(1) : setShowConnect(false);
+              addLog(user?.userId ? "back" : "cancel");
+            }}
             className="border-2 py-3 text-lg  font-medium border-gray-500 rounded-lg w-full text-center cursor-pointer"
           >
             {user?.userId ? "Back" : "Cancel"}

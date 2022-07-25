@@ -4,6 +4,7 @@ import useStore from "../../Store/useStore";
 import { GiTireIronCross } from "react-icons/gi";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { CgDanger } from "react-icons/cg";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 /* Styles Start */
 const styles = {
@@ -17,6 +18,7 @@ const styles = {
 const Toast = () => {
   const { notify, setNotify } = useStore();
   setTimeout(() => setNotify(false), 4000);
+  const { addLog } = useAnalytics();
 
   return (
     <div className={styles.main}>
@@ -30,7 +32,10 @@ const Toast = () => {
             {notify?.status ? "Success" : "Error"}
           </span>
           <GiTireIronCross
-            onClick={() => setNotify(false)}
+            onClick={() => {
+              addLog("notification_closed_by_user");
+              setNotify(false);
+            }}
             className="cursor-pointer"
           />
         </div>

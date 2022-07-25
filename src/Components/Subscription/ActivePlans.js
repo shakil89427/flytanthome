@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import useStore from "../../Store/useStore";
 import History from "./History";
 import { FaHistory } from "react-icons/fa";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const ActivePlans = () => {
   const { user, allPlans, remoteConfig } = useStore();
   const [data, setData] = useState({});
   const [showHistory, setShowHistory] = useState(false);
+  const { addLog } = useAnalytics();
 
   const checkAllPlans = async () => {
     try {
@@ -89,8 +91,19 @@ const ActivePlans = () => {
           Your active plan
         </p>
         <div className="absolute right-0 top-1/2 -translate-y-1/2 text-xl font-medium cursor-pointer flex items-center gap-1">
-          <FaHistory onClick={() => setShowHistory(true)} />
-          <p onClick={() => setShowHistory(true)} className="hidden lg:block">
+          <FaHistory
+            onClick={() => {
+              addLog("subscription_history");
+              setShowHistory(true);
+            }}
+          />
+          <p
+            onClick={() => {
+              addLog("subscription_history");
+              setShowHistory(true);
+            }}
+            className="hidden lg:block"
+          >
             History
           </p>
         </div>

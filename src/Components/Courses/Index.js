@@ -8,12 +8,14 @@ import qArrow from "../../Assets/qArrow.png";
 import antPlay2 from "../../Assets/antPlay2.png";
 import { useNavigate } from "react-router-dom";
 import millify from "millify";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Index = () => {
   const { user, course } = useStore();
   const [selected, setSelected] = useState(false);
   const navigate = useNavigate();
   const divRef = useRef();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     divRef.current.scrollIntoView();
@@ -49,7 +51,10 @@ const Index = () => {
             </div>
             <div className="lg:hidden mb-10">
               <div
-                onClick={() => navigate("/courses/contents")}
+                onClick={() => {
+                  addLog("course_content");
+                  navigate("/courses/contents");
+                }}
                 style={{ backgroundImage: `url(${course?.featureGraphic})` }}
                 className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
               >
@@ -60,7 +65,10 @@ const Index = () => {
                 />
               </div>
               <button
-                onClick={() => navigate("/courses/contents")}
+                onClick={() => {
+                  addLog("get_started");
+                  navigate("/courses/contents");
+                }}
                 className="w-full bg-[#FF8E10] text-white mt-5 py-3 rounded-md font-medium"
               >
                 {course?.courseBuyers?.includes(user?.userId)
@@ -75,7 +83,7 @@ const Index = () => {
               <div className="flex items-center gap-2">
                 <img className="w-5" src={views} alt="" />
                 <p className="text-gray-500 ">
-                  {millify(course?.totalViews)} Viewers
+                  {millify(course?.totalViews || 0)} Viewers
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -88,7 +96,10 @@ const Index = () => {
           </div>
           <div className="hidden lg:block">
             <div
-              onClick={() => navigate("/courses/contents")}
+              onClick={() => {
+                addLog("course_content");
+                navigate("/courses/contents");
+              }}
               style={{ backgroundImage: `url(${course?.featureGraphic})` }}
               className="aspect-[5/3] bg-cover bg-center bg-no-repeat rounded-lg flex items-center justify-center"
             >
@@ -99,7 +110,10 @@ const Index = () => {
               />
             </div>
             <button
-              onClick={() => navigate("/courses/contents")}
+              onClick={() => {
+                addLog("get_started");
+                navigate("/courses/contents");
+              }}
               className="w-full bg-[#FF8E10] text-white mt-5 py-3 rounded-md font-medium"
             >
               {course?.courseBuyers?.includes(user?.userId)
@@ -130,9 +144,10 @@ const Index = () => {
               <div key={index} className="bg-gray-100 rounded-lg relative">
                 <div
                   className="flex justify-between gap-5 items-start p-5 cursor-pointer select-none"
-                  onClick={() =>
-                    setSelected(selected === index ? false : index)
-                  }
+                  onClick={() => {
+                    setSelected(selected === index ? false : index);
+                    addLog("faq");
+                  }}
                 >
                   <p className="font-medium">{item?.question}</p>
                   <img
@@ -169,6 +184,7 @@ const Index = () => {
           </div>
           <div className="flex items-center justify-center">
             <a
+              onClick={() => addLog("write_us")}
               href="mailto:courses@flytant.com"
               target="_blank"
               rel="noreferrer"

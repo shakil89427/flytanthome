@@ -4,6 +4,7 @@ import ProgressBar from "../Components/ProgressBar/ProgressBar";
 import ContactBar from "../Components/ContactBar/ContactBar";
 import careerBg from "../Assets/career/careerBg.png";
 import axios from "axios";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const styles = {
   main: "w-fit max-w-[850px] mx-auto px-5 py-20",
@@ -23,11 +24,13 @@ const Career = () => {
   const [data, setData] = useState({});
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState();
+  const { addLog } = useAnalytics();
 
   const submitData = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
+      addLog("submit");
       let formData = new FormData();
       formData.append("file", file);
       formData.append("docs", JSON.stringify(data));

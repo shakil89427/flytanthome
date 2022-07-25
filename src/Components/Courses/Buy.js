@@ -16,11 +16,13 @@ import {
 } from "firebase/firestore";
 import moment from "moment";
 import { fetchAndActivate, getString } from "firebase/remote-config";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const Buy = ({ course, setShowBuy }) => {
   const { user, setNotify, setCourses, remoteConfig } = useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
+  const { addLog } = useAnalytics();
 
   const updateOnDb = async (paymentId) => {
     setLoading(true);
@@ -92,6 +94,7 @@ const Buy = ({ course, setShowBuy }) => {
   };
 
   const startToPay = async () => {
+    addLog("buy_now");
     setLoading(true);
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -136,13 +139,19 @@ const Buy = ({ course, setShowBuy }) => {
         </div>
       )}
       <div
-        onClick={() => setShowBuy(false)}
+        onClick={() => {
+          setShowBuy(false);
+          addLog("hide_buy_popup");
+        }}
         className="fixed top-0 left-0 w-screen h-screen bg-[#6362625b] z-[9999]"
       />
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[600px] pt-10 pb-5  px-5 lg:px-14 bg-white  z-[99999] rounded-md">
         <div>
           <img
-            onClick={() => setShowBuy(false)}
+            onClick={() => {
+              setShowBuy(false);
+              addLog("hide_buy_popup");
+            }}
             src={cross}
             alt=""
             className="absolute top-5 right-5 w-6 cursor-pointer"

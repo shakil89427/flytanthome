@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import onboardHero from "../../../Assets/publicHome/onboardHero.png";
+import useAnalytics from "../../../Hooks/useAnalytics";
 
 const OnboardHero = () => {
   const navigate = useNavigate();
+  const { addLog } = useAnalytics();
   return (
     <div
       style={{
@@ -21,7 +23,10 @@ const OnboardHero = () => {
           />
         </div>
         <div
-          onClick={() => navigate("/onboard")}
+          onClick={() => {
+            addLog("get_onboard");
+            navigate("/onboard");
+          }}
           className="md:w-1/2 lg:w-5/12  border-2 rounded-3xl text-white px-5 lg:pl-8 py-10 lg:ml-auto pointer cursor-pointer"
         >
           <h1
@@ -36,7 +41,10 @@ const OnboardHero = () => {
             transparently and make the most of their Collaboration.
           </p>
           <p
-            onClick={() => navigate("/onboard")}
+            onClick={() => {
+              addLog("get_onboard");
+              navigate("/onboard");
+            }}
             className="w-fit border py-3 px-8 md:px-12 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium"
           >
             Get Onboard

@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Spinner2 from "../../../Spinner/Spinner2";
+import useAnalytics from "../../../../Hooks/useAnalytics";
 
 const PopularAll = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const PopularAll = () => {
   const db = getFirestore();
   const colRef = collection(db, "users");
   const divRef = useRef();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     divRef.current.scrollIntoView();
@@ -68,6 +70,7 @@ const PopularAll = () => {
   };
 
   const loadMore = () => {
+    addLog("load_more");
     if (popularInfluencers?.data?.length && popularInfluencers?.lastVisible) {
       const q = query(
         colRef,
@@ -95,7 +98,10 @@ const PopularAll = () => {
     <div ref={divRef} className="pt-5 pb-14">
       <div className="font-semibold text-lg md:text-xl xl:text-2xl mb-5 w-fit flex items-center gap-2">
         <img
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            addLog("back_previous_route");
+            navigate(-1);
+          }}
           src={Back}
           alt=""
           className="w-6 lg:w-7 xl:w-8 cursor-pointer"
@@ -105,7 +111,10 @@ const PopularAll = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
         {popularInfluencers?.data?.map((item, index) => (
           <div
-            onClick={() => navigate(`/profile/${item?.id}`)}
+            onClick={() => {
+              addLog("influencer_profile");
+              navigate(`/profile/${item?.id}`);
+            }}
             key={index}
             className="cursor-pointer border rounded-xl overflow-hidden"
           >

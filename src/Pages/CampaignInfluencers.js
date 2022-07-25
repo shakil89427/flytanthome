@@ -13,6 +13,7 @@ import {
 import Spinner from "../Components/Spinner/Spinner";
 import Spinner2 from "../Components/Spinner/Spinner2";
 import { BsCheckLg } from "react-icons/bs";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const styles = {
   nonSelect: "text-lg md:text-xl text-gray-600 cursor-pointer font-medium",
@@ -32,6 +33,7 @@ const CampaignInfluencers = () => {
   const [influencers, setInfluencers] = useState([]);
   const [selected, setSelected] = useState([]);
   const [category, setCategory] = useState(1);
+  const { addLog } = useAnalytics();
 
   const updateDb = async (newData) => {
     try {
@@ -129,13 +131,19 @@ const CampaignInfluencers = () => {
           <div className="w-full max-w-[800px] mx-auto mt-14">
             <span className="flex flex-wrap items-center gap-6 md:gap-12 mb-10">
               <p
-                onClick={() => category !== 1 && setCategory(1)}
+                onClick={() => {
+                  addLog("change_category");
+                  category !== 1 && setCategory(1);
+                }}
                 className={category === 1 ? styles.selected : styles.nonSelect}
               >
                 All
               </p>
               <p
-                onClick={() => category !== 2 && setCategory(2)}
+                onClick={() => {
+                  addLog("change_category");
+                  category !== 2 && setCategory(2);
+                }}
                 className={category === 2 ? styles.selected : styles.nonSelect}
               >
                 Selected
@@ -155,14 +163,20 @@ const CampaignInfluencers = () => {
                 className="border py-3 shadow-lg rounded-md grid grid-cols-3 mb-5 gap-5"
               >
                 <div
-                  onClick={() => navigate(`/profile/${influencer?.userId}`)}
+                  onClick={() => {
+                    addLog("influencer_details");
+                    navigate(`/profile/${influencer?.userId}`);
+                  }}
                   style={{
                     backgroundImage: `url(${influencer?.profileImageUrl})`,
                   }}
                   className="w-12 h-12 rounded-full bg-cover bg-no-repeat bg-center cursor-pointer ml-5"
                 />
                 <div
-                  onClick={() => navigate(`/profile/${influencer?.userId}`)}
+                  onClick={() => {
+                    addLog("influencers_details");
+                    navigate(`/profile/${influencer?.userId}`);
+                  }}
                   className="flex flex-col justify-center cursor-pointer w-fit"
                 >
                   <p className="font-semibold">{influencer?.name}</p>
@@ -173,7 +187,10 @@ const CampaignInfluencers = () => {
                     <Spinner2 />
                   ) : (
                     <div
-                      onClick={() => changeSelected(influencer?.userId)}
+                      onClick={() => {
+                        addLog("select_influencer");
+                        changeSelected(influencer?.userId);
+                      }}
                       style={{
                         backgroundColor: selected?.includes(influencer?.userId)
                           ? "black"

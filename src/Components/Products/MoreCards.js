@@ -7,6 +7,7 @@ import Rating from "react-rating";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { MdNavigateNext } from "react-icons/md";
+import useAnalytics from "../../Hooks/useAnalytics";
 
 const MoreCards = ({ current }) => {
   const { products, user, countryCode } = useStore();
@@ -15,6 +16,7 @@ const MoreCards = ({ current }) => {
   const [swiper, setSwiper] = useState();
   const nextRef = useRef();
   const prevRef = useRef();
+  const { addLog } = useAnalytics();
 
   useEffect(() => {
     if (swiper) {
@@ -55,7 +57,10 @@ const MoreCards = ({ current }) => {
             (product) =>
               product?.id !== current && (
                 <SwiperSlide
-                  onClick={() => navigate(`/products/${product?.id}`)}
+                  onClick={() => {
+                    addLog("product_details");
+                    navigate(`/products/${product?.id}`);
+                  }}
                   key={product?.id}
                   className="cursor-pointer border rounded-lg"
                 >
