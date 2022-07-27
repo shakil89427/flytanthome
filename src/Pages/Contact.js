@@ -26,7 +26,10 @@ const Contact = () => {
     setLoading(true);
     try {
       addLog("submit");
-      await axios.post("http://localhost:5000/sendmailContact", data);
+      await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/sendmailContact",
+        data
+      );
       setLoading(false);
       setNotify({
         status: true,

@@ -23,9 +23,12 @@ const Instagram = ({ details }) => {
     try {
       const {
         data: { image },
-      } = await axios.post("http://localhost:5000/getimage", {
-        url,
-      });
+      } = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/getimage",
+        {
+          url,
+        }
+      );
       let obj = {};
       obj[id] = image;
       return obj;
@@ -69,9 +72,12 @@ const Instagram = ({ details }) => {
 
   const getFullData = async (userId) => {
     try {
-      const response = await axios.post("http://localhost:5000/instadata", {
-        userId,
-      });
+      const response = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/instadata",
+        {
+          userId,
+        }
+      );
       if (response?.data?.details?.graphql?.user) {
         setData(response?.data?.details?.graphql?.user);
         return setLoading(false);

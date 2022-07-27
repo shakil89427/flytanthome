@@ -42,9 +42,12 @@ const Youtube = ({ details }) => {
 
   const getData = async (channelId) => {
     try {
-      const response = await axios.post("http://localhost:5000/youtubedata", {
-        channelId,
-      });
+      const response = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/youtubedata",
+        {
+          channelId,
+        }
+      );
       const data = { ...response.data, validId: details.id };
       setInfo(data);
       setYoutubeData([...youtubeData, data]);

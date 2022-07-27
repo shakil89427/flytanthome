@@ -29,7 +29,7 @@ const Player = () => {
     if (!selectedVideo?.videoId) return;
     setLoading(true);
     axios
-      .post("http://localhost:5000/getvideo", {
+      .post("https://arcane-castle-29935.herokuapp.com/getvideo", {
         videoId: selectedVideo?.videoId,
       })
       .then((res) => {

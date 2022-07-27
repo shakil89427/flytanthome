@@ -34,12 +34,16 @@ const Career = () => {
       let formData = new FormData();
       formData.append("file", file);
       formData.append("docs", JSON.stringify(data));
-      await axios.post("http://localhost:5000/sendmailCareer", formData, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/sendmailCareer",
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       e.target.reset();
       setFile(null);
       setData({});

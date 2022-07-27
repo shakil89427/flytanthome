@@ -92,7 +92,6 @@ const Store = () => {
   const [quantity, setQuantity] = useState(1);
 
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchCategories, setSearchCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [instagramResults, setInstagramResults] = useState({
     prev: false,
@@ -219,8 +218,6 @@ const Store = () => {
     setShowSingleCard,
     searchKeyword,
     setSearchKeyword,
-    searchCategories,
-    setSearchCategories,
     activeCategory,
     setActiveCategory,
     instagramResults,

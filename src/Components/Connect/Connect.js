@@ -31,13 +31,16 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
     setLoading(true);
     addLog("submit");
     try {
-      await axios.post("http://localhost:5000/contactinfo", {
-        name,
-        email,
-        phone,
-        creationDate: moment().unix(),
-        id: cardUser?.id,
-      });
+      await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/contactinfo",
+        {
+          name,
+          email,
+          phone,
+          creationDate: moment().unix(),
+          id: cardUser?.id,
+        }
+      );
       setNotify({ status: true, message: "Sent Successfully" });
       setShowConnect(false);
     } catch (err) {

@@ -136,15 +136,18 @@ const usePayment = (plan, setPaymentLoading) => {
     try {
       const {
         data: { id },
-      } = await axios.post("http://localhost:5000/createpayment", {
-        ammount: plan?.priceNow,
-        currency: plan?.currency,
-        notes: {
-          userId: user?.userId,
-          planName: plan?.name,
-          subscriptionDays: plan?.subscriptionDays,
-        },
-      });
+      } = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/createpayment",
+        {
+          ammount: plan?.priceNow,
+          currency: plan?.currency,
+          notes: {
+            userId: user?.userId,
+            planName: plan?.name,
+            subscriptionDays: plan?.subscriptionDays,
+          },
+        }
+      );
       procced(id);
     } catch (err) {
       setPaymentLoading(false);

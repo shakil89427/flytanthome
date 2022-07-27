@@ -18,8 +18,6 @@ const Search = () => {
   const {
     searchKeyword,
     setSearchKeyword,
-    searchCategories,
-    setSearchCategories,
     activeCategory,
     setActiveCategory,
     instagramResults,
@@ -35,6 +33,7 @@ const Search = () => {
   const inputRef = useRef();
   const [keyword, setKeyword] = useState(searchKeyword);
   const [loading, setLoading] = useState(false);
+  const searchCategories = ["All", "Instagram", "Youtube", "Twitter"];
   const location = useLocation();
   const { addLog } = useAnalytics();
 
@@ -42,9 +41,12 @@ const Search = () => {
     try {
       const {
         data: { image },
-      } = await axios.post("http://localhost:5000/getimage", {
-        url,
-      });
+      } = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/getimage",
+        {
+          url,
+        }
+      );
       setSearchImages((prev) => {
         const newData = { ...prev };
         newData[randomId] = image;
@@ -58,7 +60,7 @@ const Search = () => {
       addLog("instagram_next_or_prev");
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/search/instagram",
+        "https://arcane-castle-29935.herokuapp.com/search/instagram",
         { keyword, start }
       );
       setInstagramResults(data);
@@ -71,12 +73,13 @@ const Search = () => {
       setLoading(false);
     }
   };
+
   const youtubeSearch = async (pageToken) => {
     try {
       addLog("youtube_next_or_prev");
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/search/youtube",
+        "https://arcane-castle-29935.herokuapp.com/search/youtube",
         { keyword, pageToken }
       );
       setYoutubeResults(data);
@@ -86,12 +89,13 @@ const Search = () => {
       setLoading(false);
     }
   };
+
   const twitterSearch = async (page) => {
     try {
       addLog("twitter_next_or_prev");
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/search/twitter",
+        "https://arcane-castle-29935.herokuapp.com/search/twitter",
         { keyword, page }
       );
       setTwitterResults(data);
@@ -101,25 +105,26 @@ const Search = () => {
       setLoading(false);
     }
   };
+
   const search = (e) => {
     e.preventDefault();
     setLoading(true);
     addLog("search");
     let promises = [];
     promises.push(
-      axios.post("http://localhost:5000/search/instagram", {
+      axios.post("https://arcane-castle-29935.herokuapp.com/search/instagram", {
         keyword,
         start: 1,
       })
     );
     promises.push(
-      axios.post("http://localhost:5000/search/youtube", {
+      axios.post("https://arcane-castle-29935.herokuapp.com/search/youtube", {
         keyword,
         pageToken: "",
       })
     );
     promises.push(
-      axios.post("http://localhost:5000/search/twitter", {
+      axios.post("https://arcane-castle-29935.herokuapp.com/search/twitter", {
         keyword,
         page: 1,
       })
@@ -127,29 +132,27 @@ const Search = () => {
 
     Promise.allSettled(promises)
       .then((res) => {
-        const tempCategories = ["All"];
-        res.forEach(({ status, value }) => {
+        let success = false;
+        res?.forEach(({ status, value }) => {
           if (status === "fulfilled") {
+            success = true;
             if (value?.data?.category === "Instagram") {
               value?.data?.data?.forEach(({ profileImage, randomId }) =>
                 getImage(profileImage, randomId)
               );
               setInstagramResults(value?.data);
-              tempCategories.push("Instagram");
             }
             if (value?.data?.category === "Youtube") {
               setYoutubeResults(value?.data);
-              tempCategories.push("Youtube");
             }
             if (value?.data?.category === "Twitter") {
               setTwitterResults(value?.data);
-              tempCategories.push("Twitter");
             }
           }
         });
-        setSearchCategories(tempCategories);
-        setActiveCategory("All");
-        setSearchKeyword(keyword);
+        if (success) {
+          setSearchKeyword(keyword);
+        }
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -196,9 +199,9 @@ const Search = () => {
           <Spinner />
         </div>
       )}
-      {searchCategories?.length > 0 && (
+      {searchKeyword?.length > 0 && (
         <div className="flex items-center justify-between w-full max-w-[600px] mx-auto mt-10 font-medium text-gray-500 text-lg lg:text-xl px-5 mb-10">
-          {searchCategories.map((item) => (
+          {searchCategories?.map((item) => (
             <p
               key={item}
               onClick={() => activeCategory !== item && setActiveCategory(item)}
@@ -307,7 +310,9 @@ const Search = () => {
                 <div>
                   <div
                     style={{
-                      backgroundImage: `url(${item?.thumbnails?.default?.url})`,
+                      backgroundImage: `url(${
+                        item?.thumbnails?.default?.url || defaultUser
+                      })`,
                     }}
                     className="bg-cover bg-center bg-no-repeat w-12 md:w-16 aspect-square rounded-full border"
                   />
@@ -367,9 +372,9 @@ const Search = () => {
                 <div>
                   <div
                     style={{
-                      backgroundImage: item?.profile_image_url_https
-                        ? `url(${item?.profile_image_url_https})`
-                        : `url(${defaultUser})`,
+                      backgroundImage: `url(${
+                        item?.profile_image_url_https || defaultUser
+                      })`,
                     }}
                     className="bg-cover bg-center bg-no-repeat w-12 md:w-16 aspect-square rounded-full border"
                   />

@@ -123,14 +123,17 @@ const Buy = ({ course, setShowBuy }) => {
     try {
       const {
         data: { id },
-      } = await axios.post("http://localhost:5000/createpayment", {
-        ammount: course?.priceData?.priceNow,
-        currency: course?.priceData?.currency,
-        notes: {
-          userId: user?.userId,
-          courseId: course?.courseId,
-        },
-      });
+      } = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/createpayment",
+        {
+          ammount: course?.priceData?.priceNow,
+          currency: course?.priceData?.currency,
+          notes: {
+            userId: user?.userId,
+            courseId: course?.courseId,
+          },
+        }
+      );
       procced(id);
     } catch (err) {
       setLoading(false);

@@ -130,14 +130,17 @@ const usePayment = (product, setPaymentLoading, setStep) => {
     try {
       const {
         data: { id },
-      } = await axios.post("http://localhost:5000/createpayment", {
-        ammount: priceData?.priceNow * quantity + priceData?.shippingCost,
-        currency: priceData?.currency,
-        notes: {
-          userId: user?.userId,
-          productId: product?.productId,
-        },
-      });
+      } = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/createpayment",
+        {
+          ammount: priceData?.priceNow * quantity + priceData?.shippingCost,
+          currency: priceData?.currency,
+          notes: {
+            userId: user?.userId,
+            productId: product?.productId,
+          },
+        }
+      );
       procced(id, inputData, priceData);
     } catch (err) {
       setPaymentLoading(false);

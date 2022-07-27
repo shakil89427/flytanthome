@@ -26,7 +26,10 @@ const Newsletter = ({ setShowNewsleter }) => {
         setNotify({ status: true, message: "Subscribed successfully" });
         setShowNewsleter(false);
       } else {
-        await axios.post("http://localhost:5000/subscribe", { email });
+        await axios.post(
+          "https://arcane-castle-29935.herokuapp.com/subscribe",
+          { email }
+        );
         setLoading(false);
         setNotify({ status: true, message: "Subscribed successfully" });
         setShowNewsleter(false);

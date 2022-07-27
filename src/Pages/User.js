@@ -23,10 +23,13 @@ const User = () => {
     try {
       const {
         data: { card, follow },
-      } = await axios.post("http://localhost:5000/getuser", {
-        cardId: id,
-        userId: user?.userId || false,
-      });
+      } = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/getuser",
+        {
+          cardId: id,
+          userId: user?.userId || false,
+        }
+      );
       setCardUser(card);
       setFollowData(follow);
       setLoading(false);

@@ -41,7 +41,7 @@ const Youtube = ({ channelId }) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/youtubedata", {
+      .post("https://arcane-castle-29935.herokuapp.com/youtubedata", {
         channelId,
       })
       .then((res) => {

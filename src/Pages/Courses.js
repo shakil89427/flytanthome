@@ -12,7 +12,7 @@ const Courses = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/getcourse")
+      .get("https://arcane-castle-29935.herokuapp.com/getcourse")
       .then(({ data }) => {
         setCourse(data[0]);
         setLoading(false);

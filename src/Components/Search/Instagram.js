@@ -23,9 +23,12 @@ const Instagram = ({ username }) => {
     try {
       const {
         data: { image },
-      } = await axios.post("http://localhost:5000/getimage", {
-        url,
-      });
+      } = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/getimage",
+        {
+          url,
+        }
+      );
       setImages((prev) => {
         const newinfo = { ...prev };
         newinfo[id] = image;
@@ -48,7 +51,7 @@ const Instagram = ({ username }) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/instagramsearch", {
+      .post("https://arcane-castle-29935.herokuapp.com/instagramsearch", {
         username,
       })
       .then((res) => {

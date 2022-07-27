@@ -46,7 +46,7 @@ const Youtube = () => {
   useEffect(() => {
     if (!flytantYoutube?.id) {
       axios
-        .post("http://localhost:5000/youtubedata", {
+        .post("https://arcane-castle-29935.herokuapp.com/youtubedata", {
           channelId: "UC_r46_UgBvaG2k94LDjEIWQ",
         })
         .then((data) => {

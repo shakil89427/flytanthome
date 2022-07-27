@@ -34,7 +34,7 @@ const Twitter = ({ username }) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/twittersearch", {
+      .post("https://arcane-castle-29935.herokuapp.com/twittersearch", {
         username,
       })
       .then((res) => {

@@ -9,9 +9,12 @@ const useLocationCheck = () => {
   const getBasic = async () => {
     try {
       const ip = await publicIp.v4();
-      const res = await axios.post("http://localhost:5000/basic", {
-        ip,
-      });
+      const res = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/basic",
+        {
+          ip,
+        }
+      );
       setCountryCode(res.data.country_code);
     } catch (err) {}
   };

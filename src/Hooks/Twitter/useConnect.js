@@ -11,10 +11,13 @@ const useConnect = (setLoading) => {
   const getInfo = async (code) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/twitterinfo", {
-        code,
-        userId: user.id,
-      });
+      const response = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/twitterinfo",
+        {
+          code,
+          userId: user.id,
+        }
+      );
       if (response.data.success) {
         const userRef = doc(db, "users", user.id);
         const response2 = await getDoc(userRef);

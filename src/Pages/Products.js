@@ -46,7 +46,7 @@ const Products = () => {
   useEffect(() => {
     if (products?.length < 1) {
       axios
-        .get("http://localhost:5000/products")
+        .get("https://arcane-castle-29935.herokuapp.com/products")
         .then(({ data }) => calculate(data))
         .catch(() => setLoading(false));
     } else {
