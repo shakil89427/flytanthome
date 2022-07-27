@@ -61,7 +61,7 @@ const Search = () => {
       setLoading(true);
       const { data } = await axios.post(
         "https://arcane-castle-29935.herokuapp.com/search/instagram",
-        { keyword, start }
+        { keyword: searchKeyword, start }
       );
       setInstagramResults(data);
       setLoading(false);
@@ -80,7 +80,7 @@ const Search = () => {
       setLoading(true);
       const { data } = await axios.post(
         "https://arcane-castle-29935.herokuapp.com/search/youtube",
-        { keyword, pageToken }
+        { keyword: searchKeyword, pageToken }
       );
       setYoutubeResults(data);
       setLoading(false);
@@ -96,7 +96,7 @@ const Search = () => {
       setLoading(true);
       const { data } = await axios.post(
         "https://arcane-castle-29935.herokuapp.com/search/twitter",
-        { keyword, page }
+        { keyword: searchKeyword, page }
       );
       setTwitterResults(data);
       setLoading(false);
