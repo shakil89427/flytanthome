@@ -36,7 +36,7 @@ const LargeTop = ({ theme }) => {
             <input
               className="bg-gray-100 w-full border-0 outline-none"
               type="text"
-              placeholder="Search 'Fashion Influencers'"
+              placeholder="Search 'Fashion Influencers' or 'Brand name'"
               readOnly
             />
           </div>
