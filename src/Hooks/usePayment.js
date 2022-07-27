@@ -136,7 +136,7 @@ const usePayment = (plan, setPaymentLoading) => {
     try {
       const {
         data: { id },
-      } = await axios.post("https://flytant.herokuapp.com/createpayment", {
+      } = await axios.post("http://localhost:5000/createpayment", {
         ammount: plan?.priceNow,
         currency: plan?.currency,
         notes: {

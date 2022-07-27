@@ -23,7 +23,7 @@ const Instagram = ({ details }) => {
     try {
       const {
         data: { image },
-      } = await axios.post("https://flytant.herokuapp.com/getimage", {
+      } = await axios.post("http://localhost:5000/getimage", {
         url,
       });
       let obj = {};
@@ -69,12 +69,9 @@ const Instagram = ({ details }) => {
 
   const getFullData = async (userId) => {
     try {
-      const response = await axios.post(
-        "https://flytant.herokuapp.com/instadata",
-        {
-          userId,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/instadata", {
+        userId,
+      });
       if (response?.data?.details?.graphql?.user) {
         setData(response?.data?.details?.graphql?.user);
         return setLoading(false);

@@ -65,10 +65,7 @@ const OnBoard = () => {
     setLoading(true);
     const allData = { ...data, contact: number };
     try {
-      await axios.post(
-        "https://flytant.herokuapp.com/sendmailBrandsContact",
-        allData
-      );
+      await axios.post("http://localhost:5000/sendmailBrandsContact", allData);
       setLoading(false);
       setSuccess(true);
       window.scrollTo(0, 0);

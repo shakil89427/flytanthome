@@ -31,7 +31,7 @@ const Connect = ({ cardUser, followData, setFollowData, setShowConnect }) => {
     setLoading(true);
     addLog("submit");
     try {
-      await axios.post("https://flytant.herokuapp.com/contactinfo", {
+      await axios.post("http://localhost:5000/contactinfo", {
         name,
         email,
         phone,

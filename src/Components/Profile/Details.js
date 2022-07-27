@@ -180,7 +180,7 @@ const Profile = () => {
                 )}
               </div>
               <div className={styles.topRight}>
-                <span>
+                <span className="invisible">
                   <p className={styles.score}>{socialScore}</p>
                   <p className="text-xs md:text-md font-semibold text-center">
                     Social Score

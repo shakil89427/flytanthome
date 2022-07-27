@@ -26,7 +26,7 @@ const Contact = () => {
     setLoading(true);
     try {
       addLog("submit");
-      await axios.post("https://flytant.herokuapp.com/sendmailContact", data);
+      await axios.post("http://localhost:5000/sendmailContact", data);
       setLoading(false);
       setNotify({
         status: true,

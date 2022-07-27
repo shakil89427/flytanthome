@@ -21,12 +21,9 @@ const Twitter = ({ details }) => {
   /* Get user data */
   const getData = async (userId) => {
     try {
-      const response = await axios.post(
-        "https://flytant.herokuapp.com/twitterdata",
-        {
-          userId,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/twitterdata", {
+        userId,
+      });
       const responseData = { ...response.data, validId: details.id };
       setData(responseData);
       setTwitterData([...twitterData, responseData]);

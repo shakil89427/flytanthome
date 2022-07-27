@@ -29,7 +29,7 @@ const Player = () => {
     if (!selectedVideo?.videoId) return;
     setLoading(true);
     axios
-      .post("https://flytant.herokuapp.com/getvideo", {
+      .post("http://localhost:5000/getvideo", {
         videoId: selectedVideo?.videoId,
       })
       .then((res) => {

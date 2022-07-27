@@ -85,16 +85,31 @@ const Store = () => {
   const [newsIndex, setNewsIndex] = useState(0);
   const [showNewsCard, setShowNewsCard] = useState(false);
   const [showSingleCard, setShowSingleCard] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchCategories, setSearchCategories] = useState([]);
-  const [searchActive, setSearchActive] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
-  const [searchImages, setSearchImages] = useState({});
   const [selectedSection, setSelectedScetion] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState({});
   const [products, setProducts] = useState([]);
   const [customText, setCustomText] = useState("");
   const [quantity, setQuantity] = useState(1);
+
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchCategories, setSearchCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [instagramResults, setInstagramResults] = useState({
+    prev: false,
+    next: 1,
+    data: [],
+  });
+  const [youtubeResults, setYoutubeResults] = useState({
+    prev: false,
+    next: "",
+    data: [],
+  });
+  const [twitterResults, setTwitterResults] = useState({
+    prev: false,
+    next: 1,
+    data: [],
+  });
+  const [searchImages, setSearchImages] = useState({});
 
   useEffect(() => {
     if (!user?.userId) {
@@ -206,10 +221,14 @@ const Store = () => {
     setSearchKeyword,
     searchCategories,
     setSearchCategories,
-    searchActive,
-    setSearchActive,
-    searchResult,
-    setSearchResult,
+    activeCategory,
+    setActiveCategory,
+    instagramResults,
+    setInstagramResults,
+    youtubeResults,
+    setYoutubeResults,
+    twitterResults,
+    setTwitterResults,
     searchImages,
     setSearchImages,
     selectedSection,

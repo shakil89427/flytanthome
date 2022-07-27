@@ -34,7 +34,9 @@ const Twitter = ({ username }) => {
 
   useEffect(() => {
     axios
-      .post("https://flytant.herokuapp.com/twittersearch", { username })
+      .post("http://localhost:5000/twittersearch", {
+        username,
+      })
       .then((res) => {
         setInfo(res.data);
         setLoading(false);
@@ -71,7 +73,7 @@ const Twitter = ({ username }) => {
               {info?.name}
             </p>
           </div>
-          <div>
+          <div className="invisible">
             <p className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400 mx-auto">
               {millify(
                 Math.round(info?.public_metrics?.followers_count / 1000000) || 0

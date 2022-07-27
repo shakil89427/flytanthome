@@ -123,7 +123,7 @@ const Buy = ({ course, setShowBuy }) => {
     try {
       const {
         data: { id },
-      } = await axios.post("https://flytant.herokuapp.com/createpayment", {
+      } = await axios.post("http://localhost:5000/createpayment", {
         ammount: course?.priceData?.priceNow,
         currency: course?.priceData?.currency,
         notes: {

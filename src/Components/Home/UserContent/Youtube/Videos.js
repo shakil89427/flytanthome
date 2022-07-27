@@ -46,7 +46,7 @@ const Youtube = () => {
   useEffect(() => {
     if (!flytantYoutube?.id) {
       axios
-        .post("https://flytant.herokuapp.com/youtubedata", {
+        .post("http://localhost:5000/youtubedata", {
           channelId: "UC_r46_UgBvaG2k94LDjEIWQ",
         })
         .then((data) => {
@@ -54,7 +54,6 @@ const Youtube = () => {
           setLoading(false);
         })
         .catch(() => {
-          setNotify({ status: false, message: "Cannot get youtube data" });
           setLoading(false);
         });
     } else {
@@ -65,7 +64,9 @@ const Youtube = () => {
   if (loading) {
     return <Spinner />;
   }
-  if (flytantYoutube?.videos?.length === 0) return null;
+  if (flytantYoutube?.videos?.length < 1 || !flytantYoutube?.videos) {
+    return null;
+  }
 
   return (
     <div>

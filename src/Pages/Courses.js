@@ -12,7 +12,7 @@ const Courses = () => {
 
   useEffect(() => {
     axios
-      .get("https://flytant.herokuapp.com/getcourse")
+      .get("http://localhost:5000/getcourse")
       .then(({ data }) => {
         setCourse(data[0]);
         setLoading(false);

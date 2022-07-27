@@ -36,7 +36,7 @@ const All = () => {
   useEffect(() => {
     if (!flytantYoutube?.id) {
       axios
-        .post("https://flytant.herokuapp.com/youtubedata", {
+        .post("http://localhost:5000/youtubedata", {
           channelId: "UC_r46_UgBvaG2k94LDjEIWQ",
         })
         .then((data) => {

@@ -26,7 +26,7 @@ const Newsletter = ({ setShowNewsleter }) => {
         setNotify({ status: true, message: "Subscribed successfully" });
         setShowNewsleter(false);
       } else {
-        await axios.post("https://flytant.herokuapp.com/subscribe", { email });
+        await axios.post("http://localhost:5000/subscribe", { email });
         setLoading(false);
         setNotify({ status: true, message: "Subscribed successfully" });
         setShowNewsleter(false);

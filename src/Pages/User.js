@@ -23,7 +23,7 @@ const User = () => {
     try {
       const {
         data: { card, follow },
-      } = await axios.post("https://flytant.herokuapp.com/getuser", {
+      } = await axios.post("http://localhost:5000/getuser", {
         cardId: id,
         userId: user?.userId || false,
       });

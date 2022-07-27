@@ -9,7 +9,7 @@ const useLocationCheck = () => {
   const getBasic = async () => {
     try {
       const ip = await publicIp.v4();
-      const res = await axios.post("https://flytant.herokuapp.com/basic", {
+      const res = await axios.post("http://localhost:5000/basic", {
         ip,
       });
       setCountryCode(res.data.country_code);

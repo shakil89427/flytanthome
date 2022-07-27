@@ -11,13 +11,10 @@ const useConnect = (setLoading) => {
   const getInfo = async (token) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "https://flytant.herokuapp.com/youtubeinfo",
-        {
-          token,
-          userId: user.id,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/youtubeinfo", {
+        token,
+        userId: user.id,
+      });
       if (response.data.success) {
         const userRef = doc(db, "users", user.id);
         const response2 = await getDoc(userRef);

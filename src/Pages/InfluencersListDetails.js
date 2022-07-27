@@ -54,7 +54,7 @@ const InfluencersListDetails = () => {
     try {
       const username = url.split("instagram.com/")[1].split("/")[0];
       const { data } = await axios.post(
-        "https://flytant.herokuapp.com/influencersinstagram",
+        "http://localhost:5000/influencersinstagram",
         { username }
       );
       setListData((prev) => [{ ...data, url }, ...prev]);

@@ -23,7 +23,7 @@ const Instagram = ({ username }) => {
     try {
       const {
         data: { image },
-      } = await axios.post("https://flytant.herokuapp.com/getimage", {
+      } = await axios.post("http://localhost:5000/getimage", {
         url,
       });
       setImages((prev) => {
@@ -48,7 +48,9 @@ const Instagram = ({ username }) => {
 
   useEffect(() => {
     axios
-      .post("https://flytant.herokuapp.com/instagramsearch", { username })
+      .post("http://localhost:5000/instagramsearch", {
+        username,
+      })
       .then((res) => {
         setInfo(res.data);
         setLoading(false);
@@ -106,7 +108,7 @@ const Instagram = ({ username }) => {
               {info?.full_name}
             </p>
           </div>
-          <div>
+          <div className="invisible">
             <p className="border w-[65px] aspect-square rounded-full flex items-center justify-center mb-3 text-3xl border-gray-400 mx-auto">
               {avg?.socialScore}
             </p>

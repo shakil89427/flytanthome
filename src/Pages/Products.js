@@ -46,7 +46,7 @@ const Products = () => {
   useEffect(() => {
     if (products?.length < 1) {
       axios
-        .get("https://flytant.herokuapp.com/products")
+        .get("http://localhost:5000/products")
         .then(({ data }) => calculate(data))
         .catch(() => setLoading(false));
     } else {
