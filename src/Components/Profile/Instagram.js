@@ -44,9 +44,11 @@ const Instagram = ({ details }) => {
   };
 
   const fetchImages = async (allData) => {
-    getImage(allData?.profile_pic_url, details?.id);
+    if (!allImages[allData?.validId]) {
+      getImage(allData?.profile_pic_url, allData?.validId);
+    }
     allData?.edge_owner_to_timeline_media?.edges?.forEach((item) => {
-      if (item?.node?.thumbnail_src) {
+      if (item?.node?.thumbnail_src && !allImages[item?.node?.id]) {
         getImage(item?.node?.thumbnail_src, item?.node?.id);
       }
     });
@@ -61,24 +63,23 @@ const Instagram = ({ details }) => {
         }
       );
       if (response?.data?.details?.graphql?.user) {
-        const finalData = response?.data?.details?.graphql?.user;
+        const finalData = {
+          ...response?.data?.details?.graphql?.user,
+          validId: userId,
+        };
         setData(finalData);
-        setInstagramData([
-          ...instagramData,
-          { ...finalData, validId: details?.id },
-        ]);
         fetchImages(finalData);
+        setInstagramData([...instagramData, finalData]);
         return setLoading(false);
       }
       if (details?.linkedAccounts?.Instagram?.details?.graphql?.user) {
-        const finalData =
-          details?.linkedAccounts?.Instagram?.details?.graphql?.user;
+        const finalData = {
+          ...details?.linkedAccounts?.Instagram?.details?.graphql?.user,
+          validId: userId,
+        };
         setData(finalData);
-        setInstagramData([
-          ...instagramData,
-          { ...finalData, validId: details?.id },
-        ]);
         fetchImages(finalData);
+        setInstagramData([...instagramData, finalData]);
         return setLoading(false);
       }
       setLoading(false);
@@ -95,6 +96,7 @@ const Instagram = ({ details }) => {
       const valid = instagramData.find((item) => item.validId === details.id);
       if (valid?.validId) {
         setData(valid);
+        fetchImages(valid);
         setLoading(false);
       } else {
         getFullData(details?.userId);
@@ -193,8 +195,8 @@ const Instagram = ({ details }) => {
             <div className="w-fit">
               <div
                 style={{
-                  backgroundImage: allImages[details?.id]
-                    ? `url(data:image/png;base64,${allImages[details?.id]})`
+                  backgroundImage: allImages[data?.validId]
+                    ? `url(data:image/png;base64,${allImages[data?.validId]})`
                     : `url(${defaultUser})`,
                 }}
                 className="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat"
@@ -214,8 +216,10 @@ const Instagram = ({ details }) => {
                 <div className="px-3 flex items-center gap-3">
                   <div
                     style={{
-                      backgroundImage: allImages[details?.id]
-                        ? `url(data:image/png;base64,${allImages[details?.id]})`
+                      backgroundImage: allImages[data?.validId]
+                        ? `url(data:image/png;base64,${
+                            allImages[data?.validId]
+                          })`
                         : `url(${defaultUser})`,
                     }}
                     className="w-12 h-12 rounded-full bg-cover bg-center bg-no-repeat"
