@@ -1,13 +1,17 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import logo from "../Assets/logoBlack.png";
 import useStore from "../Store/useStore";
 import Spinner from "../Components/Spinner/Spinner";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { fetchAndActivate, getString } from "firebase/remote-config";
+import useAnalytics from "../Hooks/useAnalytics";
 
 const Products = () => {
   const { products, setProducts, remoteConfig } = useStore();
+  const { addLog } = useAnalytics();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const calculate = async (items) => {
     await fetchAndActivate(remoteConfig);
@@ -54,13 +58,27 @@ const Products = () => {
     }
   }, []);
 
-  if (loading) {
-    return <Spinner />;
-  }
   return (
-    <div className="pt-14 pb-28 r-box">
-      <Outlet />
-    </div>
+    <>
+      <div className="r-box h-14 md:h-24 flex items-center justify-start border-b">
+        <img
+          onClick={() => {
+            addLog("nav_logo");
+            navigate("/");
+          }}
+          className="cursor-pointer w-[130px] md:w-[185px]"
+          src={logo}
+          alt=""
+        />
+      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="pt-14 pb-28 r-box">
+          <Outlet />
+        </div>
+      )}
+    </>
   );
 };
 

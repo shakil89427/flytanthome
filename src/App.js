@@ -78,6 +78,7 @@ function App() {
     "createinfluencerslist",
     "influencerslist",
     "socialcard",
+    "products",
     user?.userId && "courses",
   ];
 
