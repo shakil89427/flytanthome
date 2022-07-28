@@ -61,6 +61,7 @@ const Store = () => {
     carousel: [],
     notCarousel: [],
   });
+  const [allImages, setAllImages] = useState({});
   const [loaded, setLoaded] = useState([]);
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [latestIndex, setLatestIndex] = useState(0);
@@ -238,6 +239,8 @@ const Store = () => {
     setCustomText,
     quantity,
     setQuantity,
+    allImages,
+    setAllImages,
   };
 };
 

@@ -12,7 +12,13 @@ import millify from "millify";
 import useAnalytics from "../../Hooks/useAnalytics";
 
 const Instagram = ({ details }) => {
-  const { instagramData, setInstagramData, setNotify } = useStore();
+  const {
+    instagramData,
+    setInstagramData,
+    setNotify,
+    allImages,
+    setAllImages,
+  } = useStore();
   const [loading, setLoading] = useState(true);
   const { openPopup } = useConnect(setLoading);
   const [data, setData] = useState({});
@@ -20,50 +26,31 @@ const Instagram = ({ details }) => {
   const { addLog } = useAnalytics();
 
   const getImage = async (url, id) => {
-    const {
-      data: { image },
-    } = await axios.post("https://arcane-castle-29935.herokuapp.com/getimage", {
-      url,
-    });
-    let obj = {};
-    obj[id] = image;
-    return obj;
-  };
-
-  const fetchImages = async () => {
     try {
-      const promises = [];
-      promises.push(getImage(data?.profile_pic_url, "profileImg"));
-      data?.edge_owner_to_timeline_media?.edges?.forEach((item) => {
-        if (item?.node?.thumbnail_src) {
-          promises.push(getImage(item?.node?.thumbnail_src, item?.node?.id));
+      const {
+        data: { image },
+      } = await axios.post(
+        "https://arcane-castle-29935.herokuapp.com/getimage",
+        {
+          url,
         }
+      );
+      setAllImages((prev) => {
+        const newData = { ...prev };
+        newData[id] = image;
+        return newData;
       });
-      const response = await Promise.allSettled(promises);
-      let temp = {};
-      response.forEach((item) => {
-        if (item?.status === "fulfilled") {
-          temp = { ...temp, ...item?.value };
-        }
-      });
-      const finalData = {
-        ...data,
-        ...temp,
-        fetched: true,
-        validId: details?.id,
-      };
-      setData(finalData);
-      setInstagramData([...instagramData, finalData]);
-    } catch (err) {
-      setNotify({ status: false, meessage: "Something went wrong" });
-    }
+    } catch (err) {}
   };
 
-  useEffect(() => {
-    if (data?.profile_pic_url && !data?.fetched) {
-      fetchImages();
-    }
-  }, [data]);
+  const fetchImages = async (allData) => {
+    getImage(allData?.profile_pic_url, details?.id);
+    allData?.edge_owner_to_timeline_media?.edges?.forEach((item) => {
+      if (item?.node?.thumbnail_src) {
+        getImage(item?.node?.thumbnail_src, item?.node?.id);
+      }
+    });
+  };
 
   const getFullData = async (userId) => {
     try {
@@ -74,11 +61,24 @@ const Instagram = ({ details }) => {
         }
       );
       if (response?.data?.details?.graphql?.user) {
-        setData(response?.data?.details?.graphql?.user);
+        const finalData = response?.data?.details?.graphql?.user;
+        setData(finalData);
+        setInstagramData([
+          ...instagramData,
+          { ...finalData, validId: details?.id },
+        ]);
+        fetchImages(finalData);
         return setLoading(false);
       }
       if (details?.linkedAccounts?.Instagram?.details?.graphql?.user) {
-        setData(details?.linkedAccounts?.Instagram?.details?.graphql?.user);
+        const finalData =
+          details?.linkedAccounts?.Instagram?.details?.graphql?.user;
+        setData(finalData);
+        setInstagramData([
+          ...instagramData,
+          { ...finalData, validId: details?.id },
+        ]);
+        fetchImages(finalData);
         return setLoading(false);
       }
       setLoading(false);
@@ -193,8 +193,8 @@ const Instagram = ({ details }) => {
             <div className="w-fit">
               <div
                 style={{
-                  backgroundImage: data?.profileImg
-                    ? `url(data:image/png;base64,${data?.profileImg})`
+                  backgroundImage: allImages[details?.id]
+                    ? `url(data:image/png;base64,${allImages[details?.id]})`
                     : `url(${defaultUser})`,
                 }}
                 className="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat"
@@ -214,8 +214,8 @@ const Instagram = ({ details }) => {
                 <div className="px-3 flex items-center gap-3">
                   <div
                     style={{
-                      backgroundImage: data?.profileImg
-                        ? `url(data:image/png;base64,${data?.profileImg})`
+                      backgroundImage: allImages[details?.id]
+                        ? `url(data:image/png;base64,${allImages[details?.id]})`
                         : `url(${defaultUser})`,
                     }}
                     className="w-12 h-12 rounded-full bg-cover bg-center bg-no-repeat"
@@ -233,9 +233,9 @@ const Instagram = ({ details }) => {
                     {item?.node?.text}
                   </p>
                 ))}
-                {data[node?.id] && (
+                {allImages[node?.id] && (
                   <img
-                    src={`data:image/png;base64,${data[node?.id]}`}
+                    src={`data:image/png;base64,${allImages[node?.id]}`}
                     className="w-full mb-5"
                     alt=""
                   />
