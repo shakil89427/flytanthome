@@ -77,7 +77,7 @@ function App() {
     "app",
     "createinfluencerslist",
     "influencerslist",
-    "socialcards",
+    "socialcard",
     user?.userId && "courses",
   ];
 
@@ -141,7 +141,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
-          <Route path="/socialcards" element={<SocialCards />} />
+          <Route path="/socialcard" element={<SocialCards />} />
           <Route path="/products" element={<Products />}>
             <Route index element={<Main />} />
             <Route

@@ -186,7 +186,7 @@ const Search = () => {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           ref={inputRef}
-          placeholder="Search 'Fashion Influencers' or 'Brand name'"
+          placeholder="Search Influencers"
           type="text"
           className="w-full p-3 border-0 outline-none"
           required
