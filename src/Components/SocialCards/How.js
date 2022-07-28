@@ -37,10 +37,10 @@ const How = () => {
                 style={{ backgroundImage: `url(${work?.img})` }}
                 className="w-full aspect-square bg-contain bg-center bg-no-repeat"
               />
-              <p className="mt-6 mb-3 text-md lg:text-xl font-medium">
+              <p className="mt-6 mb-3 text-lg lg:text-xl font-medium">
                 {index + 1}
               </p>
-              <p className="text-md lg:text-xl font-medium">{work?.title}</p>
+              <p className="text-lg lg:text-xl font-medium">{work?.title}</p>
             </div>
           ))}
         </div>

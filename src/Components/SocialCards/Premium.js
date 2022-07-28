@@ -14,7 +14,7 @@ const Premium = () => {
           <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
             Premium Social Card
           </p>
-          <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold mt-2 lg:mt-5">
+          <p className="text-md md:text-xl lg:text-2xl xl:text-3xl font-semibold mt-1 lg:mt-5">
             100K+ Influencers Already Using
           </p>
         </div>
