@@ -20,19 +20,14 @@ const Instagram = ({ details }) => {
   const { addLog } = useAnalytics();
 
   const getImage = async (url, id) => {
-    try {
-      const {
-        data: { image },
-      } = await axios.post(
-        "https://arcane-castle-29935.herokuapp.com/getimage",
-        {
-          url,
-        }
-      );
-      let obj = {};
-      obj[id] = image;
-      return obj;
-    } catch (err) {}
+    const {
+      data: { image },
+    } = await axios.post("https://arcane-castle-29935.herokuapp.com/getimage", {
+      url,
+    });
+    let obj = {};
+    obj[id] = image;
+    return obj;
   };
 
   const fetchImages = async () => {
@@ -48,7 +43,7 @@ const Instagram = ({ details }) => {
       let temp = {};
       response.forEach((item) => {
         if (item?.status === "fulfilled") {
-          temp[Object.keys(item.value)[0]] = Object.values(item.value)[0];
+          temp = { ...temp, ...item?.value };
         }
       });
       const finalData = {
