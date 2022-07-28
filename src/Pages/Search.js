@@ -106,30 +106,40 @@ const Search = () => {
     }
   };
 
-  const search = (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const search = (e, option) => {
+    e && e.preventDefault();
     addLog("search");
     let promises = [];
-    promises.push(
-      axios.post("https://arcane-castle-29935.herokuapp.com/search/instagram", {
-        keyword,
-        start: 1,
-      })
-    );
-    promises.push(
-      axios.post("https://arcane-castle-29935.herokuapp.com/search/youtube", {
-        keyword,
-        pageToken: "",
-      })
-    );
-    promises.push(
-      axios.post("https://arcane-castle-29935.herokuapp.com/search/twitter", {
-        keyword,
-        page: 1,
-      })
-    );
+    if (!option || option?.instagram) {
+      promises.push(
+        axios.post(
+          "https://arcane-castle-29935.herokuapp.com/search/instagram",
+          {
+            keyword,
+            start: option?.instagram || 1,
+          }
+        )
+      );
+    }
+    if (!option || option?.youtube) {
+      promises.push(
+        axios.post("https://arcane-castle-29935.herokuapp.com/search/youtube", {
+          keyword,
+          pageToken: option?.youtube || "",
+        })
+      );
+    }
+    if (!option || option?.twitter) {
+      promises.push(
+        axios.post("https://arcane-castle-29935.herokuapp.com/search/twitter", {
+          keyword,
+          page: option?.twitter || 1,
+        })
+      );
+    }
 
+    if (promises?.length < 1) return;
+    setLoading(true);
     Promise.allSettled(promises)
       .then((res) => {
         let success = false;
@@ -150,10 +160,11 @@ const Search = () => {
             }
           }
         });
-        if (success) {
+        if (success && !option) {
           setSearchKeyword(keyword);
         }
         setLoading(false);
+        window.scroll(0, 0);
       })
       .catch(() => setLoading(false));
   };
@@ -216,7 +227,10 @@ const Search = () => {
       )}
       {(activeCategory === "All" || activeCategory === "Instagram") && (
         <div className="grid grid-cols-1 gap-5 mb-5 max-w-[900px] mx-auto">
-          {instagramResults?.data?.map((item) => (
+          {(activeCategory === "All"
+            ? instagramResults?.data?.slice(0, 5)
+            : instagramResults?.data
+          )?.map((item) => (
             <div
               style={{
                 boxShadow: `0px 0px 15px 0px rgba(13,12,12,.10)`,
@@ -288,7 +302,10 @@ const Search = () => {
       )}
       {(activeCategory === "All" || activeCategory === "Youtube") && (
         <div className="grid grid-cols-1 gap-5 mb-5 max-w-[900px] mx-auto">
-          {youtubeResults?.data?.map((item) => (
+          {(activeCategory === "All"
+            ? youtubeResults?.data?.slice(0, 5)
+            : youtubeResults?.data
+          )?.map((item) => (
             <div
               style={{
                 boxShadow: `0px 0px 15px 0px rgba(13,12,12,.10)`,
@@ -350,7 +367,10 @@ const Search = () => {
       )}
       {(activeCategory === "All" || activeCategory === "Twitter") && (
         <div className="grid grid-cols-1 gap-5 mb-5 max-w-[900px] mx-auto">
-          {twitterResults?.data?.map((item) => (
+          {(activeCategory === "All"
+            ? twitterResults?.data?.slice(0, 5)
+            : twitterResults?.data
+          )?.map((item) => (
             <div
               style={{
                 boxShadow: `0px 0px 15px 0px rgba(13,12,12,.10)`,
@@ -415,6 +435,42 @@ const Search = () => {
                 </p>
               )}
             </div>
+          )}
+        </div>
+      )}
+      {activeCategory === "All" && (
+        <div className="flex items-center justify-center mt-10 gap-10">
+          {(instagramResults?.prev ||
+            youtubeResults?.prev ||
+            twitterResults?.prev) && (
+            <p
+              onClick={() =>
+                search(false, {
+                  instagram: instagramResults?.prev,
+                  youtube: youtubeResults?.prev,
+                  twitter: twitterResults?.prev,
+                })
+              }
+              className="bg-black text-white py-2 px-5 rounded-md font-medium cursor-pointer"
+            >
+              Prev
+            </p>
+          )}
+          {(instagramResults?.next ||
+            youtubeResults?.next ||
+            twitterResults?.next) && (
+            <p
+              onClick={() =>
+                search(false, {
+                  instagram: instagramResults?.next,
+                  youtube: youtubeResults?.next,
+                  twitter: twitterResults?.next,
+                })
+              }
+              className="bg-black text-white py-2 px-5 rounded-md font-medium cursor-pointer"
+            >
+              Next
+            </p>
           )}
         </div>
       )}

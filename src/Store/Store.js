@@ -95,17 +95,17 @@ const Store = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [instagramResults, setInstagramResults] = useState({
     prev: false,
-    next: 1,
+    next: false,
     data: [],
   });
   const [youtubeResults, setYoutubeResults] = useState({
     prev: false,
-    next: "",
+    next: false,
     data: [],
   });
   const [twitterResults, setTwitterResults] = useState({
     prev: false,
-    next: 1,
+    next: false,
     data: [],
   });
   const [searchImages, setSearchImages] = useState({});
