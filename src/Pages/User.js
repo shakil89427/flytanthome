@@ -8,6 +8,7 @@ import Spinner from "../Components/Spinner/Spinner";
 import Error from "./Error";
 import useStore from "../Store/useStore";
 import useAnalytics from "../Hooks/useAnalytics";
+import defaultUser from "../Assets/defaultUser.png";
 
 const User = () => {
   const { user, authLoading, userLoading } = useStore();
@@ -74,13 +75,18 @@ const User = () => {
       )}
       <div className="w-full h-full md:w-[400px] md:h-[90vh] md:rounded-xl overflow-y-scroll pb-14 scrollbar bg-white relative">
         <div
-          style={{ backgroundImage: `url(${cardUser?.featureImageUrl})` }}
+          style={{
+            backgroundImage: `url(${
+              cardUser?.featureImageUrl ||
+              "https://firebasestorage.googleapis.com/v0/b/flytant-cb72e.appspot.com/o/socail_card_default_feature_graphic%2Fimage_2022_07_05T07_03_49_436Z.png?alt=media&token=b13c47e5-c6ce-421b-93dd-46b42fa30db4"
+            })`,
+          }}
           className="aspect-[4/2] bg-cover bg-center bg-no-repeat md:rounded-tl-lg md:rounded-tr-lg"
         />
 
         <div
           style={{
-            backgroundImage: `url(${cardUser?.profileImageUrl})`,
+            backgroundImage: `url(${cardUser?.profileImageUrl || defaultUser})`,
             border: "5px solid white",
           }}
           className="bg-cover bg-center bg-no-repeat rounded-full w-[40%] aspect-square relative mx-auto -translate-y-1/2"
@@ -88,7 +94,10 @@ const User = () => {
           <div className="absolute top-0 left-0 inset-0 rounded-full -rotate-45">
             <div
               style={{
-                backgroundImage: `url(${cardUser?.brandImageUrl})`,
+                backgroundImage: `url(${
+                  cardUser?.brandImageUrl ||
+                  "https://firebasestorage.googleapis.com/v0/b/flytant-cb72e.appspot.com/o/flytant_image%2Fappicon.png?alt=media&token=f8f276ff-8186-4d51-87fb-b608dcc532d6"
+                })`,
               }}
               className="bg-cover bg-center bg-no-repeat rounded-full w-[40%] aspect-square absolute bottom-0 left-1/2 border-4 border-white shadow-xl translate-y-1/2 -translate-x-1/2 rotate-45"
             />
