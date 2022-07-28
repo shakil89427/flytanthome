@@ -10,7 +10,7 @@ import Share from "../Components/SocialCards/Share";
 
 const SocialCards = () => {
   return (
-    <div className="bg-black w-screen min-h-screen">
+    <div className="bg-black">
       <Banner />
       <Share />
       <Impression />

@@ -1,6 +1,8 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import ActivityCheck from "./Components/ActivityCheck/ActivityCheck";
 import NavBar from "./Components/NavBar/NavBar";
+import SocialCards from "./Pages/SocialCards";
+import User from "./Pages/User";
 import Footer from "./Components/Footer/Footer";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Home from "./Pages/Home";
@@ -42,7 +44,6 @@ import Index from "./Components/Courses/Index";
 import Contents from "./Components/Courses/Contents";
 import AllNews from "./Components/Home/UserContent/AllNews";
 import Search from "./Pages/Search";
-import User from "./Pages/User";
 import Details from "./Components/Search/Details";
 import LandingApp from "./Pages/LandingApp";
 import Products from "./Pages/Products";
@@ -52,7 +53,6 @@ import PaymentDetails from "./Components/Products/PaymentDetails";
 import CreateInfluencersList from "./Pages/CreateInfluencersList";
 import InfluencersListDetails from "./Pages/InfluencersListDetails";
 import InfluencersList from "./Pages/InfluencersList";
-import SocialCards from "./Pages/SocialCards";
 import { useLayoutEffect } from "react";
 
 function App() {

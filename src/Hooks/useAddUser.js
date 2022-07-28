@@ -10,14 +10,11 @@ import {
   where,
 } from "firebase/firestore";
 import { formatPhoneNumberIntl } from "react-phone-number-input";
-import { useNavigate } from "react-router-dom";
 import useStore from "../Store/useStore";
 
 const useAddUser = () => {
-  const navigate = useNavigate();
   const database = getFirestore();
-  const { user, setUser, showLogin, setUserLoading, setNotify, countryCode } =
-    useStore();
+  const { user, setUser, setUserLoading, setNotify, countryCode } = useStore();
 
   const addTempUser = async (data) => {
     const userRef = doc(database, "users", data.uid);
