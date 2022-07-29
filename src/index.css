@@ -168,3 +168,6 @@ input[type="number"] {
   font-weight: 600;
   margin-top: 30px;
 }
+.socialcardbg {
+  background-image: linear-gradient(145deg, #121212 0%, #000000 100%);
+}

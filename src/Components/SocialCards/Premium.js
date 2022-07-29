@@ -7,12 +7,7 @@ const Premium = () => {
   const navigate = useNavigate();
   const { addLog } = useAnalytics();
   return (
-    <div
-      style={{
-        backgroundImage: "linear-gradient(145deg, #121212 0%, #000000 100%)",
-      }}
-      className="pt-24 pb-24 lg:pb-60 text-white "
-    >
+    <div className="pt-24 pb-24 lg:pb-60 text-white socialcardbg">
       <div className="relative">
         <img src={premiumBg} alt="" className="w-full" />
         <div className="absolute w-full left-0 text-center bottom-0">

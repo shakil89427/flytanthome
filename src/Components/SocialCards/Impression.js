@@ -36,12 +36,7 @@ const Impression = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        backgroundImage: "linear-gradient(145deg, #121212 0%, #000000 100%)",
-      }}
-      className="min-h-screen flex items-center justify-center mb-24 md:mb-0"
-    >
+    <div className="min-h-screen flex items-center justify-center mb-24 md:mb-0 socialcardbg">
       <div className="r-box text-white flex flex-col items-start md:flex-row md:items-center md:justify-between gap-10">
         <div
           onClick={() => {

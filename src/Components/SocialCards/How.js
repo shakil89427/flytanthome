@@ -17,12 +17,7 @@ const How = () => {
   ];
 
   return (
-    <div
-      style={{
-        backgroundImage: "linear-gradient(145deg, #121212 0%, #000000 100%)",
-      }}
-      className="min-h-screen flex items-center justify-center"
-    >
+    <div className="min-h-screen flex items-center justify-center socialcardbg">
       <div className="pt-10 r-box text-white">
         <p className="text-3xl lg:text-4xl font-semibold text-center">
           HOW IT WORKS?
