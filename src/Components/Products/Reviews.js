@@ -90,7 +90,7 @@ const Reviews = ({ id }) => {
                 </div>
               </div>
             </div>
-            <p className="mt-3 font-medium">{review?.review}</p>
+            <p className="mt-3">{review?.review}</p>
           </div>
         ))}
       </div>

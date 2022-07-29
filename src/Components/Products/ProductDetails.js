@@ -9,6 +9,7 @@ import CustomDesign from "./CustomDesign";
 import MoreCards from "./MoreCards";
 import useAnalytics from "../../Hooks/useAnalytics";
 import Reviews from "./Reviews";
+import millify from "millify";
 
 const ProductDetails = () => {
   const {
@@ -209,9 +210,12 @@ const ProductDetails = () => {
               fullSymbol={<AiFillStar />}
             />
             <p className="text-sm font-medium pl-1 text-gray-600">
-              {product?.rating?.ratingCount || 0} Rating
+              {product?.rating?.ratingCount || 0}
             </p>
           </div>
+          <p className="text-sm font-medium pl-1 text-gray-600 mt-2">
+            {millify(product?.rating?.reviewCount || 0)} Reviews
+          </p>
           <hr className="my-10" />
           <Reviews id={id} />
         </div>
