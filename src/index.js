@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import ReactLoading from "react-loading";
 import reportWebVitals from "./reportWebVitals";
 import StoreProvider from "./Store/StoreProvider";
 import { BrowserRouter } from "react-router-dom";
@@ -13,14 +12,15 @@ ReactDOM.render(
       <BrowserRouter>
         <Suspense
           fallback={
-            <div className="z-50 fixed w-full h-screen bg-[#ffffff81] top-0 left-0 flex flex-col items-center justify-center">
-              <ReactLoading
-                type={"bars"}
-                color={"#000000"}
-                height={90}
-                width={90}
-              />
-              <p className="text-sm font-semibold mt-1">
+            <div className="barwrapper">
+              <div className="barmain">
+                <div className="bar1"></div>
+                <div className="bar2"></div>
+                <div className="bar3"></div>
+                <div className="bar4"></div>
+                <div className="bar5"></div>
+              </div>
+              <p className="bartext">
                 <i>Please Wait...</i>
               </p>
             </div>

@@ -4,7 +4,6 @@ import useStore from "../../Store/useStore";
 import Login from "../Login/Login";
 import Logout from "../Logout/Logout";
 import Toast from "../Toast/Toast";
-import Loading from "../Loading/Loading";
 import Spinner from "../Spinner/Spinner";
 import useCheckCode from "../../Hooks/useCheckCode";
 import useLocationCheck from "../../Hooks/useLocationCheck";
@@ -37,7 +36,20 @@ const ActivityCheck = () => {
       {showLogin && <Login />}
       {showLogout && <Logout />}
       {notify && <Toast />}
-      {authLoading && <Loading />}
+      {authLoading && (
+        <div className="barwrapper">
+          <div className="barmain">
+            <div className="bar1"></div>
+            <div className="bar2"></div>
+            <div className="bar3"></div>
+            <div className="bar4"></div>
+            <div className="bar5"></div>
+          </div>
+          <p className="bartext">
+            <i>Please Wait...</i>
+          </p>
+        </div>
+      )}
       {showNewsCard && <NewsCard />}
       {showSingleCard && <SingleCard />}
       {userLoading && (
