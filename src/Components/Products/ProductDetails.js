@@ -8,6 +8,7 @@ import { GoPrimitiveDot } from "react-icons/go";
 import CustomDesign from "./CustomDesign";
 import MoreCards from "./MoreCards";
 import useAnalytics from "../../Hooks/useAnalytics";
+import Reviews from "./Reviews";
 
 const ProductDetails = () => {
   const {
@@ -174,7 +175,7 @@ const ProductDetails = () => {
           {/* Buy button */}
           <button
             onClick={() => {
-              addLog("buy_now");
+              addLog(`buy_now_${product?.name}`);
               user?.userId
                 ? navigate("/products/payment", { state: { from: location } })
                 : setShowLogin(true);
@@ -212,6 +213,7 @@ const ProductDetails = () => {
             </p>
           </div>
           <hr className="my-10" />
+          <Reviews id={id} />
         </div>
       </div>
       <MoreCards current={id} />

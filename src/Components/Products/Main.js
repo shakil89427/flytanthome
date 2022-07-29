@@ -22,7 +22,7 @@ const Main = () => {
             boxShadow: `0px 0px 15px 1px rgba(13,12,12,.10)`,
           }}
           onClick={() => {
-            addLog("product_details");
+            addLog(`product_details_${product?.name}`);
             navigate(`/products/${product?.id}`);
           }}
           className="bg-[#F8F8F8] grid grid-cols-1 lg:grid-cols-2 rounded-xl overflow-hidden cursor-pointer max-w-[350px] lg:max-w-[500px]"

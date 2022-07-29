@@ -170,4 +170,5 @@ input[type="number"] {
 }
 .socialcardbg {
   background-image: linear-gradient(145deg, #121212 0%, #000000 100%);
+  background-color: black;
 }

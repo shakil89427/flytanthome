@@ -46,7 +46,7 @@ const Impression = () => {
           style={{
             backgroundImage: `url(${smallBg})`,
           }}
-          className="cursor-pointer border border-[#4d4d4d9d] bg-cover bg-bottom bg-no-repeat p-7 pb-10 rounded-xl w-full md:w-1/2 lg:w-5/12"
+          className="cursor-pointer border border-[#4d4d4d9d] bg-cover bg-bottom bg-no-repeat p-7 pb-10 rounded-xl w-full md:w-1/2 lg:w-5/12 bg-black"
         >
           <p
             style={{ lineHeight: "120%" }}
@@ -65,7 +65,7 @@ const Impression = () => {
         </div>
         <div
           style={{ backgroundImage: `url(${bigBg})` }}
-          className="aspect-square p-5 lg:p-10 bg-cover bg-center bg-no-repeat rounded-xl border border-[#4d4d4d9d] w-full md:w-1/2 lg:w-5/12 flex items-center justify-center"
+          className="aspect-square p-5 lg:p-10 bg-cover bg-center bg-no-repeat rounded-xl border border-[#4d4d4d9d] w-full md:w-1/2 lg:w-5/12 flex items-center justify-center bg-black"
         >
           <img ref={imgRef} src={card1} alt="" />
         </div>

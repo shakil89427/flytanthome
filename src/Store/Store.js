@@ -89,6 +89,7 @@ const Store = () => {
   const [selectedSection, setSelectedScetion] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState({});
   const [products, setProducts] = useState([]);
+  const [allReviews, setAllReviews] = useState([]);
   const [customText, setCustomText] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -235,6 +236,8 @@ const Store = () => {
     setSelectedVideo,
     products,
     setProducts,
+    allReviews,
+    setAllReviews,
     customText,
     setCustomText,
     quantity,

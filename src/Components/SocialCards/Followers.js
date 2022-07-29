@@ -18,7 +18,7 @@ const Followers = () => {
           style={{
             backgroundImage: `url(${smallBg})`,
           }}
-          className="cursor-pointer border border-[#4d4d4d9d] bg-cover bg-bottom bg-no-repeat p-7 pb-10 rounded-xl w-full md:w-1/2 lg:w-5/12"
+          className="cursor-pointer border border-[#4d4d4d9d] bg-cover bg-bottom bg-no-repeat p-7 pb-10 rounded-xl w-full md:w-1/2 lg:w-5/12 bg-black"
         >
           <p
             style={{ lineHeight: "120%" }}
