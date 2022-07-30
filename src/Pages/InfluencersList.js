@@ -9,8 +9,7 @@ import { useNavigate } from "react-router-dom";
 import useAnalytics from "../Hooks/useAnalytics";
 
 const InfluencersList = () => {
-  const { setNotify, userLoading, authLoading, user, setShowLogin } =
-    useStore();
+  const { setNotify, authLoading, user, setShowLogin } = useStore();
   const [allData, setAllData] = useState([]);
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
@@ -41,11 +40,11 @@ const InfluencersList = () => {
   }, [user]);
 
   useEffect(() => {
-    if (userLoading || authLoading) return;
+    if (authLoading) return;
     if (!user?.userId) {
       setShowLogin(true);
     }
-  }, [user, userLoading, authLoading]);
+  }, [user, authLoading]);
 
   return (
     <>

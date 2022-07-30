@@ -3,11 +3,14 @@ import useStore from "../../Store/useStore";
 
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
-  const { user, userLoading, authLoading } = useStore();
+  const { user, authLoading } = useStore();
 
-  if (user?.userId) return children;
-  if (userLoading || authLoading) return null;
-  if (!user?.userId) navigate("/");
+  if (authLoading) return null;
+  if (user?.userId) {
+    return children;
+  } else {
+    navigate("/");
+  }
 };
 
 export default PrivateRoute;

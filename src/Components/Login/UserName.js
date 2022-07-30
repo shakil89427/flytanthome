@@ -3,8 +3,10 @@ import { styles } from "./CommonStyles";
 import { BiArrowBack } from "react-icons/bi";
 import useAddUser from "../../Hooks/useAddUser";
 import useAnalytics from "../../Hooks/useAnalytics";
+import useStore from "../../Store/useStore";
 
 const UserName = ({ back }) => {
+  const { authLoading } = useStore();
   const { addUserToDB } = useAddUser();
   const [username, setUsername] = useState("");
   const { addLog } = useAnalytics();
@@ -21,6 +23,7 @@ const UserName = ({ back }) => {
       <form className={styles.usernameForm} onSubmit={addUser}>
         <p>Enter your username</p>
         <input
+          disabled={authLoading}
           minLength="3"
           className={styles.username}
           placeholder="Enter username here"
@@ -30,7 +33,13 @@ const UserName = ({ back }) => {
             setUsername(e.target.value.slice(0, 15).toLowerCase())
           }
         />
-        <button type="submit" className={styles.submitBtn}>
+        <button
+          disabled={authLoading}
+          type="submit"
+          className={` text-white p-3 border-0 rounded-3xl w-full ${
+            authLoading ? "bg-gray-400" : "bg-black"
+          }`}
+        >
           Submit
         </button>
       </form>

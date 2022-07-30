@@ -11,7 +11,7 @@ import useAnalytics from "../Hooks/useAnalytics";
 import defaultUser from "../Assets/defaultUser.png";
 
 const User = () => {
-  const { user, authLoading, userLoading } = useStore();
+  const { user, authLoading } = useStore();
   const { id } = useParams();
   const [cardUser, setCardUser] = useState({});
   const [followData, setFollowData] = useState({});
@@ -41,10 +41,10 @@ const User = () => {
   };
 
   useEffect(() => {
-    if (!authLoading && !userLoading) {
+    if (!authLoading) {
       getData();
     }
-  }, [authLoading, userLoading]);
+  }, [authLoading]);
 
   useEffect(() => {
     document.body.style.overflowY = "hidden";

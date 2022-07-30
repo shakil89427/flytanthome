@@ -8,21 +8,15 @@ import {
   signOut,
 } from "firebase/auth";
 import useStore from "../Store/useStore";
-import useAddUser from "./useAddUser";
 
 const useLogins = () => {
   const auth = getAuth();
-  const { addTempUser } = useAddUser();
-  const { setUser, userLoading, setShowLogout, setNotify } = useStore();
+  const { setUser, setShowLogout, setNotify } = useStore();
 
   /* Common SignIn */
   const signIn = async (provider) => {
-    if (userLoading) return;
     try {
-      const response = await signInWithPopup(auth, provider);
-      if (response?.user) {
-        addTempUser(response.user);
-      }
+      await signInWithPopup(auth, provider);
     } catch (err) {
       setNotify({
         status: false,
@@ -60,7 +54,6 @@ const useLogins = () => {
     signOut(auth)
       .then(() => {
         setShowLogout(false);
-        setUser({});
       })
       .catch((err) => {});
   };

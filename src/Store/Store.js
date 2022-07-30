@@ -16,7 +16,7 @@ const Store = () => {
   const [users, setUsers] = useState([]);
   const [countryCode, setCountryCode] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
-  const [userLoading, setUserLoading] = useState(false);
+  const [authState, setAuthState] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
   const [notify, setNotify] = useState(false);
@@ -76,7 +76,10 @@ const Store = () => {
   const [flytantYoutube, setFlytantYoutube] = useState({});
   const [flytantShow, setFlytantShow] = useState([]);
   const [flytantIndex, setFlytantIndex] = useState(0);
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState({
+    data: [],
+    lastVisible: false,
+  });
   const [blogIndex, setBlogIndex] = useState(0);
   const [myIndex, setMyIndex] = useState(0);
   const [mostIndex, setMostIndex] = useState(0);
@@ -120,6 +123,7 @@ const Store = () => {
       setAppliedIndex(0);
       setSelectedScetion(false);
       setSelectedVideo({});
+      setNotifications({ data: [], lastVisible: false });
     }
   }, [user]);
 
@@ -136,8 +140,8 @@ const Store = () => {
     setUsers,
     authLoading,
     setAuthLoading,
-    userLoading,
-    setUserLoading,
+    authState,
+    setAuthState,
     showLogin,
     setShowLogin,
     showLogout,

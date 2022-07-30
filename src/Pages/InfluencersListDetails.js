@@ -16,7 +16,7 @@ import useStore from "../Store/useStore";
 import useAnalytics from "../Hooks/useAnalytics";
 
 const InfluencersListDetails = () => {
-  const { userLoading, authLoading, user, setShowLogin } = useStore();
+  const { authLoading, user, setShowLogin } = useStore();
   const [title, setTitle] = useState("");
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -82,11 +82,11 @@ const InfluencersListDetails = () => {
   };
 
   useEffect(() => {
-    if (userLoading || authLoading) return;
+    if (authLoading) return;
     if (!user?.userId) {
       setShowLogin(true);
     }
-  }, [user, userLoading, authLoading]);
+  }, [user, authLoading]);
 
   useEffect(() => {
     if (user?.userId) {

@@ -11,7 +11,7 @@ const LandingApp = () => {
   const { addLog } = useAnalytics();
 
   return (
-    <div className="bg-black pb-64">
+    <div className="bg-black min-h-screen pb-64">
       <div className="r-box flex items-center h-14 md:h-24">
         <img
           onClick={() => {

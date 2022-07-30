@@ -6,23 +6,11 @@ import { AiFillApple } from "react-icons/ai";
 import { BsPlayCircle } from "react-icons/bs";
 import cross from "../../../Assets/cross.svg";
 import playstore from "../../../Assets/playstore.png";
-import useStore from "../../../Store/useStore";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import useAnalytics from "../../../Hooks/useAnalytics";
 
 const Banner = () => {
-  const { authLoading, userLoading } = useStore();
   const [play, setPlay] = useState(false);
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
   const { addLog } = useAnalytics();
-
-  useEffect(() => {
-    if (!authLoading && !userLoading && pathname !== "/") {
-      navigate("/");
-    }
-  }, [authLoading, userLoading, pathname]);
 
   return (
     <div className="relative lg:min-h-screen">

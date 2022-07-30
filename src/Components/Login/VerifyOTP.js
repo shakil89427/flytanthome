@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { styles } from "./CommonStyles";
 import { BiArrowBack } from "react-icons/bi";
 import useStore from "../../Store/useStore";
-import useAddUser from "../../Hooks/useAddUser";
 import useAnalytics from "../../Hooks/useAnalytics";
 
 const VerifyOTP = ({ setShow }) => {
-  const { addTempUser } = useAddUser();
-  const { setUserLoading, setNotify } = useStore();
+  const [loading, setLoading] = useState(false);
+  const { setNotify } = useStore();
   const [otpArr, setOtpArr] = useState(new Array(6).fill(""));
   const { addLog } = useAnalytics();
 
@@ -30,14 +29,14 @@ const VerifyOTP = ({ setShow }) => {
     e.preventDefault();
     const otp = otpArr.join("");
     if (otp.length === 6) {
-      setUserLoading(true);
+      setLoading(true);
       addLog("verify_otp");
       const confirmationResult = window.confirmationResult;
       confirmationResult
         .confirm(otp)
-        .then((response) => addTempUser(response.user))
+        .then(() => setLoading(false))
         .catch((error) => {
-          setUserLoading(false);
+          setLoading(false);
           setNotify({
             status: false,
             message: error?.message?.split("/")[1]?.split(")")[0],
@@ -57,6 +56,7 @@ const VerifyOTP = ({ setShow }) => {
         <div className={styles.otpWrapper}>
           {otpArr.map((item, index) => (
             <input
+              disabled={loading}
               key={index}
               onChange={(e) => getOTPvalue(e, index)}
               className={styles.otp}
@@ -64,7 +64,13 @@ const VerifyOTP = ({ setShow }) => {
             />
           ))}
         </div>
-        <button type="submit" className={styles.submitBtn}>
+        <button
+          disabled={loading}
+          type="submit"
+          className={` text-white p-3 border-0 rounded-3xl w-full ${
+            loading ? "bg-gray-400" : "bg-black"
+          }`}
+        >
           Verify
         </button>
       </form>

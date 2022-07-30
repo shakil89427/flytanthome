@@ -10,8 +10,7 @@ import { useEffect } from "react";
 import useAnalytics from "../Hooks/useAnalytics";
 
 const CreateInfluencersList = () => {
-  const { user, setNotify, setShowLogin, userLoading, authLoading } =
-    useStore();
+  const { user, setNotify, setShowLogin, authLoading } = useStore();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const db = getFirestore();
@@ -37,11 +36,11 @@ const CreateInfluencersList = () => {
   };
 
   useEffect(() => {
-    if (userLoading || authLoading) return;
+    if (authLoading) return;
     if (!user?.userId) {
       setShowLogin(true);
     }
-  }, [user, userLoading, authLoading]);
+  }, [user, authLoading]);
 
   return (
     <div className="w-screen h-screen bg-black">
