@@ -19,6 +19,7 @@ const useAddUser = () => {
   const addTempUser = async (data) => {
     const userRef = doc(database, "users", data.uid);
     try {
+      setUserLoading(true);
       const userData = await getDoc(userRef);
       const finalData = { ...userData.data(), id: userData.id };
       if (finalData?.userId) {

@@ -85,7 +85,6 @@ const Instagram = ({ details }) => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      setNotify({ status: false, message: "Something went wrong" });
     }
   };
 

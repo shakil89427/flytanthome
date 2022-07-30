@@ -13,20 +13,17 @@ import useAddUser from "./useAddUser";
 const useLogins = () => {
   const auth = getAuth();
   const { addTempUser } = useAddUser();
-  const { setUser, userLoading, setUserLoading, setShowLogout, setNotify } =
-    useStore();
+  const { setUser, userLoading, setShowLogout, setNotify } = useStore();
 
   /* Common SignIn */
   const signIn = async (provider) => {
     if (userLoading) return;
-    setUserLoading(true);
     try {
       const response = await signInWithPopup(auth, provider);
       if (response?.user) {
         addTempUser(response.user);
       }
     } catch (err) {
-      setUserLoading(false);
       setNotify({
         status: false,
         message: err?.message?.split("/")[1]?.split(")")[0],

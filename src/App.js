@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import ActivityCheck from "./Components/ActivityCheck/ActivityCheck";
 import NavBar from "./Components/NavBar/NavBar";
-import SocialCards from "./Pages/SocialCards";
+import SocialCard from "./Pages/SocialCard";
 import User from "./Pages/User";
 import Footer from "./Components/Footer/Footer";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
@@ -92,10 +92,7 @@ function App() {
       <div
         style={{ opacity: authLoading ? "0" : "1" }}
         className={`duration-300 ${
-          pathname?.toLowerCase() === "/app" ||
-          pathname?.toLowerCase() === "/socialcard"
-            ? "min-h-0"
-            : "min-h-screen"
+          pathname?.toLowerCase() === "/app" ? "min-h-0" : "min-h-screen"
         }`}
       >
         {!navPaths.includes(
@@ -145,7 +142,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
-          <Route path="/socialcard" element={<SocialCards />} />
+          <Route path="/socialcard" element={<SocialCard />} />
           <Route path="/products" element={<Products />}>
             <Route index element={<Main />} />
             <Route
