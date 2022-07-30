@@ -3,6 +3,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { styles } from "./CommonStyles";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import Spinner2 from "../Spinner/Spinner2";
 import useStore from "../../Store/useStore";
 import {
   getAuth,
@@ -13,7 +14,8 @@ import useAnalytics from "../../Hooks/useAnalytics";
 
 const SendOTP = ({ back, setShow }) => {
   const auth = getAuth();
-  const { countryCode, userLoading, setUserLoading, setNotify } = useStore();
+  const { countryCode, userLoading, setNotify } = useStore();
+  const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState();
   const { addLog } = useAnalytics();
 
@@ -26,8 +28,8 @@ const SendOTP = ({ back, setShow }) => {
     if (!isValidPhoneNumber(number)) {
       return setNotify({ status: false, message: "Invalid number" });
     }
-    setUserLoading(true);
     addLog("send_otp");
+    setLoading(true);
     /* Generate Captcha */
     window.appVerifier = new RecaptchaVerifier(
       "captcha",
@@ -41,11 +43,11 @@ const SendOTP = ({ back, setShow }) => {
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        setUserLoading(false);
+        setLoading(false);
         setShow("verifyOTP");
       })
       .catch((error) => {
-        setUserLoading(false);
+        setLoading(false);
         setNotify({ status: false, message: error.message });
       });
   };
@@ -66,7 +68,13 @@ const SendOTP = ({ back, setShow }) => {
             value={number}
             onChange={setNumber}
           />
-          <button type="submit" className={styles.submitBtn}>
+          <button
+            disabled={loading}
+            type="submit"
+            className={` text-white p-3 border-0 rounded-3xl w-full ${
+              loading ? "bg-gray-400" : "bg-black"
+            }`}
+          >
             Send OTP
           </button>
         </form>

@@ -92,7 +92,10 @@ function App() {
       <div
         style={{ opacity: authLoading ? "0" : "1" }}
         className={`duration-300 ${
-          pathname?.toLowerCase() === "/app" ? "min-h-0" : "min-h-screen"
+          pathname?.toLowerCase() === "/app" ||
+          pathname?.toLowerCase() === "/socialcard"
+            ? "min-h-0"
+            : "min-h-screen"
         }`}
       >
         {!navPaths.includes(

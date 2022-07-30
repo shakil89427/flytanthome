@@ -10,10 +10,11 @@ import useLocationCheck from "../../Hooks/useLocationCheck";
 import useNotifications from "../../Hooks/useNotifications";
 import NewsCard from "../NewsCard/NewsCard";
 import SingleCard from "../NewsCard/SingleCard";
+import { useEffect } from "react";
 
 const styles = {
   spinnerDiv:
-    "fixed top-0 left-0 w-full h-screen z-50 flex items-center justify-center bg-[#8d8b8b4f] z-[9999999999999]",
+    "fixed top-0 left-0 w-full z-[999999999] h-screen flex items-center justify-center bg-[#8d8b8b4f]",
 };
 
 const ActivityCheck = () => {
@@ -22,6 +23,7 @@ const ActivityCheck = () => {
     showLogout,
     notify,
     authLoading,
+    setUserLoading,
     userLoading,
     showNewsCard,
     showSingleCard,
@@ -30,6 +32,12 @@ const ActivityCheck = () => {
   useCheckCode();
   useLocationCheck();
   useNotifications();
+
+  useEffect(() => {
+    if (!showLogin) {
+      setUserLoading(false);
+    }
+  }, [showLogin]);
 
   return (
     <>
