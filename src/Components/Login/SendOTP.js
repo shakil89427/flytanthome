@@ -3,7 +3,6 @@ import { BiArrowBack } from "react-icons/bi";
 import { styles } from "./CommonStyles";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import Spinner2 from "../Spinner/Spinner2";
 import useStore from "../../Store/useStore";
 import {
   getAuth,
@@ -14,14 +13,14 @@ import useAnalytics from "../../Hooks/useAnalytics";
 
 const SendOTP = ({ back, setShow }) => {
   const auth = getAuth();
-  const { countryCode, userLoading, setNotify } = useStore();
+  const { countryCode, setNotify } = useStore();
   const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState();
   const { addLog } = useAnalytics();
 
   const sendOTP = (e) => {
     e.preventDefault();
-    if (userLoading) return;
+    if (loading) return;
     if (!number) {
       return setNotify({ status: false, message: "Enter a valid number" });
     }
@@ -61,6 +60,7 @@ const SendOTP = ({ back, setShow }) => {
         <p>Enter Your mobile number</p>
         <form className={styles.form} onSubmit={sendOTP}>
           <PhoneInput
+            disabled={loading}
             className={styles.number}
             international
             defaultCountry={countryCode || "US"}
