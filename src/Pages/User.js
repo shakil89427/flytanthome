@@ -1,7 +1,5 @@
 import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Connect from "../Components/Connect/Connect";
 import Spinner from "../Components/Spinner/Spinner";
@@ -52,6 +50,10 @@ const User = () => {
       document.body.style.overflowY = "auto";
     };
   }, []);
+
+  if (authLoading) {
+    return <div className="fixed top-0 left-0 inset-0 bg-white z-[999]" />;
+  }
 
   if (loading) {
     return (
