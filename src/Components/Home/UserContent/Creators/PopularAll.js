@@ -132,7 +132,7 @@ const PopularAll = () => {
               </div>
               <div className="px-5 -translate-y-1/2">
                 <p className="text-lg font-semibold">
-                  {item?.name.length > 15
+                  {item?.name?.length > 15
                     ? item?.name.slice(0, 15) + "..."
                     : item?.name}
                 </p>
