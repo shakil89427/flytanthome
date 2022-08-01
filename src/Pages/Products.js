@@ -8,7 +8,7 @@ import { fetchAndActivate, getString } from "firebase/remote-config";
 import useAnalytics from "../Hooks/useAnalytics";
 
 const Products = () => {
-  const { products, setProducts, remoteConfig } = useStore();
+  const { products, setProducts, remoteConfig, authState } = useStore();
   const { addLog } = useAnalytics();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -57,6 +57,22 @@ const Products = () => {
       setLoading(false);
     }
   }, []);
+
+  if (authState) {
+    return (
+      <div className="r-box h-14 md:h-24 flex items-center justify-start border-b">
+        <img
+          onClick={() => {
+            addLog("nav_logo");
+            navigate("/");
+          }}
+          className="cursor-pointer w-[130px] md:w-[185px]"
+          src={logo}
+          alt=""
+        />
+      </div>
+    );
+  }
 
   return (
     <>
