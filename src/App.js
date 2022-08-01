@@ -64,8 +64,8 @@ const Courses = lazy(() => import("./Pages/Courses"));
 const Index = lazy(() => import("./Components/Courses/Index"));
 const Contents = lazy(() => import("./Components/Courses/Contents"));
 const AllNews = lazy(() => import("./Components/Home/UserContent/AllNews"));
-const Search = lazy(() => import("./Pages/Search"));
-const Details = lazy(() => import("./Components/Search/Details"));
+// const Search = lazy(() => import("./Pages/Search"));
+// const Details = lazy(() => import("./Components/Search/Details"));
 const LandingApp = lazy(() => import("./Pages/LandingApp"));
 const Products = lazy(() => import("./Pages/Products"));
 const Main = lazy(() => import("./Components/Products/Main"));
@@ -472,7 +472,7 @@ function App() {
               </Suspense>
             }
           />
-          <Route
+          {/* <Route
             path="/search"
             element={
               <PrivateRoute>
@@ -491,7 +491,7 @@ function App() {
                 </Suspense>
               </PrivateRoute>
             }
-          />
+          /> */}
           <Route
             path="/mycampaigns"
             element={

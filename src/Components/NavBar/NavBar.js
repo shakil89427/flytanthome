@@ -75,14 +75,14 @@ const NavBar = ({ bg }) => {
           alt=""
         />
         <div className="lg:hidden flex items-center justify-end gap-3 w-full">
-          {user?.userId && (
+          {/* {user?.userId && (
             <BiSearch
               onClick={() => navigate("/search")}
               className={`cursor-pointer ${theme.text} ${
                 pathname === "/search" ? "invisible" : "visible"
               }`}
             />
-          )}
+          )} */}
           {pathname !== "/onboard" && (
             <GiHamburgerMenu
               onClick={() => {
