@@ -114,16 +114,19 @@ const Store = () => {
     data: [],
   });
   const [searchImages, setSearchImages] = useState({});
+  const [myOrders, setMyOrders] = useState([]);
 
   useEffect(() => {
     if (!user?.userId) {
       setMySponsorships({ data: [], lastVisible: false });
       setAppliedSponsorships({ data: [], lastVisible: false });
+      setMyCampaigns([]);
       setMyIndex(0);
       setAppliedIndex(0);
       setSelectedScetion(false);
       setSelectedVideo({});
       setNotifications({ data: [], lastVisible: false });
+      setMyOrders([]);
     }
   }, [user]);
 
@@ -248,6 +251,8 @@ const Store = () => {
     setQuantity,
     allImages,
     setAllImages,
+    myOrders,
+    setMyOrders,
   };
 };
 

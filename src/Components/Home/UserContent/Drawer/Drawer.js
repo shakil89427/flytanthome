@@ -6,10 +6,12 @@ import Home from "../../../../Assets/userHome/drawerItems/Home.png";
 import HomeB from "../../../../Assets/userHome/drawerItems/HomeB.png";
 import Logout from "../../../../Assets/userHome/drawerItems/Logout.png";
 import LogoutB from "../../../../Assets/userHome/drawerItems/LogoutB.png";
+import Card from "../../../../Assets/userHome/drawerItems/Card.png";
+import CardB from "../../../../Assets/userHome/drawerItems/CardB.png";
 import Notification from "../../../../Assets/userHome/drawerItems/Notification.png";
 import NotificationB from "../../../../Assets/userHome/drawerItems/NotificationB.png";
-import Settings from "../../../../Assets/userHome/drawerItems/Settings.png";
-import SettingsB from "../../../../Assets/userHome/drawerItems/SettingsB.png";
+import More from "../../../../Assets/userHome/drawerItems/More.png";
+import MoreB from "../../../../Assets/userHome/drawerItems/MoreB.png";
 import SocialProfile from "../../../../Assets/userHome/drawerItems/SocialProfile.png";
 import SocialProfileB from "../../../../Assets/userHome/drawerItems/SocialProfileB.png";
 import Sponsorships from "../../../../Assets/userHome/drawerItems/Sponsorships.png";
@@ -36,6 +38,12 @@ const Drawer = () => {
       img2: SponsorshipsB,
     },
     {
+      title: "Social Card",
+      path: "/socialcard",
+      img1: Card,
+      img2: CardB,
+    },
+    {
       title: "Notifications",
       path: "/notifications",
       img1: Notification,
@@ -49,7 +57,7 @@ const Drawer = () => {
     },
     { title: "Blogs", path: "/blogs", img1: Blogs, img2: BlogsB },
     { title: "News", path: "/news", img1: News, img2: NewsB },
-    { title: "Settings", path: "settings", img1: Settings, img2: SettingsB },
+    { title: "More", path: "more", img1: More, img2: MoreB },
   ];
   const paths2 = [
     {
@@ -101,7 +109,7 @@ const Drawer = () => {
   }, [pathname]);
 
   const changePath = (path) => {
-    if (path === "settings") {
+    if (path === "more") {
       return setRoutes(true);
     }
     if (path === "Logout") {
@@ -114,13 +122,13 @@ const Drawer = () => {
       {routes && (
         <div
           onClick={() => {
-            addLog("settings");
+            addLog("back");
             setRoutes(false);
           }}
           className="flex items-center gap-8 pl-2 mb-10 cursor-pointer h-8 font-semibold"
         >
           <img className="w-7 md:w-8" src={Back} alt="" />
-          <p className="hidden lg:block ">Settings</p>
+          <p className="hidden lg:block ">Back</p>
         </div>
       )}
       <div className="flex flex-col gap-8">

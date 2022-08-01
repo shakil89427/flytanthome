@@ -82,6 +82,7 @@ const InfluencersListDetails = lazy(() =>
   import("./Pages/InfluencersListDetails")
 );
 const InfluencersList = lazy(() => import("./Pages/InfluencersList"));
+const MyOrders = lazy(() => import("./Pages/MyOrders"));
 
 const FallBackComponent = () => {
   return (
@@ -498,6 +499,16 @@ function App() {
               <PrivateRoute>
                 <Suspense fallback={<FallBackComponent />}>
                   <MyCampaigns />
+                </Suspense>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/myorders"
+            element={
+              <PrivateRoute>
+                <Suspense fallback={<FallBackComponent />}>
+                  <MyOrders />
                 </Suspense>
               </PrivateRoute>
             }
