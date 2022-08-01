@@ -3,7 +3,7 @@ import useStore from "../Store/useStore";
 const useCalculate = (setDataLoading) => {
   const { setPlans } = useStore();
   /* USD Calculate */
-  const usd = (allData, info) => {
+  const usd = (allData) => {
     const maped = allData.map((item) => {
       return {
         ...item,
@@ -15,8 +15,8 @@ const useCalculate = (setDataLoading) => {
             priceNow: Math.floor(item.usBasePrice),
             percentageOff: item.usPercentageOff,
             subscriptionDays: 30,
-            currency: info.currency,
-            symbol: info.symbol,
+            currency: "USD",
+            symbol: "$",
             id: item.name + 1,
             messageCredits: item?.messageCredits ? item?.messageCredits : 0,
             numberOfApplies: item?.numberOfApplies ? item?.numberOfApplies : 0,
@@ -30,8 +30,8 @@ const useCalculate = (setDataLoading) => {
             ),
             percentageOff: 5,
             subscriptionDays: 90,
-            currency: info.currency,
-            symbol: info.symbol,
+            currency: "USD",
+            symbol: "$",
             id: item.name + 2,
             messageCredits: item?.messageCredits ? item?.messageCredits * 3 : 0,
             numberOfApplies: item?.numberOfApplies
@@ -47,8 +47,8 @@ const useCalculate = (setDataLoading) => {
             ),
             percentageOff: 10,
             subscriptionDays: 180,
-            currency: info.currency,
-            symbol: info.symbol,
+            currency: "USD",
+            symbol: "$",
             id: item.name + 3,
             messageCredits: item?.messageCredits ? item?.messageCredits * 6 : 0,
             numberOfApplies: item?.numberOfApplies
@@ -64,8 +64,8 @@ const useCalculate = (setDataLoading) => {
             ),
             percentageOff: 20,
             subscriptionDays: 360,
-            currency: info.currency,
-            symbol: info.symbol,
+            currency: "USD",
+            symbol: "$",
             id: item.name + 4,
             messageCredits: item?.messageCredits
               ? item?.messageCredits * 12
@@ -82,7 +82,7 @@ const useCalculate = (setDataLoading) => {
   };
 
   /* INR Calculate */
-  const inr = (allData, info) => {
+  const inr = (allData) => {
     const maped = allData.map((item) => {
       return {
         ...item,
@@ -94,8 +94,8 @@ const useCalculate = (setDataLoading) => {
             priceNow: Math.floor(item.inBasePrice),
             percentageOff: item.inPercentageOff,
             subscriptionDays: 30,
-            currency: info.currency,
-            symbol: info.symbol,
+            currency: "INR",
+            symbol: "₹",
             id: item.name + 1,
             messageCredits: item?.messageCredits ? item?.messageCredits : 0,
             numberOfApplies: item?.numberOfApplies ? item?.numberOfApplies : 0,
@@ -109,8 +109,8 @@ const useCalculate = (setDataLoading) => {
             ),
             percentageOff: 5,
             subscriptionDays: 90,
-            currency: info.currency,
-            symbol: info.symbol,
+            currency: "INR",
+            symbol: "₹",
             id: item.name + 2,
             messageCredits: item?.messageCredits ? item?.messageCredits * 3 : 0,
             numberOfApplies: item?.numberOfApplies
@@ -126,8 +126,8 @@ const useCalculate = (setDataLoading) => {
             ),
             percentageOff: 10,
             subscriptionDays: 180,
-            currency: info.currency,
-            symbol: info.symbol,
+            currency: "INR",
+            symbol: "₹",
             id: item.name + 3,
             messageCredits: item?.messageCredits ? item?.messageCredits * 6 : 0,
             numberOfApplies: item?.numberOfApplies
@@ -143,8 +143,8 @@ const useCalculate = (setDataLoading) => {
             ),
             percentageOff: 20,
             subscriptionDays: 360,
-            currency: info.currency,
-            symbol: info.symbol,
+            currency: "INR",
+            symbol: "₹",
             id: item.name + 4,
             messageCredits: item?.messageCredits
               ? item?.messageCredits * 12

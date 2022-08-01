@@ -22,50 +22,18 @@ const Subscription = () => {
   const db = getFirestore();
 
   const checkCurrency = async (allData) => {
+    if (!user?.countryCode || user?.countryCode === "") return usd(allData);
+    if (user?.countryCode === "IN") return inr(allData);
     try {
       await fetchAndActivate(remoteConfig);
       const countries = await JSON.parse(
         getString(remoteConfig, "country_list")
       );
-      const currencies = await JSON.parse(
-        getString(remoteConfig, "currency_list")
-      );
-      /* USD */
-      if (!user?.countryCode || user?.countryCode === "") {
-        const { symbol_native } = currencies.find(
-          (item) => item.code === "USD"
-        );
-        return usd(allData, {
-          currency: "USD",
-          symbol: symbol_native,
-        });
-      }
-      /* INR */
-      if (user?.countryCode === "IN") {
-        const { symbol_native } = currencies.find(
-          (item) => item.code === "INR"
-        );
-        return inr(allData, {
-          currency: "INR",
-          symbol: symbol_native,
-        });
-      }
       /* Others */
-      const { currencyCode } = countries.find(
-        (item) => item.countryCode === user.countryCode
+      const { currencyCode } = countries?.find(
+        (item) => item?.countryCode === user?.countryCode
       );
-      if (!razorCurrencies?.includes(currencyCode)) {
-        const { symbol_native } = currencies.find(
-          (item) => item.code === "USD"
-        );
-        return usd(allData, {
-          currency: "USD",
-          symbol: symbol_native,
-        });
-      }
-      const { symbol_native } = currencies.find(
-        (item) => item.code === currencyCode
-      );
+      if (!razorCurrencies?.includes(currencyCode)) return usd(allData);
       const {
         data: { rates },
       } = await axios.get("https://api.exchangerate.host/latest", {
@@ -74,14 +42,19 @@ const Subscription = () => {
           symbols: currencyCode,
         },
       });
+      const currencies = await JSON.parse(
+        getString(remoteConfig, "currency_list")
+      );
+      const { symbol_native } = currencies?.find(
+        (item) => item?.code === currencyCode
+      );
       other(allData, {
         currency: currencyCode,
         symbol: symbol_native,
         value: rates[currencyCode],
       });
     } catch (err) {
-      setNotify({ status: false, message: "Something went wrong" });
-      setDataLoading(false);
+      usd(allData);
     }
   };
 
