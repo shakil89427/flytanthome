@@ -82,7 +82,9 @@ const InfluencersListDetails = lazy(() =>
   import("./Pages/InfluencersListDetails")
 );
 const InfluencersList = lazy(() => import("./Pages/InfluencersList"));
-const MyOrders = lazy(() => import("./Pages/MyOrders"));
+const MyOrders = lazy(() => import("./Components/MyOrders/MyOrders"));
+const AllOrders = lazy(() => import("./Components/MyOrders/AllOrders"));
+const OrderDetails = lazy(() => import("./Components/MyOrders/OrderDetails"));
 
 const FallBackComponent = () => {
   return (
@@ -512,7 +514,28 @@ function App() {
                 </Suspense>
               </PrivateRoute>
             }
-          />
+          >
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <Suspense fallback={<FallBackComponent />}>
+                    <AllOrders />
+                  </Suspense>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path=":productName"
+              element={
+                <PrivateRoute>
+                  <Suspense fallback={<FallBackComponent />}>
+                    <OrderDetails />
+                  </Suspense>
+                </PrivateRoute>
+              }
+            />
+          </Route>
           <Route
             path="/mycampaigns/details/:id"
             element={

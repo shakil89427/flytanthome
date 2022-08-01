@@ -12,6 +12,8 @@ import subscriptionWhite from "../../Assets/navBar/subscriptionWhite.png";
 import contactBlack from "../../Assets/navBar/contactBlack.png";
 import contactWhite from "../../Assets/navBar/contactWhite.png";
 import logoutBlack from "../../Assets/navBar/logoutBlack.png";
+import orderWhite from "../../Assets/navBar/orderWhite.png";
+import orderBlack from "../../Assets/navBar/orderBlack.png";
 import useAnalytics from "../../Hooks/useAnalytics";
 
 const styles = {
@@ -107,6 +109,20 @@ const SmallSide = ({ showSide, setShowSide }) => {
               <img src={campaignBlack} alt="" className="i1" />
               <img src={campaignWhite} alt="" className="i2" />
               <p>My Campaigns</p>
+            </div>
+
+            {/* My Orders */}
+            <div
+              onClick={() => {
+                addLog("my_orders");
+                navigate("/myorders");
+                setShowSide(false);
+              }}
+              className={styles.item}
+            >
+              <img src={orderBlack} alt="" className="i1" />
+              <img src={orderWhite} alt="" className="i2" />
+              <p>My Orders</p>
             </div>
 
             {/* Subscription */}
