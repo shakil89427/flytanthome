@@ -31,6 +31,8 @@ const Reviews = ({ id }) => {
   };
 
   useEffect(() => {
+    setReviews([]);
+    setLoading(true);
     const matched = allReviews?.find((item) => item?.id === id);
     if (matched?.id) {
       setReviews(matched?.data);
@@ -38,7 +40,7 @@ const Reviews = ({ id }) => {
     } else {
       getReviews();
     }
-  }, []);
+  }, [id]);
 
   if (loading) {
     return (

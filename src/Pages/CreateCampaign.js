@@ -216,7 +216,7 @@ const CreateCampaign = () => {
               <input
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value.slice(0, 25))}
                 className="border w-full mt-3 border-black rounded-md p-2 outline-none"
                 type="text"
               />

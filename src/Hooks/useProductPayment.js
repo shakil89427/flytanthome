@@ -37,7 +37,6 @@ const usePayment = (product, setPaymentLoading, setStep) => {
       const finalData = {
         ...inputData,
         cardType: product?.customizable ? "customized" : "",
-        nameOnCard: product?.customizable ? customText : false,
         creationDate: moment().unix(),
         currency: priceData?.symbol,
         discount: priceData?.discountAmmount * quantity,
@@ -58,6 +57,9 @@ const usePayment = (product, setPaymentLoading, setStep) => {
         userId: user?.userId,
         deviceType: "Website",
       };
+      if (product?.customizable && customText?.length > 1) {
+        finalData.nameOnCard = customText;
+      }
       const docRef = doc(collection(db, "orders"));
       await setDoc(docRef, { ...finalData, orderId: docRef.id });
       setQuantity(1);

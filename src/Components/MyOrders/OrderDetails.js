@@ -232,7 +232,7 @@ const OrderDetails = () => {
         <p className="text-lg lg:text-xl font-semibold mb-2">
           You're Important to us
         </p>
-        <p className="text-gray-500">Your Product delivered with safe hand</p>
+        <p className="text-gray-500">Your product will be delivered safely</p>
       </div>
     </div>
   );
