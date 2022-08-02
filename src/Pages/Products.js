@@ -52,8 +52,8 @@ const Products = () => {
     if (products?.length < 1) {
       axios
         .get("https://arcane-castle-29935.herokuapp.com/products")
-        .then(({ data }) => calculate(data))
-        .catch(() => setLoading(false));
+        .then((res) => calculate(res.data))
+        .catch((err) => setLoading(false));
     } else {
       setLoading(false);
     }
