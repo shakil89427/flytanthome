@@ -43,7 +43,7 @@ const AllOrders = () => {
               <p className="font-medium lg:hidden">
                 {order?.orderStatus?.delivered
                   ? "Delivered"
-                  : order?.shipped
+                  : order?.orderStatus?.shipped
                   ? "Shipped"
                   : "Ordered"}
               </p>
@@ -55,7 +55,7 @@ const AllOrders = () => {
             <p className="font-medium text-center hidden lg:block">
               {order?.orderStatus?.delivered
                 ? "Delivered"
-                : order?.shipped
+                : order?.orderStatus?.shipped
                 ? "Shipped"
                 : "Ordered"}
             </p>
