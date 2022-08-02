@@ -48,6 +48,7 @@ const Products = () => {
   };
 
   useEffect(() => {
+    if (authState) return;
     if (products?.length < 1) {
       axios
         .get("https://arcane-castle-29935.herokuapp.com/products")
@@ -56,7 +57,7 @@ const Products = () => {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [authState]);
 
   if (authState) {
     return (

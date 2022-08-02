@@ -4,7 +4,7 @@ import useStore from "../Store/useStore";
 import publicIp from "public-ip";
 
 const useLocationCheck = () => {
-  const { setCountryCode } = useStore();
+  const { countryCode, setCountryCode, authState } = useStore();
 
   const getBasic = async () => {
     try {
@@ -20,8 +20,10 @@ const useLocationCheck = () => {
   };
 
   useEffect(() => {
-    getBasic();
-  }, []);
+    if (!countryCode && !authState) {
+      getBasic();
+    }
+  }, [authState]);
 };
 
 export default useLocationCheck;
