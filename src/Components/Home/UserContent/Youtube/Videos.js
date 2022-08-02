@@ -20,13 +20,8 @@ const styles = {
 /* Styles End */
 
 const Youtube = () => {
-  const {
-    flytantYoutube,
-    setFlytantYoutube,
-    flytantIndex,
-    setFlytantIndex,
-    setNotify,
-  } = useStore();
+  const { flytantYoutube, setFlytantYoutube, flytantIndex, setFlytantIndex } =
+    useStore();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [swiper, setSwiper] = useState();
@@ -100,9 +95,6 @@ const Youtube = () => {
             1024: {
               slidesPerView: 3.3,
             },
-            1366: {
-              slidesPerView: 4,
-            },
           }}
         >
           {flytantYoutube?.videos?.slice(0, 10)?.map((video, index) => (
@@ -116,21 +108,14 @@ const Youtube = () => {
                   );
                 }}
                 key={index}
-                className="rounded-lg overflow-hidden cursor-pointer"
+                className="rounded-lg overflow-hidden cursor-pointer relative"
               >
-                <div className="relative">
-                  <img
-                    src={antPlay}
-                    alt=""
-                    className="absolute top-1/2 left-1/2 w-14 h-14 -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150"
-                  />
-                  <div
-                    style={{
-                      backgroundImage: `url(${video?.snippet?.thumbnails?.medium?.url})`,
-                    }}
-                    className="bg-cover bg-center bg-no-repeat aspect-[5/4]"
-                  />
-                </div>
+                <img
+                  src={antPlay}
+                  alt=""
+                  className="absolute top-1/2 left-1/2 w-14 h-14 -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150"
+                />
+                <img src={video?.snippet?.thumbnails?.medium?.url} alt="" />
               </div>
             </SwiperSlide>
           ))}

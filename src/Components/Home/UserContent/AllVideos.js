@@ -70,7 +70,7 @@ const All = () => {
             />
             <p>Videos</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {flytantShow?.map((video, index) => (
               <div
                 onClick={() => {
@@ -81,21 +81,18 @@ const All = () => {
                   );
                 }}
                 key={index}
-                className="rounded-lg overflow-hidden cursor-pointer"
+                className="rounded-lg overflow-hidden cursor-pointer relative"
               >
-                <div className="relative">
-                  <img
-                    src={antPlay}
-                    alt=""
-                    className="absolute top-1/2 left-1/2 w-14 h-14 -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150"
-                  />
-                  <div
-                    style={{
-                      backgroundImage: `url(${video?.snippet?.thumbnails?.medium?.url})`,
-                    }}
-                    className="bg-cover bg-center bg-no-repeat aspect-[5/4]"
-                  />
-                </div>
+                <img
+                  src={antPlay}
+                  alt=""
+                  className="absolute top-1/2 left-1/2 w-14 h-14 -translate-x-1/2 -translate-y-1/2 hover:scale-105 duration-150"
+                />
+                <img
+                  src={video?.snippet?.thumbnails?.medium?.url}
+                  alt=""
+                  className="w-full"
+                />
               </div>
             ))}
           </div>
