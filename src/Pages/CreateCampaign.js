@@ -211,15 +211,18 @@ const CreateCampaign = () => {
         <form className="w-full max-w-[600px]" onSubmit={next}>
           {/* Name */}
           {page === 1 && (
-            <div>
+            <div className="relative">
               <p className="text-xl font-medium">What's your campaign name?</p>
               <input
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value.slice(0, 25))}
+                onChange={(e) => setName(e.target.value.slice(0, 20))}
                 className="border w-full mt-3 border-black rounded-md p-2 outline-none"
                 type="text"
               />
+              <p className="absolute right-1 -bottom-5 text-xs font-medium text-gray-500">
+                {name?.length}/20
+              </p>
             </div>
           )}
 

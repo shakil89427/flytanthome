@@ -201,7 +201,7 @@ const ProductDetails = () => {
           <hr className="my-10" />
           {/* Rating and reviews */}
           <p className="mt-5 font-semibold">Rating and Reviews</p>
-          <div className="flex items-center gap-x-1 mt-5">
+          <div className="flex items-center gap-x-1 mt-5 text-2xl">
             <Rating
               className="text-md text-[#F7C02B] pt-1"
               initialRating={product?.rating?.ratingCount || 0}
@@ -209,7 +209,7 @@ const ProductDetails = () => {
               emptySymbol={<AiOutlineStar />}
               fullSymbol={<AiFillStar />}
             />
-            <p className="text-sm font-medium pl-1 text-gray-600">
+            <p className=" font-medium pl-1 text-gray-600">
               {product?.rating?.ratingCount || 0}
             </p>
           </div>
