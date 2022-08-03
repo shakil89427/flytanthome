@@ -20,13 +20,15 @@ import useAnalytics from "../../Hooks/useAnalytics";
 import { logEvent } from "firebase/analytics";
 
 const Buy = ({ course, setShowBuy }) => {
-  const { user, setNotify, setCourses, remoteConfig, analytics } = useStore();
+  const { user, setNotify, setCourses, remoteConfig, analytics, mixpanelLog } =
+    useStore();
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const { addLog } = useAnalytics();
 
   const updateOnDb = async (paymentId) => {
     try {
+      mixpanelLog("course_payment_success");
       logEvent(analytics, "purchase", {
         currency: course.priceData.currency,
         transaction_id: paymentId,
@@ -109,6 +111,7 @@ const Buy = ({ course, setShowBuy }) => {
 
   const startToPay = async () => {
     addLog("buy_now");
+    mixpanelLog("clicked_buy_now");
     setLoading(true);
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -142,6 +145,7 @@ const Buy = ({ course, setShowBuy }) => {
   };
 
   useEffect(() => {
+    mixpanelLog("opened_buy_now_popup");
     document.body.style.overflowY = "hidden";
     return () => {
       document.body.style.overflowY = "auto";
@@ -159,6 +163,7 @@ const Buy = ({ course, setShowBuy }) => {
         onClick={() => {
           setShowBuy(false);
           addLog("hide_buy_popup");
+          mixpanelLog("closed_buy_now_popup");
         }}
         className="fixed top-0 left-0 w-screen h-screen bg-[#6362625b] z-[9999]"
       />
@@ -168,6 +173,7 @@ const Buy = ({ course, setShowBuy }) => {
             onClick={() => {
               setShowBuy(false);
               addLog("hide_buy_popup");
+              mixpanelLog("closed_buy_now_popup");
             }}
             src={cross}
             alt=""
@@ -208,7 +214,10 @@ const Buy = ({ course, setShowBuy }) => {
           >
             Buy Now
           </button>
-          <p className="text-center text-xs my-3">
+          <p
+            onClick={() => mixpanelLog("navigate_to_terms_conditions")}
+            className="text-center text-xs my-3"
+          >
             <Link to="/terms">Terms & Conditions</Link>
           </p>
         </div>

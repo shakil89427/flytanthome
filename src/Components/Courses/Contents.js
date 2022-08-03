@@ -20,6 +20,7 @@ const Contents = () => {
     setSelectedScetion,
     selectedVideo,
     setSelectedVideo,
+    mixpanelLog,
   } = useStore();
   const [showBuy, setShowBuy] = useState(false);
   const divRef = useRef();
@@ -41,6 +42,7 @@ const Contents = () => {
         priceData.symbol = "$";
       }
       setCourse({ ...course, priceData });
+      mixpanelLog("visited_course_details");
     } else {
       navigate("/courses");
     }
@@ -85,6 +87,7 @@ const Contents = () => {
               onClick={() => {
                 !user?.userId ? setShowLogin(true) : setShowBuy(true);
                 addLog("unlock_course");
+                mixpanelLog("clicked_unlock_course");
               }}
               className="block mx-auto bg-white px-7 py-3 mt-2 rounded-md font-medium"
             >
@@ -101,6 +104,7 @@ const Contents = () => {
           onClick={() => {
             !user?.userId ? setShowLogin(true) : setShowBuy(true);
             addLog("unlock_full_course");
+            mixpanelLog("clicked_unlock_full_course");
           }}
           className="mt-7 bg-black text-white py-4 font-medium px-8 block mx-auto rounded-md"
         >
@@ -127,6 +131,7 @@ const Contents = () => {
                 selectedSection === item?.name ? false : item?.name
               );
               addLog("video_section");
+              mixpanelLog("clicked_video_section");
             }}
           >
             <div className="flex items-start gap-2 lg:gap-5">
@@ -169,6 +174,7 @@ const Contents = () => {
                       onClick={() => {
                         video?.videoId?.length > 5 && setSelectedVideo(video);
                         addLog("video");
+                        mixpanelLog("select_video");
                       }}
                       key={index}
                       className="flex items-start justify-between gap-2 lg:gap-5 my-5 cursor-pointer"

@@ -7,21 +7,29 @@ import Spinner from "../Components/Spinner/Spinner";
 import { useState } from "react";
 
 const Courses = () => {
-  const { user, setCourse } = useStore();
+  const { user, course, setCourse } = useStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("https://arcane-castle-29935.herokuapp.com/getcourse")
-      .then(({ data }) => {
-        setCourse(data[0]);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    if (!course?.title) {
+      axios
+        .get("https://arcane-castle-29935.herokuapp.com/getcourse")
+        .then(({ data }) => {
+          setCourse(data[0]);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   if (loading) {
     return <Spinner />;
+  }
+
+  if (!course?.title) {
+    return <p className="text-center mt-20">Something went wrong</p>;
   }
 
   return (

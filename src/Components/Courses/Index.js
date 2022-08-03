@@ -11,7 +11,7 @@ import millify from "millify";
 import useAnalytics from "../../Hooks/useAnalytics";
 
 const Index = () => {
-  const { user, course } = useStore();
+  const { user, course, mixpanelLog } = useStore();
   const [selected, setSelected] = useState(false);
   const navigate = useNavigate();
   const divRef = useRef();
@@ -20,6 +20,7 @@ const Index = () => {
   useEffect(() => {
     divRef.current.scrollIntoView();
     window.scroll(0, 0);
+    mixpanelLog("visited_courses_page");
   }, []);
 
   return (
@@ -53,6 +54,7 @@ const Index = () => {
               <div
                 onClick={() => {
                   addLog("course_content");
+                  mixpanelLog("clicked_play_icon");
                   navigate("/courses/contents");
                 }}
                 style={{ backgroundImage: `url(${course?.featureGraphic})` }}
@@ -67,6 +69,11 @@ const Index = () => {
               <button
                 onClick={() => {
                   addLog("get_started");
+                  mixpanelLog(
+                    course?.courseBuyers?.includes(user?.userId)
+                      ? "clicked_continue"
+                      : "clicked_get_started"
+                  );
                   navigate("/courses/contents");
                 }}
                 className="w-full bg-[#FF8E10] text-white mt-5 py-3 rounded-md font-medium"
@@ -97,6 +104,7 @@ const Index = () => {
           <div className="hidden lg:block">
             <div
               onClick={() => {
+                mixpanelLog("clicked_play_icon");
                 addLog("course_content");
                 navigate("/courses/contents");
               }}
@@ -112,6 +120,11 @@ const Index = () => {
             <button
               onClick={() => {
                 addLog("get_started");
+                mixpanelLog(
+                  course?.courseBuyers?.includes(user?.userId)
+                    ? "clicked_continue"
+                    : "clicked_get_started"
+                );
                 navigate("/courses/contents");
               }}
               className="w-full bg-[#FF8E10] text-white mt-5 py-3 rounded-md font-medium"
@@ -145,8 +158,9 @@ const Index = () => {
                 <div
                   className="flex justify-between gap-5 items-start p-5 cursor-pointer select-none"
                   onClick={() => {
-                    setSelected(selected === index ? false : index);
+                    mixpanelLog("view_close_faq");
                     addLog("faq");
+                    setSelected(selected === index ? false : index);
                   }}
                 >
                   <p className="font-medium">{item?.question}</p>
@@ -184,7 +198,10 @@ const Index = () => {
           </div>
           <div className="flex items-center justify-center">
             <a
-              onClick={() => addLog("write_us")}
+              onClick={() => {
+                mixpanelLog("clicked_write_us");
+                addLog("write_us");
+              }}
               href="mailto:courses@flytant.com"
               target="_blank"
               rel="noreferrer"
