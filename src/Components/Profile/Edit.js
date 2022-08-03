@@ -95,11 +95,24 @@ const Edit = ({ progress, setEdit }) => {
       email,
       dateOfBirth: moment(dateOfBirth).format("MMM DD YYYY"),
       gender,
+      profileImageUrl: profileImageUrl || user?.profileImageUrl,
       categories,
+      socialCard: {
+        brandImageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/flytant-cb72e.appspot.com/o/flytant_image%2Fappicon.png?alt=media&token=f8f276ff-8186-4d51-87fb-b608dcc532d6",
+        featureImageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/flytant-cb72e.appspot.com/o/socail_card_default_feature_graphic%2Fimage_2022_07_05T07_03_49_436Z.png?alt=media&token=b13c47e5-c6ce-421b-93dd-46b42fa30db4",
+        profileImageUrl:
+          profileImageUrl ||
+          user?.profileImageUrl ||
+          "https://firebasestorage.googleapis.com/v0/b/flytant-cb72e.appspot.com/o/default_user_image%2FGroup%201763.png?alt=media&token=ef261d0b-a8d9-4791-a0c5-2d8338b77ea3",
+        bio,
+        manualLocation: user?.socialCard?.manualLocation || "",
+        name,
+        qrCodeUrl: user?.socialCard?.qrCodeUrl || "",
+      },
     };
-    if (profileImageUrl) {
-      finalData.profileImageUrl = profileImageUrl;
-    }
+
     const userRef = doc(db, "users", user.id);
     updateDoc(userRef, finalData)
       .then(() => {

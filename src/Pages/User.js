@@ -102,7 +102,9 @@ const User = () => {
           </div>
         </div>
         <div className="px-5 -mt-14">
-          <p className="text-center text-2xl font-bold">{cardUser?.name}</p>
+          <p className="text-center text-2xl font-bold">
+            {cardUser?.name || cardUser?.username}
+          </p>
           {cardUser?.manualLocation && (
             <p className="text-center  text-gray-500 mt-2 font-medium">
               {cardUser?.manualLocation}
