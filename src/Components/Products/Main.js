@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Rating from "react-rating";
 import useStore from "../../Store/useStore";
@@ -6,9 +6,13 @@ import { useNavigate } from "react-router-dom";
 import useAnalytics from "../../Hooks/useAnalytics";
 
 const Main = () => {
-  const { products, user, countryCode } = useStore();
+  const { products, user, countryCode, mixpanelLog } = useStore();
   const navigate = useNavigate();
   const { addLog } = useAnalytics();
+
+  useEffect(() => {
+    mixpanelLog("visited_products_page");
+  }, []);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 lg:gap-10 w-fit mx-auto">
@@ -23,6 +27,7 @@ const Main = () => {
           }}
           onClick={() => {
             addLog(`product_details_${product?.name}`);
+            mixpanelLog(`clicked_${product?.name}`);
             navigate(`/products/${product?.id}`);
           }}
           className="bg-[#F8F8F8] grid grid-cols-1 lg:grid-cols-2 rounded-xl overflow-hidden cursor-pointer max-w-[350px] lg:max-w-[500px]"

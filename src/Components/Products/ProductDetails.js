@@ -21,6 +21,7 @@ const ProductDetails = () => {
     countryCode,
     customText,
     setCustomText,
+    mixpanelLog,
   } = useStore();
   const [product, setProduct] = useState({});
   const [image, setImage] = useState("");
@@ -37,6 +38,7 @@ const ProductDetails = () => {
     if (matched?.id) {
       setProduct(matched);
       setImage(matched?.blob[0]?.url);
+      mixpanelLog(`viewing_details_${matched?.name}`);
     } else {
       navigate("/products");
     }
@@ -58,6 +60,7 @@ const ProductDetails = () => {
                 key={img?.url}
                 onClick={() => {
                   addLog("blob_image_change");
+                  mixpanelLog("change_blob");
                   setImage(img?.url);
                 }}
                 style={{ backgroundImage: `url(${img?.url})` }}
@@ -142,6 +145,7 @@ const ProductDetails = () => {
               <p
                 onClick={() => {
                   addLog("decrease_quantity");
+                  mixpanelLog("decrease_quantity");
                   setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
                 }}
                 className="w-11 h-11 bg-[#E6E6E6] flex items-center justify-center text-2xl cursor-pointer select-none"
@@ -152,6 +156,7 @@ const ProductDetails = () => {
               <p
                 onClick={() => {
                   addLog("increase_quantity");
+                  mixpanelLog("increase_quantity");
                   setQuantity((prev) => prev + 1);
                 }}
                 className="w-11 h-11 bg-[#E6E6E6] flex items-center justify-center text-2xl cursor-pointer select-none"
@@ -165,6 +170,7 @@ const ProductDetails = () => {
             <div
               onClick={() => {
                 addLog("customizetext_popup_show");
+                mixpanelLog("click_customize");
                 setShowCustom(true);
               }}
               className="bg-[#E6E6E6] w-[75%] h-12 flex items-center justify-center gap-5 rounded-full mt-5 font-semibold cursor-pointer select-none"
@@ -177,6 +183,7 @@ const ProductDetails = () => {
           <button
             onClick={() => {
               addLog(`buy_now_${product?.name}`);
+              mixpanelLog(`click_buy_now_${product?.name}`);
               user?.userId
                 ? navigate("/products/payment", { state: { from: location } })
                 : setShowLogin(true);

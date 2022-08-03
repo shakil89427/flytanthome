@@ -5,7 +5,7 @@ import useStore from "../../Store/useStore";
 import useAnalytics from "../../Hooks/useAnalytics";
 
 const CustomDesign = ({ setShowCustom }) => {
-  const { customText, setCustomText } = useStore();
+  const { customText, setCustomText, mixpanelLog } = useStore();
   const [text, setText] = useState(customText);
   const { addLog } = useAnalytics();
 
@@ -14,6 +14,7 @@ const CustomDesign = ({ setShowCustom }) => {
       <div
         onClick={() => {
           addLog("hide_customize_popup");
+          mixpanelLog("close_customize_popup");
           setShowCustom(false);
         }}
         className="fixed h-screen w-screen z-20 top-0 left-0 bg-[#7e7d7d60]"
@@ -35,6 +36,7 @@ const CustomDesign = ({ setShowCustom }) => {
         <button
           onClick={() => {
             addLog("save_customize_text");
+            mixpanelLog("save_customized_text");
             setCustomText(text);
             setShowCustom(false);
           }}

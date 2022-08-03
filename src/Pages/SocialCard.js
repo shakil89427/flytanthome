@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-import { useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAnalytics from "../Hooks/useAnalytics";
 import logo from "../Assets/logo.png";
@@ -20,8 +19,10 @@ import works2 from "../Assets/socialCards/howItWorks/works2.png";
 import works3 from "../Assets/socialCards/howItWorks/works3.png";
 import works4 from "../Assets/socialCards/howItWorks/works4.png";
 import premiumBg from "../Assets/socialCards/premiumBg.png";
+import useStore from "../Store/useStore";
 
 const SocialCard = () => {
+  const { mixpanelLog } = useStore();
   const { addLog } = useAnalytics();
   const navigate = useNavigate();
   const imgRef = useRef();
@@ -59,6 +60,7 @@ const SocialCard = () => {
 
   useEffect(() => {
     addLog("user_visited_socialcard_page");
+    mixpanelLog("visited_socialcard_page");
   }, []);
 
   return (
@@ -69,6 +71,7 @@ const SocialCard = () => {
           <img
             onClick={() => {
               addLog("nav_logo");
+              mixpanelLog("clicked_nav_logo");
               navigate("/");
             }}
             className="cursor-pointer w-[130px] md:w-[185px]"
@@ -81,6 +84,7 @@ const SocialCard = () => {
             }}
             onClick={() => {
               addLog("get_card_now");
+              mixpanelLog("clicked_get_card_now");
               navigate("/products");
             }}
             className="bg-white text-black w-40 h-10 lg:w-48 lg:h-12  lg:text-lg  flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium invisible lg:visible "
@@ -108,6 +112,7 @@ const SocialCard = () => {
             <p
               onClick={() => {
                 addLog("get_your_card");
+                mixpanelLog("clicked_get_your_card");
                 navigate("/products");
               }}
               className="border-2 font-bold w-fit px-12 py-4 text-lg mt-14 rounded-full cursor-pointer select-none bg-white text-black hover:scale-105 duration-150"
@@ -137,6 +142,7 @@ const SocialCard = () => {
           <div
             onClick={() => {
               addLog("share_profile");
+              mixpanelLog("clicked_share_profile");
               navigate("/products");
             }}
             style={{
@@ -169,6 +175,7 @@ const SocialCard = () => {
           <div
             onClick={() => {
               addLog("buy_now");
+              mixpanelLog("clicked_buy_now");
               navigate("/products");
             }}
             style={{
@@ -218,6 +225,7 @@ const SocialCard = () => {
                 <div
                   onClick={() => {
                     addLog("blob_change");
+                    mixpanelLog("change_blob");
                     setSelectedImage(item);
                   }}
                   key={index}
@@ -255,6 +263,7 @@ const SocialCard = () => {
             <p
               onClick={() => {
                 addLog("get_your_card");
+                mixpanelLog("clicked_get_your_card");
                 navigate("/products");
               }}
               className="w-fit border py-3 px-10 md:px-14 rounded-3xl text-xl bg-black hover:bg-white hover:text-black duration-150 font-medium cursor-pointer"
@@ -272,6 +281,7 @@ const SocialCard = () => {
           <div
             onClick={() => {
               addLog("access_data");
+              mixpanelLog("clicked_access_data");
               navigate("/products");
             }}
             style={{
@@ -312,6 +322,7 @@ const SocialCard = () => {
           <div
             onClick={() => {
               addLog("view_analytics");
+              mixpanelLog("clicked_view_analytics");
               navigate("/products");
             }}
             style={{
@@ -362,6 +373,7 @@ const SocialCard = () => {
           <p
             onClick={() => {
               addLog("buy_social_card");
+              mixpanelLog("clicked_buy_social_card");
               navigate("/products");
             }}
             className="border-2 font-bold w-fit px-12 py-4 text-lg rounded-full cursor-pointer select-none mx-auto hover:bg-white hover:text-black duration-150"
@@ -389,6 +401,7 @@ const SocialCard = () => {
           }}
           onClick={() => {
             addLog("get_card_now");
+            mixpanelLog("clicked_get_card_now");
             navigate("/products");
           }}
           className="bg-white w-40 h-10 lg:w-48 lg:h-12  lg:text-lg hidden  lg:flex items-center justify-center rounded-md duration-150 hover:scale-105 font-medium invisible lg:visible text-black mx-auto mt-7"

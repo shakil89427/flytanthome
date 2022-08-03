@@ -10,7 +10,7 @@ import { MdNavigateNext } from "react-icons/md";
 import useAnalytics from "../../Hooks/useAnalytics";
 
 const MoreCards = ({ current }) => {
-  const { products, user, countryCode } = useStore();
+  const { products, user, countryCode, mixpanelLog } = useStore();
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiper, setSwiper] = useState();
@@ -59,6 +59,7 @@ const MoreCards = ({ current }) => {
                 <SwiperSlide
                   onClick={() => {
                     addLog(`product_details_${product?.name}`);
+                    mixpanelLog(`clicked_${product?.name}`);
                     navigate(`/products/${product?.id}`);
                   }}
                   key={product?.id}

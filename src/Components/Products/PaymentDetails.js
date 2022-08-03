@@ -11,8 +11,15 @@ import Spinner from "../Spinner/Spinner";
 import useAnalytics from "../../Hooks/useAnalytics";
 
 const PaymentDetails = () => {
-  const { user, products, countryCode, setNotify, quantity, customText } =
-    useStore();
+  const {
+    user,
+    products,
+    countryCode,
+    setNotify,
+    quantity,
+    customText,
+    mixpanelLog,
+  } = useStore();
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [step, setStep] = useState(0);
   const [product, setProduct] = useState(false);
@@ -71,8 +78,13 @@ const PaymentDetails = () => {
       address?.length > 0
     ) {
       setStep(50);
+      mixpanelLog("submitted_address_info");
     }
   };
+
+  useEffect(() => {
+    mixpanelLog("visited_info_filling_page");
+  }, []);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -249,6 +261,7 @@ const PaymentDetails = () => {
             <p
               onClick={() => {
                 addLog("checkout");
+                mixpanelLog("clicked_checkout");
                 processPayment();
               }}
               className="mt-20 mb-10 bg-black text-white py-3 text-center text-lg font-medium rounded-md cursor-pointer"
@@ -260,6 +273,7 @@ const PaymentDetails = () => {
               <p
                 onClick={() => {
                   addLog("change");
+                  mixpanelLog("clicked_change_to_edit_address_info");
                   setStep(0);
                 }}
                 className="border-2 px-3 py-1 rounded-md cursor-pointer"
@@ -394,6 +408,7 @@ const PaymentDetails = () => {
               <p
                 onClick={() => {
                   addLog("checkout");
+                  mixpanelLog("clicked_checkout");
                   processPayment();
                 }}
                 className="mt-20 mb-10 bg-black text-white py-3 text-center text-lg font-medium rounded-md cursor-pointer"
@@ -411,6 +426,7 @@ const PaymentDetails = () => {
             <p
               onClick={() => {
                 addLog("back_to_products");
+                mixpanelLog("clicked_back_to_products_after_checkout_success");
                 navigate("/products");
               }}
               className="w-fit px-5 py-3 bg-black text-white mx-auto cursor-pointer rounded-md mt-5"

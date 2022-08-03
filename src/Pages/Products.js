@@ -8,7 +8,8 @@ import { fetchAndActivate, getString } from "firebase/remote-config";
 import useAnalytics from "../Hooks/useAnalytics";
 
 const Products = () => {
-  const { products, setProducts, remoteConfig, authState } = useStore();
+  const { products, setProducts, remoteConfig, authState, mixpanelLog } =
+    useStore();
   const { addLog } = useAnalytics();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -81,6 +82,7 @@ const Products = () => {
         <img
           onClick={() => {
             addLog("nav_logo");
+            mixpanelLog("clicked_nav_logo");
             navigate("/");
           }}
           className="cursor-pointer w-[130px] md:w-[185px]"

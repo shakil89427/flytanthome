@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import firebaseConfig from "../Firebase/firebaseConfig";
 import { getRemoteConfig } from "firebase/remote-config";
-import { useEffect } from "react";
+import mixpanel from "mixpanel-browser";
+
 /* Initialize Firebase */
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const remoteConfig = getRemoteConfig(app);
 remoteConfig.settings.minimumFetchIntervalMillis = 1800000;
+
+/* Initialize mixpanel */
+mixpanel.init(process.env.REACT_APP_MIXPANEL_SECRET, { ignore_dnt: true });
+
+const mixpanelLog = (event) => {
+  mixpanel.track(event);
+};
 
 /* Main Store */
 const Store = () => {
@@ -253,6 +261,7 @@ const Store = () => {
     setAllImages,
     myOrders,
     setMyOrders,
+    mixpanelLog,
   };
 };
 

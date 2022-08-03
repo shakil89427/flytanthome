@@ -11,6 +11,7 @@
     "firebase": "^9.6.10",
     "jol-player": "^3.2.0",
     "millify": "^4.0.0",
+    "mixpanel-browser": "^2.45.0",
     "moment": "^2.29.3",
     "public-ip": "^5.0.0",
     "react": "^18.2.0",
