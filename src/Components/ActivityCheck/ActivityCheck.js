@@ -12,6 +12,7 @@ import SingleCard from "../NewsCard/SingleCard";
 const ActivityCheck = () => {
   const {
     authLoading,
+    authState,
     showLogin,
     showLogout,
     notify,
@@ -30,7 +31,10 @@ const ActivityCheck = () => {
       {showNewsCard && <NewsCard />}
       {showSingleCard && <SingleCard />}
       {authLoading && (
-        <div className="barwrapper">
+        <div
+          style={{ backgroundColor: authState ? "white" : "#ffffff57" }}
+          className="barwrapper"
+        >
           <div className="barmain">
             <div className="bar1"></div>
             <div className="bar2"></div>

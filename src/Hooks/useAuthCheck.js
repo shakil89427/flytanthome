@@ -41,8 +41,8 @@ const useAuthCheck = () => {
         setAuthLoading(false);
       }
     } catch (err) {
-      setAuthLoading(false);
       setAuthState(false);
+      setAuthLoading(false);
       setNotify({ status: false, message: err?.message });
     }
   };

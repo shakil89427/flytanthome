@@ -51,10 +51,6 @@ const User = () => {
     };
   }, []);
 
-  if (authLoading) {
-    return <div className="fixed top-0 left-0 inset-0 bg-white z-[999]" />;
-  }
-
   if (loading) {
     return (
       <div className="fixed top-0 left-0 inset-0 flex items-center justify-center bg-black z-[999]">
