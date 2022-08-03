@@ -58,7 +58,7 @@ const MoreCards = ({ current }) => {
               product?.id !== current && (
                 <SwiperSlide
                   onClick={() => {
-                    addLog("product_details");
+                    addLog(`product_details_${product?.name}`);
                     navigate(`/products/${product?.id}`);
                   }}
                   key={product?.id}
